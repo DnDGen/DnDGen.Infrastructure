@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<root>
+  <entry>
+    <value>Value 1</value>
+  </entry>
+  <entry>
+    <value>Value 2</value>
+    <subvalue>Subvalue 1</subvalue>
+    <subvalue>Subvalue 2</subvalue>
+  </entry>
+</root>

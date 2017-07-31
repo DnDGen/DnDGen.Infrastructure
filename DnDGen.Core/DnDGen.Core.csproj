@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F2A9B36C-A0F4-4C7E-93E4-2EEF38C7C1B8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DnDGen.Core</RootNamespace>
+    <AssemblyName>DnDGen.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EventGen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EventGen.2.0.1\lib\EventGen.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RollGen, Version=12.1.6247.28555, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnDGen.RollGen.13.3.0\lib\RollGen.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Generators\Generator.cs" />
+    <Compile Include="Generators\IterativeGenerator.cs" />
+    <Compile Include="IoC\CoreModuleLoader.cs" />
+    <Compile Include="IoC\Modules\MappersModule.cs" />
+    <Compile Include="IoC\Modules\GeneratorsModule.cs" />
+    <Compile Include="IoC\Modules\SelectorsModule.cs" />
+    <Compile Include="IoC\Modules\TablesModule.cs" />
+    <Compile Include="Mappers\Collections\CollectionsMapper.cs" />
+    <Compile Include="Mappers\Collections\CollectionsMapperCachingProxy.cs" />
+    <Compile Include="Mappers\Collections\CollectionsXmlMapper.cs" />
+    <Compile Include="Mappers\Percentiles\PercentileMapper.cs" />
+    <Compile Include="Mappers\Percentiles\PercentileMapperCachingProxy.cs" />
+    <Compile Include="Mappers\Percentiles\PercentileXmlMapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Selectors\Collections\CollectionsSelector.cs" />
+    <Compile Include="Selectors\Collections\CollectionsSelectorEventDecorator.cs" />
+    <Compile Include="Selectors\Collections\ICollectionsSelector.cs" />
+    <Compile Include="Selectors\Percentiles\IPercentileSelector.cs" />
+    <Compile Include="Selectors\Percentiles\PercentileSelector.cs" />
+    <Compile Include="Selectors\Percentiles\PercentileSelectorEventDecorator.cs" />
+    <Compile Include="Tables\AssemblyLoader.cs" />
+    <Compile Include="Tables\EmbeddedResourceStreamLoader.cs" />
+    <Compile Include="Tables\StreamLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
