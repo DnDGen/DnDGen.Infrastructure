@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Albatross.Expression, Version=1.3.6218.36673, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\DnDGen.Core\packages\Albatross.Expression.1.3.6218.36673\lib\net40\Albatross.Expression.dll</HintPath>
+      <HintPath>..\packages\Albatross.Expression.1.3.6218.36673\lib\net40\Albatross.Expression.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Castle.Core, Version=4.1.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -39,7 +39,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EventGen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\DnDGen.Core\packages\EventGen.2.0.1\lib\EventGen.dll</HintPath>
+      <HintPath>..\packages\EventGen.2.0.1\lib\EventGen.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Moq, Version=4.7.99.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
@@ -47,19 +47,19 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\DnDGen.Core\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\DnDGen.Core\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RollGen, Version=12.1.6247.28555, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\DnDGen.Core\packages\DnDGen.RollGen.13.3.0\lib\RollGen.dll</HintPath>
+      <HintPath>..\packages\DnDGen.RollGen.13.3.0\lib\RollGen.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RollGen.Domain, Version=12.1.6247.28874, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\DnDGen.Core\packages\DnDGen.RollGen.Domain.13.3.0\lib\RollGen.Domain.dll</HintPath>
+      <HintPath>..\packages\DnDGen.RollGen.Domain.13.3.0\lib\RollGen.Domain.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
