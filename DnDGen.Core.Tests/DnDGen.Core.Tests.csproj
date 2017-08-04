@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generators\IterativeGeneratorTests.cs" />
+    <Compile Include="Generators\NinjectJustInTimeFactoryTests.cs" />
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="IoC\IoCTests.cs" />
     <Compile Include="IoC\Modules\GeneratorsModuleTests.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Tables\EmbeddedResourceStreamLoaderTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

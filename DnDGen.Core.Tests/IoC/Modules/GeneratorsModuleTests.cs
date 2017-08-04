@@ -11,5 +11,11 @@ namespace DnDGen.Core.Tests.IoC.Modules
         {
             AssertNotSingleton<Generator>();
         }
+
+        [Test]
+        public void JustInTimeFactoryIsNotInstantiatedAsSingleton()
+        {
+            AssertNotSingleton<JustInTimeFactory>();
+        }
     }
 }
