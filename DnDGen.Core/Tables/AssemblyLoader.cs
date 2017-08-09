@@ -2,7 +2,7 @@
 
 namespace DnDGen.Core.Tables
 {
-    internal interface AssemblyLoader
+    public interface AssemblyLoader
     {
         Assembly GetRunningAssembly();
     }

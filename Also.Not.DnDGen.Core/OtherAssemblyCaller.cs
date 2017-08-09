@@ -3,11 +3,11 @@ using System.Reflection;
 
 namespace Also.Not.DnDGen.Core
 {
-    internal class OtherCaller
+    internal class OtherAssemblyCaller
     {
-        private readonly Caller caller;
+        private readonly AssemblyCaller caller;
 
-        public OtherCaller(Caller caller)
+        public OtherAssemblyCaller(AssemblyCaller caller)
         {
             this.caller = caller;
         }

@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Caller.cs" />
+    <Compile Include="AssemblyCaller.cs" />
+    <Compile Include="CollectionsCaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +49,18 @@
       <Project>{F2A9B36C-A0F4-4C7E-93E4-2EEF38C7C1B8}</Project>
       <Name>DnDGen.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\TestAssembly\TestSelectorCollectionTable.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\RealAssembly\RealCallerCollectionTable.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\TestAssembly\TestCallerCollectionTable.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\RealAssembly\RealSelectorCollectionTable.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

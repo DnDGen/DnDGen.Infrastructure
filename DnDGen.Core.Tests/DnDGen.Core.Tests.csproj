@@ -81,6 +81,8 @@
     <Compile Include="IoC\Modules\TablesModuleTests.cs" />
     <Compile Include="IoC\Modules\MappersModuleTests.cs" />
     <Compile Include="Mappers\Collections\CollectionsMapperCachingProxyTests.cs" />
+    <Compile Include="Mappers\Collections\CallerIntegrationTests.cs" />
+    <Compile Include="Mappers\Collections\CollectionsMapperIntegrationTests.cs" />
     <Compile Include="Mappers\Collections\CollectionsXmlMapperTests.cs" />
     <Compile Include="Mappers\Percentiles\PercentileMapperCachingProxyTests.cs" />
     <Compile Include="Mappers\Percentiles\PercentileXmlMapperTests.cs" />
@@ -90,7 +92,8 @@
     <Compile Include="Selectors\Percentiles\PercentileSelectorEventDecoratorTests.cs" />
     <Compile Include="Selectors\Percentiles\PercentileSelectorTests.cs" />
     <Compile Include="Tables\AssemblyLoaderTests.cs" />
-    <Compile Include="Tables\EmbeddedResourceStreamLoaderTests.cs" />
+    <Compile Include="Tables\EmbeddedResourceStreamLoaderUnitTests.cs" />
+    <Compile Include="Tables\NotCoreAssemblyLoader.cs" />
     <Compile Include="Tables\TestAssemblyLoader.cs" />
   </ItemGroup>
   <ItemGroup>

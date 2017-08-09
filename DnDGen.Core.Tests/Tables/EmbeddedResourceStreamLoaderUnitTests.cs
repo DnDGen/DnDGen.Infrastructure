@@ -9,7 +9,7 @@ using System.Xml;
 namespace DnDGen.Core.Tests.Tables
 {
     [TestFixture]
-    public class EmbeddedResourceStreamLoaderTests
+    public class EmbeddedResourceStreamLoaderUnitTests
     {
         private StreamLoader streamLoader;
         private Mock<AssemblyLoader> mockAssemblyLoader;
@@ -61,13 +61,13 @@ namespace DnDGen.Core.Tests.Tables
         [Test]
         public void ThrowErrorIfFileIsNotAnEmbeddedResource()
         {
-            Assert.That(() => streamLoader.LoadFor("invalid filename.xml"), Throws.InstanceOf<FileNotFoundException>().With.Message.EqualTo("invalid filename.xml"));
+            Assert.That(() => streamLoader.LoadFor("invalid filename.xml"), Throws.InstanceOf<FileNotFoundException>().With.Message.StartsWith("invalid filename.xml does not exist in DnDGen.Core.Tests"));
         }
 
         [Test]
         public void MatchWholeFileName()
         {
-            Assert.That(() => streamLoader.LoadFor("Table.xml"), Throws.InstanceOf<FileNotFoundException>().With.Message.EqualTo("Table.xml"));
+            Assert.That(() => streamLoader.LoadFor("Table.xml"), Throws.InstanceOf<FileNotFoundException>().With.Message.StartsWith("Table.xml does not exist in DnDGen.Core.Tests"));
         }
     }
 }

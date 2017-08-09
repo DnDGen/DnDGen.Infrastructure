@@ -26,7 +26,7 @@ namespace DnDGen.Core.Tables
             var fileNames = resources.Select(r => GetFileName(r));
 
             if (!fileNames.Contains(filename))
-                throw new FileNotFoundException(filename);
+                throw new FileNotFoundException($"{filename} does not exist in {assembly.FullName}");
 
             var streamSource = resources.Single(r => r.EndsWith("." + filename));
             return assembly.GetManifestResourceStream(streamSource);

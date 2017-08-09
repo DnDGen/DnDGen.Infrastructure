@@ -8,14 +8,14 @@ namespace DnDGen.Core.Tests.Tables
     [TestFixture]
     public class AssemblyLoaderTests
     {
-        private Caller caller;
+        private AssemblyCaller caller;
         private AssemblyLoader assemblyLoader;
 
         [SetUp]
         public void Setup()
         {
             assemblyLoader = new DomainAssemblyLoader();
-            caller = new Caller(assemblyLoader);
+            caller = new AssemblyCaller(assemblyLoader);
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace DnDGen.Core.Tests.Tables
         public void GetsNonDndGenCoreAssemblyThroughMultipleCoreLayers()
         {
             var extraLoader = new TestAssemblyLoader(assemblyLoader);
-            caller = new Caller(extraLoader);
+            caller = new AssemblyCaller(extraLoader);
 
             var assembly = caller.Call();
             Assert.That(assembly.FullName, Does.StartWith("Not.DnDGen.Core"));
@@ -38,7 +38,7 @@ namespace DnDGen.Core.Tests.Tables
         [Test]
         public void GetsFirstNonDndGenCoreAssembly()
         {
-            var otherCaller = new OtherCaller(caller);
+            var otherCaller = new OtherAssemblyCaller(caller);
             var assembly = caller.Call();
             Assert.That(assembly.FullName, Does.StartWith("Not.DnDGen.Core"));
         }

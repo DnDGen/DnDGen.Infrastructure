@@ -3,11 +3,11 @@ using System.Reflection;
 
 namespace Not.DnDGen.Core
 {
-    internal class Caller
+    internal class AssemblyCaller
     {
         private readonly AssemblyLoader loader;
 
-        public Caller(AssemblyLoader loader)
+        public AssemblyCaller(AssemblyLoader loader)
         {
             this.loader = loader;
         }

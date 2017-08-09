@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+  <collection>
+    <name>Real Selector Value 1</name>
+  </collection>
+  <collection>
+    <name>Real Selector Value 2</name>
+    <entry>Real Selector Subvalue 1</entry>
+    <entry>Real Selector Subvalue 2</entry>
+  </collection>
+</collections>

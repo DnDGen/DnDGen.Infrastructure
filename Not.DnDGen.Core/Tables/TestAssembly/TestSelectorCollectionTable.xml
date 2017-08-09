@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+  <collection>
+    <name>Test Selector Value 1</name>
+  </collection>
+  <collection>
+    <name>Test Selector Value 2</name>
+    <entry>Test Selector Subvalue 1</entry>
+    <entry>Test Selector Subvalue 2</entry>
+  </collection>
+</collections>
