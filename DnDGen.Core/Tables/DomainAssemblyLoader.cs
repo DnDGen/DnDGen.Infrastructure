@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 
 namespace DnDGen.Core.Tables
@@ -9,18 +10,10 @@ namespace DnDGen.Core.Tables
         {
             var stacktrace = new StackTrace();
             var frames = stacktrace.GetFrames();
-            var frameIndex = 0;
-            var assemblyName = "DnDGen.Core";
-            var assembly = Assembly.GetExecutingAssembly();
-
-            while (assemblyName.StartsWith("DnDGen.Core") && frameIndex++ < frames.Length)
-            {
-                var frame = frames[frameIndex];
-                var method = frame.GetMethod();
-
-                assemblyName = method.ReflectedType.AssemblyQualifiedName;
-                assembly = method.ReflectedType.Assembly;
-            }
+            var assembly = frames
+                .Select(f => f.GetMethod())
+                .Select(m => m.ReflectedType.Assembly)
+                .First(a => !a.FullName.StartsWith("DnDGen.Core"));
 
             return assembly;
         }
