@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DnDGen.Core")]
+[assembly: AssemblyTitle("Also.Not.DnDGen.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DnDGen.Core")]
+[assembly: AssemblyProduct("Also.Not.DnDGen.Core")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f2a9b36c-a0f4-4c7e-93e4-2eef38c7c1b8")]
+[assembly: Guid("5b6fd0a6-6a2a-4dca-b1dd-bd47f6448e3d")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -35,6 +35,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("DnDGen.Core.Tests")]
-[assembly: InternalsVisibleTo("Not.DnDGen.Core")]
-[assembly: InternalsVisibleTo("Also.Not.DnDGen.Core")]
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

@@ -1,5 +1,4 @@
 ﻿using DnDGen.Core.IoC;
-using DnDGen.Core.Tests.IoC.Modules;
 using EventGen.IoC;
 using Ninject;
 using NUnit.Framework;
@@ -25,8 +24,6 @@ namespace DnDGen.Core.Tests
 
             var coreModuleLoader = new CoreModuleLoader();
             coreModuleLoader.LoadModules(kernel);
-
-            kernel.Load<TestModule>();
         }
 
         [SetUp]

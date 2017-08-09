@@ -11,5 +11,11 @@ namespace DnDGen.Core.Tests.IoC.Modules
         {
             AssertNotSingleton<StreamLoader>();
         }
+
+        [Test]
+        public void AssemblyLoaderIsNotInstantiatedAsSingleton()
+        {
+            AssertNotSingleton<AssemblyLoader>();
+        }
     }
 }

@@ -35,16 +35,6 @@ namespace DnDGen.Core.Tests.IoC
             return instance;
         }
 
-        private T InjectAndAssertDuration<T>(string name)
-        {
-            Stopwatch.Restart();
-
-            var instance = GetNewInstanceOf<T>(name);
-            Assert.That(Stopwatch.Elapsed.TotalMilliseconds, Is.LessThan(TimeLimitInMilliseconds));
-
-            return instance;
-        }
-
         protected void AssertNotSingleton<T>()
         {
             var first = InjectAndAssertDuration<T>();

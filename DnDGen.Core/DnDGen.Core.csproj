@@ -77,6 +77,7 @@
     <Compile Include="Selectors\Percentiles\PercentileSelectorEventDecorator.cs" />
     <Compile Include="Tables\AssemblyLoader.cs" />
     <Compile Include="Tables\EmbeddedResourceStreamLoader.cs" />
+    <Compile Include="Tables\DomainAssemblyLoader.cs" />
     <Compile Include="Tables\StreamLoader.cs" />
   </ItemGroup>
   <ItemGroup>

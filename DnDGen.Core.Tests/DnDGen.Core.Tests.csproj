@@ -80,8 +80,6 @@
     <Compile Include="IoC\Modules\SelectorsModuleTests.cs" />
     <Compile Include="IoC\Modules\TablesModuleTests.cs" />
     <Compile Include="IoC\Modules\MappersModuleTests.cs" />
-    <Compile Include="IoC\Modules\TestAssemblyLoader.cs" />
-    <Compile Include="IoC\Modules\TestModule.cs" />
     <Compile Include="Mappers\Collections\CollectionsMapperCachingProxyTests.cs" />
     <Compile Include="Mappers\Collections\CollectionsXmlMapperTests.cs" />
     <Compile Include="Mappers\Percentiles\PercentileMapperCachingProxyTests.cs" />
@@ -91,7 +89,9 @@
     <Compile Include="Selectors\Collections\CollectionsSelectorTests.cs" />
     <Compile Include="Selectors\Percentiles\PercentileSelectorEventDecoratorTests.cs" />
     <Compile Include="Selectors\Percentiles\PercentileSelectorTests.cs" />
+    <Compile Include="Tables\AssemblyLoaderTests.cs" />
     <Compile Include="Tables\EmbeddedResourceStreamLoaderTests.cs" />
+    <Compile Include="Tables\TestAssemblyLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -101,9 +101,17 @@
     <EmbeddedResource Include="Tables\TestTable.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Also.Not.DnDGen.Core\Also.Not.DnDGen.Core.csproj">
+      <Project>{5B6FD0A6-6A2A-4DCA-B1DD-BD47F6448E3D}</Project>
+      <Name>Also.Not.DnDGen.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DnDGen.Core\DnDGen.Core.csproj">
       <Project>{F2A9B36C-A0F4-4C7E-93E4-2EEF38C7C1B8}</Project>
       <Name>DnDGen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Not.DnDGen.Core\Not.DnDGen.Core.csproj">
+      <Project>{b7b878ff-b208-41d7-bde6-595748a8d11b}</Project>
+      <Name>Not.DnDGen.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

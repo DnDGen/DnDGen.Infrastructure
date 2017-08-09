@@ -2,8 +2,7 @@
 
 namespace DnDGen.Core.Tables
 {
-    //INFO: No implementations will exist in this project.  Projects using DnDGen.Core will have to implement this interface
-    public interface AssemblyLoader
+    internal interface AssemblyLoader
     {
         Assembly GetRunningAssembly();
     }

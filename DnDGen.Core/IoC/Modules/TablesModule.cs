@@ -8,6 +8,7 @@ namespace DnDGen.Core.IoC.Modules
         public override void Load()
         {
             Bind<StreamLoader>().To<EmbeddedResourceStreamLoader>();
+            Bind<AssemblyLoader>().To<DomainAssemblyLoader>();
         }
     }
 }
