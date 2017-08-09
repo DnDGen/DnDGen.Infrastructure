@@ -1,27 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using DnDGen.Core.Tables;
+using System.Collections.Generic;
 
 namespace DnDGen.Core.Mappers.Percentiles
 {
     internal class PercentileMapperCachingProxy : PercentileMapper
     {
-        private PercentileMapper innerMapper;
-        private Dictionary<string, Dictionary<int, string>> cachedTables;
+        private readonly PercentileMapper innerMapper;
+        private readonly AssemblyLoader assemblyLoader;
+        private readonly Dictionary<string, Dictionary<int, string>> cachedTables;
 
-        public PercentileMapperCachingProxy(PercentileMapper innerMapper)
+        public PercentileMapperCachingProxy(PercentileMapper innerMapper, AssemblyLoader assemblyLoader)
         {
             this.innerMapper = innerMapper;
+            this.assemblyLoader = assemblyLoader;
+
             cachedTables = new Dictionary<string, Dictionary<int, string>>();
         }
 
         public Dictionary<int, string> Map(string tableName)
         {
-            if (!cachedTables.ContainsKey(tableName))
+            var assembly = assemblyLoader.GetRunningAssembly();
+            var key = assembly.FullName + tableName;
+
+            if (!cachedTables.ContainsKey(key))
             {
                 var mappedTable = innerMapper.Map(tableName);
-                cachedTables.Add(tableName, mappedTable);
+                cachedTables.Add(key, mappedTable);
             }
 
-            return cachedTables[tableName];
+            return cachedTables[key];
         }
     }
 }

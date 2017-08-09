@@ -7,7 +7,7 @@ namespace DnDGen.Core.Mappers.Collections
 {
     internal class CollectionsXmlMapper : CollectionsMapper
     {
-        private StreamLoader streamLoader;
+        private readonly StreamLoader streamLoader;
 
         public CollectionsXmlMapper(StreamLoader streamLoader)
         {

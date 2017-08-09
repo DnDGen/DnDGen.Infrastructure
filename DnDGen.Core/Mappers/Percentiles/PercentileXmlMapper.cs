@@ -8,7 +8,7 @@ namespace DnDGen.Core.Mappers.Percentiles
 {
     internal class PercentileXmlMapper : PercentileMapper
     {
-        private StreamLoader streamLoader;
+        private readonly StreamLoader streamLoader;
 
         public PercentileXmlMapper(StreamLoader streamLoader)
         {

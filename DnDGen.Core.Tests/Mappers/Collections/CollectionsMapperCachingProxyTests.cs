@@ -1,7 +1,9 @@
 ﻿using DnDGen.Core.Mappers.Collections;
+using DnDGen.Core.Tables;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace DnDGen.Core.Tests.Mappers.Collections
 {
@@ -11,15 +13,21 @@ namespace DnDGen.Core.Tests.Mappers.Collections
         private CollectionsMapper proxy;
         private Mock<CollectionsMapper> mockInnerMapper;
         private Dictionary<string, IEnumerable<string>> table;
+        private Mock<AssemblyLoader> mockAssemblyLoader;
 
         [SetUp]
         public void Setup()
         {
-            table = new Dictionary<string, IEnumerable<string>>();
             mockInnerMapper = new Mock<CollectionsMapper>();
-            mockInnerMapper.Setup(m => m.Map("table name")).Returns(table);
+            mockAssemblyLoader = new Mock<AssemblyLoader>();
+            proxy = new CollectionsMapperCachingProxy(mockInnerMapper.Object, mockAssemblyLoader.Object);
 
-            proxy = new CollectionsMapperCachingProxy(mockInnerMapper.Object);
+            table = new Dictionary<string, IEnumerable<string>>();
+            table["name"] = new[] { "entry 1", "entry 2" };
+            table["other name"] = new[] { "entry 3", "entry 4" };
+
+            mockInnerMapper.Setup(m => m.Map("table name")).Returns(table);
+            mockAssemblyLoader.Setup(l => l.GetRunningAssembly()).Returns(Assembly.GetExecutingAssembly());
         }
 
         [Test]
@@ -37,6 +45,37 @@ namespace DnDGen.Core.Tests.Mappers.Collections
 
             Assert.That(result, Is.EqualTo(table));
             mockInnerMapper.Verify(p => p.Map(It.IsAny<string>()), Times.Once);
+        }
+
+        [Test]
+        public void CacheTableWithAssembly()
+        {
+            var otherTable = new Dictionary<string, IEnumerable<string>>();
+            otherTable["other name"] = new[] { "other entry 1", "other entry 2" };
+            otherTable["other other name"] = new[] { "other entry 3", "other entry 4" };
+
+            mockInnerMapper.SetupSequence(m => m.Map("table name"))
+                .Returns(table)
+                .Returns(otherTable)
+                .Returns(table)
+                .Returns(otherTable);
+
+            mockAssemblyLoader.SetupSequence(l => l.GetRunningAssembly())
+                .Returns(Assembly.GetExecutingAssembly())
+                .Returns(typeof(int).Assembly)
+                .Returns(Assembly.GetExecutingAssembly())
+                .Returns(typeof(int).Assembly);
+
+            proxy.Map("table name");
+            proxy.Map("table name");
+
+            var firstResult = proxy.Map("table name");
+            var secondResult = proxy.Map("table name");
+
+            Assert.That(firstResult, Is.EqualTo(table));
+            Assert.That(secondResult, Is.EqualTo(otherTable));
+
+            mockInnerMapper.Verify(p => p.Map(It.IsAny<string>()), Times.Exactly(2));
         }
     }
 }

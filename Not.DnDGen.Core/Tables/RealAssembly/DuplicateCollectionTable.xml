@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+  <collection>
+    <name>Not Value 1</name>
+  </collection>
+  <collection>
+    <name>Not Value 2</name>
+    <entry>Not Subvalue 1</entry>
+    <entry>Not Subvalue 2</entry>
+  </collection>
+</collections>
