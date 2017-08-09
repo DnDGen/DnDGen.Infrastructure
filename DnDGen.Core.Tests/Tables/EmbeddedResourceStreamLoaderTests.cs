@@ -9,7 +9,7 @@ using System.Xml;
 namespace DnDGen.Core.Tests.Tables
 {
     [TestFixture]
-    public class EmbeddedResourceStreamLoaderUnitTests
+    public class EmbeddedResourceStreamLoaderTests
     {
         private StreamLoader streamLoader;
         private Mock<AssemblyLoader> mockAssemblyLoader;

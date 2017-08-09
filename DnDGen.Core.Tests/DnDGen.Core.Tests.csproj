@@ -92,7 +92,7 @@
     <Compile Include="Selectors\Percentiles\PercentileSelectorEventDecoratorTests.cs" />
     <Compile Include="Selectors\Percentiles\PercentileSelectorTests.cs" />
     <Compile Include="Tables\AssemblyLoaderTests.cs" />
-    <Compile Include="Tables\EmbeddedResourceStreamLoaderUnitTests.cs" />
+    <Compile Include="Tables\EmbeddedResourceStreamLoaderTests.cs" />
     <Compile Include="Tables\NotCoreAssemblyLoader.cs" />
     <Compile Include="Tables\TestAssemblyLoader.cs" />
   </ItemGroup>
