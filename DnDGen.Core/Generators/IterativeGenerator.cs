@@ -19,24 +19,26 @@ namespace DnDGen.Core.Generators
         {
             T builtObject;
             var attempts = 1;
+            var objectIsValid = false;
 
             do
             {
                 builtObject = buildInstructions();
+                objectIsValid = isValid(builtObject);
 
-                if (!isValid(builtObject))
+                if (!objectIsValid)
                 {
                     var message = failureDescription(builtObject);
                     eventQueue.Enqueue("Core", message);
                 }
             }
-            while (!isValid(builtObject) && attempts++ < MaxAttempts);
+            while (!objectIsValid && attempts++ < MaxAttempts);
 
-            if (isValid(builtObject))
+            if (objectIsValid)
                 return builtObject;
 
-            builtObject = buildDefault();
             eventQueue.Enqueue("Core", $"Generating {defaultDescription} by default");
+            builtObject = buildDefault();
 
             return builtObject;
         }

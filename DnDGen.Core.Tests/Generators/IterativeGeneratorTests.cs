@@ -3,6 +3,7 @@ using EventGen;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Diagnostics;
 
 namespace DnDGen.Core.Tests.Generators
 {
@@ -107,7 +108,7 @@ namespace DnDGen.Core.Tests.Generators
             mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(Limit + 1));
             mockEventQueue.Verify(q => q.Enqueue("Core", "Generating a thing and stuff by default"), Times.Once);
 
-            for (var i = 0; i < Limit; i++)
+            for (var i = 0; i < generator.MaxAttempts; i++)
                 mockEventQueue.Verify(q => q.Enqueue("Core", $"{i} is not valid"), Times.Once);
         }
 
@@ -121,7 +122,7 @@ namespace DnDGen.Core.Tests.Generators
             Assert.That(randomString, Is.EqualTo($"{Limit - 1}"));
             mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(Limit - 1));
 
-            for (var i = 0; i < Limit - 1; i++)
+            for (var i = 0; i < generator.MaxAttempts - 1; i++)
                 mockEventQueue.Verify(q => q.Enqueue("Core", $"{i} is not valid"), Times.Once);
         }
     }
