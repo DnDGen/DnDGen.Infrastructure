@@ -17,9 +17,7 @@ namespace DnDGen.Core.Selectors.Collections
 
         public IEnumerable<string> SelectFrom(string tableName, string collectionName)
         {
-            eventQueue.Enqueue("Core", $"Selecting {collectionName} from {tableName}");
             var collection = innerSelector.SelectFrom(tableName, collectionName);
-            eventQueue.Enqueue("Core", $"Selected {collectionName} with {collection.Count()} entries");
 
             return collection;
         }
@@ -35,18 +33,14 @@ namespace DnDGen.Core.Selectors.Collections
 
         public string SelectRandomFrom(string tableName, string collectionName)
         {
-            eventQueue.Enqueue("Core", $"Selecting a random entry in {collectionName} from {tableName}");
             var entry = innerSelector.SelectRandomFrom(tableName, collectionName);
-            eventQueue.Enqueue("Core", $"Selected {entry}");
 
             return entry;
         }
 
         public T SelectRandomFrom<T>(IEnumerable<T> collection)
         {
-            eventQueue.Enqueue("Core", $"Selecting a random entry from {collection.Count()} entries");
             var entry = innerSelector.SelectRandomFrom(collection);
-            eventQueue.Enqueue("Core", $"Selected {entry}");
 
             return entry;
         }
@@ -62,13 +56,7 @@ namespace DnDGen.Core.Selectors.Collections
 
         public bool IsCollection(string tableName, string collectionName)
         {
-            eventQueue.Enqueue("Core", $"Determining if {collectionName} is a collection in {tableName}");
             var isCollection = innerSelector.IsCollection(tableName, collectionName);
-
-            if (isCollection)
-                eventQueue.Enqueue("Core", $"{collectionName} is a collection in {tableName}");
-            else
-                eventQueue.Enqueue("Core", $"{collectionName} is not a collection in {tableName}");
 
             return isCollection;
         }

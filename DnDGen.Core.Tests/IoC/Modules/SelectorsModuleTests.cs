@@ -14,12 +14,6 @@ namespace DnDGen.Core.Tests.IoC.Modules
         }
 
         [Test]
-        public void PercentileSelectorIsDecorated()
-        {
-            AssertIsInstanceOf<IPercentileSelector, PercentileSelectorEventDecorator>();
-        }
-
-        [Test]
         public void CollectionsSelectorIsNotInstantiatedAsSingleton()
         {
             AssertNotSingleton<ICollectionsSelector>();

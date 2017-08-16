@@ -8,8 +8,7 @@ namespace DnDGen.Core.IoC.Modules
     {
         public override void Load()
         {
-            Bind<IPercentileSelector>().To<PercentileSelector>().WhenInjectedInto<PercentileSelectorEventDecorator>();
-            Bind<IPercentileSelector>().To<PercentileSelectorEventDecorator>();
+            Bind<IPercentileSelector>().To<PercentileSelector>();
 
             Bind<ICollectionsSelector>().To<CollectionsSelector>().WhenInjectedInto<CollectionsSelectorEventDecorator>();
             Bind<ICollectionsSelector>().To<CollectionsSelectorEventDecorator>();

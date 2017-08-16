@@ -72,7 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generators\IterativeGeneratorTests.cs" />
+    <Compile Include="Generators\IterativeGeneratorIntegrationTests.cs" />
+    <Compile Include="Generators\IterativeGeneratorUnitTests.cs" />
     <Compile Include="Generators\NinjectJustInTimeFactoryTests.cs" />
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="IoC\IoCTests.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selectors\Collections\CollectionsSelectorEventDecoratorTests.cs" />
     <Compile Include="Selectors\Collections\CollectionsSelectorTests.cs" />
-    <Compile Include="Selectors\Percentiles\PercentileSelectorEventDecoratorTests.cs" />
     <Compile Include="Selectors\Percentiles\PercentileSelectorTests.cs" />
     <Compile Include="Tables\AssemblyLoaderTests.cs" />
     <Compile Include="Tables\EmbeddedResourceStreamLoaderTests.cs" />

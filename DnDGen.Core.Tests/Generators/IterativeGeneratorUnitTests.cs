@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace DnDGen.Core.Tests.Generators
 {
     [TestFixture]
-    public class IterativeGeneratorTests
+    public class IterativeGeneratorUnitTests
     {
         private const int Limit = 42;
 

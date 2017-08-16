@@ -31,17 +31,16 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             Assert.That(collection, Is.EqualTo(innerCollection));
         }
 
+        //INFO: This is a quick action, and logs too many events if we log events
         [Test]
-        public void LogEventsForCollectionSelection()
+        public void DoNotLogEventsForCollectionSelection()
         {
             var innerGroup = new[] { "item 3", "item 4" };
             mockInnerSelector.Setup(s => s.SelectFrom("table name", "item")).Returns(innerGroup);
 
             var group = decorator.SelectFrom("table name", "item");
             Assert.That(group, Is.EqualTo(innerGroup));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Selecting item from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Selected item with 2 entries"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
         [Test]
@@ -82,6 +81,7 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             Assert.That(randomItem, Is.EqualTo("random item"));
         }
 
+        //INFO: This is a quick action, and logs too many events if we log events
         [Test]
         public void LogEventsForRandomStringSelection()
         {
@@ -89,9 +89,7 @@ namespace DnDGen.Core.Tests.Selectors.Collections
 
             var randomItem = decorator.SelectRandomFrom("table name", "item");
             Assert.That(randomItem, Is.EqualTo("random item"));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Selecting a random entry in item from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Selected random item"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
         [Test]
@@ -104,6 +102,7 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             Assert.That(randomItem, Is.EqualTo(600));
         }
 
+        //INFO: This is a quick action, and logs too many events if we log events
         [Test]
         public void LogEventsForRandomEntrySelection()
         {
@@ -112,9 +111,7 @@ namespace DnDGen.Core.Tests.Selectors.Collections
 
             var randomItem = decorator.SelectRandomFrom(collection);
             Assert.That(randomItem, Is.EqualTo(600));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Selecting a random entry from 3 entries"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Selected 600"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
         [Test]
@@ -166,6 +163,7 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             Assert.That(isCollection, Is.False);
         }
 
+        //INFO: This is a quick action, and logs too many events if we log events
         [Test]
         public void LogEventsForIsCollection()
         {
@@ -173,11 +171,10 @@ namespace DnDGen.Core.Tests.Selectors.Collections
 
             var isCollection = decorator.IsCollection("table name", "collection name");
             Assert.That(isCollection, Is.True);
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Determining if collection name is a collection in table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"collection name is a collection in table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
+        //INFO: This is a quick action, and logs too many events if we log events
         [Test]
         public void LogEventsForIsNotCollection()
         {
@@ -185,9 +182,7 @@ namespace DnDGen.Core.Tests.Selectors.Collections
 
             var isCollection = decorator.IsCollection("table name", "collection name");
             Assert.That(isCollection, Is.False);
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Determining if collection name is a collection in table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"collection name is not a collection in table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
 
         [Test]
