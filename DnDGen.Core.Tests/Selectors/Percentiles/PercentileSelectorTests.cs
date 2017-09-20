@@ -71,5 +71,87 @@ namespace DnDGen.Core.Tests.Selectors.Percentiles
             mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(11);
             Assert.That(() => percentileSelector.SelectFrom(tableName), Throws.Exception.With.Message.EqualTo("11 is not a valid entry in the table table name"));
         }
+
+        [Test]
+        public void CanConvertPercentileResult()
+        {
+            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(6);
+            var result = percentileSelector.SelectFrom<int>(tableName);
+            Assert.That(result, Is.EqualTo(6));
+        }
+
+        [TestCase(1, false)]
+        [TestCase(2, false)]
+        [TestCase(3, false)]
+        [TestCase(4, false)]
+        [TestCase(5, false)]
+        [TestCase(6, true)]
+        [TestCase(7, true)]
+        [TestCase(8, true)]
+        [TestCase(9, true)]
+        [TestCase(10, true)]
+        public void CanConvertPercentileResult(int roll, bool isTrue)
+        {
+            table.Clear();
+
+            for (var i = 1; i <= 5; i++)
+                table.Add(i, false.ToString());
+            for (var i = 6; i <= 10; i++)
+                table.Add(i, true.ToString());
+
+            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(roll);
+
+            var result = percentileSelector.SelectFrom<bool>(tableName);
+            Assert.That(result, Is.EqualTo(isTrue));
+        }
+
+        [Test]
+        public void SaysTrueIfRollIsLessThanTheshold()
+        {
+            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(49);
+
+            var result = percentileSelector.SelectFrom(.5);
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void SaysTrueIfRollIsEqualToTheshold()
+        {
+            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(50);
+
+            var result = percentileSelector.SelectFrom(.5);
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void SaysFalseIfRollIsGreaterThanTheshold()
+        {
+            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(51);
+
+            var result = percentileSelector.SelectFrom(.5);
+            Assert.That(result, Is.False);
+        }
+
+        [TestCase(1)]
+        [TestCase(1.0000001)]
+        [TestCase(1.5)]
+        [TestCase(2)]
+        public void DoNotRollIfChanceGreaterThanOrEqualTo100Percent(double chance)
+        {
+            var result = percentileSelector.SelectFrom(chance);
+            Assert.That(result, Is.True);
+            mockDice.Verify(d => d.Roll(It.IsAny<int>()), Times.Never);
+        }
+
+        [TestCase(0)]
+        [TestCase(-0.000000001)]
+        [TestCase(-.5)]
+        [TestCase(-1)]
+        public void DoNotRollIfChanceLessThanOrEqualTo0Percent(double chance)
+        {
+            var result = percentileSelector.SelectFrom(chance);
+            Assert.That(result, Is.False);
+            mockDice.Verify(d => d.Roll(It.IsAny<int>()), Times.Never);
+        }
     }
 }

@@ -50,5 +50,16 @@ namespace DnDGen.Core.Selectors.Percentiles
             var table = percentileMapper.Map(tableName);
             return table.Values.Select(v => GetValue<T>(v)).Distinct();
         }
+
+        public bool SelectFrom(double chance)
+        {
+            if (chance >= 1)
+                return true;
+            else if (chance <= 0)
+                return false;
+
+            var result = dice.Roll().Percentile().AsSum() / 100d;
+            return result <= chance;
+        }
     }
 }
