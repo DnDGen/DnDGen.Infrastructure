@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DnDGen.Core</id>
-    <version>2.2.1</version>
+    <version>2.3.0</version>
     <title>DnDGen.Core</title>
     <authors>Karl M. Speer</authors>
     <owners>cidthecoatrack</owners>
@@ -10,7 +10,7 @@
       This provides common, core objects for the generators, including the Percentile and Collection selectors, with dependencies
     </description>
     <releaseNotes>
-      Bug #2
+      Feature #4
     </releaseNotes>
     <summary>
       This provides common, core objects for the generators, including the Percentile and Collection selectors, with dependencies
@@ -22,8 +22,8 @@
     <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
     <copyright>Copyright 2017</copyright>
     <dependencies>
-      <dependency id="EventGen" version="2.0.1" />
       <dependency id="DnDGen.RollGen" version="13.3.0" />
+      <dependency id="EventGen" version="2.0.1" />
       <dependency id="Ninject" version="3.2.2" />
     </dependencies>
     <references></references>
