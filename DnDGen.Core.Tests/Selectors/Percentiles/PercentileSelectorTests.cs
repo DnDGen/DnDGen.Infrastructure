@@ -105,31 +105,24 @@ namespace DnDGen.Core.Tests.Selectors.Percentiles
             Assert.That(result, Is.EqualTo(isTrue));
         }
 
-        [Test]
-        public void SaysTrueIfRollIsLessThanTheshold()
+        [TestCase(.5, true)]
+        [TestCase(.5, false)]
+        [TestCase(.9266, true)]
+        [TestCase(.9266, false)]
+        [TestCase(.90210, true)]
+        [TestCase(.90210, false)]
+        [TestCase(.42, true)]
+        [TestCase(.42, false)]
+        [TestCase(.600, true)]
+        [TestCase(.600, false)]
+        [TestCase(.1337, true)]
+        [TestCase(.1337, false)]
+        public void ReturnsPercentileRollAsTrueOrFalse(double chance, bool isTrue)
         {
-            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(49);
+            mockDice.Setup(d => d.Roll(1).d(100).AsTrueOrFalse(chance)).Returns(isTrue);
 
-            var result = percentileSelector.SelectFrom(.5);
-            Assert.That(result, Is.True);
-        }
-
-        [Test]
-        public void SaysTrueIfRollIsEqualToTheshold()
-        {
-            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(50);
-
-            var result = percentileSelector.SelectFrom(.5);
-            Assert.That(result, Is.True);
-        }
-
-        [Test]
-        public void SaysFalseIfRollIsGreaterThanTheshold()
-        {
-            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(51);
-
-            var result = percentileSelector.SelectFrom(.5);
-            Assert.That(result, Is.False);
+            var result = percentileSelector.SelectFrom(chance);
+            Assert.That(result, Is.EqualTo(isTrue));
         }
 
         [TestCase(1)]

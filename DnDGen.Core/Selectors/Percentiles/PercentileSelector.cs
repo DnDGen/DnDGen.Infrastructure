@@ -58,8 +58,7 @@ namespace DnDGen.Core.Selectors.Percentiles
             else if (chance <= 0)
                 return false;
 
-            var result = dice.Roll().Percentile().AsSum() / 100d;
-            return result <= chance;
+            return dice.Roll().Percentile().AsTrueOrFalse(chance);
         }
     }
 }
