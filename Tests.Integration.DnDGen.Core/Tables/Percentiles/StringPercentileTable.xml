@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<percentiles>
+  <percentile>
+    <lower>1</lower>
+    <content>one</content>
+    <upper>1</upper>
+  </percentile>
+  <percentile>
+    <lower>2</lower>
+    <content>two</content>
+    <upper>2</upper>
+  </percentile>
+  <percentile>
+    <lower>3</lower>
+    <content>three</content>
+    <upper>3</upper>
+  </percentile>
+  <percentile>
+    <lower>4</lower>
+    <content></content>
+    <upper>10</upper>
+  </percentile>
+  <percentile>
+    <lower>11</lower>
+    <content>eleven to one hundred</content>
+    <upper>100</upper>
+  </percentile>
+</percentiles>

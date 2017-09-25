@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F2A9B36C-A0F4-4C7E-93E4-2EEF38C7C1B8}</ProjectGuid>
+    <ProjectGuid>{27B93FB8-E284-431C-86B8-F716FB729E38}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DnDGen.Core</RootNamespace>
-    <AssemblyName>DnDGen.Core</AssemblyName>
+    <RootNamespace>Tests.Integration.DnDGen.Core</RootNamespace>
+    <AssemblyName>Tests.Integration.DnDGen.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -38,8 +38,8 @@
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RollGen, Version=12.1.6474.27172, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DnDGen.RollGen.13.4.2\lib\RollGen.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -52,35 +52,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Generators\Generator.cs" />
-    <Compile Include="Generators\IterativeGenerator.cs" />
-    <Compile Include="Generators\JustInTimeFactory.cs" />
-    <Compile Include="Generators\NinjectJustInTimeFactory.cs" />
-    <Compile Include="IoC\CoreModuleLoader.cs" />
-    <Compile Include="IoC\Modules\MappersModule.cs" />
-    <Compile Include="IoC\Modules\GeneratorsModule.cs" />
-    <Compile Include="IoC\Modules\SelectorsModule.cs" />
-    <Compile Include="IoC\Modules\TablesModule.cs" />
-    <Compile Include="IoC\Providers\JustInTimeFactoryProvider.cs" />
-    <Compile Include="Mappers\Collections\CollectionsMapper.cs" />
-    <Compile Include="Mappers\Collections\CollectionsMapperCachingProxy.cs" />
-    <Compile Include="Mappers\Collections\CollectionsXmlMapper.cs" />
-    <Compile Include="Mappers\Percentiles\PercentileMapper.cs" />
-    <Compile Include="Mappers\Percentiles\PercentileMapperCachingProxy.cs" />
-    <Compile Include="Mappers\Percentiles\PercentileXmlMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Selectors\Collections\CollectionsSelector.cs" />
-    <Compile Include="Selectors\Collections\CollectionsSelectorEventDecorator.cs" />
-    <Compile Include="Selectors\Collections\ICollectionsSelector.cs" />
-    <Compile Include="Selectors\Percentiles\IPercentileSelector.cs" />
-    <Compile Include="Selectors\Percentiles\PercentileSelector.cs" />
-    <Compile Include="Tables\AssemblyLoader.cs" />
-    <Compile Include="Tables\EmbeddedResourceStreamLoader.cs" />
-    <Compile Include="Tables\DomainAssemblyLoader.cs" />
-    <Compile Include="Tables\StreamLoader.cs" />
+    <Compile Include="Selectors\Collections\CollectionSelectorTests.cs" />
+    <Compile Include="Selectors\Percentiles\PercentileSelectorTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DnDGen.Core.Tests\DnDGen.Core.Tests.csproj">
+      <Project>{b0de16ac-1bef-4fb0-bc99-fd93437b2c17}</Project>
+      <Name>DnDGen.Core.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DnDGen.Core\DnDGen.Core.csproj">
+      <Project>{f2a9b36c-a0f4-4c7e-93e4-2eef38c7c1b8}</Project>
+      <Name>DnDGen.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\Collections\OtherCollectionTable.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\Percentiles\StringPercentileTable.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\Percentiles\BooleanPercentileTable.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\Percentiles\IntPercentileTable.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\Collections\CollectionTable.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

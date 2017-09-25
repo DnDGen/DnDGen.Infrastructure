@@ -24,7 +24,7 @@ namespace DnDGen.Core.Selectors.Collections
 
         public Dictionary<string, IEnumerable<string>> SelectAllFrom(string tableName)
         {
-            eventQueue.Enqueue("Core", $"Selecting all from {tableName}");
+            eventQueue.Enqueue("Core", $"Selecting all collections from {tableName}");
             var collections = innerSelector.SelectAllFrom(tableName);
             eventQueue.Enqueue("Core", $"Selected {collections.Count()} collections from {tableName}");
 

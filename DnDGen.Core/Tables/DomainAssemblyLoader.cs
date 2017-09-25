@@ -13,7 +13,7 @@ namespace DnDGen.Core.Tables
             var assembly = frames
                 .Select(f => f.GetMethod())
                 .Select(m => m.ReflectedType.Assembly)
-                .First(a => !a.FullName.StartsWith("DnDGen.Core"));
+                .First(a => !a.FullName.StartsWith("DnDGen.Core") && !a.FullName.StartsWith("System"));
 
             return assembly;
         }

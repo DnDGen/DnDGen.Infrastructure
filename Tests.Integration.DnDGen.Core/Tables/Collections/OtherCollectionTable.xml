@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+  <collection>
+    <name></name>
+  </collection>
+  <collection>
+    <name>name</name>
+    <entry>other entry 1</entry>
+    <entry>other entry 2</entry>
+  </collection>
+  <collection>
+    <name>entry 1</name>
+    <entry>other entry 1.1</entry>
+    <entry>other entry 1.2</entry>
+  </collection>
+  <collection>
+    <name>entry 2</name>
+    <entry>other entry 2.1</entry>
+    <entry>other entry 2.2</entry>
+  </collection>
+  <collection>
+    <name>entry 3</name>
+    <entry>other entry 3.1</entry>
+    <entry>other entry 3.2</entry>
+  </collection>
+  <collection>
+    <name>entry 4</name>
+    <entry>other entry 4.1</entry>
+    <entry>other entry 4.2</entry>
+  </collection>
+  <collection>
+    <name>collection</name>
+    <entry>other entry 2c</entry>
+    <entry>other entry 3c</entry>
+  </collection>
+  <collection>
+    <name>sub-collection</name>
+    <entry>other entry 3sc</entry>
+    <entry>other entry 4sc</entry>
+  </collection>
+</collections>

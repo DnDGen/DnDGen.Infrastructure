@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+  <collection>
+    <name></name>
+  </collection>
+  <collection>
+    <name>name</name>
+    <entry>entry 1</entry>
+    <entry>entry 2</entry>
+  </collection>
+  <collection>
+    <name>collection</name>
+    <entry>entry 2</entry>
+    <entry>entry 3</entry>
+    <entry>collection</entry>
+    <entry>sub-collection</entry>
+  </collection>
+  <collection>
+    <name>sub-collection</name>
+    <entry>entry 3</entry>
+    <entry>entry 4</entry>
+    <entry>sub-collection</entry>
+  </collection>
+</collections>

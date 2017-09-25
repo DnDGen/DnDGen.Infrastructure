@@ -68,7 +68,7 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             var collections = decorator.SelectAllFrom("table name");
             Assert.That(collections, Is.EqualTo(allCollections));
             mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Selecting all from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", $"Selecting all collections from table name"), Times.Once);
             mockEventQueue.Verify(q => q.Enqueue("Core", $"Selected 2 collections from table name"), Times.Once);
         }
 

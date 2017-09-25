@@ -7,6 +7,8 @@ script:
   - xbuild DnDGen.Core.sln /p:TargetFrameworkVersion="v4.5" /p:Configuration=Release
   - set -e
   - mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./DnDGen.Core.Tests/bin/Release/DnDGen.Core.Tests.dll
+  - set -e
+  - mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./Tests.Integration.DnDGen.Core/bin/Release/Tests.Integration.DnDGen.Core.dll
 deploy:
   skip_cleanup: true
   provider: script

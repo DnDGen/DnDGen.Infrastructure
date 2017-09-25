@@ -90,8 +90,10 @@ namespace DnDGen.Core.Selectors.Collections
         public IEnumerable<string> ExplodeInto(string tableName, string collectionName, string intoTableName)
         {
             var explodedCollection = Explode(tableName, collectionName);
+            explodedCollection = explodedCollection.SelectMany(g => SelectFrom(intoTableName, g)).Distinct();
 
-            return explodedCollection.SelectMany(g => SelectFrom(intoTableName, g)).Distinct();
+            //INFO: Doing immediate execution to avoid assembly reference issues that may bubble up
+            return explodedCollection.ToArray();
         }
     }
 }
