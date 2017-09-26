@@ -207,28 +207,5 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             mockEventQueue.Verify(q => q.Enqueue("Core", $"Exploding collection name from table name"), Times.Once);
             mockEventQueue.Verify(q => q.Enqueue("Core", $"Exploded collection name into 2 entries"), Times.Once);
         }
-
-        [Test]
-        public void ReturnExplodedIntoCollection()
-        {
-            var explodedCollection = new[] { "thing 1", "thing 2" };
-            mockInnerSelector.Setup(s => s.ExplodeInto("table name", "collection name", "into table name")).Returns(explodedCollection);
-
-            var collection = decorator.ExplodeInto("table name", "collection name", "into table name");
-            Assert.That(collection, Is.EqualTo(explodedCollection));
-        }
-
-        [Test]
-        public void LogEventsForExplodeIntoCollection()
-        {
-            var explodedCollection = new[] { "thing 1", "thing 2" };
-            mockInnerSelector.Setup(s => s.ExplodeInto("table name", "collection name", "into table name")).Returns(explodedCollection);
-
-            var collection = decorator.ExplodeInto("table name", "collection name", "into table name");
-            Assert.That(collection, Is.EqualTo(explodedCollection));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Exploding collection name from table name into into table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Core", $"Exploded collection name into 2 entries"), Times.Once);
-        }
     }
 }

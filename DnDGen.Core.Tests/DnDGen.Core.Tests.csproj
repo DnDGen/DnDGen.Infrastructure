@@ -75,6 +75,7 @@
     <Compile Include="Generators\IterativeGeneratorIntegrationTests.cs" />
     <Compile Include="Generators\IterativeGeneratorUnitTests.cs" />
     <Compile Include="Generators\NinjectJustInTimeFactoryTests.cs" />
+    <Compile Include="Helpers\CollectionHelperTests.cs" />
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="IoC\IoCTests.cs" />
     <Compile Include="IoC\Modules\GeneratorsModuleTests.cs" />

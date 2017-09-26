@@ -56,6 +56,7 @@
     <Compile Include="Generators\IterativeGenerator.cs" />
     <Compile Include="Generators\JustInTimeFactory.cs" />
     <Compile Include="Generators\NinjectJustInTimeFactory.cs" />
+    <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="IoC\CoreModuleLoader.cs" />
     <Compile Include="IoC\Modules\MappersModule.cs" />
     <Compile Include="IoC\Modules\GeneratorsModule.cs" />

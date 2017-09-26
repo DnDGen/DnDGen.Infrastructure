@@ -1,9 +1,9 @@
 ﻿using DnDGen.Core.Mappers.Collections;
 using DnDGen.Core.Selectors.Collections;
+using EventGen;
 using Moq;
 using NUnit.Framework;
 using RollGen;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +17,7 @@ namespace DnDGen.Core.Tests.Selectors.Collections
         private ICollectionsSelector selector;
         private Mock<CollectionsMapper> mockMapper;
         private Mock<Dice> mockDice;
+        private Mock<GenEventQueue> mockEventQueue;
         private Dictionary<string, IEnumerable<string>> allCollections;
 
         [SetUp]
@@ -24,7 +25,8 @@ namespace DnDGen.Core.Tests.Selectors.Collections
         {
             mockMapper = new Mock<CollectionsMapper>();
             mockDice = new Mock<Dice>();
-            selector = new CollectionsSelector(mockMapper.Object, mockDice.Object);
+            mockEventQueue = new Mock<GenEventQueue>();
+            selector = new CollectionsSelector(mockMapper.Object, mockDice.Object, mockEventQueue.Object);
             allCollections = new Dictionary<string, IEnumerable<string>>();
 
             mockMapper.Setup(m => m.Map(TableName)).Returns(allCollections);
@@ -185,6 +187,8 @@ namespace DnDGen.Core.Tests.Selectors.Collections
 
             var explodedCollection = selector.Explode(TableName, "entry");
             Assert.That(explodedCollection, Is.EquivalentTo(allCollections["entry"]));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
         }
 
         [Test]
@@ -200,6 +204,9 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 2"));
             Assert.That(explodedCollection, Contains.Item("third"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving second from table name"), Times.Once);
         }
 
         [Test]
@@ -218,6 +225,10 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 3"));
             Assert.That(explodedCollection, Does.Not.Contain("third"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(3));
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving second from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving third from table name"), Times.Once);
         }
 
         [Test]
@@ -236,6 +247,10 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 3"));
             Assert.That(explodedCollection, Does.Not.Contain("third"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(4));
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving second from table name"), Times.Exactly(2));
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving third from table name"), Times.Once);
         }
 
         [Test]
@@ -251,95 +266,9 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 2"));
             Assert.That(explodedCollection, Contains.Item("entry"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
-        }
-
-        [Test]
-        public void ExplodeCollectionWithoutSubCollectionsIntoOtherTable()
-        {
-            var otherCollections = new Dictionary<string, IEnumerable<string>>();
-            mockMapper.Setup(m => m.Map("other table name")).Returns(otherCollections);
-
-            otherCollections["first"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["second"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["sub 1"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["sub 2"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["third"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["fourth"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-
-            allCollections["entry"] = new[] { "first", "second", "third" };
-
-            var explodedCollection = selector.ExplodeInto(TableName, "entry", "other table name");
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["first"]));
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["second"]));
-            Assert.That(explodedCollection, Is.Not.SupersetOf(otherCollections["sub 1"]));
-            Assert.That(explodedCollection, Is.Not.SupersetOf(otherCollections["sub 2"]));
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["third"]));
-            Assert.That(explodedCollection, Is.Not.SupersetOf(otherCollections["fourth"]));
-            Assert.That(explodedCollection, Does.Not.Contain("first"));
-            Assert.That(explodedCollection, Does.Not.Contain("second"));
-            Assert.That(explodedCollection, Does.Not.Contain("sub 1"));
-            Assert.That(explodedCollection, Does.Not.Contain("sub 2"));
-            Assert.That(explodedCollection, Does.Not.Contain("third"));
-            Assert.That(explodedCollection, Does.Not.Contain("fourth"));
-        }
-
-        [Test]
-        public void ExplodeCollectionWithSubCollectionsIntoOtherTable()
-        {
-            var otherCollections = new Dictionary<string, IEnumerable<string>>();
-            mockMapper.Setup(m => m.Map("other table name")).Returns(otherCollections);
-
-            otherCollections["first"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["sub 1"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["sub 2"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["fourth"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["third"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-
-            allCollections["entry"] = new[] { "first", "second", "third" };
-            allCollections["second"] = new[] { "sub 1", "sub 2" };
-
-            var explodedCollection = selector.ExplodeInto(TableName, "entry", "other table name");
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["first"]));
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["sub 1"]));
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["sub 2"]));
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["third"]));
-            Assert.That(explodedCollection, Is.Not.SupersetOf(otherCollections["fourth"]));
-            Assert.That(explodedCollection, Does.Not.Contain("first"));
-            Assert.That(explodedCollection, Does.Not.Contain("second"));
-            Assert.That(explodedCollection, Does.Not.Contain("sub 1"));
-            Assert.That(explodedCollection, Does.Not.Contain("sub 2"));
-            Assert.That(explodedCollection, Does.Not.Contain("third"));
-            Assert.That(explodedCollection, Does.Not.Contain("fourth"));
-        }
-
-        [Test]
-        public void ExplodeCollectionWithSubCollectionsIntoOtherTableDistinctly()
-        {
-            var otherCollections = new Dictionary<string, IEnumerable<string>>();
-            mockMapper.Setup(m => m.Map("other table name")).Returns(otherCollections);
-
-            otherCollections["first"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["sub 1"] = new[] { Guid.NewGuid().ToString(), "repeat" };
-            otherCollections["sub 2"] = new[] { Guid.NewGuid().ToString(), "repeat" };
-            otherCollections["fourth"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["third"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-
-            allCollections["entry"] = new[] { "first", "second", "third" };
-            allCollections["second"] = new[] { "sub 1", "sub 2" };
-
-            var explodedCollection = selector.ExplodeInto(TableName, "entry", "other table name");
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["first"]));
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["sub 1"]));
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["sub 2"]));
-            Assert.That(explodedCollection, Is.SupersetOf(otherCollections["third"]));
-            Assert.That(explodedCollection, Is.Not.SupersetOf(otherCollections["fourth"]));
-            Assert.That(explodedCollection, Does.Not.Contain("first"));
-            Assert.That(explodedCollection, Does.Not.Contain("second"));
-            Assert.That(explodedCollection, Does.Not.Contain("sub 1"));
-            Assert.That(explodedCollection, Does.Not.Contain("sub 2"));
-            Assert.That(explodedCollection, Does.Not.Contain("third"));
-            Assert.That(explodedCollection, Does.Not.Contain("fourth"));
-            Assert.That(explodedCollection.Count(i => i == "repeat"), Is.EqualTo(1));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving second from table name"), Times.Once);
         }
     }
 }

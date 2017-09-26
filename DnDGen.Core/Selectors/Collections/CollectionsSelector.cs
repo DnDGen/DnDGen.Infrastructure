@@ -1,4 +1,5 @@
 ﻿using DnDGen.Core.Mappers.Collections;
+using EventGen;
 using RollGen;
 using System;
 using System.Collections.Generic;
@@ -10,20 +11,22 @@ namespace DnDGen.Core.Selectors.Collections
     {
         private readonly CollectionsMapper mapper;
         private readonly Dice dice;
+        //INFO: We are injecting the event queue directly in order to log recursive events in Explode
+        private readonly GenEventQueue eventQueue;
 
-        public CollectionsSelector(CollectionsMapper mapper, Dice dice)
+        public CollectionsSelector(CollectionsMapper mapper, Dice dice, GenEventQueue eventQueue)
         {
             this.mapper = mapper;
             this.dice = dice;
+            this.eventQueue = eventQueue;
         }
 
         public IEnumerable<string> SelectFrom(string tableName, string collectionName)
         {
-            var table = SelectAllFrom(tableName);
-
             if (!IsCollection(tableName, collectionName))
                 throw new ArgumentException($"{collectionName} is not a valid collection in the table {tableName}");
 
+            var table = SelectAllFrom(tableName);
             return table[collectionName];
         }
 
@@ -73,6 +76,8 @@ namespace DnDGen.Core.Selectors.Collections
 
         public IEnumerable<string> Explode(string tableName, string collectionName)
         {
+            eventQueue.Enqueue("Core", $"Recursively retrieving {collectionName} from {tableName}");
+
             var explodedCollection = SelectFrom(tableName, collectionName).ToList();
             var subCollectionNames = explodedCollection.Where(i => IsCollection(tableName, i) && i != collectionName)
                 .ToArray(); //INFO: Doing immediate execution because looping below fails otherwise (modifying the source collection)
@@ -85,15 +90,6 @@ namespace DnDGen.Core.Selectors.Collections
             }
 
             return explodedCollection.Distinct();
-        }
-
-        public IEnumerable<string> ExplodeInto(string tableName, string collectionName, string intoTableName)
-        {
-            var explodedCollection = Explode(tableName, collectionName);
-            explodedCollection = explodedCollection.SelectMany(g => SelectFrom(intoTableName, g)).Distinct();
-
-            //INFO: Doing immediate execution to avoid assembly reference issues that may bubble up
-            return explodedCollection.ToArray();
         }
     }
 }

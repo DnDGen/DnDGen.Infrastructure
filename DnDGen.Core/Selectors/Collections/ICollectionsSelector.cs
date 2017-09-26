@@ -11,6 +11,5 @@ namespace DnDGen.Core.Selectors.Collections
         string SelectRandomFrom(string tableName, string collectionName);
         bool IsCollection(string tableName, string collectionName);
         IEnumerable<string> Explode(string tableName, string collectionName);
-        IEnumerable<string> ExplodeInto(string tableName, string collectionName, string intoTableName);
     }
 }

@@ -69,14 +69,5 @@ namespace DnDGen.Core.Selectors.Collections
 
             return explodedCollection;
         }
-
-        public IEnumerable<string> ExplodeInto(string tableName, string collectionName, string intoTableName)
-        {
-            eventQueue.Enqueue("Core", $"Exploding {collectionName} from {tableName} into {intoTableName}");
-            var explodedCollection = innerSelector.ExplodeInto(tableName, collectionName, intoTableName);
-            eventQueue.Enqueue("Core", $"Exploded {collectionName} into {explodedCollection.Count()} entries");
-
-            return explodedCollection;
-        }
     }
 }

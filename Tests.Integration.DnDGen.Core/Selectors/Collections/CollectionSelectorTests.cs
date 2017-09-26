@@ -1,13 +1,12 @@
-﻿using DnDGen.Core.Selectors.Collections;
+﻿using DnDGen.Core.Helpers;
+using DnDGen.Core.Selectors.Collections;
 using DnDGen.Core.Tests;
 using EventGen;
 using Ninject;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tests.Integration.DnDGen.Core.Selectors.Collections
 {
@@ -18,6 +17,8 @@ namespace Tests.Integration.DnDGen.Core.Selectors.Collections
         public ICollectionsSelector CollectionsSelector { get; set; }
         [Inject]
         public ClientIDManager ClientIdManager { get; set; }
+        [Inject]
+        public GenEventQueue EventQueue { get; set; }
 
         [SetUp]
         public void Setup()
@@ -98,7 +99,15 @@ namespace Tests.Integration.DnDGen.Core.Selectors.Collections
         [Test]
         public void ExplodeFromTableIntoOtherTable()
         {
-            var executedExplodedCollection = CollectionsSelector.ExplodeInto("CollectionTable", "collection", "OtherCollectionTable").ToArray();
+            var explodedCollection = CollectionsSelector.Explode("CollectionTable", "collection");
+            var allCollections = CollectionsSelector.SelectAllFrom("OtherCollectionTable");
+
+            var executedExplodedCollection = allCollections.Where(kvp => explodedCollection.Contains(kvp.Key))
+                .Select(kvp => kvp.Value)
+                .SelectMany(v => v)
+                .Distinct()
+                .ToArray();
+
             Assert.That(executedExplodedCollection, Is.EquivalentTo(new[]
             {
                 "other entry 2.1",
@@ -112,6 +121,78 @@ namespace Tests.Integration.DnDGen.Core.Selectors.Collections
                 "other entry 3sc",
                 "other entry 4sc",
             }));
+        }
+
+        [Test]
+        public void HeavyExplodeIsEfficient()
+        {
+            var explodedCollection = CollectionsSelector.Explode("CreatureGroups", "Night");
+            Assert.That(explodedCollection, Is.Not.Empty);
+            Assert.That(explodedCollection.Count, Is.EqualTo(1484));
+            Assert.That(explodedCollection, Is.Unique);
+            AssertEventSpacing();
+        }
+
+        private void AssertEventSpacing()
+        {
+            var dequeuedEvents = EventQueue.DequeueAllForCurrentThread();
+
+            if (!dequeuedEvents.Any())
+                Assert.Fail("No events were logged");
+
+            Assert.That(dequeuedEvents, Is.Ordered.By("When"));
+
+            var times = dequeuedEvents.Select(e => e.When);
+            var checkpointEvent = dequeuedEvents.First();
+            var checkpoint = checkpointEvent.When;
+            var finalEvent = dequeuedEvents.Last();
+            var finalCheckPoint = finalEvent.When;
+
+            while (finalCheckPoint > checkpoint)
+            {
+                var oneSecondAfterCheckpoint = checkpoint.AddSeconds(1);
+
+                var failedEvent = dequeuedEvents.First(e => e.When > checkpoint);
+                var failureMessage = $"{GetMessage(checkpointEvent)}\n{GetMessage(failedEvent)}";
+                Assert.That(times, Has.Some.InRange(checkpoint.AddTicks(1), oneSecondAfterCheckpoint), failureMessage);
+
+                checkpointEvent = dequeuedEvents.Last(e => e.When <= oneSecondAfterCheckpoint);
+                checkpoint = checkpointEvent.When;
+            }
+        }
+
+        private string GetMessage(GenEvent genEvent)
+        {
+            return $"[{genEvent.When.ToLongTimeString()}] {genEvent.Source}: {genEvent.Message}";
+        }
+
+        [Test]
+        public void HeavySelectAllIsEfficient()
+        {
+            var allCollections = CollectionsSelector.SelectAllFrom("EncounterGroups");
+            Assert.That(allCollections, Is.Not.Empty);
+            Assert.That(allCollections.Count, Is.EqualTo(1484));
+            Assert.That(allCollections, Is.Unique);
+            AssertEventSpacing();
+        }
+
+        [Test]
+        public void HeavySeparatedExplodeAndFlattenIsEfficient()
+        {
+            var explodedCollection = CollectionsSelector.Explode("CreatureGroups", "Night");
+            var allCollections = CollectionsSelector.SelectAllFrom("EncounterGroups");
+
+            var stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            var flattenedCollection = CollectionHelper.FlattenCollection(allCollections, explodedCollection);
+            stopwatch.Stop();
+
+            Assert.That(flattenedCollection, Is.Not.Empty);
+            Assert.That(flattenedCollection.Count, Is.EqualTo(2538));
+            Assert.That(flattenedCollection, Is.Unique);
+            AssertEventSpacing();
+            Assert.That(stopwatch.Elapsed, Is.LessThan(new TimeSpan(TimeSpan.TicksPerMillisecond * 500)));
         }
     }
 }
