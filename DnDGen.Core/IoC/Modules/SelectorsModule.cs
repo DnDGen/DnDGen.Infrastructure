@@ -10,8 +10,8 @@ namespace DnDGen.Core.IoC.Modules
         {
             Bind<IPercentileSelector>().To<PercentileSelector>();
 
-            Bind<ICollectionsSelector>().To<CollectionsSelector>().WhenInjectedInto<CollectionsSelectorEventDecorator>();
-            Bind<ICollectionsSelector>().To<CollectionsSelectorEventDecorator>();
+            Bind<ICollectionSelector>().To<CollectionSelector>().WhenInjectedInto<CollectionSelectorEventDecorator>();
+            Bind<ICollectionSelector>().To<CollectionSelectorEventDecorator>();
         }
     }
 }

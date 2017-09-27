@@ -4,18 +4,19 @@ using EventGen;
 using Moq;
 using NUnit.Framework;
 using RollGen;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DnDGen.Core.Tests.Selectors.Collections
 {
     [TestFixture]
-    public class CollectionsSelectorTests
+    public class CollectionSelectorTests
     {
         private const string TableName = "table name";
 
-        private ICollectionsSelector selector;
-        private Mock<CollectionsMapper> mockMapper;
+        private ICollectionSelector selector;
+        private Mock<CollectionMapper> mockMapper;
         private Mock<Dice> mockDice;
         private Mock<GenEventQueue> mockEventQueue;
         private Dictionary<string, IEnumerable<string>> allCollections;
@@ -23,10 +24,10 @@ namespace DnDGen.Core.Tests.Selectors.Collections
         [SetUp]
         public void Setup()
         {
-            mockMapper = new Mock<CollectionsMapper>();
+            mockMapper = new Mock<CollectionMapper>();
             mockDice = new Mock<Dice>();
             mockEventQueue = new Mock<GenEventQueue>();
-            selector = new CollectionsSelector(mockMapper.Object, mockDice.Object, mockEventQueue.Object);
+            selector = new CollectionSelector(mockMapper.Object, mockDice.Object, mockEventQueue.Object);
             allCollections = new Dictionary<string, IEnumerable<string>>();
 
             mockMapper.Setup(m => m.Map(TableName)).Returns(allCollections);
@@ -269,6 +270,72 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
             mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
             mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving second from table name"), Times.Once);
+        }
+        [Test]
+        public void FlattenCollection()
+        {
+            var otherCollections = new Dictionary<string, IEnumerable<string>>();
+            otherCollections["first"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            otherCollections["sub 1"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            otherCollections["sub 2"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            otherCollections["fourth"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            otherCollections["third"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+
+            var keys = new[]
+            {
+                "first",
+                "second",
+                "sub 1",
+                "sub 2",
+                "third",
+            };
+
+            var flattenedCollection = selector.Flatten(otherCollections, keys);
+            Assert.That(flattenedCollection, Is.SupersetOf(otherCollections["first"]), "first");
+            Assert.That(flattenedCollection, Is.SupersetOf(otherCollections["sub 1"]), "sub 1");
+            Assert.That(flattenedCollection, Is.SupersetOf(otherCollections["sub 2"]), "sub 2");
+            Assert.That(flattenedCollection, Is.SupersetOf(otherCollections["third"]), "third");
+            Assert.That(flattenedCollection, Is.Not.SupersetOf(otherCollections["fourth"]), "fourth");
+            Assert.That(flattenedCollection, Does.Not.Contain("first"));
+            Assert.That(flattenedCollection, Does.Not.Contain("second"));
+            Assert.That(flattenedCollection, Does.Not.Contain("sub 1"));
+            Assert.That(flattenedCollection, Does.Not.Contain("sub 2"));
+            Assert.That(flattenedCollection, Does.Not.Contain("third"));
+            Assert.That(flattenedCollection, Does.Not.Contain("fourth"));
+        }
+
+        [Test]
+        public void FlattenCollectionDistinctly()
+        {
+            var otherCollections = new Dictionary<string, IEnumerable<string>>();
+            otherCollections["first"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            otherCollections["sub 1"] = new[] { Guid.NewGuid().ToString(), "repeat" };
+            otherCollections["sub 2"] = new[] { Guid.NewGuid().ToString(), "repeat" };
+            otherCollections["fourth"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            otherCollections["third"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+
+            var keys = new[]
+            {
+                "first",
+                "second",
+                "sub 1",
+                "sub 2",
+                "third",
+            };
+
+            var flattenedCollection = selector.Flatten(otherCollections, keys);
+            Assert.That(flattenedCollection, Is.SupersetOf(otherCollections["first"]), "first");
+            Assert.That(flattenedCollection, Is.SupersetOf(otherCollections["sub 1"]), "sub 1");
+            Assert.That(flattenedCollection, Is.SupersetOf(otherCollections["sub 2"]), "sub 2");
+            Assert.That(flattenedCollection, Is.SupersetOf(otherCollections["third"]), "third");
+            Assert.That(flattenedCollection, Is.Not.SupersetOf(otherCollections["fourth"]), "fourth");
+            Assert.That(flattenedCollection, Does.Not.Contain("first"));
+            Assert.That(flattenedCollection, Does.Not.Contain("second"));
+            Assert.That(flattenedCollection, Does.Not.Contain("sub 1"));
+            Assert.That(flattenedCollection, Does.Not.Contain("sub 2"));
+            Assert.That(flattenedCollection, Does.Not.Contain("third"));
+            Assert.That(flattenedCollection, Does.Not.Contain("fourth"));
+            Assert.That(flattenedCollection.Count(i => i == "repeat"), Is.EqualTo(1));
         }
     }
 }

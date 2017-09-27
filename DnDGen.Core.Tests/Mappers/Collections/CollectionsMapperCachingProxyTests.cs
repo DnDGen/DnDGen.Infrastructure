@@ -10,17 +10,17 @@ namespace DnDGen.Core.Tests.Mappers.Collections
     [TestFixture]
     public class CollectionsMapperCachingProxyTests
     {
-        private CollectionsMapper proxy;
-        private Mock<CollectionsMapper> mockInnerMapper;
+        private CollectionMapper proxy;
+        private Mock<CollectionMapper> mockInnerMapper;
         private Dictionary<string, IEnumerable<string>> table;
         private Mock<AssemblyLoader> mockAssemblyLoader;
 
         [SetUp]
         public void Setup()
         {
-            mockInnerMapper = new Mock<CollectionsMapper>();
+            mockInnerMapper = new Mock<CollectionMapper>();
             mockAssemblyLoader = new Mock<AssemblyLoader>();
-            proxy = new CollectionsMapperCachingProxy(mockInnerMapper.Object, mockAssemblyLoader.Object);
+            proxy = new CollectionMapperCachingProxy(mockInnerMapper.Object, mockAssemblyLoader.Object);
 
             table = new Dictionary<string, IEnumerable<string>>();
             table["name"] = new[] { "entry 1", "entry 2" };

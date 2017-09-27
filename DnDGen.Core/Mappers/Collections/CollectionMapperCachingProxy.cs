@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace DnDGen.Core.Mappers.Collections
 {
-    internal class CollectionsMapperCachingProxy : CollectionsMapper
+    internal class CollectionMapperCachingProxy : CollectionMapper
     {
-        private readonly CollectionsMapper innerMapper;
+        private readonly CollectionMapper innerMapper;
         private readonly Dictionary<string, Dictionary<string, IEnumerable<string>>> cachedTables;
         private readonly AssemblyLoader assemblyLoader;
 
-        public CollectionsMapperCachingProxy(CollectionsMapper innerMapper, AssemblyLoader assemblyLoader)
+        public CollectionMapperCachingProxy(CollectionMapper innerMapper, AssemblyLoader assemblyLoader)
         {
             this.innerMapper = innerMapper;
             this.assemblyLoader = assemblyLoader;

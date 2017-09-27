@@ -11,8 +11,8 @@ namespace DnDGen.Core.IoC.Modules
             Bind<PercentileMapper>().To<PercentileXmlMapper>().WhenInjectedInto<PercentileMapperCachingProxy>();
             Bind<PercentileMapper>().To<PercentileMapperCachingProxy>().InSingletonScope();
 
-            Bind<CollectionsMapper>().To<CollectionsXmlMapper>().WhenInjectedInto<CollectionsMapperCachingProxy>();
-            Bind<CollectionsMapper>().To<CollectionsMapperCachingProxy>().InSingletonScope();
+            Bind<CollectionMapper>().To<CollectionXmlMapper>().WhenInjectedInto<CollectionMapperCachingProxy>();
+            Bind<CollectionMapper>().To<CollectionMapperCachingProxy>().InSingletonScope();
         }
     }
 }

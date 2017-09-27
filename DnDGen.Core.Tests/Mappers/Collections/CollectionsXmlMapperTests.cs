@@ -13,7 +13,7 @@ namespace DnDGen.Core.Tests.Mappers.Collections
         private const string tableName = "CollectionsXmlMapperTests";
 
         private string fileName;
-        private CollectionsMapper mapper;
+        private CollectionMapper mapper;
         private Mock<StreamLoader> mockStreamLoader;
         private string contents;
 
@@ -40,7 +40,7 @@ namespace DnDGen.Core.Tests.Mappers.Collections
             mockStreamLoader = new Mock<StreamLoader>();
             mockStreamLoader.Setup(l => l.LoadFor(fileName)).Returns(() => GetStream());
 
-            mapper = new CollectionsXmlMapper(mockStreamLoader.Object);
+            mapper = new CollectionXmlMapper(mockStreamLoader.Object);
         }
 
         [Test]

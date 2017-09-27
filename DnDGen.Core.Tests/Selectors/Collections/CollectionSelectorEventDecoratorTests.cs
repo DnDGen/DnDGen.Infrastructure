@@ -7,18 +7,18 @@ using System.Collections.Generic;
 namespace DnDGen.Core.Tests.Selectors.Collections
 {
     [TestFixture]
-    public class CollectionsSelectorEventGenDecoratorTests
+    public class CollectionSelectorEventDecoratorTests
     {
-        private ICollectionsSelector decorator;
-        private Mock<ICollectionsSelector> mockInnerSelector;
+        private ICollectionSelector decorator;
+        private Mock<ICollectionSelector> mockInnerSelector;
         private Mock<GenEventQueue> mockEventQueue;
 
         [SetUp]
         public void Setup()
         {
-            mockInnerSelector = new Mock<ICollectionsSelector>();
+            mockInnerSelector = new Mock<ICollectionSelector>();
             mockEventQueue = new Mock<GenEventQueue>();
-            decorator = new CollectionsSelectorEventDecorator(mockInnerSelector.Object, mockEventQueue.Object);
+            decorator = new CollectionSelectorEventDecorator(mockInnerSelector.Object, mockEventQueue.Object);
         }
 
         [Test]
@@ -206,6 +206,43 @@ namespace DnDGen.Core.Tests.Selectors.Collections
             mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
             mockEventQueue.Verify(q => q.Enqueue("Core", $"Exploding collection name from table name"), Times.Once);
             mockEventQueue.Verify(q => q.Enqueue("Core", $"Exploded collection name into 2 entries"), Times.Once);
+        }
+
+        [Test]
+        public void ReturnFlattenedCollection()
+        {
+            var collections = new Dictionary<string, IEnumerable<string>>();
+            var keys = new List<string>();
+
+            var flattenedCollection = new[] { "thing 1", "thing 2" };
+            mockInnerSelector.Setup(s => s.Flatten(collections, keys)).Returns(flattenedCollection);
+
+            var collection = decorator.Flatten(collections, keys);
+            Assert.That(collection, Is.EqualTo(flattenedCollection));
+        }
+
+        [Test]
+        public void LogEventsForFlattenCollection()
+        {
+            var collections = new Dictionary<string, IEnumerable<string>>();
+            collections["first"] = new[] { "asdf", "asdfadf", "asdfadf", "asdfadf" };
+            collections["second"] = new[] { "afadf", "asdfadfasd", "asdfadf", "asdfadf", "asdfadf" };
+            collections["third"] = new[] { "asdfadsf", "dfasdfasd", "asdfadf", "asdfadf", "asdfadf", "asdfadf" };
+
+            var keys = new List<string>();
+            var count = 7;
+
+            while (count-- > 0)
+                keys.Add(count.ToString());
+
+            var flattenedCollection = new[] { "thing 1", "thing 2" };
+            mockInnerSelector.Setup(s => s.Flatten(collections, keys)).Returns(flattenedCollection);
+
+            var collection = decorator.Flatten(collections, keys);
+            Assert.That(collection, Is.EqualTo(flattenedCollection));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockEventQueue.Verify(q => q.Enqueue("Core", $"Flattening 3 collections with 7 keys"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", $"Flattened 3 collections into 2 entries"), Times.Once);
         }
     }
 }

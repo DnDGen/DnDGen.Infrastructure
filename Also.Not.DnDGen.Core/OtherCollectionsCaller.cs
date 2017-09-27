@@ -5,9 +5,9 @@ namespace Also.Not.DnDGen.Core
 {
     public class OtherCollectionsCaller
     {
-        private readonly CollectionsMapper collectionsMapper;
+        private readonly CollectionMapper collectionsMapper;
 
-        public OtherCollectionsCaller(CollectionsMapper collectionsMapper)
+        public OtherCollectionsCaller(CollectionMapper collectionsMapper)
         {
             this.collectionsMapper = collectionsMapper;
         }

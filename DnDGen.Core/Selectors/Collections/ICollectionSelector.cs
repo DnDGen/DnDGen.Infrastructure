@@ -2,7 +2,7 @@
 
 namespace DnDGen.Core.Selectors.Collections
 {
-    public interface ICollectionsSelector
+    public interface ICollectionSelector
     {
         IEnumerable<string> SelectFrom(string tableName, string collectionName);
         Dictionary<string, IEnumerable<string>> SelectAllFrom(string tableName);
@@ -11,5 +11,6 @@ namespace DnDGen.Core.Selectors.Collections
         string SelectRandomFrom(string tableName, string collectionName);
         bool IsCollection(string tableName, string collectionName);
         IEnumerable<string> Explode(string tableName, string collectionName);
+        IEnumerable<string> Flatten(Dictionary<string, IEnumerable<string>> collections, IEnumerable<string> keys);
     }
 }

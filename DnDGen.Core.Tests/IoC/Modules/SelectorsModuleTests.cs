@@ -16,13 +16,13 @@ namespace DnDGen.Core.Tests.IoC.Modules
         [Test]
         public void CollectionsSelectorIsNotInstantiatedAsSingleton()
         {
-            AssertNotSingleton<ICollectionsSelector>();
+            AssertNotSingleton<ICollectionSelector>();
         }
 
         [Test]
         public void CollectionsSelectorIsDecorated()
         {
-            AssertIsInstanceOf<ICollectionsSelector, CollectionsSelectorEventDecorator>();
+            AssertIsInstanceOf<ICollectionSelector, CollectionSelectorEventDecorator>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DnDGen.Core.Mappers.Collections;
+﻿using DnDGen.Core.Helpers;
+using DnDGen.Core.Mappers.Collections;
 using EventGen;
 using RollGen;
 using System;
@@ -7,14 +8,14 @@ using System.Linq;
 
 namespace DnDGen.Core.Selectors.Collections
 {
-    internal class CollectionsSelector : ICollectionsSelector
+    internal class CollectionSelector : ICollectionSelector
     {
-        private readonly CollectionsMapper mapper;
+        private readonly CollectionMapper mapper;
         private readonly Dice dice;
         //INFO: We are injecting the event queue directly in order to log recursive events in Explode
         private readonly GenEventQueue eventQueue;
 
-        public CollectionsSelector(CollectionsMapper mapper, Dice dice, GenEventQueue eventQueue)
+        public CollectionSelector(CollectionMapper mapper, Dice dice, GenEventQueue eventQueue)
         {
             this.mapper = mapper;
             this.dice = dice;
@@ -90,6 +91,11 @@ namespace DnDGen.Core.Selectors.Collections
             }
 
             return explodedCollection.Distinct();
+        }
+
+        public IEnumerable<string> Flatten(Dictionary<string, IEnumerable<string>> collections, IEnumerable<string> keys)
+        {
+            return CollectionHelper.FlattenCollection(collections, keys);
         }
     }
 }

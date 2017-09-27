@@ -22,13 +22,13 @@ namespace DnDGen.Core.Tests.IoC.Modules
         [Test]
         public void CollectionsMapperIsInstantiatedAsSingleton()
         {
-            AssertSingleton<CollectionsMapper>();
+            AssertSingleton<CollectionMapper>();
         }
 
         [Test]
         public void CollectionsMapperIsDecorated()
         {
-            AssertIsInstanceOf<CollectionsMapper, CollectionsMapperCachingProxy>();
+            AssertIsInstanceOf<CollectionMapper, CollectionMapperCachingProxy>();
         }
     }
 }

@@ -5,11 +5,11 @@ using System.Xml;
 
 namespace DnDGen.Core.Mappers.Collections
 {
-    internal class CollectionsXmlMapper : CollectionsMapper
+    internal class CollectionXmlMapper : CollectionMapper
     {
         private readonly StreamLoader streamLoader;
 
-        public CollectionsXmlMapper(StreamLoader streamLoader)
+        public CollectionXmlMapper(StreamLoader streamLoader)
         {
             this.streamLoader = streamLoader;
         }

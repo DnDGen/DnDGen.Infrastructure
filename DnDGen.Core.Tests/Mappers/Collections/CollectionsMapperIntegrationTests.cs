@@ -10,7 +10,7 @@ namespace DnDGen.Core.Tests.Mappers.Collections
     public class CollectionsMapperIntegrationTests : IntegrationTests
     {
         [Inject]
-        public CollectionsMapper CollectionsMapper { get; set; }
+        public CollectionMapper CollectionsMapper { get; set; }
 
         [OneTimeSetUp]
         public void OneTimeSetup()

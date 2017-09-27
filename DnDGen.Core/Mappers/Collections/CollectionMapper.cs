@@ -2,7 +2,7 @@
 
 namespace DnDGen.Core.Mappers.Collections
 {
-    public interface CollectionsMapper
+    public interface CollectionMapper
     {
         Dictionary<string, IEnumerable<string>> Map(string tableName);
     }

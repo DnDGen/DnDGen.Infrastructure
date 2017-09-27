@@ -1,11 +1,10 @@
-﻿using DnDGen.Core.Helpers;
-using DnDGen.Core.Selectors.Collections;
+﻿using DnDGen.Core.Selectors.Collections;
 using DnDGen.Core.Tests;
 using EventGen;
 using Ninject;
 using NUnit.Framework;
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Tests.Integration.DnDGen.Core.Selectors.Collections
@@ -14,7 +13,7 @@ namespace Tests.Integration.DnDGen.Core.Selectors.Collections
     public class CollectionSelectorTests : IntegrationTests
     {
         [Inject]
-        public ICollectionsSelector CollectionsSelector { get; set; }
+        public ICollectionSelector CollectionsSelector { get; set; }
         [Inject]
         public ClientIDManager ClientIdManager { get; set; }
         [Inject]
@@ -179,20 +178,53 @@ namespace Tests.Integration.DnDGen.Core.Selectors.Collections
         [Test]
         public void HeavySeparatedExplodeAndFlattenIsEfficient()
         {
-            var explodedCollection = CollectionsSelector.Explode("CreatureGroups", "Night");
-            var allCollections = CollectionsSelector.SelectAllFrom("EncounterGroups");
+            var flattenedCollection = ExplodeAndFlatten("CreatureGroups", "Night", "EncounterGroups");
 
-            var stopwatch = new Stopwatch();
-
-            stopwatch.Start();
-            var flattenedCollection = CollectionHelper.FlattenCollection(allCollections, explodedCollection);
-            stopwatch.Stop();
+            AssertEventSpacing();
 
             Assert.That(flattenedCollection, Is.Not.Empty);
-            Assert.That(flattenedCollection.Count, Is.EqualTo(2538));
             Assert.That(flattenedCollection, Is.Unique);
+            Assert.That(flattenedCollection.Count, Is.EqualTo(2538));
+        }
+
+        private IEnumerable<string> ExplodeAndFlatten(string explodeTableName, string entry, string flattenTableName)
+        {
+            var explodedCollection = CollectionsSelector.Explode(explodeTableName, entry);
+            var allCollections = CollectionsSelector.SelectAllFrom(flattenTableName);
+            var flattenedCollection = CollectionsSelector.Flatten(allCollections, explodedCollection);
+
+            return flattenedCollection;
+        }
+
+        [Test]
+        public void HeavyMultipleSeparatedExplodeAndFlattenIsEfficient()
+        {
+            var magicEncounters = ExplodeAndFlatten("CreatureGroups", "Magic", "EncounterGroups");
+            var nightEncounters = ExplodeAndFlatten("CreatureGroups", "Night", "EncounterGroups");
+            var wildernessEncounters = ExplodeAndFlatten("CreatureGroups", "Wilderness", "EncounterGroups");
+            var coldCivilizedEncounters = ExplodeAndFlatten("CreatureGroups", "ColdCivilized", "EncounterGroups");
+            var landEncounters = ExplodeAndFlatten("CreatureGroups", "Land", "EncounterGroups");
+            var temperateForestEncounters = ExplodeAndFlatten("CreatureGroups", "TemperateForest", "EncounterGroups");
+            var temperateAquaticEncounters = ExplodeAndFlatten("CreatureGroups", "TemperateAquatic", "EncounterGroups");
+            var warmPlainsEncounters = ExplodeAndFlatten("CreatureGroups", "WarmPlains", "EncounterGroups");
+            var dayEncounters = ExplodeAndFlatten("CreatureGroups", "Day", "EncounterGroups");
+            var aquaticEncounters = ExplodeAndFlatten("CreatureGroups", "Aquatic", "EncounterGroups");
+            var undergroundEncounters = ExplodeAndFlatten("CreatureGroups", "Underground", "EncounterGroups");
+            var undergroundAquaticEncounters = ExplodeAndFlatten("CreatureGroups", "UndergroundAquatic", "EncounterGroups");
+
             AssertEventSpacing();
-            Assert.That(stopwatch.Elapsed, Is.LessThan(new TimeSpan(TimeSpan.TicksPerMillisecond * 500)));
+            Assert.That(magicEncounters.Count, Is.EqualTo(572), "magic");
+            Assert.That(nightEncounters.Count, Is.EqualTo(2538), "night");
+            Assert.That(wildernessEncounters.Count, Is.EqualTo(1115), "wilderness");
+            Assert.That(coldCivilizedEncounters.Count, Is.EqualTo(953), "cold civilized");
+            Assert.That(landEncounters.Count, Is.EqualTo(133), "land");
+            Assert.That(temperateForestEncounters.Count, Is.EqualTo(150), "temperate forest");
+            Assert.That(temperateAquaticEncounters.Count, Is.EqualTo(45), "temperate aquatic");
+            Assert.That(warmPlainsEncounters.Count, Is.EqualTo(66), "warm plains");
+            Assert.That(dayEncounters.Count, Is.EqualTo(2412), "day");
+            Assert.That(aquaticEncounters.Count, Is.EqualTo(6), "aquatic");
+            Assert.That(undergroundEncounters.Count, Is.EqualTo(91), "underground");
+            Assert.That(undergroundAquaticEncounters.Count, Is.EqualTo(6), "underground aquatic");
         }
     }
 }

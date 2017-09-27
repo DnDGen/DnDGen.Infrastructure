@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace DnDGen.Core.Selectors.Collections
 {
-    internal class CollectionsSelectorEventDecorator : ICollectionsSelector
+    internal class CollectionSelectorEventDecorator : ICollectionSelector
     {
-        private readonly ICollectionsSelector innerSelector;
+        private readonly ICollectionSelector innerSelector;
         private readonly GenEventQueue eventQueue;
 
-        public CollectionsSelectorEventDecorator(ICollectionsSelector innerSelector, GenEventQueue eventQueue)
+        public CollectionSelectorEventDecorator(ICollectionSelector innerSelector, GenEventQueue eventQueue)
         {
             this.innerSelector = innerSelector;
             this.eventQueue = eventQueue;
@@ -68,6 +68,15 @@ namespace DnDGen.Core.Selectors.Collections
             eventQueue.Enqueue("Core", $"Exploded {collectionName} into {explodedCollection.Count()} entries");
 
             return explodedCollection;
+        }
+
+        public IEnumerable<string> Flatten(Dictionary<string, IEnumerable<string>> collections, IEnumerable<string> keys)
+        {
+            eventQueue.Enqueue("Core", $"Flattening {collections.Count} collections with {keys.Count()} keys");
+            var flattenedCollection = innerSelector.Flatten(collections, keys);
+            eventQueue.Enqueue("Core", $"Flattened {collections.Count} collections into {flattenedCollection.Count()} entries");
+
+            return flattenedCollection;
         }
     }
 }
