@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DnDGen.Core</id>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
     <title>DnDGen.Core</title>
     <authors>Karl M. Speer</authors>
     <owners>cidthecoatrack</owners>
