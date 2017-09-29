@@ -17,6 +17,8 @@ namespace DnDGen.Core.Generators
 
         public T Generate<T>(Func<T> buildInstructions, Func<T, bool> isValid, Func<T> buildDefault, Func<T, string> failureDescription, string defaultDescription)
         {
+            eventQueue.Enqueue("Core", $"Beginning iterative generation");
+
             T builtObject;
             var attempts = 1;
             var objectIsValid = false;
@@ -29,13 +31,16 @@ namespace DnDGen.Core.Generators
                 if (!objectIsValid)
                 {
                     var message = failureDescription(builtObject);
-                    eventQueue.Enqueue("Core", message);
+                    eventQueue.Enqueue("Core", $"(Attempt {attempts}) {message}");
                 }
             }
             while (!objectIsValid && attempts++ < MaxAttempts);
 
             if (objectIsValid)
+            {
+                eventQueue.Enqueue("Core", $"Completed iterative generation after {attempts} iterations");
                 return builtObject;
+            }
 
             eventQueue.Enqueue("Core", $"Generating {defaultDescription} by default");
             builtObject = buildDefault();

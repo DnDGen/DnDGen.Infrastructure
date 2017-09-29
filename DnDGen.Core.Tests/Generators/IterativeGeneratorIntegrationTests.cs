@@ -53,7 +53,7 @@ namespace DnDGen.Core.Tests.Generators
             Assert.That(count, Is.EqualTo(iterations + 1));
 
             var events = EventQueue.DequeueAllForCurrentThread();
-            var expectedCount = iterations - 1;
+            var expectedCount = GetExpectedEventCount(iterations, 0, false);
             Assert.That(events.Count, Is.EqualTo(expectedCount));
 
             Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(2));
@@ -93,7 +93,7 @@ namespace DnDGen.Core.Tests.Generators
             Assert.That(count, Is.EqualTo(iterations + 1));
 
             var events = EventQueue.DequeueAllForCurrentThread();
-            var expectedCount = iterations * subIterations - 1;
+            var expectedCount = GetExpectedEventCount(iterations, subIterations, false);
             Assert.That(events.Count, Is.EqualTo(expectedCount));
 
             Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(5));
@@ -132,7 +132,7 @@ namespace DnDGen.Core.Tests.Generators
             Assert.That(count, Is.EqualTo(Generator.MaxAttempts + 1));
 
             var events = EventQueue.DequeueAllForCurrentThread();
-            var expectedCount = Generator.MaxAttempts + 1;
+            var expectedCount = GetExpectedEventCount(Generator.MaxAttempts, 0, true);
             Assert.That(events.Count, Is.EqualTo(expectedCount));
 
             Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(2));
@@ -157,10 +157,23 @@ namespace DnDGen.Core.Tests.Generators
             Assert.That(count, Is.EqualTo(Generator.MaxAttempts + 1));
 
             var events = EventQueue.DequeueAllForCurrentThread();
-            var expectedCount = Generator.MaxAttempts * Generator.MaxAttempts + 2 * Generator.MaxAttempts + 1;
+            var expectedCount = GetExpectedEventCount(Generator.MaxAttempts, Generator.MaxAttempts, true);
             Assert.That(events.Count, Is.EqualTo(expectedCount));
 
             Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(5));
+        }
+
+        private int GetExpectedEventCount(int outerIterations, int innerIterations, bool isDefault)
+        {
+            if (outerIterations == 0)
+                return 0;
+
+            var beginningEvents = 1;
+            var endEvents = 1;
+            var failureEvents = outerIterations - 1 + Convert.ToInt32(isDefault);
+            var totalEvents = beginningEvents + failureEvents + endEvents;
+
+            return totalEvents + outerIterations * GetExpectedEventCount(innerIterations, 0, isDefault);
         }
 
         [TestCase(1)]
