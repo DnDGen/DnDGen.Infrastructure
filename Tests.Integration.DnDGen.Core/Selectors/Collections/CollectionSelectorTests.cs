@@ -1,5 +1,4 @@
 ﻿using DnDGen.Core.Selectors.Collections;
-using DnDGen.Core.Tests;
 using EventGen;
 using Ninject;
 using NUnit.Framework;
