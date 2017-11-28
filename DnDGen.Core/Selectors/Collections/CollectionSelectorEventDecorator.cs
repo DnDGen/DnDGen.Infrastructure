@@ -78,5 +78,14 @@ namespace DnDGen.Core.Selectors.Collections
 
             return flattenedCollection;
         }
+
+        public IEnumerable<string> ExplodeAndPreserveDuplicates(string tableName, string collectionName)
+        {
+            eventQueue.Enqueue("Core", $"Exploding {collectionName} from {tableName}");
+            var explodedCollection = innerSelector.ExplodeAndPreserveDuplicates(tableName, collectionName);
+            eventQueue.Enqueue("Core", $"Exploded {collectionName} into {explodedCollection.Count()} entries");
+
+            return explodedCollection;
+        }
     }
 }

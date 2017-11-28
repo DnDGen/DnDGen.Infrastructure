@@ -96,7 +96,7 @@ namespace Tests.Integration.DnDGen.Core.Generators
             var expectedCount = GetExpectedEventCount(iterations, subIterations, false);
             Assert.That(events.Count, Is.EqualTo(expectedCount));
 
-            Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(5));
+            Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(7));
         }
 
         private int BuildInGenerator(int count, int subIterations)
@@ -160,7 +160,7 @@ namespace Tests.Integration.DnDGen.Core.Generators
             var expectedCount = GetExpectedEventCount(Generator.MaxAttempts, Generator.MaxAttempts, true);
             Assert.That(events.Count, Is.EqualTo(expectedCount));
 
-            Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(5));
+            Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(7));
         }
 
         private int GetExpectedEventCount(int outerIterations, int innerIterations, bool isDefault)

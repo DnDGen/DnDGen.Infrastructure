@@ -209,6 +209,29 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
         }
 
         [Test]
+        public void ReturnExplodedCollectionWithDuplicates()
+        {
+            var explodedCollection = new[] { "thing 1", "thing 2", "thing 2" };
+            mockInnerSelector.Setup(s => s.ExplodeAndPreserveDuplicates("table name", "collection name")).Returns(explodedCollection);
+
+            var collection = decorator.ExplodeAndPreserveDuplicates("table name", "collection name");
+            Assert.That(collection, Is.EqualTo(explodedCollection));
+        }
+
+        [Test]
+        public void LogEventsForExplodeCollectionWithDuplicates()
+        {
+            var explodedCollection = new[] { "thing 1", "thing 2", "thing 2" };
+            mockInnerSelector.Setup(s => s.ExplodeAndPreserveDuplicates("table name", "collection name")).Returns(explodedCollection);
+
+            var collection = decorator.ExplodeAndPreserveDuplicates("table name", "collection name");
+            Assert.That(collection, Is.EqualTo(explodedCollection));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockEventQueue.Verify(q => q.Enqueue("Core", $"Exploding collection name from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", $"Exploded collection name into 3 entries"), Times.Once);
+        }
+
+        [Test]
         public void ReturnFlattenedCollection()
         {
             var collections = new Dictionary<string, IEnumerable<string>>();

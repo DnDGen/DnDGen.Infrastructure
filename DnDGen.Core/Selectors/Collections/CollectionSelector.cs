@@ -77,18 +77,7 @@ namespace DnDGen.Core.Selectors.Collections
 
         public IEnumerable<string> Explode(string tableName, string collectionName)
         {
-            eventQueue.Enqueue("Core", $"Recursively retrieving {collectionName} from {tableName}");
-
-            var explodedCollection = SelectFrom(tableName, collectionName).ToList();
-            var subCollectionNames = explodedCollection.Where(i => IsCollection(tableName, i) && i != collectionName)
-                .ToArray(); //INFO: Doing immediate execution because looping below fails otherwise (modifying the source collection)
-
-            foreach (var subCollectionName in subCollectionNames)
-            {
-                var explodedSubCollection = Explode(tableName, subCollectionName);
-                explodedCollection.Remove(subCollectionName);
-                explodedCollection.AddRange(explodedSubCollection);
-            }
+            var explodedCollection = ExplodeAndPreserveDuplicates(tableName, collectionName);
 
             return explodedCollection.Distinct();
         }
@@ -96,6 +85,25 @@ namespace DnDGen.Core.Selectors.Collections
         public IEnumerable<string> Flatten(Dictionary<string, IEnumerable<string>> collections, IEnumerable<string> keys)
         {
             return CollectionHelper.FlattenCollection(collections, keys);
+        }
+
+        public IEnumerable<string> ExplodeAndPreserveDuplicates(string tableName, string collectionName)
+        {
+            eventQueue.Enqueue("Core", $"Recursively retrieving {collectionName} from {tableName}");
+
+            var explodedCollection = SelectFrom(tableName, collectionName).ToList();
+            var subCollectionNames = explodedCollection
+                .Where(i => IsCollection(tableName, i) && i != collectionName)
+                .ToArray(); //INFO: Doing immediate execution because looping below fails otherwise (modifying the source collection)
+
+            foreach (var subCollectionName in subCollectionNames)
+            {
+                var explodedSubCollection = ExplodeAndPreserveDuplicates(tableName, subCollectionName);
+                explodedCollection.Remove(subCollectionName);
+                explodedCollection.AddRange(explodedSubCollection);
+            }
+
+            return explodedCollection;
         }
     }
 }

@@ -271,6 +271,102 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
             mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
             mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving second from table name"), Times.Once);
         }
+
+        [Test]
+        public void ExplodeCollectionPreservingDuplicatesWithoutSubCollections()
+        {
+            allCollections["entry"] = new[] { "first", "second", "third" };
+
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            Assert.That(explodedCollection, Is.EquivalentTo(allCollections["entry"]));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
+        }
+
+        [Test]
+        public void ExplodeCollectionPreservingDuplicatesWithSubCollections()
+        {
+            allCollections["entry"] = new[] { "first", "second", "third" };
+            allCollections["second"] = new[] { "sub 1", "sub 2" };
+
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            Assert.That(explodedCollection, Contains.Item("first"));
+            Assert.That(explodedCollection, Does.Not.Contain("second"));
+            Assert.That(explodedCollection, Contains.Item("sub 1"));
+            Assert.That(explodedCollection, Contains.Item("sub 2"));
+            Assert.That(explodedCollection, Contains.Item("third"));
+            Assert.That(explodedCollection.Count, Is.EqualTo(4));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving second from table name"), Times.Once);
+        }
+
+        [Test]
+        public void ExplodedCollectionsPreservingDuplicatesAreNotDistinctBetweenSubCollections()
+        {
+            allCollections["entry"] = new[] { "first", "second", "third" };
+            allCollections["second"] = new[] { "sub 1", "sub 2" };
+            allCollections["third"] = new[] { "sub 1", "sub 3" };
+
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            Assert.That(explodedCollection, Is.Not.Unique);
+            Assert.That(explodedCollection, Contains.Item("first"));
+            Assert.That(explodedCollection, Does.Not.Contain("second"));
+            Assert.That(explodedCollection, Contains.Item("sub 1"));
+            Assert.That(explodedCollection.Count(e => e == "sub 1"), Is.EqualTo(2));
+            Assert.That(explodedCollection, Contains.Item("sub 2"));
+            Assert.That(explodedCollection, Contains.Item("sub 3"));
+            Assert.That(explodedCollection, Does.Not.Contain("third"));
+            Assert.That(explodedCollection.Count, Is.EqualTo(5));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(3));
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving second from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving third from table name"), Times.Once);
+        }
+
+        [Test]
+        public void ExplodedCollectionsPreservingDuplicatesAreNotDistinctBetweenCollectionAndSubCollection()
+        {
+            allCollections["entry"] = new[] { "first", "second", "third", "sub 1", "sub 3" };
+            allCollections["second"] = new[] { "sub 1", "sub 2" };
+            allCollections["third"] = new[] { "second", "sub 3" };
+
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            Assert.That(explodedCollection, Is.Not.Unique);
+            Assert.That(explodedCollection, Contains.Item("first"));
+            Assert.That(explodedCollection, Does.Not.Contain("second"));
+            Assert.That(explodedCollection, Contains.Item("sub 1"));
+            Assert.That(explodedCollection.Count(e => e == "sub 1"), Is.EqualTo(3));
+            Assert.That(explodedCollection, Contains.Item("sub 2"));
+            Assert.That(explodedCollection.Count(e => e == "sub 2"), Is.EqualTo(2));
+            Assert.That(explodedCollection, Contains.Item("sub 3"));
+            Assert.That(explodedCollection.Count(e => e == "sub 3"), Is.EqualTo(2));
+            Assert.That(explodedCollection, Does.Not.Contain("third"));
+            Assert.That(explodedCollection.Count, Is.EqualTo(8));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(4));
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving second from table name"), Times.Exactly(2));
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving third from table name"), Times.Once);
+        }
+
+        [Test]
+        public void ExplodeCollectionPreservingDuplicatesWithSubCollectionsAndSelfAsSubCollection()
+        {
+            allCollections["entry"] = new[] { "first", "second", "entry" };
+            allCollections["second"] = new[] { "sub 1", "sub 2" };
+
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            Assert.That(explodedCollection, Contains.Item("first"));
+            Assert.That(explodedCollection, Does.Not.Contain("second"));
+            Assert.That(explodedCollection, Contains.Item("sub 1"));
+            Assert.That(explodedCollection, Contains.Item("sub 2"));
+            Assert.That(explodedCollection, Contains.Item("entry"));
+            Assert.That(explodedCollection.Count, Is.EqualTo(4));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving entry from table name"), Times.Once);
+            mockEventQueue.Verify(q => q.Enqueue("Core", "Recursively retrieving second from table name"), Times.Once);
+        }
+
         [Test]
         public void FlattenCollection()
         {
