@@ -87,5 +87,12 @@ namespace DnDGen.Core.Selectors.Collections
 
             return explodedCollection;
         }
+
+        public IEnumerable<string> CreateWeighted(IEnumerable<string> common = null, IEnumerable<string> uncommon = null, IEnumerable<string> rare = null, IEnumerable<string> veryRare = null)
+        {
+            var weightedCollection = innerSelector.CreateWeighted(common, uncommon, rare, veryRare);
+
+            return weightedCollection;
+        }
     }
 }

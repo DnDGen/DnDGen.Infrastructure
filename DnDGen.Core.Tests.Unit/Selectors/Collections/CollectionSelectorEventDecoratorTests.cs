@@ -165,7 +165,7 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
 
         //INFO: This is a quick action, and logs too many events if we log events
         [Test]
-        public void LogEventsForIsCollection()
+        public void DoNotLogEventsForIsCollection()
         {
             mockInnerSelector.Setup(s => s.IsCollection("table name", "collection name")).Returns(true);
 
@@ -176,7 +176,7 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
 
         //INFO: This is a quick action, and logs too many events if we log events
         [Test]
-        public void LogEventsForIsNotCollection()
+        public void DoNotLogEventsForIsNotCollection()
         {
             mockInnerSelector.Setup(s => s.IsCollection("table name", "collection name")).Returns(false);
 
@@ -266,6 +266,38 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
             mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
             mockEventQueue.Verify(q => q.Enqueue("Core", $"Flattening 3 collections with 7 keys"), Times.Once);
             mockEventQueue.Verify(q => q.Enqueue("Core", $"Flattened 3 collections into 2 entries"), Times.Once);
+        }
+
+        [Test]
+        public void ReturnWeightedCollection()
+        {
+            var common = new[] { "common" };
+            var uncommon = new[] { "uncommon" };
+            var rare = new[] { "rare" };
+            var veryRare = new[] { "very rare" };
+
+            var collection = new[] { "weighted", "collection" };
+
+            mockInnerSelector.Setup(s => s.CreateWeighted(common, uncommon, rare, veryRare)).Returns(collection);
+            var weightedCollection = decorator.CreateWeighted(common, uncommon, rare, veryRare);
+            Assert.That(weightedCollection, Is.EqualTo(collection));
+        }
+
+        //INFO: This is a quick action, and logs too many events if we log events
+        [Test]
+        public void DoNotLogEventsForWeightedCollection()
+        {
+            var common = new[] { "common" };
+            var uncommon = new[] { "uncommon" };
+            var rare = new[] { "rare" };
+            var veryRare = new[] { "very rare" };
+
+            var collection = new[] { "weighted", "collection" };
+
+            mockInnerSelector.Setup(s => s.CreateWeighted(common, uncommon, rare, veryRare)).Returns(collection);
+            var weightedCollection = decorator.CreateWeighted(common, uncommon, rare, veryRare);
+            Assert.That(weightedCollection, Is.EqualTo(collection));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
     }
 }
