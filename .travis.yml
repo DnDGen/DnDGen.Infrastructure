@@ -1,12 +1,12 @@
 language: csharp
-mono:
-  - 5.2.0
+mono: latest
 solution: DnDGen.Core.sln
 install:
-  - nuget restore DnDGen.Core.sln
-  - nuget install NUnit.Runners -OutputDirectory testrunner
+  - curl -O https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+  - mono ./nuget.exe restore DnDGen.Core.sln
+  - mono ./nuget.exe install NUnit.Runners -OutputDirectory testrunner
 script:
-  - xbuild DnDGen.Core.sln /p:TargetFrameworkVersion="v4.5" /p:Configuration=Release
+  - msbuild DnDGen.Core.sln /p:TargetFrameworkVersion="v4.5" /p:Configuration=Release
   - set -e
   - mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./DnDGen.Core.Tests.Unit/bin/Release/DnDGen.Core.Tests.Unit.dll
   - set -e
