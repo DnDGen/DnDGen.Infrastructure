@@ -299,5 +299,37 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
             Assert.That(weightedCollection, Is.EqualTo(collection));
             mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
+
+        [Test]
+        public void ReturnRandomFromWeightedCollection()
+        {
+            var common = new[] { "common" };
+            var uncommon = new[] { "uncommon" };
+            var rare = new[] { "rare" };
+            var veryRare = new[] { "very rare" };
+
+            var random = "random selection";
+
+            mockInnerSelector.Setup(s => s.SelectRandomFrom(common, uncommon, rare, veryRare)).Returns(random);
+            var selected = decorator.SelectRandomFrom(common, uncommon, rare, veryRare);
+            Assert.That(selected, Is.EqualTo(random));
+        }
+
+        //INFO: This is a quick action, and logs too many events if we log events
+        [Test]
+        public void DoNotLogEventsForRandomFromWeightedCollection()
+        {
+            var common = new[] { "common" };
+            var uncommon = new[] { "uncommon" };
+            var rare = new[] { "rare" };
+            var veryRare = new[] { "very rare" };
+
+            var random = "random selection";
+
+            mockInnerSelector.Setup(s => s.SelectRandomFrom(common, uncommon, rare, veryRare)).Returns(random);
+            var selected = decorator.SelectRandomFrom(common, uncommon, rare, veryRare);
+            Assert.That(selected, Is.EqualTo(random));
+            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+        }
     }
 }

@@ -132,7 +132,7 @@ namespace DnDGen.Core.Selectors.Collections
             }
             else if (!rare.Any())
             {
-                var uncommonWeight = GetWeightMultiplier(uncommon, weightedCollection, UncommonPercentage + RarePercentage, VeryRarePercentage);
+                var uncommonWeight = GetWeightMultiplier(uncommon, weightedCollection, UncommonPercentage + .03, VeryRarePercentage);
                 var uncommonWeighted = Duplicate(uncommon, uncommonWeight);
                 weightedCollection.AddRange(uncommonWeighted);
             }
@@ -164,6 +164,12 @@ namespace DnDGen.Core.Selectors.Collections
             else if (!uncommon.Any())
             {
                 var commonWeight = GetWeightMultiplier(common, weightedCollection, CommonPercentage + UncommonPercentage, RarePercentage, VeryRarePercentage);
+                var commonWeighted = Duplicate(common, commonWeight);
+                weightedCollection.AddRange(commonWeighted);
+            }
+            else if (!rare.Any())
+            {
+                var commonWeight = GetWeightMultiplier(common, weightedCollection, CommonPercentage + .06, UncommonPercentage + .03, VeryRarePercentage);
                 var commonWeighted = Duplicate(common, commonWeight);
                 weightedCollection.AddRange(commonWeighted);
             }
@@ -205,6 +211,14 @@ namespace DnDGen.Core.Selectors.Collections
         private double GetPercentage(double target, params double[] others)
         {
             return target / (others.Sum() + target);
+        }
+
+        public string SelectRandomFrom(IEnumerable<string> common = null, IEnumerable<string> uncommon = null, IEnumerable<string> rare = null, IEnumerable<string> veryRare = null)
+        {
+            var weighted = CreateWeighted(common, uncommon, rare, veryRare);
+            var selected = SelectRandomFrom(weighted);
+
+            return selected;
         }
     }
 }

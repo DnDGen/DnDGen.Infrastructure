@@ -94,5 +94,12 @@ namespace DnDGen.Core.Selectors.Collections
 
             return weightedCollection;
         }
+
+        public string SelectRandomFrom(IEnumerable<string> common = null, IEnumerable<string> uncommon = null, IEnumerable<string> rare = null, IEnumerable<string> veryRare = null)
+        {
+            var selected = innerSelector.SelectRandomFrom(common, uncommon, rare, veryRare);
+
+            return selected;
+        }
     }
 }
