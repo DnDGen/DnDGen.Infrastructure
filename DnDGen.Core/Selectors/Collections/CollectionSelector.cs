@@ -15,11 +15,6 @@ namespace DnDGen.Core.Selectors.Collections
         //INFO: We are injecting the event queue directly in order to log recursive events in Explode
         private readonly GenEventQueue eventQueue;
 
-        private const double CommonPercentage = .6;
-        private const double UncommonPercentage = .3;
-        private const double RarePercentage = .09;
-        private const double VeryRarePercentage = .01;
-
         public CollectionSelector(CollectionMapper mapper, Dice dice, GenEventQueue eventQueue)
         {
             this.mapper = mapper;
@@ -120,97 +115,101 @@ namespace DnDGen.Core.Selectors.Collections
 
             var weightedCollection = new List<string>(veryRare);
 
-            var rareWeight = GetWeightMultiplier(rare, weightedCollection, RarePercentage, VeryRarePercentage);
-            var rareWeighted = Duplicate(rare, rareWeight);
+            var rareMultiplier = GetRareMultiplier(rare, veryRare);
+            var rareWeighted = Duplicate(rare, rareMultiplier);
             weightedCollection.AddRange(rareWeighted);
 
-            if (!rare.Any() && !common.Any())
-            {
-                var uncommonWeight = GetWeightMultiplier(uncommon, weightedCollection, CommonPercentage + UncommonPercentage + RarePercentage, VeryRarePercentage);
-                var uncommonWeighted = Duplicate(uncommon, uncommonWeight);
-                weightedCollection.AddRange(uncommonWeighted);
-            }
-            else if (!rare.Any())
-            {
-                var uncommonWeight = GetWeightMultiplier(uncommon, weightedCollection, UncommonPercentage + .03, VeryRarePercentage);
-                var uncommonWeighted = Duplicate(uncommon, uncommonWeight);
-                weightedCollection.AddRange(uncommonWeighted);
-            }
-            else if (!common.Any())
-            {
-                var uncommonWeight = GetWeightMultiplier(uncommon, weightedCollection, CommonPercentage + UncommonPercentage, RarePercentage, VeryRarePercentage);
-                var uncommonWeighted = Duplicate(uncommon, uncommonWeight);
-                weightedCollection.AddRange(uncommonWeighted);
-            }
-            else
-            {
-                var uncommonWeight = GetWeightMultiplier(uncommon, weightedCollection, UncommonPercentage, RarePercentage, VeryRarePercentage);
-                var uncommonWeighted = Duplicate(uncommon, uncommonWeight);
-                weightedCollection.AddRange(uncommonWeighted);
-            }
+            var uncommonMultiplier = GetUncommonMultiplier(common, uncommon, rare, veryRare);
+            var uncommonWeighted = Duplicate(uncommon, uncommonMultiplier);
+            weightedCollection.AddRange(uncommonWeighted);
 
-            if (!rare.Any() && !uncommon.Any())
-            {
-                var commonWeight = GetWeightMultiplier(common, weightedCollection, CommonPercentage + UncommonPercentage + RarePercentage, VeryRarePercentage);
-                var commonWeighted = Duplicate(common, commonWeight);
-                weightedCollection.AddRange(commonWeighted);
-            }
-            else if (!veryRare.Any() && !rare.Any())
-            {
-                var commonWeight = GetWeightMultiplier(common, weightedCollection, CommonPercentage, UncommonPercentage);
-                var commonWeighted = Duplicate(common, commonWeight);
-                weightedCollection.AddRange(commonWeighted);
-            }
-            else if (!uncommon.Any())
-            {
-                var commonWeight = GetWeightMultiplier(common, weightedCollection, CommonPercentage + UncommonPercentage, RarePercentage, VeryRarePercentage);
-                var commonWeighted = Duplicate(common, commonWeight);
-                weightedCollection.AddRange(commonWeighted);
-            }
-            else if (!rare.Any())
-            {
-                var commonWeight = GetWeightMultiplier(common, weightedCollection, CommonPercentage + .06, UncommonPercentage + .03, VeryRarePercentage);
-                var commonWeighted = Duplicate(common, commonWeight);
-                weightedCollection.AddRange(commonWeighted);
-            }
-            else
-            {
-                var commonWeight = GetWeightMultiplier(common, weightedCollection, CommonPercentage, UncommonPercentage, RarePercentage, VeryRarePercentage);
-                var commonWeighted = Duplicate(common, commonWeight);
-                weightedCollection.AddRange(commonWeighted);
-            }
+            var commonMultiplier = GetCommonMultiplier(common, uncommon, rare, veryRare);
+            var commonWeighted = Duplicate(common, commonMultiplier);
+            weightedCollection.AddRange(commonWeighted);
 
             return weightedCollection;
         }
 
-        private int GetWeightMultiplier(IEnumerable<string> collectionToWeight, IEnumerable<string> weighted, double sourceWeight, params double[] others)
+        private int GetRareMultiplier(IEnumerable<string> rare, IEnumerable<string> veryRare)
         {
-            if (!collectionToWeight.Any())
-                return 0;
+            var againstVeryRare = 1d;
 
-            if (!weighted.Any())
-                return 1;
+            if (rare.Any())
+                againstVeryRare = 9 * veryRare.Count() / (double)rare.Count();
 
-            var targetWeight = GetPercentage(sourceWeight, others);
-            var newCount = collectionToWeight.Count();
-            var totalCount = weighted.Count();
-            var numerator = totalCount * targetWeight;
-            var divisor = newCount * (1 - targetWeight);
-            var rawMultiplier = numerator / divisor;
+            var multipliers = new[] { againstVeryRare, 1 };
+            var multiplier = multipliers.Max();
 
-            var multiplier = Math.Ceiling(Math.Round(rawMultiplier, 3));
+            return RoundMultiplier(multiplier);
+        }
 
-            return Convert.ToInt32(multiplier);
+        private int GetUncommonMultiplier(IEnumerable<string> common, IEnumerable<string> uncommon, IEnumerable<string> rare, IEnumerable<string> veryRare)
+        {
+            var veryRareAmount = veryRare.Count();
+
+            var rareMultiplier = GetRareMultiplier(rare, veryRare);
+            var rareAmount = rareMultiplier * rare.Count();
+
+            var uncommonCount = uncommon.Count();
+            var commonDivisor = common.Any() ? 3 : 1;
+
+            var againstRareAndVeryRare = 1d;
+            var againstRare = 1d;
+            var againstVeryRare = 1d;
+
+            if (uncommonCount > 0)
+            {
+                againstRareAndVeryRare = 3d * (rareAmount + veryRareAmount) / uncommonCount;
+                againstRare = (9d * (rareAmount + veryRareAmount)) / commonDivisor / uncommonCount;
+                againstVeryRare = (99d * veryRareAmount - rareAmount) / commonDivisor / uncommonCount;
+            }
+
+            var multipliers = new[] { againstVeryRare, againstRareAndVeryRare, againstRare, 1 };
+            var multiplier = multipliers.Max();
+
+            return RoundMultiplier(multiplier);
+        }
+
+        private int GetCommonMultiplier(IEnumerable<string> common, IEnumerable<string> uncommon, IEnumerable<string> rare, IEnumerable<string> veryRare)
+        {
+            var veryRareAmount = veryRare.Count();
+
+            var rareMultiplier = GetRareMultiplier(rare, veryRare);
+            var rareAmount = rareMultiplier * rare.Count();
+
+            var uncommonMultiplier = GetUncommonMultiplier(common, uncommon, rare, veryRare);
+            var uncommonAmount = uncommonMultiplier * uncommon.Count();
+
+            var commonCount = common.Count();
+
+            var againstUncommon = 1d;
+            var againstRare = 1d;
+            var againstVeryRare = 1d;
+
+            if (commonCount > 0)
+            {
+                againstUncommon = 2d * uncommonAmount / commonCount;
+                againstRare = (9d * (rareAmount + veryRareAmount) - uncommonAmount) / commonCount;
+                againstVeryRare = (99d * veryRareAmount - rareAmount - uncommonAmount) / commonCount;
+            }
+
+            var multipliers = new[] { againstUncommon, againstRare, againstVeryRare, 1 };
+            var multiplier = multipliers.Max();
+
+            return RoundMultiplier(multiplier);
+        }
+
+        private int RoundMultiplier(double raw)
+        {
+            var rounded = Math.Round(raw, 3);
+            var ceiling = Math.Ceiling(rounded);
+
+            return Convert.ToInt32(ceiling);
         }
 
         private IEnumerable<string> Duplicate(IEnumerable<string> source, int quantity)
         {
             return Enumerable.Repeat(source, quantity).SelectMany(a => a);
-        }
-
-        private double GetPercentage(double target, params double[] others)
-        {
-            return target / (others.Sum() + target);
         }
 
         public string SelectRandomFrom(IEnumerable<string> common = null, IEnumerable<string> uncommon = null, IEnumerable<string> rare = null, IEnumerable<string> veryRare = null)
