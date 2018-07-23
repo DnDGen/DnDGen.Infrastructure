@@ -106,14 +106,14 @@ namespace DnDGen.Core.Selectors.Collections
             return explodedCollection;
         }
 
-        public IEnumerable<string> CreateWeighted(IEnumerable<string> common = null, IEnumerable<string> uncommon = null, IEnumerable<string> rare = null, IEnumerable<string> veryRare = null)
+        public IEnumerable<T> CreateWeighted<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null)
         {
-            common = common ?? Enumerable.Empty<String>();
-            uncommon = uncommon ?? Enumerable.Empty<String>();
-            rare = rare ?? Enumerable.Empty<String>();
-            veryRare = veryRare ?? Enumerable.Empty<String>();
+            common = common ?? Enumerable.Empty<T>();
+            uncommon = uncommon ?? Enumerable.Empty<T>();
+            rare = rare ?? Enumerable.Empty<T>();
+            veryRare = veryRare ?? Enumerable.Empty<T>();
 
-            var weightedCollection = new List<string>(veryRare);
+            var weightedCollection = new List<T>(veryRare);
 
             var rareMultiplier = GetRareMultiplier(rare, veryRare);
             var rareWeighted = Duplicate(rare, rareMultiplier);
@@ -130,7 +130,7 @@ namespace DnDGen.Core.Selectors.Collections
             return weightedCollection;
         }
 
-        private int GetRareMultiplier(IEnumerable<string> rare, IEnumerable<string> veryRare)
+        private int GetRareMultiplier<T>(IEnumerable<T> rare, IEnumerable<T> veryRare)
         {
             var againstVeryRare = 1d;
 
@@ -143,7 +143,7 @@ namespace DnDGen.Core.Selectors.Collections
             return RoundMultiplier(multiplier);
         }
 
-        private int GetUncommonMultiplier(IEnumerable<string> common, IEnumerable<string> uncommon, IEnumerable<string> rare, IEnumerable<string> veryRare)
+        private int GetUncommonMultiplier<T>(IEnumerable<T> common, IEnumerable<T> uncommon, IEnumerable<T> rare, IEnumerable<T> veryRare)
         {
             var veryRareAmount = veryRare.Count();
 
@@ -170,7 +170,7 @@ namespace DnDGen.Core.Selectors.Collections
             return RoundMultiplier(multiplier);
         }
 
-        private int GetCommonMultiplier(IEnumerable<string> common, IEnumerable<string> uncommon, IEnumerable<string> rare, IEnumerable<string> veryRare)
+        private int GetCommonMultiplier<T>(IEnumerable<T> common, IEnumerable<T> uncommon, IEnumerable<T> rare, IEnumerable<T> veryRare)
         {
             var veryRareAmount = veryRare.Count();
 
@@ -207,12 +207,12 @@ namespace DnDGen.Core.Selectors.Collections
             return Convert.ToInt32(ceiling);
         }
 
-        private IEnumerable<string> Duplicate(IEnumerable<string> source, int quantity)
+        private IEnumerable<T> Duplicate<T>(IEnumerable<T> source, int quantity)
         {
             return Enumerable.Repeat(source, quantity).SelectMany(a => a);
         }
 
-        public string SelectRandomFrom(IEnumerable<string> common = null, IEnumerable<string> uncommon = null, IEnumerable<string> rare = null, IEnumerable<string> veryRare = null)
+        public T SelectRandomFrom<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null)
         {
             var weighted = CreateWeighted(common, uncommon, rare, veryRare);
             var selected = SelectRandomFrom(weighted);

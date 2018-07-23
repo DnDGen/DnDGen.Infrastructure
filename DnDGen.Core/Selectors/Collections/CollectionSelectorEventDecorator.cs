@@ -88,14 +88,14 @@ namespace DnDGen.Core.Selectors.Collections
             return explodedCollection;
         }
 
-        public IEnumerable<string> CreateWeighted(IEnumerable<string> common = null, IEnumerable<string> uncommon = null, IEnumerable<string> rare = null, IEnumerable<string> veryRare = null)
+        public IEnumerable<T> CreateWeighted<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null)
         {
             var weightedCollection = innerSelector.CreateWeighted(common, uncommon, rare, veryRare);
 
             return weightedCollection;
         }
 
-        public string SelectRandomFrom(IEnumerable<string> common = null, IEnumerable<string> uncommon = null, IEnumerable<string> rare = null, IEnumerable<string> veryRare = null)
+        public T SelectRandomFrom<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null)
         {
             var selected = innerSelector.SelectRandomFrom(common, uncommon, rare, veryRare);
 

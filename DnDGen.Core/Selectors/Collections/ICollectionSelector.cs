@@ -13,7 +13,7 @@ namespace DnDGen.Core.Selectors.Collections
         IEnumerable<string> Explode(string tableName, string collectionName);
         IEnumerable<string> ExplodeAndPreserveDuplicates(string tableName, string collectionName);
         IEnumerable<string> Flatten(Dictionary<string, IEnumerable<string>> collections, IEnumerable<string> keys);
-        IEnumerable<string> CreateWeighted(IEnumerable<string> common = null, IEnumerable<string> uncommon = null, IEnumerable<string> rare = null, IEnumerable<string> veryRare = null);
-        string SelectRandomFrom(IEnumerable<string> common = null, IEnumerable<string> uncommon = null, IEnumerable<string> rare = null, IEnumerable<string> veryRare = null);
+        IEnumerable<T> CreateWeighted<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null);
+        T SelectRandomFrom<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null);
     }
 }

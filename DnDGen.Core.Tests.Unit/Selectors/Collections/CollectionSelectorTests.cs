@@ -438,7 +438,15 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
         [Test]
         public void CreateEmptyWeightedCollectionWithDefault()
         {
-            var weightedCollection = selector.CreateWeighted();
+            var weightedCollection = selector.CreateWeighted<string>();
+            Assert.That(weightedCollection, Is.Not.Null);
+            Assert.That(weightedCollection, Is.Empty);
+        }
+
+        [Test]
+        public void CreateEmptyNonStringWeightedCollectionWithDefault()
+        {
+            var weightedCollection = selector.CreateWeighted<int>();
             Assert.That(weightedCollection, Is.Not.Null);
             Assert.That(weightedCollection, Is.Empty);
         }
@@ -475,6 +483,28 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
             Assert.That(weightedCollection.Count(i => i == "rare"), Is.EqualTo(9));
             Assert.That(weightedCollection.Count(i => i == "uncommon"), Is.EqualTo(30));
             Assert.That(weightedCollection.Count(i => i == "common"), Is.EqualTo(60));
+            Assert.That(weightedCollection.Count(), Is.EqualTo(100));
+        }
+
+        [Test]
+        public void CreateNonStringWeightedCollection()
+        {
+            var common = new[] { 9266 };
+            var uncommon = new[] { 90210 };
+            var rare = new[] { 42 };
+            var veryRare = new[] { 600 };
+
+            var weightedCollection = selector.CreateWeighted(common, uncommon, rare, veryRare);
+            Assert.That(weightedCollection, Is.Not.Null);
+            Assert.That(weightedCollection, Is.Not.Empty);
+            Assert.That(weightedCollection, Contains.Item(9266));
+            Assert.That(weightedCollection, Contains.Item(90210));
+            Assert.That(weightedCollection, Contains.Item(42));
+            Assert.That(weightedCollection, Contains.Item(600));
+            Assert.That(weightedCollection.Count(i => i == veryRare.Single()), Is.EqualTo(1));
+            Assert.That(weightedCollection.Count(i => i == rare.Single()), Is.EqualTo(9));
+            Assert.That(weightedCollection.Count(i => i == uncommon.Single()), Is.EqualTo(30));
+            Assert.That(weightedCollection.Count(i => i == common.Single()), Is.EqualTo(60));
             Assert.That(weightedCollection.Count(), Is.EqualTo(100));
         }
 
@@ -1068,7 +1098,7 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
         [Test]
         public void SelectRandomFromEmptyWeightedCollectionWithDefault()
         {
-            Assert.That(() => selector.SelectRandomFrom(), Throws.Exception);
+            Assert.That(() => selector.SelectRandomFrom<string>(), Throws.Exception);
         }
 
         [Test]
@@ -1133,8 +1163,6 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
                 {
                     Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
                 }
-
-                Assert.That(random, Is.Not.EqualTo("common"), $"Index {i}");
             }
         }
 
@@ -1161,8 +1189,6 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
                 {
                     Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
                 }
-
-                Assert.That(random, Is.Not.EqualTo("uncommon"), $"Index {i}");
             }
         }
 
@@ -1189,15 +1215,13 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
                 {
                     Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
                 }
-
-                Assert.That(random, Is.Not.EqualTo("rare"), $"Index {i}");
             }
         }
 
         [TestCase("rare", 1, 1)]
         [TestCase("uncommon", 2, 4)]
         [TestCase("common", 5, 10)]
-        public void CreateWeightedCollectionWithNullVeryRare(string result, int lower, int upper)
+        public void SelectRandomFromWeightedCollectionWithNullVeryRare(string result, int lower, int upper)
         {
             var common = new[] { "common" };
             var uncommon = new[] { "uncommon" };
@@ -1217,8 +1241,155 @@ namespace DnDGen.Core.Tests.Unit.Selectors.Collections
                 {
                     Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
                 }
+            }
+        }
 
-                Assert.That(random, Is.Not.EqualTo("very rare"), $"Index {i}");
+        [Test]
+        public void SelectRandomNonStringFromEmptyWeightedCollectionWithDefault()
+        {
+            Assert.That(() => selector.SelectRandomFrom<int>(), Throws.Exception);
+        }
+
+        [Test]
+        public void SelectRandomNonStringFromEmptyWeightedCollection()
+        {
+            var common = new List<int>();
+            var uncommon = new List<int>();
+            var rare = new List<int>();
+            var veryRare = new List<int>();
+
+            Assert.That(() => selector.SelectRandomFrom(common, uncommon, rare, veryRare), Throws.Exception);
+        }
+
+        [TestCase(9266, 1, 1)]
+        [TestCase(90210, 2, 10)]
+        [TestCase(42, 11, 40)]
+        [TestCase(600, 41, 100)]
+        public void SelectRandomNonStringFromWeightedCollection(int result, int lower, int upper)
+        {
+            var common = new[] { 600 };
+            var uncommon = new[] { 42 };
+            var rare = new[] { 90210 };
+            var veryRare = new[] { 9266 };
+
+            for (var i = 1; i <= 100; i++)
+            {
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+
+                var random = selector.SelectRandomFrom(common, uncommon, rare, veryRare);
+
+                if (lower <= i && i <= upper)
+                {
+                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                }
+                else
+                {
+                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                }
+            }
+        }
+
+        [TestCase(9266, 1, 1)]
+        [TestCase(90210, 2, 10)]
+        [TestCase(42, 11, 100)]
+        public void SelectRandomNonStringFromWeightedCollectionWithNullCommon(int result, int lower, int upper)
+        {
+            var uncommon = new[] { 42 };
+            var rare = new[] { 90210 };
+            var veryRare = new[] { 9266 };
+
+            for (var i = 1; i <= 100; i++)
+            {
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+
+                var random = selector.SelectRandomFrom(uncommon: uncommon, rare: rare, veryRare: veryRare);
+
+                if (lower <= i && i <= upper)
+                {
+                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                }
+                else
+                {
+                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                }
+            }
+        }
+
+        [TestCase(9266, 1, 1)]
+        [TestCase(90210, 2, 10)]
+        [TestCase(42, 11, 100)]
+        public void SelectRandomNonStringFromWeightedCollectionWithNullUncommon(int result, int lower, int upper)
+        {
+            var common = new[] { 42 };
+            var rare = new[] { 90210 };
+            var veryRare = new[] { 9266 };
+
+            for (var i = 1; i <= 100; i++)
+            {
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+
+                var random = selector.SelectRandomFrom(common, rare: rare, veryRare: veryRare);
+
+                if (lower <= i && i <= upper)
+                {
+                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                }
+                else
+                {
+                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                }
+            }
+        }
+
+        [TestCase(9266, 1, 1)]
+        [TestCase(90210, 2, 34)]
+        [TestCase(42, 35, 100)]
+        public void SelectRandomNonStringFromWeightedCollectionWithNullRare(int result, int lower, int upper)
+        {
+            var common = new[] { 42 };
+            var uncommon = new[] { 90210 };
+            var veryRare = new[] { 9266 };
+
+            for (var i = 1; i <= 100; i++)
+            {
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+
+                var random = selector.SelectRandomFrom(common, uncommon, veryRare: veryRare);
+
+                if (lower <= i && i <= upper)
+                {
+                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                }
+                else
+                {
+                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                }
+            }
+        }
+
+        [TestCase(9266, 1, 1)]
+        [TestCase(90210, 2, 4)]
+        [TestCase(42, 5, 10)]
+        public void SelectRandomNonStringFromWeightedCollectionWithNullVeryRare(int result, int lower, int upper)
+        {
+            var common = new[] { 42 };
+            var uncommon = new[] { 90210 };
+            var rare = new[] { 9266 };
+
+            for (var i = 1; i <= 10; i++)
+            {
+                mockDice.Setup(d => d.Roll(1).d(10).AsSum()).Returns(i);
+
+                var random = selector.SelectRandomFrom(common, uncommon, rare);
+
+                if (lower <= i && i <= upper)
+                {
+                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                }
+                else
+                {
+                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                }
             }
         }
     }
