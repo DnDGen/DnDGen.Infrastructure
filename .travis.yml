@@ -1,16 +1,12 @@
 language: csharp
-mono: latest
-solution: DnDGen.Core.sln
-install:
-  - curl -O https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-  - mono ./nuget.exe restore DnDGen.Core.sln
-  - mono ./nuget.exe install NUnit.Runners -OutputDirectory testrunner
+solution: DnDGen.Infrastructure.sln
+mono: none
+dotnet: 3.1
+
 script:
-  - msbuild DnDGen.Core.sln /p:TargetFrameworkVersion="v4.5" /p:Configuration=Release
-  - set -e
-  - mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./DnDGen.Core.Tests.Unit/bin/Release/DnDGen.Core.Tests.Unit.dll
-  - set -e
-  - mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./Tests.Integration.DnDGen.Core/bin/Release/Tests.Integration.DnDGen.Core.dll
+  - dotnet build DnDGen.Infrastructure.sln -c Release
+    && dotnet test ./DnDGen.Infrastructure.Tests.Unit/DnDGen.Infrastructure.Tests.Unit.csproj -v normal
+    && dotnet test ./DnDGen.Infrastructure.Tests.Integration/DnDGen.Infrastructure.Tests.Integration.csproj -v normal
 deploy:
   skip_cleanup: true
   provider: script

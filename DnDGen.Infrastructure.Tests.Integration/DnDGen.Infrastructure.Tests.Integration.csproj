@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Tables\Collections\CollectionTable.xml" />
+    <None Remove="Tables\Collections\CreatureGroups.xml" />
+    <None Remove="Tables\Collections\EncounterGroups.xml" />
+    <None Remove="Tables\Collections\OtherCollectionTable.xml" />
+    <None Remove="Tables\Percentiles\BooleanPercentileTable.xml" />
+    <None Remove="Tables\Percentiles\IntPercentileTable.xml" />
+    <None Remove="Tables\Percentiles\StringPercentileTable.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\Collections\CollectionTable.xml" />
+    <EmbeddedResource Include="Tables\Collections\CreatureGroups.xml" />
+    <EmbeddedResource Include="Tables\Collections\EncounterGroups.xml" />
+    <EmbeddedResource Include="Tables\Collections\OtherCollectionTable.xml" />
+    <EmbeddedResource Include="Tables\Percentiles\BooleanPercentileTable.xml" />
+    <EmbeddedResource Include="Tables\Percentiles\IntPercentileTable.xml" />
+    <EmbeddedResource Include="Tables\Percentiles\StringPercentileTable.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DnDGen.EventGen" Version="3.0.0" />
+    <PackageReference Include="DnDGen.RollGen" Version="15.0.0" />
+    <PackageReference Include="Ninject" Version="3.3.4" />
+    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DnDGen.Infrastructure.Another\DnDGen.Infrastructure.Another.csproj" />
+    <ProjectReference Include="..\DnDGen.Infrastructure\DnDGen.Infrastructure.csproj" />
+    <ProjectReference Include="..\DnDGen.Infrastructure.Other\DnDGen.Infrastructure.Other.csproj" />
+  </ItemGroup>
+
+</Project>
