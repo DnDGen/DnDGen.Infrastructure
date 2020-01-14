@@ -36,9 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Also.Not.DnDGen.Infrastructure\DnDGen.Infrastructure.Another.csproj" />
+    <ProjectReference Include="..\DnDGen.Infrastructure.Another\DnDGen.Infrastructure.Another.csproj" />
     <ProjectReference Include="..\DnDGen.Infrastructure\DnDGen.Infrastructure.csproj" />
-    <ProjectReference Include="..\Not.DnDGen.Infrastructure\DnDGen.Infrastructure.Other.csproj" />
+    <ProjectReference Include="..\DnDGen.Infrastructure.Other\DnDGen.Infrastructure.Other.csproj" />
   </ItemGroup>
 
 </Project>
