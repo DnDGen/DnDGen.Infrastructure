@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Tables\TestTable.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\TestTable.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DnDGen.EventGen" Version="3.0.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
+    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DnDGen.Infrastructure.Another\DnDGen.Infrastructure.Another.csproj" />
+    <ProjectReference Include="..\DnDGen.Infrastructure.Other\DnDGen.Infrastructure.Other.csproj" />
+    <ProjectReference Include="..\DnDGen.Infrastructure\DnDGen.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
