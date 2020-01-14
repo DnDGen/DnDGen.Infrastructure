@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Tables\DuplicateCollectionTable.xml" />
+    <None Remove="Tables\RealCallerCollectionTable.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\DuplicateCollectionTable.xml" />
+    <EmbeddedResource Include="Tables\RealCallerCollectionTable.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DnDGen.Infrastructure.Other\DnDGen.Infrastructure.Other.csproj" />
+    <ProjectReference Include="..\DnDGen.Infrastructure\DnDGen.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
