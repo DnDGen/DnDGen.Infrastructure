@@ -1,5 +1,4 @@
-﻿using DnDGen.EventGen.IoC;
-using DnDGen.Infrastructure.IoC;
+﻿using DnDGen.Infrastructure.IoC;
 using DnDGen.RollGen.IoC;
 using Ninject;
 using NUnit.Framework;
@@ -18,9 +17,6 @@ namespace DnDGen.Infrastructure.Tests.Integration
 
             var rollGenLoader = new RollGenModuleLoader();
             rollGenLoader.LoadModules(kernel);
-
-            var eventGenLoader = new EventGenModuleLoader();
-            eventGenLoader.LoadModules(kernel);
 
             var infrastructureModuleLoader = new InfrastructureModuleLoader();
             infrastructureModuleLoader.LoadModules(kernel);

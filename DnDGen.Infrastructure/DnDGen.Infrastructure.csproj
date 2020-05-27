@@ -19,8 +19,7 @@
 
   <!--Needed for Framework compatibility when building in Travis-->
   <ItemGroup>
-    <PackageReference Include="DnDGen.EventGen" Version="3.0.0" />
-    <PackageReference Include="DnDGen.RollGen" Version="15.0.0" />
+    <PackageReference Include="DnDGen.RollGen" Version="15.1.0" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>

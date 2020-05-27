@@ -1,5 +1,4 @@
-﻿using DnDGen.EventGen;
-using DnDGen.Infrastructure.Helpers;
+﻿using DnDGen.Infrastructure.Helpers;
 using DnDGen.Infrastructure.Mappers.Collections;
 using DnDGen.RollGen;
 using System;
@@ -12,14 +11,11 @@ namespace DnDGen.Infrastructure.Selectors.Collections
     {
         private readonly CollectionMapper mapper;
         private readonly Dice dice;
-        //INFO: We are injecting the event queue directly in order to log recursive events in Explode
-        private readonly GenEventQueue eventQueue;
 
-        public CollectionSelector(CollectionMapper mapper, Dice dice, GenEventQueue eventQueue)
+        public CollectionSelector(CollectionMapper mapper, Dice dice)
         {
             this.mapper = mapper;
             this.dice = dice;
-            this.eventQueue = eventQueue;
         }
 
         public IEnumerable<string> SelectFrom(string tableName, string collectionName)
@@ -89,8 +85,6 @@ namespace DnDGen.Infrastructure.Selectors.Collections
 
         public IEnumerable<string> ExplodeAndPreserveDuplicates(string tableName, string collectionName)
         {
-            eventQueue.Enqueue("Infrastructure", $"Recursively retrieving {collectionName} from {tableName}");
-
             var explodedCollection = SelectFrom(tableName, collectionName).ToList();
             var subCollectionNames = explodedCollection
                 .Where(i => IsCollection(tableName, i) && i != collectionName)

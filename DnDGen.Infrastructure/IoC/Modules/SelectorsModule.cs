@@ -9,9 +9,7 @@ namespace DnDGen.Infrastructure.IoC.Modules
         public override void Load()
         {
             Bind<IPercentileSelector>().To<PercentileSelector>();
-
-            Bind<ICollectionSelector>().To<CollectionSelector>().WhenInjectedInto<CollectionSelectorEventDecorator>();
-            Bind<ICollectionSelector>().To<CollectionSelectorEventDecorator>();
+            Bind<ICollectionSelector>().To<CollectionSelector>();
         }
     }
 }

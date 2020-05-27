@@ -31,7 +31,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
             mockPercentileMapper.Setup(p => p.Map(tableName)).Returns(table);
 
             mockDice = new Mock<Dice>();
-            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(1);
+            mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(1);
             percentileSelector = new PercentileSelector(mockPercentileMapper.Object, mockDice.Object);
         }
 
@@ -47,7 +47,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         [TestCase(10, "10")]
         public void GetPercentile(int roll, string content)
         {
-            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(roll);
+            mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(roll);
             var result = percentileSelector.SelectFrom(tableName);
             Assert.That(result, Is.EqualTo(content));
         }
@@ -68,14 +68,14 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         [Test]
         public void IfRollNotPresentInTable_ThrowException()
         {
-            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(11);
+            mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(11);
             Assert.That(() => percentileSelector.SelectFrom(tableName), Throws.Exception.With.Message.EqualTo("11 is not a valid entry in the table table name"));
         }
 
         [Test]
         public void CanConvertPercentileResult()
         {
-            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(6);
+            mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(6);
             var result = percentileSelector.SelectFrom<int>(tableName);
             Assert.That(result, Is.EqualTo(6));
         }
@@ -99,7 +99,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
             for (var i = 6; i <= 10; i++)
                 table.Add(i, true.ToString());
 
-            mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(roll);
+            mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(roll);
 
             var result = percentileSelector.SelectFrom<bool>(tableName);
             Assert.That(result, Is.EqualTo(isTrue));
