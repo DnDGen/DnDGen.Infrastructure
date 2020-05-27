@@ -1,5 +1,4 @@
-﻿using DnDGen.EventGen;
-using DnDGen.Infrastructure.Mappers.Collections;
+﻿using DnDGen.Infrastructure.Mappers.Collections;
 using DnDGen.Infrastructure.Selectors.Collections;
 using DnDGen.RollGen;
 using Moq;
@@ -19,7 +18,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         private ICollectionSelector selector;
         private Mock<CollectionMapper> mockMapper;
         private Mock<Dice> mockDice;
-        private Mock<GenEventQueue> mockEventQueue;
         private Dictionary<string, IEnumerable<string>> allCollections;
 
         [SetUp]
@@ -27,8 +25,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         {
             mockMapper = new Mock<CollectionMapper>();
             mockDice = new Mock<Dice>();
-            mockEventQueue = new Mock<GenEventQueue>();
-            selector = new CollectionSelector(mockMapper.Object, mockDice.Object, mockEventQueue.Object);
+            selector = new CollectionSelector(mockMapper.Object, mockDice.Object);
             allCollections = new Dictionary<string, IEnumerable<string>>();
 
             mockMapper.Setup(m => m.Map(TableName)).Returns(allCollections);
@@ -59,7 +56,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         public void SelectRandomItemFromCollection()
         {
             var collection = new[] { "item 1", "item 2", "item 3" };
-            mockDice.Setup(d => d.Roll(1).d(3).AsSum()).Returns(2);
+            mockDice.Setup(d => d.Roll(1).d(3).AsSum<int>()).Returns(2);
 
             var item = selector.SelectRandomFrom(collection);
             Assert.That(item, Is.EqualTo("item 2"));
@@ -69,7 +66,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         public void SelectRandomItemFromTable()
         {
             allCollections["entry"] = new[] { "item 1", "item 2", "item 3" };
-            mockDice.Setup(d => d.Roll(1).d(3).AsSum()).Returns(2);
+            mockDice.Setup(d => d.Roll(1).d(3).AsSum<int>()).Returns(2);
 
             var item = selector.SelectRandomFrom(TableName, "entry");
             Assert.That(item, Is.EqualTo("item 2"));
@@ -100,7 +97,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         {
             var collection = new[] { 9266, 90210, 42, 600, 1337 };
 
-            mockDice.Setup(d => d.Roll(1).d(5).AsSum()).Returns(2);
+            mockDice.Setup(d => d.Roll(1).d(5).AsSum<int>()).Returns(2);
 
             var entry = selector.SelectRandomFrom(collection);
             Assert.That(entry, Is.EqualTo(90210));
@@ -189,8 +186,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             var explodedCollection = selector.Explode(TableName, "entry");
             Assert.That(explodedCollection, Is.EquivalentTo(allCollections["entry"]));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving entry from table name"), Times.Once);
         }
 
         [Test]
@@ -206,9 +201,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 2"));
             Assert.That(explodedCollection, Contains.Item("third"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving entry from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving second from table name"), Times.Once);
         }
 
         [Test]
@@ -227,10 +219,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 3"));
             Assert.That(explodedCollection, Does.Not.Contain("third"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(3));
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving entry from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving second from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving third from table name"), Times.Once);
         }
 
         [Test]
@@ -249,10 +237,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 3"));
             Assert.That(explodedCollection, Does.Not.Contain("third"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(4));
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving entry from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving second from table name"), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving third from table name"), Times.Once);
         }
 
         [Test]
@@ -268,9 +252,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 2"));
             Assert.That(explodedCollection, Contains.Item("entry"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving entry from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving second from table name"), Times.Once);
         }
 
         [Test]
@@ -280,8 +261,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
             Assert.That(explodedCollection, Is.EquivalentTo(allCollections["entry"]));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving entry from table name"), Times.Once);
         }
 
         [Test]
@@ -297,9 +276,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 2"));
             Assert.That(explodedCollection, Contains.Item("third"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving entry from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving second from table name"), Times.Once);
         }
 
         [Test]
@@ -319,10 +295,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 3"));
             Assert.That(explodedCollection, Does.Not.Contain("third"));
             Assert.That(explodedCollection.Count, Is.EqualTo(5));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(3));
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving entry from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving second from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving third from table name"), Times.Once);
         }
 
         [Test]
@@ -344,10 +316,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(explodedCollection.Count(e => e == "sub 3"), Is.EqualTo(2));
             Assert.That(explodedCollection, Does.Not.Contain("third"));
             Assert.That(explodedCollection.Count, Is.EqualTo(8));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(4));
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving entry from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving second from table name"), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving third from table name"), Times.Once);
         }
 
         [Test]
@@ -363,9 +331,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 2"));
             Assert.That(explodedCollection, Contains.Item("entry"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
-            mockEventQueue.Verify(q => q.Enqueue(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving entry from table name"), Times.Once);
-            mockEventQueue.Verify(q => q.Enqueue("Infrastructure", "Recursively retrieving second from table name"), Times.Once);
         }
 
         [Test]
@@ -1125,17 +1090,17 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             for (var i = 1; i <= 100; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(common, uncommon, rare, veryRare);
 
                 if (lower <= i && i <= upper)
                 {
-                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.EqualTo(result), $"Roll {i}");
                 }
                 else
                 {
-                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.Not.EqualTo(result), $"Roll {i}");
                 }
             }
         }
@@ -1151,17 +1116,17 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             for (var i = 1; i <= 100; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(uncommon: uncommon, rare: rare, veryRare: veryRare);
 
                 if (lower <= i && i <= upper)
                 {
-                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.EqualTo(result), $"Roll {i}");
                 }
                 else
                 {
-                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.Not.EqualTo(result), $"Roll {i}");
                 }
             }
         }
@@ -1177,17 +1142,17 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             for (var i = 1; i <= 100; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(common, rare: rare, veryRare: veryRare);
 
                 if (lower <= i && i <= upper)
                 {
-                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.EqualTo(result), $"Roll {i}");
                 }
                 else
                 {
-                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.Not.EqualTo(result), $"Roll {i}");
                 }
             }
         }
@@ -1203,17 +1168,17 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             for (var i = 1; i <= 100; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(common, uncommon, veryRare: veryRare);
 
                 if (lower <= i && i <= upper)
                 {
-                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.EqualTo(result), $"Roll {i}");
                 }
                 else
                 {
-                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.Not.EqualTo(result), $"Roll {i}");
                 }
             }
         }
@@ -1229,17 +1194,17 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             for (var i = 1; i <= 10; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(10).AsSum()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(10).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(common, uncommon, rare);
 
                 if (lower <= i && i <= upper)
                 {
-                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.EqualTo(result), $"Roll {i}");
                 }
                 else
                 {
-                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.Not.EqualTo(result), $"Roll {i}");
                 }
             }
         }
@@ -1274,17 +1239,17 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             for (var i = 1; i <= 100; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(common, uncommon, rare, veryRare);
 
                 if (lower <= i && i <= upper)
                 {
-                    Assert.That(random, Is.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.EqualTo(result), $"Roll {i}");
                 }
                 else
                 {
-                    Assert.That(random, Is.Not.EqualTo(result), $"Index {i}");
+                    Assert.That(random, Is.Not.EqualTo(result), $"Roll {i}");
                 }
             }
         }
@@ -1300,7 +1265,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             for (var i = 1; i <= 100; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(uncommon: uncommon, rare: rare, veryRare: veryRare);
 
@@ -1326,7 +1291,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             for (var i = 1; i <= 100; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(common, rare: rare, veryRare: veryRare);
 
@@ -1352,7 +1317,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             for (var i = 1; i <= 100; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(100).AsSum()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(common, uncommon, veryRare: veryRare);
 
@@ -1378,7 +1343,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
 
             for (var i = 1; i <= 10; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(10).AsSum()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(10).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(common, uncommon, rare);
 

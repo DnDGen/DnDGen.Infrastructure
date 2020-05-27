@@ -1,10 +1,8 @@
-﻿using DnDGen.EventGen;
-using DnDGen.Infrastructure.Generators;
+﻿using DnDGen.Infrastructure.Generators;
 using Ninject;
 using NUnit.Framework;
 using System;
 using System.Diagnostics;
-using System.Linq;
 
 namespace DnDGen.Infrastructure.Tests.Integration.Generators
 {
@@ -16,19 +14,12 @@ namespace DnDGen.Infrastructure.Tests.Integration.Generators
         [Inject]
         public Stopwatch Stopwatch { get; set; }
         [Inject]
-        public GenEventQueue EventQueue { get; set; }
-        [Inject]
-        public ClientIDManager ClientIdManager { get; set; }
-        [Inject]
         public Random Random { get; set; }
 
         [SetUp]
         public void Setup()
         {
             Stopwatch.Reset();
-
-            var clientID = Guid.NewGuid();
-            ClientIdManager.SetClientID(clientID);
         }
 
         [TestCase(1)]
@@ -51,10 +42,6 @@ namespace DnDGen.Infrastructure.Tests.Integration.Generators
 
             Assert.That(result, Is.EqualTo(iterations));
             Assert.That(count, Is.EqualTo(iterations + 1));
-
-            var events = EventQueue.DequeueAllForCurrentThread();
-            var expectedCount = GetExpectedEventCount(iterations, 0, false);
-            Assert.That(events.Count, Is.EqualTo(expectedCount));
 
             Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(2));
         }
@@ -92,10 +79,6 @@ namespace DnDGen.Infrastructure.Tests.Integration.Generators
             Assert.That(result, Is.EqualTo(iterations));
             Assert.That(count, Is.EqualTo(iterations + 1));
 
-            var events = EventQueue.DequeueAllForCurrentThread();
-            var expectedCount = GetExpectedEventCount(iterations, subIterations, false);
-            Assert.That(events.Count, Is.EqualTo(expectedCount));
-
             Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(7));
         }
 
@@ -131,10 +114,6 @@ namespace DnDGen.Infrastructure.Tests.Integration.Generators
             Assert.That(result, Is.EqualTo(90210));
             Assert.That(count, Is.EqualTo(Generator.MaxAttempts + 1));
 
-            var events = EventQueue.DequeueAllForCurrentThread();
-            var expectedCount = GetExpectedEventCount(Generator.MaxAttempts, 0, true);
-            Assert.That(events.Count, Is.EqualTo(expectedCount));
-
             Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(2));
         }
 
@@ -156,24 +135,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Generators
             Assert.That(result, Is.EqualTo(42));
             Assert.That(count, Is.EqualTo(Generator.MaxAttempts + 1));
 
-            var events = EventQueue.DequeueAllForCurrentThread();
-            var expectedCount = GetExpectedEventCount(Generator.MaxAttempts, Generator.MaxAttempts, true);
-            Assert.That(events.Count, Is.EqualTo(expectedCount));
-
             Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(7));
-        }
-
-        private int GetExpectedEventCount(int outerIterations, int innerIterations, bool isDefault)
-        {
-            if (outerIterations == 0)
-                return 0;
-
-            var beginningEvents = 1;
-            var endEvents = 1;
-            var failureEvents = outerIterations - 1 + Convert.ToInt32(isDefault);
-            var totalEvents = beginningEvents + failureEvents + endEvents;
-
-            return totalEvents + outerIterations * GetExpectedEventCount(innerIterations, 0, isDefault);
         }
 
         [TestCase(1)]
@@ -195,9 +157,6 @@ namespace DnDGen.Infrastructure.Tests.Integration.Generators
             Stopwatch.Stop();
 
             Assert.That(result, Is.LessThan(chance));
-
-            var events = EventQueue.DequeueAllForCurrentThread();
-            Assert.That(events.Count, Is.LessThan(Generator.MaxAttempts));
 
             Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(1));
         }
@@ -227,9 +186,6 @@ namespace DnDGen.Infrastructure.Tests.Integration.Generators
             Stopwatch.Stop();
 
             Assert.That(result, Is.LessThan(chance));
-
-            var events = EventQueue.DequeueAllForCurrentThread();
-            Assert.That(events.Count, Is.LessThan(Generator.MaxAttempts * Generator.MaxAttempts));
 
             Assert.That(Stopwatch.Elapsed.TotalSeconds, Is.LessThan(1));
         }

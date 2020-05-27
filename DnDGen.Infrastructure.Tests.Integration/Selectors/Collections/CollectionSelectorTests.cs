@@ -1,5 +1,4 @@
-﻿using DnDGen.EventGen;
-using DnDGen.Infrastructure.Selectors.Collections;
+﻿using DnDGen.Infrastructure.Selectors.Collections;
 using Ninject;
 using NUnit.Framework;
 using System;
@@ -13,17 +12,6 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
     {
         [Inject]
         public ICollectionSelector CollectionsSelector { get; set; }
-        [Inject]
-        public ClientIDManager ClientIdManager { get; set; }
-        [Inject]
-        public GenEventQueue EventQueue { get; set; }
-
-        [SetUp]
-        public void Setup()
-        {
-            var clientId = Guid.NewGuid();
-            ClientIdManager.SetClientID(clientId);
-        }
 
         [TestCase("")]
         [TestCase("name", "entry 1", "entry 2")]
@@ -128,40 +116,6 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             Assert.That(explodedCollection, Is.Not.Empty);
             Assert.That(explodedCollection.Count, Is.EqualTo(1484));
             Assert.That(explodedCollection, Is.Unique);
-            AssertEventSpacing();
-        }
-
-        private void AssertEventSpacing()
-        {
-            var dequeuedEvents = EventQueue.DequeueAllForCurrentThread();
-
-            if (!dequeuedEvents.Any())
-                Assert.Fail("No events were logged");
-
-            Assert.That(dequeuedEvents, Is.Ordered.By("When"));
-
-            var times = dequeuedEvents.Select(e => e.When);
-            var checkpointEvent = dequeuedEvents.First();
-            var checkpoint = checkpointEvent.When;
-            var finalEvent = dequeuedEvents.Last();
-            var finalCheckPoint = finalEvent.When;
-
-            while (finalCheckPoint > checkpoint)
-            {
-                var oneSecondAfterCheckpoint = checkpoint.AddSeconds(1);
-
-                var failedEvent = dequeuedEvents.First(e => e.When > checkpoint);
-                var failureMessage = $"{GetMessage(checkpointEvent)}\n{GetMessage(failedEvent)}";
-                Assert.That(times, Has.Some.InRange(checkpoint.AddTicks(1), oneSecondAfterCheckpoint), failureMessage);
-
-                checkpointEvent = dequeuedEvents.Last(e => e.When <= oneSecondAfterCheckpoint);
-                checkpoint = checkpointEvent.When;
-            }
-        }
-
-        private string GetMessage(GenEvent genEvent)
-        {
-            return $"[{genEvent.When.ToLongTimeString()}] {genEvent.Source}: {genEvent.Message}";
         }
 
         [Test]
@@ -171,15 +125,12 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             Assert.That(allCollections, Is.Not.Empty);
             Assert.That(allCollections.Count, Is.EqualTo(1484));
             Assert.That(allCollections, Is.Unique);
-            AssertEventSpacing();
         }
 
         [Test]
         public void HeavySeparatedExplodeAndFlattenIsEfficient()
         {
             var flattenedCollection = ExplodeAndFlatten("CreatureGroups", "Night", "EncounterGroups");
-
-            AssertEventSpacing();
 
             Assert.That(flattenedCollection, Is.Not.Empty);
             Assert.That(flattenedCollection, Is.Unique);
@@ -211,7 +162,6 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             var undergroundEncounters = ExplodeAndFlatten("CreatureGroups", "Underground", "EncounterGroups");
             var undergroundAquaticEncounters = ExplodeAndFlatten("CreatureGroups", "UndergroundAquatic", "EncounterGroups");
 
-            AssertEventSpacing();
             Assert.That(magicEncounters.Count, Is.EqualTo(572), "magic");
             Assert.That(nightEncounters.Count, Is.EqualTo(2538), "night");
             Assert.That(wildernessEncounters.Count, Is.EqualTo(1115), "wilderness");

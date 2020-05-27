@@ -18,11 +18,5 @@ namespace DnDGen.Infrastructure.Tests.Integration.IoC.Modules
         {
             AssertNotSingleton<ICollectionSelector>();
         }
-
-        [Test]
-        public void CollectionsSelectorIsDecorated()
-        {
-            AssertIsInstanceOf<ICollectionSelector, CollectionSelectorEventDecorator>();
-        }
     }
 }
