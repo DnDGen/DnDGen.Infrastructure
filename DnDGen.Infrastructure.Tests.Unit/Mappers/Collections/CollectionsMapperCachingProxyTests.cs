@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
 {
@@ -45,6 +46,12 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
 
             Assert.That(result, Is.EqualTo(table));
             mockInnerMapper.Verify(p => p.Map(It.IsAny<string>()), Times.Once);
+        }
+
+        [Test]
+        public async Task CacheTableIsThreadsafe()
+        {
+            Assert.Fail("not yet written");
         }
 
         [Test]
