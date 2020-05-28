@@ -3,6 +3,7 @@ using DnDGen.Infrastructure.Tables;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -51,7 +52,22 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
         [Test]
         public async Task CacheTableIsThreadsafe()
         {
-            Assert.Fail("not yet written");
+            var tasks = new List<Task<Dictionary<string, IEnumerable<string>>>>();
+            while (tasks.Count < 10)
+            {
+                var task = Task.Run(() => proxy.Map("table name"));
+                tasks.Add(task);
+            }
+
+            await Task.WhenAll(tasks);
+
+            var results = tasks.Select(t => t.Result);
+            foreach (var result in results)
+            {
+                Assert.That(result, Is.EqualTo(table));
+            }
+
+            mockInnerMapper.Verify(p => p.Map(It.IsAny<string>()), Times.Once);
         }
 
         [Test]
