@@ -8,6 +8,7 @@ namespace DnDGen.Infrastructure.Mappers.Percentiles
         private readonly PercentileMapper innerMapper;
         private readonly AssemblyLoader assemblyLoader;
         private readonly Dictionary<string, Dictionary<int, string>> cachedTables;
+        private readonly object myLock;
 
         public PercentileMapperCachingProxy(PercentileMapper innerMapper, AssemblyLoader assemblyLoader)
         {
@@ -15,6 +16,7 @@ namespace DnDGen.Infrastructure.Mappers.Percentiles
             this.assemblyLoader = assemblyLoader;
 
             cachedTables = new Dictionary<string, Dictionary<int, string>>();
+            myLock = new object();
         }
 
         public Dictionary<int, string> Map(string tableName)
@@ -22,10 +24,13 @@ namespace DnDGen.Infrastructure.Mappers.Percentiles
             var assembly = assemblyLoader.GetRunningAssembly();
             var key = assembly.FullName + tableName;
 
-            if (!cachedTables.ContainsKey(key))
+            lock (myLock)
             {
-                var mappedTable = innerMapper.Map(tableName);
-                cachedTables.Add(key, mappedTable);
+                if (!cachedTables.ContainsKey(key))
+                {
+                    var mappedTable = innerMapper.Map(tableName);
+                    cachedTables.Add(key, mappedTable);
+                }
             }
 
             return cachedTables[key];
