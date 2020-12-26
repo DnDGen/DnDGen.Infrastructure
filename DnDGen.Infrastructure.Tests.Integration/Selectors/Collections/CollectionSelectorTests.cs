@@ -1,5 +1,4 @@
 ﻿using DnDGen.Infrastructure.Selectors.Collections;
-using Ninject;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -10,8 +9,13 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
     [TestFixture]
     public class CollectionSelectorTests : IntegrationTests
     {
-        [Inject]
-        public ICollectionSelector CollectionsSelector { get; set; }
+        private ICollectionSelector collectionsSelector;
+
+        [SetUp]
+        public void Setup()
+        {
+            collectionsSelector = GetNewInstanceOf<ICollectionSelector>();
+        }
 
         [TestCase("")]
         [TestCase("name", "entry 1", "entry 2")]
@@ -19,14 +23,14 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [TestCase("sub-collection", "entry 3", "entry 4", "sub-collection")]
         public void SelectFromTable(string name, params string[] collection)
         {
-            var selectedCollection = CollectionsSelector.SelectFrom("CollectionTable", name);
+            var selectedCollection = collectionsSelector.SelectFrom("CollectionTable", name);
             Assert.That(selectedCollection, Is.EquivalentTo(collection));
         }
 
         [Test]
         public void SelectAllFromTable()
         {
-            var selectedCollections = CollectionsSelector.SelectAllFrom("CollectionTable");
+            var selectedCollections = collectionsSelector.SelectAllFrom("CollectionTable");
             Assert.That(selectedCollections.Count, Is.EqualTo(4));
             Assert.That(selectedCollections.Keys, Contains.Item(string.Empty));
             Assert.That(selectedCollections.Keys, Contains.Item("name"));
@@ -41,7 +45,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [Test]
         public void FindCollectionOfNameFromTable()
         {
-            var collectionName = CollectionsSelector.FindCollectionOf("CollectionTable", "entry 3", "collection", "sub-collection");
+            var collectionName = collectionsSelector.FindCollectionOf("CollectionTable", "entry 3", "collection", "sub-collection");
             Assert.That(collectionName, Is.EqualTo("collection"));
         }
 
@@ -50,28 +54,28 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [TestCase("sub-collection", "entry 3", "entry 4", "sub-collection")]
         public void SelectRandomFromTable(string name, params string[] collection)
         {
-            var entry = CollectionsSelector.SelectRandomFrom("CollectionTable", name);
+            var entry = collectionsSelector.SelectRandomFrom("CollectionTable", name);
             Assert.That(new[] { entry }, Is.SubsetOf(collection));
         }
 
         [Test]
         public void IsCollectionInTable()
         {
-            var isCollection = CollectionsSelector.IsCollection("CollectionTable", "sub-collection");
+            var isCollection = collectionsSelector.IsCollection("CollectionTable", "sub-collection");
             Assert.That(isCollection, Is.True);
         }
 
         [Test]
         public void IsNotCollectionInTable()
         {
-            var isCollection = CollectionsSelector.IsCollection("CollectionTable", "entry 3");
+            var isCollection = collectionsSelector.IsCollection("CollectionTable", "entry 3");
             Assert.That(isCollection, Is.False);
         }
 
         [Test]
         public void ExplodeFromTable()
         {
-            var explodedCollection = CollectionsSelector.Explode("CollectionTable", "collection");
+            var explodedCollection = collectionsSelector.Explode("CollectionTable", "collection");
             Assert.That(explodedCollection, Is.EquivalentTo(new[]
             {
                 "entry 2",
@@ -85,8 +89,8 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [Test]
         public void ExplodeFromTableIntoOtherTable()
         {
-            var explodedCollection = CollectionsSelector.Explode("CollectionTable", "collection");
-            var allCollections = CollectionsSelector.SelectAllFrom("OtherCollectionTable");
+            var explodedCollection = collectionsSelector.Explode("CollectionTable", "collection");
+            var allCollections = collectionsSelector.SelectAllFrom("OtherCollectionTable");
 
             var executedExplodedCollection = allCollections.Where(kvp => explodedCollection.Contains(kvp.Key))
                 .Select(kvp => kvp.Value)
@@ -112,7 +116,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [Test]
         public void HeavyExplodeIsEfficient()
         {
-            var explodedCollection = CollectionsSelector.Explode("CreatureGroups", "Night");
+            var explodedCollection = collectionsSelector.Explode("CreatureGroups", "Night");
             Assert.That(explodedCollection, Is.Not.Empty);
             Assert.That(explodedCollection.Count, Is.EqualTo(1484));
             Assert.That(explodedCollection, Is.Unique);
@@ -121,7 +125,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [Test]
         public void HeavySelectAllIsEfficient()
         {
-            var allCollections = CollectionsSelector.SelectAllFrom("EncounterGroups");
+            var allCollections = collectionsSelector.SelectAllFrom("EncounterGroups");
             Assert.That(allCollections, Is.Not.Empty);
             Assert.That(allCollections.Count, Is.EqualTo(1484));
             Assert.That(allCollections, Is.Unique);
@@ -139,9 +143,9 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
 
         private IEnumerable<string> ExplodeAndFlatten(string explodeTableName, string entry, string flattenTableName)
         {
-            var explodedCollection = CollectionsSelector.Explode(explodeTableName, entry);
-            var allCollections = CollectionsSelector.SelectAllFrom(flattenTableName);
-            var flattenedCollection = CollectionsSelector.Flatten(allCollections, explodedCollection);
+            var explodedCollection = collectionsSelector.Explode(explodeTableName, entry);
+            var allCollections = collectionsSelector.SelectAllFrom(flattenTableName);
+            var flattenedCollection = collectionsSelector.Flatten(allCollections, explodedCollection);
 
             return flattenedCollection;
         }

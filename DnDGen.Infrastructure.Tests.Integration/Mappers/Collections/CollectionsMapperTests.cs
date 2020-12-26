@@ -1,7 +1,6 @@
 ﻿using DnDGen.Infrastructure.IoC;
 using DnDGen.Infrastructure.Mappers.Collections;
 using DnDGen.Infrastructure.Tests.Integration.Tables;
-using Ninject;
 using NUnit.Framework;
 
 namespace DnDGen.Infrastructure.Tests.Integration.Mappers.Collections
@@ -9,8 +8,13 @@ namespace DnDGen.Infrastructure.Tests.Integration.Mappers.Collections
     [TestFixture]
     public class CollectionsMapperTests : IntegrationTests
     {
-        [Inject]
-        public CollectionMapper CollectionsMapper { get; set; }
+        private CollectionMapper collectionsMapper;
+
+        [SetUp]
+        public void Setup()
+        {
+            collectionsMapper = GetNewInstanceOf<CollectionMapper>();
+        }
 
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -23,7 +27,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Mappers.Collections
         [TestCase("Test Selector Value 2", "Test Selector Subvalue 1", "Test Selector Subvalue 2")]
         public void MapTableViaMapperWithTestAssembly(string name, params string[] entries)
         {
-            var collectionTable = CollectionsMapper.Map("TestSelectorCollectionTable");
+            var collectionTable = collectionsMapper.Map("TestSelectorCollectionTable");
             Assert.That(collectionTable[name], Is.EquivalentTo(entries));
         }
     }
