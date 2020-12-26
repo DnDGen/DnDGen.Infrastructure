@@ -22,12 +22,6 @@ namespace DnDGen.Infrastructure.Tests.Integration
             infrastructureModuleLoader.LoadModules(kernel);
         }
 
-        [SetUp]
-        public void IntegrationTestsSetup()
-        {
-            kernel.Inject(this);
-        }
-
         protected T GetNewInstanceOf<T>()
         {
             return kernel.Get<T>();

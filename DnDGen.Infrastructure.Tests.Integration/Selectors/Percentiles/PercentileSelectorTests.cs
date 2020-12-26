@@ -1,5 +1,4 @@
 ﻿using DnDGen.Infrastructure.Selectors.Percentiles;
-using Ninject;
 using NUnit.Framework;
 
 namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
@@ -7,13 +6,18 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
     [TestFixture]
     public class PercentileSelectorTests : IntegrationTests
     {
-        [Inject]
-        public IPercentileSelector PercentileSelector { get; set; }
+        private IPercentileSelector percentileSelector;
+
+        [SetUp]
+        public void Setup()
+        {
+            percentileSelector = GetNewInstanceOf<IPercentileSelector>();
+        }
 
         [Test]
         public void SelectFromTable()
         {
-            var result = PercentileSelector.SelectFrom("StringPercentileTable");
+            var result = percentileSelector.SelectFrom("StringPercentileTable");
             Assert.That(result, Is.EqualTo("one")
                 .Or.EqualTo("two")
                 .Or.EqualTo("three")
@@ -24,7 +28,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         [Test]
         public void SelectIntFromTable()
         {
-            var result = PercentileSelector.SelectFrom<int>("IntPercentileTable");
+            var result = percentileSelector.SelectFrom<int>("IntPercentileTable");
             Assert.That(result, Is.EqualTo(1)
                 .Or.EqualTo(2)
                 .Or.EqualTo(3)
@@ -35,14 +39,14 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         [Test]
         public void SelectBooleanFromTable()
         {
-            var result = PercentileSelector.SelectFrom<bool>("BooleanPercentileTable");
+            var result = percentileSelector.SelectFrom<bool>("BooleanPercentileTable");
             Assert.That(result, Is.True.Or.False);
         }
 
         [Test]
         public void SelectAllFromTable()
         {
-            var results = PercentileSelector.SelectAllFrom("StringPercentileTable");
+            var results = percentileSelector.SelectAllFrom("StringPercentileTable");
             Assert.That(results, Is.EquivalentTo(new[]
             {
                 "one",
@@ -56,7 +60,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         [Test]
         public void SelectAllIntFromTable()
         {
-            var results = PercentileSelector.SelectAllFrom<int>("IntPercentileTable");
+            var results = percentileSelector.SelectAllFrom<int>("IntPercentileTable");
             Assert.That(results, Is.EquivalentTo(new[]
             {
                 1,
@@ -70,7 +74,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         [Test]
         public void SelectAllBooleanFromTable()
         {
-            var results = PercentileSelector.SelectAllFrom<bool>("BooleanPercentileTable");
+            var results = percentileSelector.SelectAllFrom<bool>("BooleanPercentileTable");
             Assert.That(results, Is.EquivalentTo(new[]
             {
                 true,
