@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.2.0</Version>
+    <Version>4.2.1</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>Infrastructure</Product>
@@ -13,17 +13,13 @@
     <RepositoryUrl>https://github.com/DnDGen/DnDGen.Core</RepositoryUrl>
     <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
     <PackageIconUrl />
-    <PackageReleaseNotes>Features:
-* Remove EventGen
-
-Bugs:
-* Make caching proxies threadsafe</PackageReleaseNotes>
+    <PackageReleaseNotes>Update RollGen to 15.2.0</PackageReleaseNotes>
     <PackageTags>dungeons dragons d20 dnd 3.5 generator dndgen selector mapper table schema percentile collection collections percentiles</PackageTags>
   </PropertyGroup>
 
   <!--Needed for Framework compatibility when building in Travis-->
   <ItemGroup>
-    <PackageReference Include="DnDGen.RollGen" Version="15.1.0" />
+    <PackageReference Include="DnDGen.RollGen" Version="15.2.0" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
