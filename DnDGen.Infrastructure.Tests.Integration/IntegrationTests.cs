@@ -1,5 +1,4 @@
 ﻿using DnDGen.Infrastructure.IoC;
-using DnDGen.RollGen.IoC;
 using Ninject;
 using NUnit.Framework;
 
@@ -14,9 +13,6 @@ namespace DnDGen.Infrastructure.Tests.Integration
         public void IntegrationTestsFixtureSetup()
         {
             kernel = new StandardKernel(new NinjectSettings() { InjectNonPublic = true });
-
-            var rollGenLoader = new RollGenModuleLoader();
-            rollGenLoader.LoadModules(kernel);
 
             var infrastructureModuleLoader = new InfrastructureModuleLoader();
             infrastructureModuleLoader.LoadModules(kernel);

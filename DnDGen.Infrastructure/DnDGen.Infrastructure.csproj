@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.2.1</Version>
+    <Version>4.2.2</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>Infrastructure</Product>
@@ -19,7 +19,7 @@
 
   <!--Needed for Framework compatibility when building in Travis-->
   <ItemGroup>
-    <PackageReference Include="DnDGen.RollGen" Version="15.2.0" />
+    <PackageReference Include="DnDGen.RollGen" Version="15.2.2" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
