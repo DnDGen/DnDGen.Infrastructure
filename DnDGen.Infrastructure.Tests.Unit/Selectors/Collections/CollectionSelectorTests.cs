@@ -6,6 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
@@ -154,7 +155,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void IsNotCollection()
+        public void IsCollection_IsNotEntry()
         {
             allCollections["entry"] = new[] { "first", "second" };
             var isCollection = selector.IsCollection(TableName, "other entry");
@@ -162,7 +163,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void EntryIsNotCollection()
+        public void IsCollection_EntryIsNotCollection()
         {
             allCollections["entry"] = new[] { "first", "second" };
             var isCollection = selector.IsCollection(TableName, "first");
@@ -170,7 +171,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void EntryIsCollection()
+        public void IsCollection_EntryIsCollection()
         {
             allCollections["entry"] = new[] { "first", "second" };
             allCollections["first"] = new[] { "first", "third" };
@@ -180,7 +181,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void ExplodeCollectionWithoutSubCollections()
+        public void Explode_CollectionWithoutSubCollections()
         {
             allCollections["entry"] = new[] { "first", "second", "third" };
 
@@ -189,7 +190,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void ExplodeCollectionWithSubCollections()
+        public void Explode_CollectionWithSubCollections()
         {
             allCollections["entry"] = new[] { "first", "second", "third" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
@@ -204,7 +205,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void ExplodedCollectionsAreDistinctBetweenSubCollections()
+        public void Explode_ExplodedCollectionsAreDistinctBetweenSubCollections()
         {
             allCollections["entry"] = new[] { "first", "second", "third" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
@@ -222,7 +223,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void ExplodedCollectionsAreDistinctBetweenCollectionAndSubCollection()
+        public void Explode_ExplodedCollectionsAreDistinctBetweenCollectionAndSubCollection()
         {
             allCollections["entry"] = new[] { "first", "second", "third", "sub 1", "sub 3" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
@@ -240,7 +241,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void ExplodeCollectionWithSubCollectionsAndSelfAsSubCollection()
+        public void Explode_ExplodeCollectionWithSubCollectionsAndSelfAsSubCollection()
         {
             allCollections["entry"] = new[] { "first", "second", "entry" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
@@ -255,7 +256,63 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void ExplodeCollectionPreservingDuplicatesWithoutSubCollections()
+        public void BUG_Explode_LargeCollection()
+        {
+            var counts = Enumerable.Range(1, 100);
+            allCollections["entry"] = counts.Select(c => $"entry {c}");
+
+            foreach (var entry in allCollections["entry"].Take(10))
+            {
+                allCollections[entry] = counts.Take(10).Select(c => $"{entry}.{c}");
+
+                foreach (var subentry in allCollections[entry])
+                {
+                    allCollections[subentry] = counts.Take(10).Select(c => $"{subentry}.{c}");
+
+                    foreach (var subsubentry in allCollections[subentry])
+                    {
+                        allCollections[subsubentry] = counts.Take(10).Select(c => $"{subsubentry}.{c}");
+                    }
+                }
+            }
+
+            var stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            var explodedCollection = selector.Explode(TableName, "entry");
+            stopwatch.Stop();
+
+            Assert.That(explodedCollection.Count, Is.EqualTo(10_090));
+
+            var array = explodedCollection.ToArray();
+            var i = 0;
+
+            foreach (var c1 in counts)
+            {
+                if (c1 > 10)
+                {
+                    Assert.That(array[i++], Is.EqualTo($"entry {c1}"));
+                    continue;
+                }
+
+                foreach (var c2 in counts.Take(10))
+                {
+                    foreach (var c3 in counts.Take(10))
+                    {
+                        foreach (var c4 in counts.Take(10))
+                        {
+                            Assert.That(array[i++], Is.EqualTo($"entry {c1}.{c2}.{c3}.{c4}"));
+                        }
+                    }
+                }
+            }
+
+            Assert.That(i, Is.EqualTo(10_090));
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1));
+        }
+
+        [Test]
+        public void ExplodeAndPreserveDuplicates_ExplodeCollectionPreservingDuplicatesWithoutSubCollections()
         {
             allCollections["entry"] = new[] { "first", "second", "third" };
 
@@ -264,7 +321,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void ExplodeCollectionPreservingDuplicatesWithSubCollections()
+        public void ExplodeAndPreserveDuplicates_ExplodeCollectionPreservingDuplicatesWithSubCollections()
         {
             allCollections["entry"] = new[] { "first", "second", "third" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
@@ -279,7 +336,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void ExplodedCollectionsPreservingDuplicatesAreNotDistinctBetweenSubCollections()
+        public void ExplodeAndPreserveDuplicates_ExplodedCollectionsPreservingDuplicatesAreNotDistinctBetweenSubCollections()
         {
             allCollections["entry"] = new[] { "first", "second", "third" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
@@ -298,7 +355,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void ExplodedCollectionsPreservingDuplicatesAreNotDistinctBetweenCollectionAndSubCollection()
+        public void ExplodeAndPreserveDuplicates_ExplodedCollectionsPreservingDuplicatesAreNotDistinctBetweenCollectionAndSubCollection()
         {
             allCollections["entry"] = new[] { "first", "second", "third", "sub 1", "sub 3" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
@@ -319,7 +376,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void ExplodeCollectionPreservingDuplicatesWithSubCollectionsAndSelfAsSubCollection()
+        public void ExplodeAndPreserveDuplicates_ExplodeCollectionPreservingDuplicatesWithSubCollectionsAndSelfAsSubCollection()
         {
             allCollections["entry"] = new[] { "first", "second", "entry" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
@@ -331,6 +388,63 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(explodedCollection, Contains.Item("sub 2"));
             Assert.That(explodedCollection, Contains.Item("entry"));
             Assert.That(explodedCollection.Count, Is.EqualTo(4));
+        }
+
+        [Test]
+        public void BUG_ExplodeAndPreserveDuplicates_LargeCollection()
+        {
+            var counts = Enumerable.Range(1, 100);
+            allCollections["entry"] = counts.SelectMany(c => new[] { $"entry {c}" });
+
+            foreach (var entry in allCollections["entry"].Take(10))
+            {
+                allCollections[entry] = counts.Take(10).SelectMany(c => new[] { $"{entry}.{c}" });
+
+                foreach (var subentry in allCollections[entry])
+                {
+                    allCollections[subentry] = counts.Take(10).SelectMany(c => new[] { $"{subentry}.{c}" });
+
+                    foreach (var subsubentry in allCollections[subentry])
+                    {
+                        allCollections[subsubentry] = counts.Take(10).SelectMany(c => new[] { $"{subsubentry}.{c}", $"{subsubentry}.{c}" });
+                    }
+                }
+            }
+
+            var stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            stopwatch.Stop();
+
+            Assert.That(explodedCollection.Count, Is.EqualTo(20_090));
+
+            var array = explodedCollection.ToArray();
+            var i = 0;
+
+            foreach (var c1 in counts)
+            {
+                if (c1 > 10)
+                {
+                    Assert.That(array[i++], Is.EqualTo($"entry {c1}"));
+                    continue;
+                }
+
+                foreach (var c2 in counts.Take(10))
+                {
+                    foreach (var c3 in counts.Take(10))
+                    {
+                        foreach (var c4 in counts.Take(10))
+                        {
+                            Assert.That(array[i++], Is.EqualTo($"entry {c1}.{c2}.{c3}.{c4}"));
+                            Assert.That(array[i++], Is.EqualTo($"entry {c1}.{c2}.{c3}.{c4}"));
+                        }
+                    }
+                }
+            }
+
+            Assert.That(i, Is.EqualTo(20_090));
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1));
         }
 
         [Test]
@@ -549,7 +663,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(weightedCollection.Count(), Is.EqualTo(10));
         }
 
-        [TestCaseSource(typeof(WeightTestData), "Two")]
+        [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
         public void CreateWeightedCollectionWithDuplicateRareAgainstVeryRare(int rareQuantity, int veryRareQuantity)
         {
             var rare = Enumerable.Range(1, rareQuantity).Select(i => $"rare {i}");
@@ -635,7 +749,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
         }
 
-        [TestCaseSource(typeof(WeightTestData), "Two")]
+        [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
         public void CreateWeightedCollectionWithDuplicateUncommonAgainstRare(int uncommonQuantity, int rareQuantity)
         {
             var uncommon = Enumerable.Range(1, uncommonQuantity).Select(i => $"uncommon {i}");
@@ -662,7 +776,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(uncommonWeight, Is.AtLeast(.9));
         }
 
-        [TestCaseSource(typeof(WeightTestData), "Two")]
+        [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
         public void CreateWeightedCollectionWithDuplicateUncommonAgainstVeryRare(int uncommonQuantity, int veryRareQuantity)
         {
             var uncommon = Enumerable.Range(1, uncommonQuantity).Select(i => $"uncommon {i}");
@@ -689,7 +803,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(uncommonWeight, Is.AtLeast(.99));
         }
 
-        [TestCaseSource(typeof(WeightTestData), "Three")]
+        [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Three))]
         public void CreateWeightedCollectionWithDuplicateUncommonAgainstRareAndVeryRare(int uncommonQuantity, int rareQuantity, int veryRareQuantity)
         {
             var uncommon = Enumerable.Range(1, uncommonQuantity).Select(i => $"uncommon {i}");
@@ -722,7 +836,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(uncommonWeight, Is.AtLeast(.9));
         }
 
-        [TestCaseSource(typeof(WeightTestData), "Two")]
+        [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
         public void CreateWeightedCollectionWithDuplicateCommonAgainstRare(int commonQuantity, int rareQuantity)
         {
             var common = Enumerable.Range(1, commonQuantity).Select(i => $"common {i}");
@@ -749,7 +863,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(commonWeight, Is.AtLeast(.9));
         }
 
-        [TestCaseSource(typeof(WeightTestData), "Two")]
+        [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
         public void CreateWeightedCollectionWithDuplicateCommonAgainstVeryRare(int commonQuantity, int veryRareQuantity)
         {
             var common = Enumerable.Range(1, commonQuantity).Select(i => $"common {i}");
@@ -776,7 +890,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(commonWeight, Is.AtLeast(.99));
         }
 
-        [TestCaseSource(typeof(WeightTestData), "Two")]
+        [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
         public void CreateWeightedCollectionWithDuplicateCommonAgainstUncommon(int commonQuantity, int uncommonQuantity)
         {
             var common = Enumerable.Range(1, commonQuantity).Select(i => $"common {i}");
@@ -803,7 +917,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(commonWeight, Is.AtLeast(2 / 3d));
         }
 
-        [TestCaseSource(typeof(WeightTestData), "Three")]
+        [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Three))]
         public void CreateWeightedCollectionWithDuplicateCommonAgainstRareAndVeryRare(int commonQuantity, int rareQuantity, int veryRareQuantity)
         {
             var common = Enumerable.Range(1, commonQuantity).Select(i => $"common {i}");

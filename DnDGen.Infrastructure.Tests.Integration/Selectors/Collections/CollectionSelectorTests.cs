@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
@@ -10,11 +11,13 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
     public class CollectionSelectorTests : IntegrationTests
     {
         private ICollectionSelector collectionsSelector;
+        private Stopwatch stopwatch;
 
         [SetUp]
         public void Setup()
         {
             collectionsSelector = GetNewInstanceOf<ICollectionSelector>();
+            stopwatch = new Stopwatch();
         }
 
         [TestCase("")]
@@ -76,7 +79,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         public void ExplodeFromTable()
         {
             var explodedCollection = collectionsSelector.Explode("CollectionTable", "collection");
-            Assert.That(explodedCollection, Is.EquivalentTo(new[]
+            Assert.That(explodedCollection, Is.Unique.And.EquivalentTo(new[]
             {
                 "entry 2",
                 "entry 3",
@@ -116,29 +119,43 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [Test]
         public void HeavyExplodeIsEfficient()
         {
+            stopwatch.Restart();
             var explodedCollection = collectionsSelector.Explode("CreatureGroups", "Night");
+            stopwatch.Stop();
+
             Assert.That(explodedCollection, Is.Not.Empty);
             Assert.That(explodedCollection.Count, Is.EqualTo(1484));
             Assert.That(explodedCollection, Is.Unique);
+
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1484));
         }
 
         [Test]
         public void HeavySelectAllIsEfficient()
         {
+            stopwatch.Restart();
             var allCollections = collectionsSelector.SelectAllFrom("EncounterGroups");
+            stopwatch.Stop();
+
             Assert.That(allCollections, Is.Not.Empty);
             Assert.That(allCollections.Count, Is.EqualTo(1484));
             Assert.That(allCollections, Is.Unique);
+
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1));
         }
 
         [Test]
         public void HeavySeparatedExplodeAndFlattenIsEfficient()
         {
+            stopwatch.Restart();
             var flattenedCollection = ExplodeAndFlatten("CreatureGroups", "Night", "EncounterGroups");
+            stopwatch.Stop();
 
             Assert.That(flattenedCollection, Is.Not.Empty);
             Assert.That(flattenedCollection, Is.Unique);
             Assert.That(flattenedCollection.Count, Is.EqualTo(2538));
+
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1));
         }
 
         private IEnumerable<string> ExplodeAndFlatten(string explodeTableName, string entry, string flattenTableName)
@@ -150,34 +167,28 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             return flattenedCollection;
         }
 
-        [Test]
-        public void HeavyMultipleSeparatedExplodeAndFlattenIsEfficient()
+        [TestCase("Magic", 572)]
+        [TestCase("Night", 2538)]
+        [TestCase("Wilderness", 1115)]
+        [TestCase("ColdCivilized", 953)]
+        [TestCase("Land", 133)]
+        [TestCase("TemperateForest", 150)]
+        [TestCase("TemperateAquatic", 45)]
+        [TestCase("WarmPlains", 66)]
+        [TestCase("Day", 2412)]
+        [TestCase("Aquatic", 6)]
+        [TestCase("Underground", 91)]
+        [TestCase("UndergroundAquatic", 6)]
+        public void HeavyMultipleSeparatedExplodeAndFlattenIsEfficient(string entry, int count)
         {
-            var magicEncounters = ExplodeAndFlatten("CreatureGroups", "Magic", "EncounterGroups");
-            var nightEncounters = ExplodeAndFlatten("CreatureGroups", "Night", "EncounterGroups");
-            var wildernessEncounters = ExplodeAndFlatten("CreatureGroups", "Wilderness", "EncounterGroups");
-            var coldCivilizedEncounters = ExplodeAndFlatten("CreatureGroups", "ColdCivilized", "EncounterGroups");
-            var landEncounters = ExplodeAndFlatten("CreatureGroups", "Land", "EncounterGroups");
-            var temperateForestEncounters = ExplodeAndFlatten("CreatureGroups", "TemperateForest", "EncounterGroups");
-            var temperateAquaticEncounters = ExplodeAndFlatten("CreatureGroups", "TemperateAquatic", "EncounterGroups");
-            var warmPlainsEncounters = ExplodeAndFlatten("CreatureGroups", "WarmPlains", "EncounterGroups");
-            var dayEncounters = ExplodeAndFlatten("CreatureGroups", "Day", "EncounterGroups");
-            var aquaticEncounters = ExplodeAndFlatten("CreatureGroups", "Aquatic", "EncounterGroups");
-            var undergroundEncounters = ExplodeAndFlatten("CreatureGroups", "Underground", "EncounterGroups");
-            var undergroundAquaticEncounters = ExplodeAndFlatten("CreatureGroups", "UndergroundAquatic", "EncounterGroups");
+            var timeLimit = Math.Max(0.1, count / 1000d);
 
-            Assert.That(magicEncounters.Count, Is.EqualTo(572), "magic");
-            Assert.That(nightEncounters.Count, Is.EqualTo(2538), "night");
-            Assert.That(wildernessEncounters.Count, Is.EqualTo(1115), "wilderness");
-            Assert.That(coldCivilizedEncounters.Count, Is.EqualTo(953), "cold civilized");
-            Assert.That(landEncounters.Count, Is.EqualTo(133), "land");
-            Assert.That(temperateForestEncounters.Count, Is.EqualTo(150), "temperate forest");
-            Assert.That(temperateAquaticEncounters.Count, Is.EqualTo(45), "temperate aquatic");
-            Assert.That(warmPlainsEncounters.Count, Is.EqualTo(66), "warm plains");
-            Assert.That(dayEncounters.Count, Is.EqualTo(2412), "day");
-            Assert.That(aquaticEncounters.Count, Is.EqualTo(6), "aquatic");
-            Assert.That(undergroundEncounters.Count, Is.EqualTo(91), "underground");
-            Assert.That(undergroundAquaticEncounters.Count, Is.EqualTo(6), "underground aquatic");
+            stopwatch.Restart();
+            var encounters = ExplodeAndFlatten("CreatureGroups", entry, "EncounterGroups");
+            stopwatch.Stop();
+
+            Assert.That(encounters.Count, Is.EqualTo(count));
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(timeLimit));
         }
     }
 }

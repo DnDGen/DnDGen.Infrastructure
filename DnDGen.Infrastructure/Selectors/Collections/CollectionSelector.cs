@@ -71,33 +71,47 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             return table.ContainsKey(collectionName);
         }
 
-        public IEnumerable<string> Explode(string tableName, string collectionName)
-        {
-            var explodedCollection = ExplodeAndPreserveDuplicates(tableName, collectionName);
-
-            return explodedCollection.Distinct();
-        }
+        public IEnumerable<string> Explode(string tableName, string collectionName) => ExplodeRecursive(tableName, collectionName, false);
 
         public IEnumerable<string> Flatten(Dictionary<string, IEnumerable<string>> collections, IEnumerable<string> keys)
         {
             return CollectionHelper.FlattenCollection(collections, keys);
         }
 
-        public IEnumerable<string> ExplodeAndPreserveDuplicates(string tableName, string collectionName)
-        {
-            var explodedCollection = SelectFrom(tableName, collectionName).ToList();
-            var subCollectionNames = explodedCollection
-                .Where(i => IsCollection(tableName, i) && i != collectionName)
-                .ToArray(); //INFO: Doing immediate execution because looping below fails otherwise (modifying the source collection)
+        public IEnumerable<string> ExplodeAndPreserveDuplicates(string tableName, string collectionName) => ExplodeRecursive(tableName, collectionName, true);
 
-            foreach (var subCollectionName in subCollectionNames)
+        private IEnumerable<string> ExplodeRecursive(string tableName, string collectionName, bool preserveDuplicates)
+        {
+            var rootCollection = SelectFrom(tableName, collectionName);
+            var explodedCollection = new List<string>();
+            var explodedUniqueCollection = new HashSet<string>();
+            var added = new HashSet<string>();
+
+            foreach (var entry in rootCollection)
             {
-                var explodedSubCollection = ExplodeAndPreserveDuplicates(tableName, subCollectionName);
-                explodedCollection.Remove(subCollectionName);
-                explodedCollection.AddRange(explodedSubCollection);
+                if (IsCollection(tableName, entry) && entry != collectionName)
+                {
+                    var subCollection = ExplodeRecursive(tableName, entry, preserveDuplicates);
+
+                    explodedCollection.AddRange(subCollection);
+                    explodedUniqueCollection.UnionWith(subCollection);
+
+                    added.UnionWith(subCollection);
+                    added.Add(entry);
+                }
+                else
+                {
+                    explodedCollection.Add(entry);
+                    explodedUniqueCollection.Add(entry);
+
+                    added.Add(entry);
+                }
             }
 
-            return explodedCollection;
+            if (preserveDuplicates)
+                return explodedCollection;
+
+            return explodedUniqueCollection;
         }
 
         public IEnumerable<T> CreateWeighted<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null)
