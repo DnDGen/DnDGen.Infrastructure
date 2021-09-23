@@ -110,10 +110,10 @@ namespace DnDGen.Infrastructure.Selectors.Collections
 
         public IEnumerable<T> CreateWeighted<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null)
         {
-            common = common ?? Enumerable.Empty<T>();
-            uncommon = uncommon ?? Enumerable.Empty<T>();
-            rare = rare ?? Enumerable.Empty<T>();
-            veryRare = veryRare ?? Enumerable.Empty<T>();
+            common ??= Enumerable.Empty<T>();
+            uncommon ??= Enumerable.Empty<T>();
+            rare ??= Enumerable.Empty<T>();
+            veryRare ??= Enumerable.Empty<T>();
 
             var weightedCollection = new List<T>(veryRare);
 

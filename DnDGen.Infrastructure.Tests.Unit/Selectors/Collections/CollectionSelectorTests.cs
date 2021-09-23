@@ -308,7 +308,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
 
             Assert.That(i, Is.EqualTo(10_090));
-            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1));
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(1.009));
         }
 
         [Test]
@@ -444,7 +444,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
 
             Assert.That(i, Is.EqualTo(20_090));
-            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1));
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(2.009));
         }
 
         [Test]
