@@ -8,7 +8,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.IoC
     {
         protected Stopwatch stopwatch;
 
-        private const int TimeLimitInMilliseconds = 300;
+        private const int TimeLimitInMilliseconds = 500;
 
         [SetUp]
         public void Setup()
