@@ -34,11 +34,11 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         public void SelectAllFromTable()
         {
             var selectedCollections = collectionsSelector.SelectAllFrom("CollectionTable");
-            Assert.That(selectedCollections.Count, Is.EqualTo(4));
-            Assert.That(selectedCollections.Keys, Contains.Item(string.Empty));
-            Assert.That(selectedCollections.Keys, Contains.Item("name"));
-            Assert.That(selectedCollections.Keys, Contains.Item("collection"));
-            Assert.That(selectedCollections.Keys, Contains.Item("sub-collection"));
+            Assert.That(selectedCollections, Has.Count.EqualTo(4)
+                .And.ContainKey(string.Empty)
+                .And.ContainKey("name")
+                .And.ContainKey("collection")
+                .And.ContainKey("sub-collection"));
             Assert.That(selectedCollections[string.Empty], Is.Empty);
             Assert.That(selectedCollections["name"], Is.EquivalentTo(new[] { "entry 1", "entry 2" }));
             Assert.That(selectedCollections["collection"], Is.EquivalentTo(new[] { "entry 2", "entry 3", "collection", "sub-collection" }));
@@ -116,18 +116,56 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             }));
         }
 
-        [Test]
-        public void HeavyExplodeIsEfficient()
+        [TestCase("Magic", 265)]
+        [TestCase("Night", 1484)]
+        [TestCase("Wilderness", 573)]
+        [TestCase("ColdCivilized", 611)]
+        [TestCase("Land", 93)]
+        [TestCase("TemperateForest", 98)]
+        [TestCase("TemperateAquatic", 32)]
+        [TestCase("WarmPlains", 37)]
+        [TestCase("Day", 1422)]
+        [TestCase("Aquatic", 2)]
+        [TestCase("Underground", 68)]
+        [TestCase("UndergroundAquatic", 3)]
+        public void Explode_IsEfficient(string entry, int count)
         {
+            var timeLimit = Math.Max(0.1, count / 10_000d);
+
             stopwatch.Restart();
-            var explodedCollection = collectionsSelector.Explode("CreatureGroups", "Night");
+            var explodedCollection = collectionsSelector.Explode("CreatureGroups", entry);
             stopwatch.Stop();
 
-            Assert.That(explodedCollection, Is.Not.Empty);
-            Assert.That(explodedCollection.Count, Is.EqualTo(1484));
-            Assert.That(explodedCollection, Is.Unique);
+            Assert.That(explodedCollection, Is.Not.Empty.And.Unique);
+            Assert.That(explodedCollection.Count, Is.EqualTo(count));
 
-            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1484));
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(timeLimit));
+        }
+
+        [TestCase("Magic", 265)]
+        [TestCase("Night", 1484)]
+        [TestCase("Wilderness", 573)]
+        [TestCase("ColdCivilized", 611)]
+        [TestCase("Land", 93)]
+        [TestCase("TemperateForest", 98)]
+        [TestCase("TemperateAquatic", 32)]
+        [TestCase("WarmPlains", 37)]
+        [TestCase("Day", 1422)]
+        [TestCase("Aquatic", 2)]
+        [TestCase("Underground", 68)]
+        [TestCase("UndergroundAquatic", 3)]
+        public void Explode_Cached_IsEfficient(string entry, int count)
+        {
+            collectionsSelector.Explode("CreatureGroups", entry);
+
+            stopwatch.Restart();
+            var explodedCollection = collectionsSelector.Explode("CreatureGroups", entry);
+            stopwatch.Stop();
+
+            Assert.That(explodedCollection, Is.Not.Empty.And.Unique);
+            Assert.That(explodedCollection.Count, Is.EqualTo(count));
+
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.01));
         }
 
         [Test]
@@ -137,34 +175,10 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             var allCollections = collectionsSelector.SelectAllFrom("EncounterGroups");
             stopwatch.Stop();
 
-            Assert.That(allCollections, Is.Not.Empty);
+            Assert.That(allCollections, Is.Not.Empty.And.Unique);
             Assert.That(allCollections.Count, Is.EqualTo(1484));
-            Assert.That(allCollections, Is.Unique);
 
             Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1));
-        }
-
-        [Test]
-        public void HeavySeparatedExplodeAndFlattenIsEfficient()
-        {
-            stopwatch.Restart();
-            var flattenedCollection = ExplodeAndFlatten("CreatureGroups", "Night", "EncounterGroups");
-            stopwatch.Stop();
-
-            Assert.That(flattenedCollection, Is.Not.Empty);
-            Assert.That(flattenedCollection, Is.Unique);
-            Assert.That(flattenedCollection.Count, Is.EqualTo(2538));
-
-            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1));
-        }
-
-        private IEnumerable<string> ExplodeAndFlatten(string explodeTableName, string entry, string flattenTableName)
-        {
-            var explodedCollection = collectionsSelector.Explode(explodeTableName, entry);
-            var allCollections = collectionsSelector.SelectAllFrom(flattenTableName);
-            var flattenedCollection = collectionsSelector.Flatten(allCollections, explodedCollection);
-
-            return flattenedCollection;
         }
 
         [TestCase("Magic", 572)]
@@ -179,16 +193,53 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [TestCase("Aquatic", 6)]
         [TestCase("Underground", 91)]
         [TestCase("UndergroundAquatic", 6)]
-        public void HeavyMultipleSeparatedExplodeAndFlattenIsEfficient(string entry, int count)
+        public void HeavySeparatedExplodeAndFlattenIsEfficient(string entry, int count)
         {
-            var timeLimit = Math.Max(0.1, count / 1000d);
+            var timeLimit = Math.Max(0.1, count / 10_000d);
 
             stopwatch.Restart();
-            var encounters = ExplodeAndFlatten("CreatureGroups", entry, "EncounterGroups");
+            var flattenedCollection = ExplodeAndFlatten("CreatureGroups", entry, "EncounterGroups");
             stopwatch.Stop();
 
-            Assert.That(encounters.Count, Is.EqualTo(count));
+            Assert.That(flattenedCollection, Is.Not.Empty.And.Unique);
+            Assert.That(flattenedCollection.Count, Is.EqualTo(count));
+
             Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(timeLimit));
+        }
+
+        [TestCase("Magic", 572)]
+        [TestCase("Night", 2538)]
+        [TestCase("Wilderness", 1115)]
+        [TestCase("ColdCivilized", 953)]
+        [TestCase("Land", 133)]
+        [TestCase("TemperateForest", 150)]
+        [TestCase("TemperateAquatic", 45)]
+        [TestCase("WarmPlains", 66)]
+        [TestCase("Day", 2412)]
+        [TestCase("Aquatic", 6)]
+        [TestCase("Underground", 91)]
+        [TestCase("UndergroundAquatic", 6)]
+        public void HeavySeparatedExplodeAndFlatten_Cached_IsEfficient(string entry, int count)
+        {
+            ExplodeAndFlatten("CreatureGroups", entry, "EncounterGroups");
+
+            stopwatch.Restart();
+            var flattenedCollection = ExplodeAndFlatten("CreatureGroups", entry, "EncounterGroups");
+            stopwatch.Stop();
+
+            Assert.That(flattenedCollection, Is.Not.Empty.And.Unique);
+            Assert.That(flattenedCollection.Count, Is.EqualTo(count));
+
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.01));
+        }
+
+        private IEnumerable<string> ExplodeAndFlatten(string explodeTableName, string entry, string flattenTableName)
+        {
+            var explodedCollection = collectionsSelector.Explode(explodeTableName, entry);
+            var allCollections = collectionsSelector.SelectAllFrom(flattenTableName);
+            var flattenedCollection = collectionsSelector.Flatten(allCollections, explodedCollection);
+
+            return flattenedCollection;
         }
     }
 }
