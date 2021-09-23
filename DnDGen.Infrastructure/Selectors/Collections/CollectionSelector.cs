@@ -85,7 +85,6 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             var rootCollection = SelectFrom(tableName, collectionName);
             var explodedCollection = new List<string>();
             var explodedUniqueCollection = new HashSet<string>();
-            var added = new HashSet<string>();
 
             foreach (var entry in rootCollection)
             {
@@ -95,16 +94,11 @@ namespace DnDGen.Infrastructure.Selectors.Collections
 
                     explodedCollection.AddRange(subCollection);
                     explodedUniqueCollection.UnionWith(subCollection);
-
-                    added.UnionWith(subCollection);
-                    added.Add(entry);
                 }
                 else
                 {
                     explodedCollection.Add(entry);
                     explodedUniqueCollection.Add(entry);
-
-                    added.Add(entry);
                 }
             }
 
