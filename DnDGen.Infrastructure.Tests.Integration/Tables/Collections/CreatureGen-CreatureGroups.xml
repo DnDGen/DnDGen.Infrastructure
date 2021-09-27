@@ -1,0 +1,2601 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+  <collection>
+    <name>Aberration</name>
+    <entry>Aboleth</entry>
+    <entry>Athach</entry>
+    <entry>Beholder</entry>
+    <entry>Gauth (Lesser Beholder)</entry>
+    <entry>Carrion Crawler</entry>
+    <entry>Choker</entry>
+    <entry>Chuul</entry>
+    <entry>Cloaker</entry>
+    <entry>Delver</entry>
+    <entry>Destrachan</entry>
+    <entry>Drider</entry>
+    <entry>Ethereal Filcher</entry>
+    <entry>Ettercap</entry>
+    <entry>Gibbering Mouther</entry>
+    <entry>Grick</entry>
+    <entry>Mimic</entry>
+    <entry>Mind Flayer (Illithid)</entry>
+    <entry>Naga</entry>
+    <entry>Otyugh</entry>
+    <entry>Phasm</entry>
+    <entry>Rust Monster</entry>
+    <entry>Skum</entry>
+    <entry>Umber Hulk</entry>
+    <entry>Truly Horrid Umber Hulk</entry>
+    <entry>Will-O'-Wisp</entry>
+  </collection>
+  <collection>
+    <name>Air</name>
+    <entry>Arrowhawk</entry>
+    <entry>Belker</entry>
+    <entry>Djinni</entry>
+    <entry>Noble Djinni</entry>
+    <entry>Green Dragon</entry>
+    <entry>Air Elemental</entry>
+    <entry>Cloud Giant</entry>
+    <entry>Invisible Stalker</entry>
+    <entry>Air Mephit</entry>
+    <entry>Dust Mephit</entry>
+    <entry>Ice Mephit</entry>
+    <entry>Will-O'-Wisp</entry>
+  </collection>
+  <collection>
+    <name>Angel</name>
+    <entry>Angel, Astral Deva</entry>
+    <entry>Angel, Planetar</entry>
+    <entry>Angel, Solar</entry>
+  </collection>
+  <collection>
+    <name>Animal</name>
+    <entry>Ape</entry>
+    <entry>Dire Ape</entry>
+    <entry>Baboon</entry>
+    <entry>Badger</entry>
+    <entry>Dire Badger</entry>
+    <entry>Bat</entry>
+    <entry>Dire Bat</entry>
+    <entry>Bat Swarm</entry>
+    <entry>Bear</entry>
+    <entry>Bison</entry>
+    <entry>Boar</entry>
+    <entry>Dire Boar</entry>
+    <entry>Camel, Bactrian (Two-Humped)</entry>
+    <entry>Camel, Dromedary (One-Humped)</entry>
+    <entry>Cat</entry>
+    <entry>Cheetah</entry>
+    <entry>Constrictor Snake</entry>
+    <entry>Giant Constrictor Snake</entry>
+    <entry>Crocodile</entry>
+    <entry>Giant Crocodile</entry>
+    <entry>Dinosaur</entry>
+    <entry>Dog</entry>
+    <entry>Dog, Riding</entry>
+    <entry>Donkey</entry>
+    <entry>Eagle</entry>
+    <entry>Elephant</entry>
+    <entry>Hawk</entry>
+    <entry>Horse</entry>
+    <entry>Hyena</entry>
+    <entry>Leopard</entry>
+    <entry>Lion</entry>
+    <entry>Dire Lion</entry>
+    <entry>Lizard</entry>
+    <entry>Manta Ray</entry>
+    <entry>Monitor Lizard</entry>
+    <entry>Monkey</entry>
+    <entry>Mule</entry>
+    <entry>Octopus</entry>
+    <entry>Giant Octopus</entry>
+    <entry>Owl</entry>
+    <entry>Pony</entry>
+    <entry>Warpony</entry>
+    <entry>Porpoise</entry>
+    <entry>Rat</entry>
+    <entry>Dire Rat</entry>
+    <entry>Rat Swarm</entry>
+    <entry>Raven</entry>
+    <entry>Rhinoceras</entry>
+    <entry>Roc</entry>
+    <entry>Shark</entry>
+    <entry>Squid</entry>
+    <entry>Giant Squid</entry>
+    <entry>Tiger</entry>
+    <entry>Dire Tiger</entry>
+    <entry>Toad</entry>
+    <entry>Viper Snake</entry>
+    <entry>Weasel</entry>
+    <entry>Dire Weasel</entry>
+    <entry>Whale</entry>
+    <entry>Wolf</entry>
+    <entry>Dire Wolf</entry>
+    <entry>Wolverine</entry>
+    <entry>Dire Wolverine</entry>
+  </collection>
+  <collection>
+    <name>Animated Object</name>
+    <entry>Animated Object, Anvil, Tiny</entry>
+    <entry>Animated Object, Anvil, Small</entry>
+    <entry>Animated Object, Anvil, Medium</entry>
+    <entry>Animated Object, Anvil, Large</entry>
+    <entry>Animated Object, Anvil, Huge</entry>
+    <entry>Animated Object, Anvil, Gargantuan</entry>
+    <entry>Animated Object, Anvil, Colossal</entry>
+    <entry>Animated Object, Block (Stone), Tiny</entry>
+    <entry>Animated Object, Block (Stone), Small</entry>
+    <entry>Animated Object, Block (Stone), Medium</entry>
+    <entry>Animated Object, Block (Stone), Large</entry>
+    <entry>Animated Object, Block (Stone), Huge</entry>
+    <entry>Animated Object, Block (Stone), Gargantuan</entry>
+    <entry>Animated Object, Block (Stone), Colossal</entry>
+    <entry>Animated Object, Block (Wood), Tiny</entry>
+    <entry>Animated Object, Block (Wood), Small</entry>
+    <entry>Animated Object, Block (Wood), Medium</entry>
+    <entry>Animated Object, Block (Wood), Large</entry>
+    <entry>Animated Object, Block (Wood), Huge</entry>
+    <entry>Animated Object, Block (Wood), Gargantuan</entry>
+    <entry>Animated Object, Block (Wood), Colossal</entry>
+    <entry>Animated Object, Box, Tiny</entry>
+    <entry>Animated Object, Box, Small</entry>
+    <entry>Animated Object, Box, Medium</entry>
+    <entry>Animated Object, Box, Large</entry>
+    <entry>Animated Object, Box, Huge</entry>
+    <entry>Animated Object, Box, Gargantuan</entry>
+    <entry>Animated Object, Box, Colossal</entry>
+    <entry>Animated Object, Carpet, Tiny</entry>
+    <entry>Animated Object, Carpet, Small</entry>
+    <entry>Animated Object, Carpet, Medium</entry>
+    <entry>Animated Object, Carpet, Large</entry>
+    <entry>Animated Object, Carpet, Huge</entry>
+    <entry>Animated Object, Carpet, Gargantuan</entry>
+    <entry>Animated Object, Carpet, Colossal</entry>
+    <entry>Animated Object, Carriage, Tiny</entry>
+    <entry>Animated Object, Carriage, Small</entry>
+    <entry>Animated Object, Carriage, Medium</entry>
+    <entry>Animated Object, Carriage, Large</entry>
+    <entry>Animated Object, Carriage, Huge</entry>
+    <entry>Animated Object, Carriage, Gargantuan</entry>
+    <entry>Animated Object, Carriage, Colossal</entry>
+    <entry>Animated Object, Chain, Tiny</entry>
+    <entry>Animated Object, Chain, Small</entry>
+    <entry>Animated Object, Chain, Medium</entry>
+    <entry>Animated Object, Chain, Large</entry>
+    <entry>Animated Object, Chain, Huge</entry>
+    <entry>Animated Object, Chain, Gargantuan</entry>
+    <entry>Animated Object, Chain, Colossal</entry>
+    <entry>Animated Object, Chair, Tiny</entry>
+    <entry>Animated Object, Chair, Small</entry>
+    <entry>Animated Object, Chair, Medium</entry>
+    <entry>Animated Object, Chair, Large</entry>
+    <entry>Animated Object, Chair, Huge</entry>
+    <entry>Animated Object, Chair, Gargantuan</entry>
+    <entry>Animated Object, Chair, Colossal</entry>
+    <entry>Animated Object, Clothes, Tiny</entry>
+    <entry>Animated Object, Clothes, Small</entry>
+    <entry>Animated Object, Clothes, Medium</entry>
+    <entry>Animated Object, Clothes, Large</entry>
+    <entry>Animated Object, Clothes, Huge</entry>
+    <entry>Animated Object, Clothes, Gargantuan</entry>
+    <entry>Animated Object, Clothes, Colossal</entry>
+    <entry>Animated Object, Ladder, Tiny</entry>
+    <entry>Animated Object, Ladder, Small</entry>
+    <entry>Animated Object, Ladder, Medium</entry>
+    <entry>Animated Object, Ladder, Large</entry>
+    <entry>Animated Object, Ladder, Huge</entry>
+    <entry>Animated Object, Ladder, Gargantuan</entry>
+    <entry>Animated Object, Ladder, Colossal</entry>
+    <entry>Animated Object, Rope, Tiny</entry>
+    <entry>Animated Object, Rope, Small</entry>
+    <entry>Animated Object, Rope, Medium</entry>
+    <entry>Animated Object, Rope, Large</entry>
+    <entry>Animated Object, Rope, Huge</entry>
+    <entry>Animated Object, Rope, Gargantuan</entry>
+    <entry>Animated Object, Rope, Colossal</entry>
+    <entry>Animated Object, Rug, Tiny</entry>
+    <entry>Animated Object, Rug, Small</entry>
+    <entry>Animated Object, Rug, Medium</entry>
+    <entry>Animated Object, Rug, Large</entry>
+    <entry>Animated Object, Rug, Huge</entry>
+    <entry>Animated Object, Rug, Gargantuan</entry>
+    <entry>Animated Object, Rug, Colossal</entry>
+    <entry>Animated Object, Sled, Tiny</entry>
+    <entry>Animated Object, Sled, Small</entry>
+    <entry>Animated Object, Sled, Medium</entry>
+    <entry>Animated Object, Sled, Large</entry>
+    <entry>Animated Object, Sled, Huge</entry>
+    <entry>Animated Object, Sled, Gargantuan</entry>
+    <entry>Animated Object, Sled, Colossal</entry>
+    <entry>Animated Object, Statue (Animal), Tiny</entry>
+    <entry>Animated Object, Statue (Animal), Small</entry>
+    <entry>Animated Object, Statue (Animal), Medium</entry>
+    <entry>Animated Object, Statue (Animal), Large</entry>
+    <entry>Animated Object, Statue (Animal), Huge</entry>
+    <entry>Animated Object, Statue (Animal), Gargantuan</entry>
+    <entry>Animated Object, Statue (Animal), Colossal</entry>
+    <entry>Animated Object, Statue (Humanoid), Tiny</entry>
+    <entry>Animated Object, Statue (Humanoid), Small</entry>
+    <entry>Animated Object, Statue (Humanoid), Medium</entry>
+    <entry>Animated Object, Statue (Humanoid), Large</entry>
+    <entry>Animated Object, Statue (Humanoid), Huge</entry>
+    <entry>Animated Object, Statue (Humanoid), Gargantuan</entry>
+    <entry>Animated Object, Statue (Humanoid), Colossal</entry>
+    <entry>Animated Object, Stool, Tiny</entry>
+    <entry>Animated Object, Stool, Small</entry>
+    <entry>Animated Object, Stool, Medium</entry>
+    <entry>Animated Object, Stool, Large</entry>
+    <entry>Animated Object, Stool, Huge</entry>
+    <entry>Animated Object, Stool, Gargantuan</entry>
+    <entry>Animated Object, Stool, Colossal</entry>
+    <entry>Animated Object, Table, Tiny</entry>
+    <entry>Animated Object, Table, Small</entry>
+    <entry>Animated Object, Table, Medium</entry>
+    <entry>Animated Object, Table, Large</entry>
+    <entry>Animated Object, Table, Huge</entry>
+    <entry>Animated Object, Table, Gargantuan</entry>
+    <entry>Animated Object, Table, Colossal</entry>
+    <entry>Animated Object, Tapestry, Tiny</entry>
+    <entry>Animated Object, Tapestry, Small</entry>
+    <entry>Animated Object, Tapestry, Medium</entry>
+    <entry>Animated Object, Tapestry, Large</entry>
+    <entry>Animated Object, Tapestry, Huge</entry>
+    <entry>Animated Object, Tapestry, Gargantuan</entry>
+    <entry>Animated Object, Tapestry, Colossal</entry>
+    <entry>Animated Object, Wagon, Tiny</entry>
+    <entry>Animated Object, Wagon, Small</entry>
+    <entry>Animated Object, Wagon, Medium</entry>
+    <entry>Animated Object, Wagon, Large</entry>
+    <entry>Animated Object, Wagon, Huge</entry>
+    <entry>Animated Object, Wagon, Gargantuan</entry>
+    <entry>Animated Object, Wagon, Colossal</entry>
+  </collection>
+  <collection>
+    <name>Aquatic</name>
+    <entry>Aboleth</entry>
+    <entry>Chuul</entry>
+    <entry>Dragon Turtle</entry>
+    <entry>Aquatic Elf</entry>
+    <entry>Kapoacinth</entry>
+    <entry>Kraken</entry>
+    <entry>Lacedon</entry>
+    <entry>Kuo-toa</entry>
+    <entry>Locathah</entry>
+    <entry>Manta Ray</entry>
+    <entry>Merfolk</entry>
+    <entry>Merrow</entry>
+    <entry>Water Naga</entry>
+    <entry>Nixie</entry>
+    <entry>Octopus</entry>
+    <entry>Giant Octopus</entry>
+    <entry>Porpoise</entry>
+    <entry>Sahuagin</entry>
+    <entry>Sahuagin Mutant</entry>
+    <entry>Malenti</entry>
+    <entry>Sea Hag</entry>
+    <entry>Shark</entry>
+    <entry>Squid</entry>
+    <entry>Giant Squid</entry>
+    <entry>Skum</entry>
+    <entry>Scrag</entry>
+    <entry>Whale</entry>
+  </collection>
+  <collection>
+    <name>Archon</name>
+    <entry>Hound Archon</entry>
+    <entry>Lantern Archon</entry>
+    <entry>Trumpet Archon</entry>
+  </collection>
+  <collection>
+    <name>Arrowhawk</name>
+    <entry>Juvenile Arrowhawk</entry>
+    <entry>Adult Arrowhawk</entry>
+    <entry>Elder Arrowhawk</entry>
+  </collection>
+  <collection>
+    <name>Augmented</name>
+  </collection>
+  <collection>
+    <name>Half-Dragon</name>
+    <entry>Half-Dragon (Black)</entry>
+    <entry>Half-Dragon (Blue)</entry>
+    <entry>Half-Dragon (Green)</entry>
+    <entry>Half-Dragon (Red)</entry>
+    <entry>Half-Dragon (White)</entry>
+    <entry>Half-Dragon (Brass)</entry>
+    <entry>Half-Dragon (Bronze)</entry>
+    <entry>Half-Dragon (Copper)</entry>
+    <entry>Half-Dragon (Gold)</entry>
+    <entry>Half-Dragon (Silver)</entry>
+  </collection>
+  <collection>
+    <name>Bear</name>
+    <entry>Black Bear</entry>
+    <entry>Brown Bear</entry>
+    <entry>Dire Bear</entry>
+    <entry>Polar Bear</entry>
+  </collection>
+  <collection>
+    <name>Black Dragon</name>
+    <entry>Black Dragon, Wyrmling</entry>
+    <entry>Black Dragon, Very Young</entry>
+    <entry>Black Dragon, Young</entry>
+    <entry>Black Dragon, Juvenile</entry>
+    <entry>Black Dragon, Young Adult</entry>
+    <entry>Black Dragon, Adult</entry>
+    <entry>Black Dragon, Mature Adult</entry>
+    <entry>Black Dragon, Old</entry>
+    <entry>Black Dragon, Very Old</entry>
+    <entry>Black Dragon, Ancient</entry>
+    <entry>Black Dragon, Wyrm</entry>
+    <entry>Black Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>Blue Dragon</name>
+    <entry>Blue Dragon, Wyrmling</entry>
+    <entry>Blue Dragon, Very Young</entry>
+    <entry>Blue Dragon, Young</entry>
+    <entry>Blue Dragon, Juvenile</entry>
+    <entry>Blue Dragon, Young Adult</entry>
+    <entry>Blue Dragon, Adult</entry>
+    <entry>Blue Dragon, Mature Adult</entry>
+    <entry>Blue Dragon, Old</entry>
+    <entry>Blue Dragon, Very Old</entry>
+    <entry>Blue Dragon, Ancient</entry>
+    <entry>Blue Dragon, Wyrm</entry>
+    <entry>Blue Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>Brass Dragon</name>
+    <entry>Brass Dragon, Wyrmling</entry>
+    <entry>Brass Dragon, Very Young</entry>
+    <entry>Brass Dragon, Young</entry>
+    <entry>Brass Dragon, Juvenile</entry>
+    <entry>Brass Dragon, Young Adult</entry>
+    <entry>Brass Dragon, Adult</entry>
+    <entry>Brass Dragon, Mature Adult</entry>
+    <entry>Brass Dragon, Old</entry>
+    <entry>Brass Dragon, Very Old</entry>
+    <entry>Brass Dragon, Ancient</entry>
+    <entry>Brass Dragon, Wyrm</entry>
+    <entry>Brass Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>Bronze Dragon</name>
+    <entry>Bronze Dragon, Wyrmling</entry>
+    <entry>Bronze Dragon, Very Young</entry>
+    <entry>Bronze Dragon, Young</entry>
+    <entry>Bronze Dragon, Juvenile</entry>
+    <entry>Bronze Dragon, Young Adult</entry>
+    <entry>Bronze Dragon, Adult</entry>
+    <entry>Bronze Dragon, Mature Adult</entry>
+    <entry>Bronze Dragon, Old</entry>
+    <entry>Bronze Dragon, Very Old</entry>
+    <entry>Bronze Dragon, Ancient</entry>
+    <entry>Bronze Dragon, Wyrm</entry>
+    <entry>Bronze Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>Chaotic</name>
+    <entry>Chaos Beast</entry>
+    <entry>Babau</entry>
+    <entry>Balor</entry>
+    <entry>Bebilith</entry>
+    <entry>Bralani</entry>
+    <entry>Dretch</entry>
+    <entry>Ghaele</entry>
+    <entry>Glabrezu</entry>
+    <entry>Hezrou</entry>
+    <entry>Howler</entry>
+    <entry>Lillend</entry>
+    <entry>Marilith</entry>
+    <entry>Nalfeshnee</entry>
+    <entry>Quasit</entry>
+    <entry>Slaad</entry>
+    <entry>Succubus</entry>
+    <entry>Titan</entry>
+    <entry>Vrock</entry>
+  </collection>
+  <collection>
+    <name>Cold</name>
+    <entry>Silver Dragon</entry>
+    <entry>White Dragon</entry>
+    <entry>Frost Worm</entry>
+    <entry>Frost Giant</entry>
+    <entry>Cryohydra</entry>
+    <entry>Ice Mephit</entry>
+    <entry>Winter Wolf</entry>
+  </collection>
+  <collection>
+    <name>Construct</name>
+    <entry>Animated Object</entry>
+    <entry>Golem</entry>
+    <entry>Homunculus</entry>
+    <entry>Inevitable</entry>
+    <entry>Retriever</entry>
+    <entry>Shield Guardian</entry>
+  </collection>
+  <collection>
+    <name>Copper Dragon</name>
+    <entry>Copper Dragon, Wyrmling</entry>
+    <entry>Copper Dragon, Very Young</entry>
+    <entry>Copper Dragon, Young</entry>
+    <entry>Copper Dragon, Juvenile</entry>
+    <entry>Copper Dragon, Young Adult</entry>
+    <entry>Copper Dragon, Adult</entry>
+    <entry>Copper Dragon, Mature Adult</entry>
+    <entry>Copper Dragon, Old</entry>
+    <entry>Copper Dragon, Very Old</entry>
+    <entry>Copper Dragon, Ancient</entry>
+    <entry>Copper Dragon, Wyrm</entry>
+    <entry>Copper Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>Cryohydra</name>
+    <entry>Five-Headed Cryohydra</entry>
+    <entry>Six-Headed Cryohydra</entry>
+    <entry>Seven-Headed Cryohydra</entry>
+    <entry>Eight-Headed Cryohydra</entry>
+    <entry>Nine-Headed Cryohydra</entry>
+    <entry>Ten-Headed Cryohydra</entry>
+    <entry>Eleven-Headed Cryohydra</entry>
+    <entry>Twelve-Headed Cryohydra</entry>
+  </collection>
+  <collection>
+    <name>Demon</name>
+    <entry>Babau</entry>
+    <entry>Balor</entry>
+    <entry>Bebilith</entry>
+    <entry>Dretch</entry>
+    <entry>Glabrezu</entry>
+    <entry>Hezrou</entry>
+    <entry>Marilith</entry>
+    <entry>Nalfeshnee</entry>
+    <entry>Quasit</entry>
+    <entry>Retriever</entry>
+    <entry>Succubus</entry>
+    <entry>Vrock</entry>
+  </collection>
+  <collection>
+    <name>Devil</name>
+    <entry>Barbed Devil (Hamatula)</entry>
+    <entry>Bearded Devil (Barbazu)</entry>
+    <entry>Bone Devil (Osyluth)</entry>
+    <entry>Chain Devil (Kyton)</entry>
+    <entry>Erinyes</entry>
+    <entry>Hellcat (Bezekira)</entry>
+    <entry>Horned Devil (Cornugon)</entry>
+    <entry>Ice Devil (Gelugon)</entry>
+    <entry>Imp</entry>
+    <entry>Lemure</entry>
+    <entry>Pit Fiend</entry>
+  </collection>
+  <collection>
+    <name>Dinosaur</name>
+    <entry>Deinonychus</entry>
+    <entry>Elasmosaurus</entry>
+    <entry>Megaraptor</entry>
+    <entry>Triceratops</entry>
+    <entry>Tyrannosaurus</entry>
+  </collection>
+  <collection>
+    <name>Dragon</name>
+    <entry>Black Dragon</entry>
+    <entry>Blue Dragon</entry>
+    <entry>Brass Dragon</entry>
+    <entry>Bronze Dragon</entry>
+    <entry>Copper Dragon</entry>
+    <entry>Dragon Turtle</entry>
+    <entry>Gold Dragon</entry>
+    <entry>Green Dragon</entry>
+    <entry>Red Dragon</entry>
+    <entry>Silver Dragon</entry>
+    <entry>Pseudodragon</entry>
+    <entry>White Dragon</entry>
+    <entry>Wyvern</entry>
+    <entry>Half-Dragon</entry>
+  </collection>
+  <collection>
+    <name>Dwarf</name>
+    <entry>Deep Dwarf</entry>
+    <entry>Duergar</entry>
+    <entry>Hill Dwarf</entry>
+    <entry>Mountain Dwarf</entry>
+  </collection>
+  <collection>
+    <name>Earth</name>
+    <entry>Blue Dragon</entry>
+    <entry>Copper Dragon</entry>
+    <entry>Earth Elemental</entry>
+    <entry>Gargoyle</entry>
+    <entry>Kapoacinth</entry>
+    <entry>Stone Giant</entry>
+    <entry>Stone Giant Elder</entry>
+    <entry>Earth Mephit</entry>
+    <entry>Salt Mephit</entry>
+    <entry>Thoqqua</entry>
+    <entry>Xorn</entry>
+  </collection>
+  <collection>
+    <name>Elemental</name>
+    <entry>Belker</entry>
+    <entry>Air Elemental</entry>
+    <entry>Earth Elemental</entry>
+    <entry>Fire Elemental</entry>
+    <entry>Water Elemental</entry>
+    <entry>Invisible Stalker</entry>
+    <entry>Magmin</entry>
+    <entry>Thoqqua</entry>
+  </collection>
+  <collection>
+    <name>Air Elemental</name>
+    <entry>Air Elemental, Elder</entry>
+    <entry>Air Elemental, Greater</entry>
+    <entry>Air Elemental, Huge</entry>
+    <entry>Air Elemental, Large</entry>
+    <entry>Air Elemental, Medium</entry>
+    <entry>Air Elemental, Small</entry>
+  </collection>
+  <collection>
+    <name>Earth Elemental</name>
+    <entry>Earth Elemental, Elder</entry>
+    <entry>Earth Elemental, Greater</entry>
+    <entry>Earth Elemental, Huge</entry>
+    <entry>Earth Elemental, Large</entry>
+    <entry>Earth Elemental, Medium</entry>
+    <entry>Earth Elemental, Small</entry>
+  </collection>
+  <collection>
+    <name>Fire Elemental</name>
+    <entry>Fire Elemental, Elder</entry>
+    <entry>Fire Elemental, Greater</entry>
+    <entry>Fire Elemental, Huge</entry>
+    <entry>Fire Elemental, Large</entry>
+    <entry>Fire Elemental, Medium</entry>
+    <entry>Fire Elemental, Small</entry>
+  </collection>
+  <collection>
+    <name>Water Elemental</name>
+    <entry>Water Elemental, Elder</entry>
+    <entry>Water Elemental, Greater</entry>
+    <entry>Water Elemental, Huge</entry>
+    <entry>Water Elemental, Large</entry>
+    <entry>Water Elemental, Medium</entry>
+    <entry>Water Elemental, Small</entry>
+  </collection>
+  <collection>
+    <name>Elf</name>
+    <entry>Aquatic Elf</entry>
+    <entry>Drow</entry>
+    <entry>Gray Elf</entry>
+    <entry>Half-Elf</entry>
+    <entry>High Elf</entry>
+    <entry>Wild Elf</entry>
+    <entry>Wood Elf</entry>
+  </collection>
+  <collection>
+    <name>Evil</name>
+    <entry>Achaierai</entry>
+    <entry>Babau</entry>
+    <entry>Balor</entry>
+    <entry>Barghest</entry>
+    <entry>Greater Barghest</entry>
+    <entry>Bebilith</entry>
+    <entry>Devil</entry>
+    <entry>Dretch</entry>
+    <entry>Glabrezu</entry>
+    <entry>Hell Hound</entry>
+    <entry>Nessian Warhound</entry>
+    <entry>Hellwasp Swarm</entry>
+    <entry>Hezrou</entry>
+    <entry>Howler</entry>
+    <entry>Marilith</entry>
+    <entry>Nalfeshnee</entry>
+    <entry>Night Hag</entry>
+    <entry>Nightmare</entry>
+    <entry>Nightmare, Cauchemar</entry>
+    <entry>Quasit</entry>
+    <entry>Succubus</entry>
+    <entry>Vargouille</entry>
+    <entry>Vrock</entry>
+    <entry>Yeth Hound</entry>
+  </collection>
+  <collection>
+    <name>Extraplanar</name>
+    <entry>Achaierai</entry>
+    <entry>Angel</entry>
+    <entry>Archon</entry>
+    <entry>Arrowhawk</entry>
+    <entry>Avoral</entry>
+    <entry>Azer</entry>
+    <entry>Barghest</entry>
+    <entry>Greater Barghest</entry>
+    <entry>Bodak</entry>
+    <entry>Bralani</entry>
+    <entry>Chaos Beast</entry>
+    <entry>Demon</entry>
+    <entry>Devil</entry>
+    <entry>Devourer</entry>
+    <entry>Djinni</entry>
+    <entry>Noble Djinni</entry>
+    <entry>Efreeti</entry>
+    <entry>Elemental</entry>
+    <entry>Ethereal Marauder</entry>
+    <entry>Formian</entry>
+    <entry>Ghaele</entry>
+    <entry>Githyanki</entry>
+    <entry>Githzerai</entry>
+    <entry>Hell Hound</entry>
+    <entry>Nessian Warhound</entry>
+    <entry>Hellwasp Swarm</entry>
+    <entry>Howler</entry>
+    <entry>Inevitable</entry>
+    <entry>Leonal</entry>
+    <entry>Lillend</entry>
+    <entry>Mephit</entry>
+    <entry>Night Hag</entry>
+    <entry>Nightmare</entry>
+    <entry>Nightmare, Cauchemar</entry>
+    <entry>Nightshade</entry>
+    <entry>Rast</entry>
+    <entry>Ravid</entry>
+    <entry>Salamander</entry>
+    <entry>Shadow Mastiff</entry>
+    <entry>Slaad</entry>
+    <entry>Titan</entry>
+    <entry>Tojanida</entry>
+    <entry>Vargouille</entry>
+    <entry>Xill</entry>
+    <entry>Xorn</entry>
+    <entry>Yeth Hound</entry>
+  </collection>
+  <collection>
+    <name>Fey</name>
+    <entry>Dryad</entry>
+    <entry>Nymph</entry>
+    <entry>Satyr</entry>
+    <entry>Satyr with pipes</entry>
+    <entry>Sprite</entry>
+  </collection>
+  <collection>
+    <name>Fire</name>
+    <entry>Azer</entry>
+    <entry>Brass Dragon</entry>
+    <entry>Gold Dragon</entry>
+    <entry>Red Dragon</entry>
+    <entry>Efreeti</entry>
+    <entry>Fire Elemental</entry>
+    <entry>Hell Hound</entry>
+    <entry>Nessian Warhound</entry>
+    <entry>Fire Giant</entry>
+    <entry>Pyrohydra</entry>
+    <entry>Magmin</entry>
+    <entry>Fire Mephit</entry>
+    <entry>Magma Mephit</entry>
+    <entry>Steam Mephit</entry>
+    <entry>Rast</entry>
+    <entry>Salamander</entry>
+    <entry>Thoqqua</entry>
+  </collection>
+  <collection>
+    <name>Formian</name>
+    <entry>Formian Myrmarch</entry>
+    <entry>Formian Queen</entry>
+    <entry>Formian Taskmaster</entry>
+    <entry>Formian Warrior</entry>
+    <entry>Formian Worker</entry>
+  </collection>
+  <collection>
+    <name>Fortitude</name>
+    <entry>Animal</entry>
+    <entry>Dragon</entry>
+    <entry>Dwarf</entry>
+    <entry>Earth Elemental</entry>
+    <entry>Elf</entry>
+    <entry>Giant</entry>
+    <entry>Githyanki</entry>
+    <entry>Githzerai</entry>
+    <entry>Gnoll</entry>
+    <entry>Gnome</entry>
+    <entry>Goblin</entry>
+    <entry>Halfling</entry>
+    <entry>Hobgoblin</entry>
+    <entry>Kobold</entry>
+    <entry>Locathah</entry>
+    <entry>Magical Beast</entry>
+    <entry>Merfolk</entry>
+    <entry>Orc</entry>
+    <entry>Outsider</entry>
+    <entry>Plant</entry>
+    <entry>Thoqqua</entry>
+    <entry>Troglodyte</entry>
+    <entry>Vermin</entry>
+    <entry>Water Elemental</entry>
+  </collection>
+  <collection>
+    <name>Fungus</name>
+    <entry>Shrieker</entry>
+    <entry>Violet Fungus</entry>
+  </collection>
+  <collection>
+    <name>Genie</name>
+    <entry>Djinni</entry>
+    <entry>Noble Djinni</entry>
+    <entry>Efreeti</entry>
+    <entry>Janni</entry>
+  </collection>
+  <collection>
+    <name>Giant</name>
+    <entry>Ettin</entry>
+    <entry>Cloud Giant</entry>
+    <entry>Fire Giant</entry>
+    <entry>Frost Giant</entry>
+    <entry>Hill Giant</entry>
+    <entry>Stone Giant</entry>
+    <entry>Stone Giant Elder</entry>
+    <entry>Storm Giant</entry>
+    <entry>Ogre</entry>
+    <entry>Merrow</entry>
+    <entry>Ogre Mage</entry>
+    <entry>Troll</entry>
+    <entry>Scrag</entry>
+  </collection>
+  <collection>
+    <name>Giant Ant</name>
+    <entry>Giant Ant, Queen</entry>
+    <entry>Giant Ant, Soldier</entry>
+    <entry>Giant Ant, Worker</entry>
+  </collection>
+  <collection>
+    <name>Gnoll</name>
+    <entry>Gnoll</entry>
+  </collection>
+  <collection>
+    <name>Gnome</name>
+    <entry>Forest Gnome</entry>
+    <entry>Rock Gnome</entry>
+    <entry>Svirfneblin</entry>
+  </collection>
+  <collection>
+    <name>Goblinoid</name>
+    <entry>Bugbear</entry>
+    <entry>Goblin</entry>
+    <entry>Hobgoblin</entry>
+  </collection>
+  <collection>
+    <name>Gold Dragon</name>
+    <entry>Gold Dragon, Wyrmling</entry>
+    <entry>Gold Dragon, Very Young</entry>
+    <entry>Gold Dragon, Young</entry>
+    <entry>Gold Dragon, Juvenile</entry>
+    <entry>Gold Dragon, Young Adult</entry>
+    <entry>Gold Dragon, Adult</entry>
+    <entry>Gold Dragon, Mature Adult</entry>
+    <entry>Gold Dragon, Old</entry>
+    <entry>Gold Dragon, Very Old</entry>
+    <entry>Gold Dragon, Ancient</entry>
+    <entry>Gold Dragon, Wyrm</entry>
+    <entry>Gold Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>Golem</name>
+    <entry>Clay Golem</entry>
+    <entry>Flesh Golem</entry>
+    <entry>Iron Golem</entry>
+    <entry>Stone Golem</entry>
+    <entry>Greater Stone Golem</entry>
+  </collection>
+  <collection>
+    <name>Good</name>
+    <entry>Angel</entry>
+    <entry>Archon</entry>
+    <entry>Avoral</entry>
+    <entry>Bralani</entry>
+    <entry>Ghaele</entry>
+    <entry>Leonal</entry>
+    <entry>Lillend</entry>
+  </collection>
+  <collection>
+    <name>Green Dragon</name>
+    <entry>Green Dragon, Wyrmling</entry>
+    <entry>Green Dragon, Very Young</entry>
+    <entry>Green Dragon, Young</entry>
+    <entry>Green Dragon, Juvenile</entry>
+    <entry>Green Dragon, Young Adult</entry>
+    <entry>Green Dragon, Adult</entry>
+    <entry>Green Dragon, Mature Adult</entry>
+    <entry>Green Dragon, Old</entry>
+    <entry>Green Dragon, Very Old</entry>
+    <entry>Green Dragon, Ancient</entry>
+    <entry>Green Dragon, Wyrm</entry>
+    <entry>Green Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>Hag</name>
+    <entry>Annis</entry>
+    <entry>Green Hag</entry>
+    <entry>Sea Hag</entry>
+  </collection>
+  <collection>
+    <name>Halfling</name>
+    <entry>Deep Halfling</entry>
+    <entry>Lightfoot Halfling</entry>
+    <entry>Tallfellow Halfling</entry>
+  </collection>
+  <collection>
+    <name>Has Skeleton</name>
+    <entry>Aboleth</entry>
+    <entry>Athach</entry>
+    <entry>Beholder</entry>
+    <entry>Gauth (Lesser Beholder)</entry>
+    <entry>Carrion Crawler</entry>
+    <entry>Choker</entry>
+    <entry>Chuul</entry>
+    <entry>Cloaker</entry>
+    <entry>Delver</entry>
+    <entry>Destrachan</entry>
+    <entry>Drider</entry>
+    <entry>Ethereal Filcher</entry>
+    <entry>Ettercap</entry>
+    <entry>Gibbering Mouther</entry>
+    <entry>Grick</entry>
+    <entry>Mind Flayer (Illithid)</entry>
+    <entry>Naga</entry>
+    <entry>Otyugh</entry>
+    <entry>Rust Monster</entry>
+    <entry>Skum</entry>
+    <entry>Umber Hulk</entry>
+    <entry>Truly Horrid Umber Hulk</entry>
+    <entry>Ape</entry>
+    <entry>Dire Ape</entry>
+    <entry>Baboon</entry>
+    <entry>Badger</entry>
+    <entry>Dire Badger</entry>
+    <entry>Bat</entry>
+    <entry>Dire Bat</entry>
+    <entry>Bat Swarm</entry>
+    <entry>Bear</entry>
+    <entry>Bison</entry>
+    <entry>Boar</entry>
+    <entry>Dire Boar</entry>
+    <entry>Camel, Bactrian (Two-Humped)</entry>
+    <entry>Camel, Dromedary (One-Humped)</entry>
+    <entry>Cat</entry>
+    <entry>Cheetah</entry>
+    <entry>Crocodile</entry>
+    <entry>Giant Crocodile</entry>
+    <entry>Dinosaur</entry>
+    <entry>Dog</entry>
+    <entry>Donkey</entry>
+    <entry>Eagle</entry>
+    <entry>Elephant</entry>
+    <entry>Hawk</entry>
+    <entry>Horse</entry>
+    <entry>Hyena</entry>
+    <entry>Leopard</entry>
+    <entry>Lion</entry>
+    <entry>Dire Lion</entry>
+    <entry>Lizard</entry>
+    <entry>Monitor Lizard</entry>
+    <entry>Manta Ray</entry>
+    <entry>Monkey</entry>
+    <entry>Mule</entry>
+    <entry>Owl</entry>
+    <entry>Pony</entry>
+    <entry>Porpoise</entry>
+    <entry>Rat</entry>
+    <entry>Dire Rat</entry>
+    <entry>Rat Swarm</entry>
+    <entry>Raven</entry>
+    <entry>Rhinoceras</entry>
+    <entry>Roc</entry>
+    <entry>Constrictor Snake</entry>
+    <entry>Giant Constrictor Snake</entry>
+    <entry>Viper Snake</entry>
+    <entry>Shark</entry>
+    <entry>Tiger</entry>
+    <entry>Dire Tiger</entry>
+    <entry>Toad</entry>
+    <entry>Weasel</entry>
+    <entry>Dire Weasel</entry>
+    <entry>Whale</entry>
+    <entry>Wolf</entry>
+    <entry>Dire Wolf</entry>
+    <entry>Wolverine</entry>
+    <entry>Dire Wolverine</entry>
+    <entry>Dragon</entry>
+    <entry>Fey</entry>
+    <entry>Giant</entry>
+    <entry>Humanoid</entry>
+    <entry>Ankheg</entry>
+    <entry>Aranea</entry>
+    <entry>Basilisk</entry>
+    <entry>Behir</entry>
+    <entry>Blink Dog</entry>
+    <entry>Bulette</entry>
+    <entry>Chimera</entry>
+    <entry>Cockatrice</entry>
+    <entry>Darkmantle</entry>
+    <entry>Digester</entry>
+    <entry>Displacer Beast</entry>
+    <entry>Displacer Beast Pack Lord</entry>
+    <entry>Dragonne</entry>
+    <entry>Giant Eagle</entry>
+    <entry>Ethereal Marauder</entry>
+    <entry>Girallon</entry>
+    <entry>Gorgon</entry>
+    <entry>Gray Render</entry>
+    <entry>Griffon</entry>
+    <entry>Hippogriff</entry>
+    <entry>Hydra</entry>
+    <entry>Krenshar</entry>
+    <entry>Lamia</entry>
+    <entry>Lammasu</entry>
+    <entry>Manticore</entry>
+    <entry>Giant Owl</entry>
+    <entry>Owlbear</entry>
+    <entry>Pegasus</entry>
+    <entry>Razor Boar</entry>
+    <entry>Sea Cat</entry>
+    <entry>Shocker Lizard</entry>
+    <entry>Androsphinx</entry>
+    <entry>Criosphinx</entry>
+    <entry>Gynosphinx</entry>
+    <entry>Hieracosphinx</entry>
+    <entry>Tarrasque</entry>
+    <entry>Unicorn</entry>
+    <entry>Winter Wolf</entry>
+    <entry>Worg</entry>
+    <entry>Yrthak</entry>
+    <entry>Monstrous Humanoid</entry>
+  </collection>
+  <collection>
+    <name>Horse</name>
+    <entry>Heavy Horse</entry>
+    <entry>Heavy Warhorse</entry>
+    <entry>Light Horse</entry>
+    <entry>Light Warhorse</entry>
+  </collection>
+  <collection>
+    <name>Human</name>
+    <entry>Half-Elf</entry>
+    <entry>Half-Orc</entry>
+    <entry>Human</entry>
+  </collection>
+  <collection>
+    <name>Humanoid</name>
+    <entry>Bugbear</entry>
+    <entry>Dwarf</entry>
+    <entry>Elf</entry>
+    <entry>Githyanki</entry>
+    <entry>Githzerai</entry>
+    <entry>Gnoll</entry>
+    <entry>Gnome</entry>
+    <entry>Goblin</entry>
+    <entry>Halfling</entry>
+    <entry>Hobgoblin</entry>
+    <entry>Human</entry>
+    <entry>Kobold</entry>
+    <entry>Lizardfolk</entry>
+    <entry>Locathah</entry>
+    <entry>Merfolk</entry>
+    <entry>Orc</entry>
+    <entry>Troglodyte</entry>
+  </collection>
+  <collection>
+    <name>Hydra</name>
+    <entry>Cryohydra</entry>
+    <entry>Five-Headed Hydra</entry>
+    <entry>Six-Headed Hydra</entry>
+    <entry>Seven-Headed Hydra</entry>
+    <entry>Eight-Headed Hydra</entry>
+    <entry>Nine-Headed Hydra</entry>
+    <entry>Ten-Headed Hydra</entry>
+    <entry>Eleven-Headed Hydra</entry>
+    <entry>Twelve-Headed Hydra</entry>
+    <entry>Pyrohydra</entry>
+  </collection>
+  <collection>
+    <name>Incorporeal</name>
+    <entry>Allip</entry>
+    <entry>Shadow</entry>
+    <entry>Greater Shadow</entry>
+    <entry>Spectre</entry>
+    <entry>Wraith</entry>
+    <entry>Dread Wraith</entry>
+  </collection>
+  <collection>
+    <name>Inevitable</name>
+    <entry>Kolyarut</entry>
+    <entry>Marut</entry>
+    <entry>Zelekhut</entry>
+  </collection>
+  <collection>
+    <name>Lawful</name>
+    <entry>Achaierai</entry>
+    <entry>Archon</entry>
+    <entry>Barghest</entry>
+    <entry>Greater Barghest</entry>
+    <entry>Devil</entry>
+    <entry>Formian</entry>
+    <entry>Hell Hound</entry>
+    <entry>Nessian Warhound</entry>
+    <entry>Inevitable</entry>
+  </collection>
+  <collection>
+    <name>Lycanthrope</name>
+    <entry>Lycanthrope, Brown Bear (Werebear, Afflicted)</entry>
+    <entry>Lycanthrope, Brown Bear (Werebear, Natural)</entry>
+    <entry>Lycanthrope, Boar (Wereboar, Afflicted)</entry>
+    <entry>Lycanthrope, Boar (Wereboar, Natural)</entry>
+    <entry>Lycanthrope, Dire Boar (Dire Wereboar, Afflicted)</entry>
+    <entry>Lycanthrope, Dire Boar (Dire Wereboar, Natural)</entry>
+    <entry>Lycanthrope, Dire Rat (Wererat, Afflicted)</entry>
+    <entry>Lycanthrope, Dire Rat (Wererat, Natural)</entry>
+    <entry>Lycanthrope, Tiger (Weretiger, Afflicted)</entry>
+    <entry>Lycanthrope, Tiger (Weretiger, Natural)</entry>
+    <entry>Lycanthrope, Wolf (Werewolf, Afflicted)</entry>
+    <entry>Lycanthrope, Wolf (Werewolf, Natural)</entry>
+    <entry>Lycanthrope, Dire Wolf (Dire Werewolf, Afflicted)</entry>
+    <entry>Lycanthrope, Dire Wolf (Dire Werewolf, Natural)</entry>
+  </collection>
+  <collection>
+    <name>Magical Beast</name>
+    <entry>Ankheg</entry>
+    <entry>Aranea</entry>
+    <entry>Basilisk</entry>
+    <entry>Greater Basilisk</entry>
+    <entry>Behir</entry>
+    <entry>Blink Dog</entry>
+    <entry>Bulette</entry>
+    <entry>Chimera</entry>
+    <entry>Cockatrice</entry>
+    <entry>Displacer Beast</entry>
+    <entry>Displacer Beast Pack Lord</entry>
+    <entry>Darkmantle</entry>
+    <entry>Digester</entry>
+    <entry>Dragonne</entry>
+    <entry>Ethereal Marauder</entry>
+    <entry>Frost Worm</entry>
+    <entry>Giant Eagle</entry>
+    <entry>Giant Owl</entry>
+    <entry>Girallon</entry>
+    <entry>Gorgon</entry>
+    <entry>Gray Render</entry>
+    <entry>Griffon</entry>
+    <entry>Hellwasp Swarm</entry>
+    <entry>Hippogriff</entry>
+    <entry>Hydra</entry>
+    <entry>Kraken</entry>
+    <entry>Krenshar</entry>
+    <entry>Lamia</entry>
+    <entry>Lammasu</entry>
+    <entry>Manticore</entry>
+    <entry>Owlbear</entry>
+    <entry>Pegasus</entry>
+    <entry>Phase Spider</entry>
+    <entry>Purple Worm</entry>
+    <entry>Razor Boar</entry>
+    <entry>Remorhaz</entry>
+    <entry>Roper</entry>
+    <entry>Sea Cat</entry>
+    <entry>Shocker Lizard</entry>
+    <entry>Sphinx</entry>
+    <entry>Spider Eater</entry>
+    <entry>Stirge</entry>
+    <entry>Tarrasque</entry>
+    <entry>Unicorn</entry>
+    <entry>Winter Wolf</entry>
+    <entry>Worg</entry>
+    <entry>Yrthak</entry>
+  </collection>
+  <collection>
+    <name>Native</name>
+    <entry>Couatl</entry>
+    <entry>Janni</entry>
+    <entry>Planetouched</entry>
+    <entry>Rakshasa</entry>
+    <entry>Triton</entry>
+  </collection>
+  <collection>
+    <name>Mephit</name>
+    <entry>Air Mephit</entry>
+    <entry>Dust Mephit</entry>
+    <entry>Earth Mephit</entry>
+    <entry>Fire Mephit</entry>
+    <entry>Ice Mephit</entry>
+    <entry>Magma Mephit</entry>
+    <entry>Ooze Mephit</entry>
+    <entry>Salt Mephit</entry>
+    <entry>Steam Mephit</entry>
+    <entry>Water Mephit</entry>
+  </collection>
+  <collection>
+    <name>Monstrous Centipede</name>
+    <entry>Monstrous Centipede, Tiny</entry>
+    <entry>Monstrous Centipede, Small</entry>
+    <entry>Monstrous Centipede, Medium</entry>
+    <entry>Monstrous Centipede, Large</entry>
+    <entry>Monstrous Centipede, Huge</entry>
+    <entry>Monstrous Centipede, Gargantuan</entry>
+    <entry>Monstrous Centipede, Colossal</entry>
+  </collection>
+  <collection>
+    <name>Monstrous Humanoid</name>
+    <entry>Centaur</entry>
+    <entry>Derro</entry>
+    <entry>Derro (Sane)</entry>
+    <entry>Doppelganger</entry>
+    <entry>Gargoyle</entry>
+    <entry>Kapoacinth</entry>
+    <entry>Grimlock</entry>
+    <entry>Hag</entry>
+    <entry>Harpy</entry>
+    <entry>Kuo-toa</entry>
+    <entry>Medusa</entry>
+    <entry>Minotaur</entry>
+    <entry>Sahuagin</entry>
+    <entry>Sahuagin Mutant</entry>
+    <entry>Malenti</entry>
+    <entry>Scorpionfolk</entry>
+    <entry>Yuan-ti</entry>
+  </collection>
+  <collection>
+    <name>Monstrous Scorpion</name>
+    <entry>Monstrous Scorpion, Tiny</entry>
+    <entry>Monstrous Scorpion, Small</entry>
+    <entry>Monstrous Scorpion, Medium</entry>
+    <entry>Monstrous Scorpion, Large</entry>
+    <entry>Monstrous Scorpion, Huge</entry>
+    <entry>Monstrous Scorpion, Gargantuan</entry>
+    <entry>Monstrous Scorpion, Colossal</entry>
+  </collection>
+  <collection>
+    <name>Monstrous Spider</name>
+    <entry>Monstrous Spider, Hunter, Tiny</entry>
+    <entry>Monstrous Spider, Hunter, Small</entry>
+    <entry>Monstrous Spider, Hunter, Medium</entry>
+    <entry>Monstrous Spider, Hunter, Large</entry>
+    <entry>Monstrous Spider, Hunter, Huge</entry>
+    <entry>Monstrous Spider, Hunter, Gargantuan</entry>
+    <entry>Monstrous Spider, Hunter, Colossal</entry>
+    <entry>Monstrous Spider, Web-Spinner, Tiny</entry>
+    <entry>Monstrous Spider, Web-Spinner, Small</entry>
+    <entry>Monstrous Spider, Web-Spinner, Medium</entry>
+    <entry>Monstrous Spider, Web-Spinner, Large</entry>
+    <entry>Monstrous Spider, Web-Spinner, Huge</entry>
+    <entry>Monstrous Spider, Web-Spinner, Gargantuan</entry>
+    <entry>Monstrous Spider, Web-Spinner, Colossal</entry>
+  </collection>
+  <collection>
+    <name>Naga</name>
+    <entry>Dark Naga</entry>
+    <entry>Guardian Naga</entry>
+    <entry>Spirit Naga</entry>
+    <entry>Water Naga</entry>
+  </collection>
+  <collection>
+    <name>Nightshade</name>
+    <entry>Nightcrawler</entry>
+    <entry>Nightwalker</entry>
+    <entry>Nightwing</entry>
+  </collection>
+  <collection>
+    <name>Ooze</name>
+    <entry>Black Pudding</entry>
+    <entry>Elder Black Pudding</entry>
+    <entry>Gelatinous Cube</entry>
+    <entry>Gray Ooze</entry>
+    <entry>Ochre Jelly</entry>
+  </collection>
+  <collection>
+    <name>Orc</name>
+    <entry>Orc</entry>
+    <entry>Half-Orc</entry>
+  </collection>
+  <collection>
+    <name>Outsider</name>
+    <entry>Achaierai</entry>
+    <entry>Angel</entry>
+    <entry>Archon</entry>
+    <entry>Arrowhawk</entry>
+    <entry>Avoral</entry>
+    <entry>Azer</entry>
+    <entry>Barghest</entry>
+    <entry>Greater Barghest</entry>
+    <entry>Bralani</entry>
+    <entry>Chaos Beast</entry>
+    <entry>Couatl</entry>
+    <entry>Babau</entry>
+    <entry>Balor</entry>
+    <entry>Bebilith</entry>
+    <entry>Dretch</entry>
+    <entry>Glabrezu</entry>
+    <entry>Hezrou</entry>
+    <entry>Marilith</entry>
+    <entry>Nalfeshnee</entry>
+    <entry>Quasit</entry>
+    <entry>Succubus</entry>
+    <entry>Vrock</entry>
+    <entry>Devil</entry>
+    <entry>Formian</entry>
+    <entry>Genie</entry>
+    <entry>Ghaele</entry>
+    <entry>Hell Hound</entry>
+    <entry>Howler</entry>
+    <entry>Leonal</entry>
+    <entry>Lillend</entry>
+    <entry>Mephit</entry>
+    <entry>Nessian Warhound</entry>
+    <entry>Night Hag</entry>
+    <entry>Nightmare</entry>
+    <entry>Nightmare, Cauchemar</entry>
+    <entry>Planetouched</entry>
+    <entry>Rakshasa</entry>
+    <entry>Rast</entry>
+    <entry>Ravid</entry>
+    <entry>Salamander</entry>
+    <entry>Shadow Mastiff</entry>
+    <entry>Slaad</entry>
+    <entry>Titan</entry>
+    <entry>Tojanida</entry>
+    <entry>Triton</entry>
+    <entry>Vargouille</entry>
+    <entry>Xill</entry>
+    <entry>Xorn</entry>
+    <entry>Yeth Hound</entry>
+  </collection>
+  <collection>
+    <name>Plant</name>
+    <entry>Assassin Vine</entry>
+    <entry>Fungus</entry>
+    <entry>Phantom Fungus</entry>
+    <entry>Shambling Mound</entry>
+    <entry>Tendriculos</entry>
+    <entry>Treant</entry>
+  </collection>
+  <collection>
+    <name>Planetouched</name>
+    <entry>Aasimar</entry>
+    <entry>Tiefling</entry>
+  </collection>
+  <collection>
+    <name>Pyrohydra</name>
+    <entry>Five-Headed Pyrohydra</entry>
+    <entry>Six-Headed Pyrohydra</entry>
+    <entry>Seven-Headed Pyrohydra</entry>
+    <entry>Eight-Headed Pyrohydra</entry>
+    <entry>Nine-Headed Pyrohydra</entry>
+    <entry>Ten-Headed Pyrohydra</entry>
+    <entry>Eleven-Headed Pyrohydra</entry>
+    <entry>Twelve-Headed Pyrohydra</entry>
+  </collection>
+  <collection>
+    <name>Red Dragon</name>
+    <entry>Red Dragon, Wyrmling</entry>
+    <entry>Red Dragon, Very Young</entry>
+    <entry>Red Dragon, Young</entry>
+    <entry>Red Dragon, Juvenile</entry>
+    <entry>Red Dragon, Young Adult</entry>
+    <entry>Red Dragon, Adult</entry>
+    <entry>Red Dragon, Mature Adult</entry>
+    <entry>Red Dragon, Old</entry>
+    <entry>Red Dragon, Very Old</entry>
+    <entry>Red Dragon, Ancient</entry>
+    <entry>Red Dragon, Wyrm</entry>
+    <entry>Red Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>Reflex</name>
+    <entry>Air Elemental</entry>
+    <entry>Animal</entry>
+    <entry>Belker</entry>
+    <entry>Bugbear</entry>
+    <entry>Dragon</entry>
+    <entry>Fey</entry>
+    <entry>Fire Elemental</entry>
+    <entry>Human</entry>
+    <entry>Invisible Stalker</entry>
+    <entry>Lizardfolk</entry>
+    <entry>Magical Beast</entry>
+    <entry>Magmin</entry>
+    <entry>Monstrous Humanoid</entry>
+    <entry>Outsider</entry>
+  </collection>
+  <collection>
+    <name>Reptilian</name>
+    <entry>Kobold</entry>
+    <entry>Lizardfolk</entry>
+    <entry>Troglodyte</entry>
+  </collection>
+  <collection>
+    <name>Salamander</name>
+    <entry>Flamebrother Salamander</entry>
+    <entry>Average Salamander</entry>
+    <entry>Noble Salamander</entry>
+  </collection>
+  <collection>
+    <name>Shapechanger</name>
+    <entry>Aranea</entry>
+    <entry>Barghest</entry>
+    <entry>Greater Barghest</entry>
+    <entry>Doppelganger</entry>
+    <entry>Mimic</entry>
+    <entry>Phasm</entry>
+    <entry>Lycanthrope</entry>
+  </collection>
+  <collection>
+    <name>Shark</name>
+    <entry>Dire Shark</entry>
+    <entry>Shark, Medium</entry>
+    <entry>Shark, Large</entry>
+    <entry>Shark, Huge</entry>
+  </collection>
+  <collection>
+    <name>Silver Dragon</name>
+    <entry>Silver Dragon, Wyrmling</entry>
+    <entry>Silver Dragon, Very Young</entry>
+    <entry>Silver Dragon, Young</entry>
+    <entry>Silver Dragon, Juvenile</entry>
+    <entry>Silver Dragon, Young Adult</entry>
+    <entry>Silver Dragon, Adult</entry>
+    <entry>Silver Dragon, Mature Adult</entry>
+    <entry>Silver Dragon, Old</entry>
+    <entry>Silver Dragon, Very Old</entry>
+    <entry>Silver Dragon, Ancient</entry>
+    <entry>Silver Dragon, Wyrm</entry>
+    <entry>Silver Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>Slaad</name>
+    <entry>Blue Slaad</entry>
+    <entry>Red Slaad</entry>
+    <entry>Green Slaad</entry>
+    <entry>Gray Slaad</entry>
+    <entry>Death Slaad</entry>
+  </collection>
+  <collection>
+    <name>Sphinx</name>
+    <entry>Androsphinx</entry>
+    <entry>Criosphinx</entry>
+    <entry>Gynosphinx</entry>
+    <entry>Hieracosphinx</entry>
+  </collection>
+  <collection>
+    <name>Sprite</name>
+    <entry>Grig</entry>
+    <entry>Grig with fiddle</entry>
+    <entry>Nixie</entry>
+    <entry>Pixie</entry>
+    <entry>Pixie with Irresistible dance</entry>
+  </collection>
+  <collection>
+    <name>Swarm</name>
+    <entry>Bat Swarm</entry>
+    <entry>Centipede Swarm</entry>
+    <entry>Hellwasp Swarm</entry>
+    <entry>Locust Swarm</entry>
+    <entry>Rat Swarm</entry>
+    <entry>Spider Swarm</entry>
+  </collection>
+  <collection>
+    <name>Tojanida</name>
+    <entry>Juvenile Tojanida</entry>
+    <entry>Adult Tojanida</entry>
+    <entry>Elder Tojanida</entry>
+  </collection>
+  <collection>
+    <name>Vermin</name>
+    <entry>Centipede Swarm</entry>
+    <entry>Giant Ant</entry>
+    <entry>Giant Bee</entry>
+    <entry>Giant Bombardier Beetle</entry>
+    <entry>Giant Fire Beetle</entry>
+    <entry>Giant Praying Mantis</entry>
+    <entry>Giant Stag Beetle</entry>
+    <entry>Giant Wasp</entry>
+    <entry>Locust Swarm</entry>
+    <entry>Monstrous Centipede</entry>
+    <entry>Monstrous Scorpion</entry>
+    <entry>Monstrous Spider</entry>
+    <entry>Spider Swarm</entry>
+  </collection>
+  <collection>
+    <name>Viper Snake</name>
+    <entry>Viper Snake, Huge</entry>
+    <entry>Viper Snake, Large</entry>
+    <entry>Viper Snake, Medium</entry>
+    <entry>Viper Snake, Small</entry>
+    <entry>Viper Snake, Tiny</entry>
+  </collection>
+  <collection>
+    <name>Water</name>
+    <entry>Black Dragon</entry>
+    <entry>Bronze Dragon</entry>
+    <entry>Water Elemental</entry>
+    <entry>Ooze Mephit</entry>
+    <entry>Water Mephit</entry>
+    <entry>Tojanida</entry>
+    <entry>Triton</entry>
+  </collection>
+  <collection>
+    <name>Whale</name>
+    <entry>Baleen Whale</entry>
+    <entry>Cachalot Whale</entry>
+    <entry>Orca Whale</entry>
+  </collection>
+  <collection>
+    <name>White Dragon</name>
+    <entry>White Dragon, Wyrmling</entry>
+    <entry>White Dragon, Very Young</entry>
+    <entry>White Dragon, Young</entry>
+    <entry>White Dragon, Juvenile</entry>
+    <entry>White Dragon, Young Adult</entry>
+    <entry>White Dragon, Adult</entry>
+    <entry>White Dragon, Mature Adult</entry>
+    <entry>White Dragon, Old</entry>
+    <entry>White Dragon, Very Old</entry>
+    <entry>White Dragon, Ancient</entry>
+    <entry>White Dragon, Wyrm</entry>
+    <entry>White Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>Will</name>
+    <entry>Aberration</entry>
+    <entry>Dire Ape</entry>
+    <entry>Dire Badger</entry>
+    <entry>Dire Bat</entry>
+    <entry>Dire Bear</entry>
+    <entry>Dire Boar</entry>
+    <entry>Dire Lion</entry>
+    <entry>Dire Rat</entry>
+    <entry>Dire Shark</entry>
+    <entry>Dire Tiger</entry>
+    <entry>Dire Weasel</entry>
+    <entry>Dire Wolf</entry>
+    <entry>Dire Wolverine</entry>
+    <entry>Dragon</entry>
+    <entry>Fey</entry>
+    <entry>Monstrous Humanoid</entry>
+    <entry>Outsider</entry>
+    <entry>Undead</entry>
+    <entry>Skeleton</entry>
+    <entry>Zombie</entry>
+  </collection>
+  <collection>
+    <name>Xorn</name>
+    <entry>Average Xorn</entry>
+    <entry>Minor Xorn</entry>
+    <entry>Elder Xorn</entry>
+  </collection>
+  <collection>
+    <name>Yuan-ti</name>
+    <entry>Yuan-ti Abomination</entry>
+    <entry>Yuan-ti Halfblood (Snake Head)</entry>
+    <entry>Yuan-ti Halfblood (Human Head, Arms are Snakes)</entry>
+    <entry>Yuan-ti Halfblood (Snake Head, Snake Tail and Human Legs)</entry>
+    <entry>Yuan-ti Halfblood (Snake Head, Snake Tail instead of Human Legs)</entry>
+    <entry>Yuan-ti Pureblood</entry>
+  </collection>
+  <collection>
+    <name>Good Base Attack</name>
+    <entry>Dragon</entry>
+    <entry>Magical Beast</entry>
+    <entry>Monstrous Humanoid</entry>
+    <entry>Outsider</entry>
+  </collection>
+  <collection>
+    <name>Average Base Attack</name>
+    <entry>Aberration</entry>
+    <entry>Animal</entry>
+    <entry>Construct</entry>
+    <entry>Elemental</entry>
+    <entry>Giant</entry>
+    <entry>Humanoid</entry>
+    <entry>Ooze</entry>
+    <entry>Plant</entry>
+    <entry>Vermin</entry>
+  </collection>
+  <collection>
+    <name>Poor Base Attack</name>
+    <entry>Fey</entry>
+    <entry>Undead</entry>
+  </collection>
+  <collection>
+    <name>Undead</name>
+    <entry>Allip</entry>
+    <entry>Bodak</entry>
+    <entry>Devourer</entry>
+    <entry>Ghoul</entry>
+    <entry>Ghast</entry>
+    <entry>Lacedon</entry>
+    <entry>Mohrg</entry>
+    <entry>Mummy</entry>
+    <entry>Nightshade</entry>
+    <entry>Shadow</entry>
+    <entry>Greater Shadow</entry>
+    <entry>Spectre</entry>
+    <entry>Vampire Spawn</entry>
+    <entry>Wight</entry>
+    <entry>Wraith</entry>
+    <entry>Dread Wraith</entry>
+  </collection>
+  <collection>
+    <name>All</name>
+    <entry>Aberration</entry>
+    <entry>Animal</entry>
+    <entry>Construct</entry>
+    <entry>Black Dragon</entry>
+    <entry>Green Dragon</entry>
+    <entry>Red Dragon</entry>
+    <entry>White Dragon</entry>
+    <entry>Blue Dragon</entry>
+    <entry>Brass Dragon</entry>
+    <entry>Bronze Dragon</entry>
+    <entry>Copper Dragon</entry>
+    <entry>Gold Dragon</entry>
+    <entry>Silver Dragon</entry>
+    <entry>Elemental</entry>
+    <entry>Fey</entry>
+    <entry>Elf</entry>
+    <entry>Dwarf</entry>
+    <entry>Orc</entry>
+    <entry>Gnome</entry>
+    <entry>Magical Beast</entry>
+    <entry>Monstrous Humanoid</entry>
+    <entry>Ooze</entry>
+    <entry>Demon</entry>
+    <entry>Devil</entry>
+    <entry>Archon</entry>
+    <entry>Angel</entry>
+    <entry>Plant</entry>
+    <entry>Vermin</entry>
+    <entry>Nightshade</entry>
+    <entry>Planetouched</entry>
+    <entry>Allip</entry>
+    <entry>Achaierai</entry>
+    <entry>Xorn</entry>
+    <entry>Genie</entry>
+    <entry>Tojanida</entry>
+    <entry>Salamander</entry>
+    <entry>Arrowhawk</entry>
+    <entry>Azer</entry>
+    <entry>Barghest</entry>
+    <entry>Greater Barghest</entry>
+    <entry>Avoral</entry>
+    <entry>Bodak</entry>
+    <entry>Bralani</entry>
+    <entry>Bugbear</entry>
+    <entry>Human</entry>
+    <entry>Gnoll</entry>
+    <entry>Halfling</entry>
+    <entry>Chaos Beast</entry>
+    <entry>Couatl</entry>
+    <entry>Devourer</entry>
+    <entry>Air</entry>
+    <entry>Aquatic</entry>
+    <entry>Chaotic</entry>
+    <entry>Lawful</entry>
+    <entry>Earth</entry>
+    <entry>Fire</entry>
+    <entry>Water</entry>
+    <entry>Cold</entry>
+    <entry>Goblinoid</entry>
+    <entry>Reptilian</entry>
+    <entry>Swarm</entry>
+    <entry>Ettin</entry>
+    <entry>Ghoul</entry>
+    <entry>Ghast</entry>
+    <entry>Lacedon</entry>
+    <entry>Hill Giant</entry>
+    <entry>Stone Giant</entry>
+    <entry>Stone Giant Elder</entry>
+    <entry>Fire Giant</entry>
+    <entry>Frost Giant</entry>
+    <entry>Storm Giant</entry>
+    <entry>Cloud Giant</entry>
+    <entry>Mohrg</entry>
+    <entry>Mummy</entry>
+    <entry>Ogre</entry>
+    <entry>Ogre Mage</entry>
+    <entry>Pseudodragon</entry>
+    <entry>Rakshasa</entry>
+    <entry>Shadow</entry>
+    <entry>Greater Shadow</entry>
+    <entry>Spectre</entry>
+    <entry>Troll</entry>
+    <entry>Vampire Spawn</entry>
+    <entry>Wight</entry>
+    <entry>Wraith</entry>
+    <entry>Dread Wraith</entry>
+    <entry>Githyanki</entry>
+    <entry>Githzerai</entry>
+    <entry>Leonal</entry>
+    <entry>Night Hag</entry>
+    <entry>Nightmare</entry>
+    <entry>Nightmare, Cauchemar</entry>
+    <entry>Ravid</entry>
+    <entry>Shadow Mastiff</entry>
+    <entry>Vargouille</entry>
+    <entry>Wyvern</entry>
+    <entry>Xill</entry>
+    <entry>Yeth Hound</entry>
+  </collection>
+  <collection>
+    <name>Characters</name>
+    <entry>Elf</entry>
+    <entry>Dwarf</entry>
+    <entry>Orc</entry>
+    <entry>Gnome</entry>
+    <entry>Bugbear</entry>
+    <entry>Human</entry>
+    <entry>Gnoll</entry>
+    <entry>Halfling</entry>
+    <entry>Goblinoid</entry>
+    <entry>Reptilian</entry>
+    <entry>Ettin</entry>
+    <entry>Hill Giant</entry>
+    <entry>Stone Giant</entry>
+    <entry>Stone Giant Elder</entry>
+    <entry>Fire Giant</entry>
+    <entry>Frost Giant</entry>
+    <entry>Storm Giant</entry>
+    <entry>Cloud Giant</entry>
+    <entry>Ogre</entry>
+    <entry>Ogre Mage</entry>
+    <entry>Troll</entry>
+    <entry>Planetouched</entry>
+    <entry>Aboleth</entry>
+    <entry>Sphinx</entry>
+    <entry>Angel, Astral Deva</entry>
+    <entry>Hag</entry>
+    <entry>Aranea</entry>
+    <entry>Athach</entry>
+    <entry>Azer</entry>
+    <entry>Bearded Devil (Barbazu)</entry>
+    <entry>Blink Dog</entry>
+    <entry>Bralani</entry>
+    <entry>Centaur</entry>
+    <entry>Chain Devil (Kyton)</entry>
+    <entry>Chimera</entry>
+    <entry>Couatl</entry>
+    <entry>Derro</entry>
+    <entry>Derro (Sane)</entry>
+    <entry>Displacer Beast</entry>
+    <entry>Djinni</entry>
+    <entry>Doppelganger</entry>
+    <entry>Black Dragon, Wyrmling</entry>
+    <entry>Black Dragon, Very Young</entry>
+    <entry>Black Dragon, Young</entry>
+    <entry>Black Dragon, Juvenile</entry>
+    <entry>Blue Dragon, Wyrmling</entry>
+    <entry>Blue Dragon, Very Young</entry>
+    <entry>Blue Dragon, Young</entry>
+    <entry>Green Dragon, Wyrmling</entry>
+    <entry>Green Dragon, Very Young</entry>
+    <entry>Green Dragon, Young</entry>
+    <entry>Green Dragon, Juvenile</entry>
+    <entry>Red Dragon, Wyrmling</entry>
+    <entry>Red Dragon, Very Young</entry>
+    <entry>Red Dragon, Young</entry>
+    <entry>White Dragon, Wyrmling</entry>
+    <entry>White Dragon, Very Young</entry>
+    <entry>White Dragon, Young</entry>
+    <entry>White Dragon, Juvenile</entry>
+    <entry>Brass Dragon, Wyrmling</entry>
+    <entry>Brass Dragon, Very Young</entry>
+    <entry>Brass Dragon, Young</entry>
+    <entry>Brass Dragon, Juvenile</entry>
+    <entry>Bronze Dragon, Wyrmling</entry>
+    <entry>Bronze Dragon, Very Young</entry>
+    <entry>Bronze Dragon, Young</entry>
+    <entry>Copper Dragon, Wyrmling</entry>
+    <entry>Copper Dragon, Very Young</entry>
+    <entry>Copper Dragon, Young</entry>
+    <entry>Copper Dragon, Juvenile</entry>
+    <entry>Gold Dragon, Wyrmling</entry>
+    <entry>Gold Dragon, Very Young</entry>
+    <entry>Gold Dragon, Young</entry>
+    <entry>Silver Dragon, Wyrmling</entry>
+    <entry>Silver Dragon, Very Young</entry>
+    <entry>Silver Dragon, Young</entry>
+    <entry>Dragonne</entry>
+    <entry>Dretch</entry>
+    <entry>Drider</entry>
+    <entry>Giant Eagle</entry>
+    <entry>Erinyes</entry>
+    <entry>Ettercap</entry>
+    <entry>Gargoyle</entry>
+    <entry>Kapoacinth</entry>
+    <entry>Githyanki</entry>
+    <entry>Githzerai</entry>
+    <entry>Gray Render</entry>
+    <entry>Griffon</entry>
+    <entry>Grimlock</entry>
+    <entry>Harpy</entry>
+    <entry>Hell Hound</entry>
+    <entry>Nessian Warhound</entry>
+    <entry>Fey</entry>
+    <entry>Hezrou</entry>
+    <entry>Hound Archon</entry>
+    <entry>Howler</entry>
+    <entry>Janni</entry>
+    <entry>Krenshar</entry>
+    <entry>Kuo-toa</entry>
+    <entry>Lamia</entry>
+    <entry>Lammasu</entry>
+    <entry>Lillend</entry>
+    <entry>Locathah</entry>
+    <entry>Manticore</entry>
+    <entry>Medusa</entry>
+    <entry>Mephit</entry>
+    <entry>Merfolk</entry>
+    <entry>Mind Flayer (Illithid)</entry>
+    <entry>Minotaur</entry>
+    <entry>Mummy</entry>
+    <entry>Nightmare</entry>
+    <entry>Nightmare, Cauchemar</entry>
+    <entry>Merrow</entry>
+    <entry>Giant Owl</entry>
+    <entry>Pegasus</entry>
+    <entry>Pseudodragon</entry>
+    <entry>Rakshasa</entry>
+    <entry>Sahuagin</entry>
+    <entry>Malenti</entry>
+    <entry>Sahuagin Mutant</entry>
+    <entry>Average Salamander</entry>
+    <entry>Flamebrother Salamander</entry>
+    <entry>Scorpionfolk</entry>
+    <entry>Shadow Mastiff</entry>
+    <entry>Shambling Mound</entry>
+    <entry>Skum</entry>
+    <entry>Blue Slaad</entry>
+    <entry>Green Slaad</entry>
+    <entry>Red Slaad</entry>
+    <entry>Gray Slaad</entry>
+    <entry>Succubus</entry>
+    <entry>Treant</entry>
+    <entry>Triton</entry>
+    <entry>Scrag</entry>
+    <entry>Trumpet Archon</entry>
+    <entry>Unicorn</entry>
+    <entry>Vrock</entry>
+    <entry>Winter Wolf</entry>
+    <entry>Worg</entry>
+    <entry>Xill</entry>
+    <entry>Yeth Hound</entry>
+    <entry>Yuan-ti</entry>
+    <entry>Zelekhut</entry>
+  </collection>
+  <collection>
+    <name>Templates</name>
+    <entry>Half-Dragon</entry>
+    <entry>Lycanthrope</entry>
+    <entry>Skeleton</entry>
+    <entry>Zombie</entry>
+    <entry>Lich</entry>
+    <entry>Ghost</entry>
+    <entry>Celestial Creature</entry>
+    <entry>Fiendish Creature</entry>
+    <entry>Half-Celestial</entry>
+    <entry>Half-Fiend</entry>
+    <entry>Vampire</entry>
+  </collection>
+  <collection>
+    <name>Chimera</name>
+    <entry>Chimera (Black Dragon head)</entry>
+    <entry>Chimera (Blue Dragon head)</entry>
+    <entry>Chimera (Green Dragon head)</entry>
+    <entry>Chimera (Red Dragon head)</entry>
+    <entry>Chimera (White Dragon head)</entry>
+  </collection>
+  <collection>
+    <name>0</name>
+  </collection>
+  <collection>
+    <name>1/10</name>
+    <entry>Bat</entry>
+    <entry>Toad</entry>
+  </collection>
+  <collection>
+    <name>1/8</name>
+    <entry>Monstrous Centipede, Tiny</entry>
+    <entry>Rat</entry>
+  </collection>
+  <collection>
+    <name>1/6</name>
+    <entry>Donkey</entry>
+    <entry>Lizard</entry>
+    <entry>Monkey</entry>
+    <entry>Raven</entry>
+  </collection>
+  <collection>
+    <name>1/4</name>
+    <entry>Cat</entry>
+    <entry>Kobold</entry>
+    <entry>Monstrous Centipede, Small</entry>
+    <entry>Monstrous Scorpion, Tiny</entry>
+    <entry>Monstrous Spider, Hunter, Tiny</entry>
+    <entry>Monstrous Spider, Web-Spinner, Tiny</entry>
+    <entry>Owl</entry>
+    <entry>Pony</entry>
+    <entry>Weasel</entry>
+  </collection>
+  <collection>
+    <name>1/3</name>
+    <entry>Dire Rat</entry>
+    <entry>Dog</entry>
+    <entry>Giant Fire Beetle</entry>
+    <entry>Goblin</entry>
+    <entry>Hawk</entry>
+    <entry>Viper Snake, Tiny</entry>
+  </collection>
+  <collection>
+    <name>1/2</name>
+    <entry>Planetouched</entry>
+    <entry>Animated Object, Anvil, Tiny</entry>
+    <entry>Animated Object, Block (Stone), Tiny</entry>
+    <entry>Animated Object, Block (Wood), Tiny</entry>
+    <entry>Animated Object, Box, Tiny</entry>
+    <entry>Animated Object, Carpet, Tiny</entry>
+    <entry>Animated Object, Carriage, Tiny</entry>
+    <entry>Animated Object, Chain, Tiny</entry>
+    <entry>Animated Object, Chair, Tiny</entry>
+    <entry>Animated Object, Clothes, Tiny</entry>
+    <entry>Animated Object, Ladder, Tiny</entry>
+    <entry>Animated Object, Rope, Tiny</entry>
+    <entry>Animated Object, Rug, Tiny</entry>
+    <entry>Animated Object, Sled, Tiny</entry>
+    <entry>Animated Object, Statue (Animal), Tiny</entry>
+    <entry>Animated Object, Statue (Humanoid), Tiny</entry>
+    <entry>Animated Object, Stool, Tiny</entry>
+    <entry>Animated Object, Table, Tiny</entry>
+    <entry>Animated Object, Tapestry, Tiny</entry>
+    <entry>Animated Object, Wagon, Tiny</entry>
+    <entry>Aquatic Elf</entry>
+    <entry>Baboon</entry>
+    <entry>Badger</entry>
+    <entry>Deep Dwarf</entry>
+    <entry>Hill Dwarf</entry>
+    <entry>Mountain Dwarf</entry>
+    <entry>Halfling</entry>
+    <entry>Eagle</entry>
+    <entry>Forest Gnome</entry>
+    <entry>Rock Gnome</entry>
+    <entry>Formian Worker</entry>
+    <entry>Gray Elf</entry>
+    <entry>Half-Elf</entry>
+    <entry>High Elf</entry>
+    <entry>Wild Elf</entry>
+    <entry>Wood Elf</entry>
+    <entry>Orc</entry>
+    <entry>Half-Orc</entry>
+    <entry>Hobgoblin</entry>
+    <entry>Human</entry>
+    <entry>Locathah</entry>
+    <entry>Merfolk</entry>
+    <entry>Monstrous Centipede, Medium</entry>
+    <entry>Monstrous Scorpion, Small</entry>
+    <entry>Monstrous Spider, Hunter, Small</entry>
+    <entry>Monstrous Spider, Web-Spinner, Small</entry>
+    <entry>Porpoise</entry>
+    <entry>Stirge</entry>
+    <entry>Viper Snake, Small</entry>
+    <entry>Warpony</entry>
+  </collection>
+  <collection>
+    <name>1</name>
+    <entry>Air Elemental, Small</entry>
+    <entry>Earth Elemental, Small</entry>
+    <entry>Fire Elemental, Small</entry>
+    <entry>Water Elemental, Small</entry>
+    <entry>Animated Object, Anvil, Small</entry>
+    <entry>Animated Object, Block (Stone), Small</entry>
+    <entry>Animated Object, Block (Wood), Small</entry>
+    <entry>Animated Object, Box, Small</entry>
+    <entry>Animated Object, Carpet, Small</entry>
+    <entry>Animated Object, Carriage, Small</entry>
+    <entry>Animated Object, Chain, Small</entry>
+    <entry>Animated Object, Chair, Small</entry>
+    <entry>Animated Object, Clothes, Small</entry>
+    <entry>Animated Object, Ladder, Small</entry>
+    <entry>Animated Object, Rope, Small</entry>
+    <entry>Animated Object, Rug, Small</entry>
+    <entry>Animated Object, Sled, Small</entry>
+    <entry>Animated Object, Statue (Animal), Small</entry>
+    <entry>Animated Object, Statue (Humanoid), Small</entry>
+    <entry>Animated Object, Stool, Small</entry>
+    <entry>Animated Object, Table, Small</entry>
+    <entry>Animated Object, Tapestry, Small</entry>
+    <entry>Animated Object, Wagon, Small</entry>
+    <entry>Camel, Bactrian (Two-Humped)</entry>
+    <entry>Camel, Dromedary (One-Humped)</entry>
+    <entry>Darkmantle</entry>
+    <entry>Dog, Riding</entry>
+    <entry>Drow</entry>
+    <entry>Duergar</entry>
+    <entry>Ghoul</entry>
+    <entry>Giant Ant, Worker</entry>
+    <entry>Giant Bee</entry>
+    <entry>Githyanki</entry>
+    <entry>Githzerai</entry>
+    <entry>Gnoll</entry>
+    <entry>Grig</entry>
+    <entry>Grig with fiddle</entry>
+    <entry>Grimlock</entry>
+    <entry>Heavy Horse</entry>
+    <entry>Homunculus</entry>
+    <entry>Hyena</entry>
+    <entry>Krenshar</entry>
+    <entry>Lacedon</entry>
+    <entry>Lemure</entry>
+    <entry>Light Horse</entry>
+    <entry>Light Warhorse</entry>
+    <entry>Lizardfolk</entry>
+    <entry>Manta Ray</entry>
+    <entry>Monstrous Centipede, Large</entry>
+    <entry>Monstrous Scorpion, Medium</entry>
+    <entry>Monstrous Spider, Hunter, Medium</entry>
+    <entry>Monstrous Spider, Web-Spinner, Medium</entry>
+    <entry>Mule</entry>
+    <entry>Nixie</entry>
+    <entry>Octopus</entry>
+    <entry>Pseudodragon</entry>
+    <entry>Shark, Medium</entry>
+    <entry>Shrieker</entry>
+    <entry>Spider Swarm</entry>
+    <entry>Squid</entry>
+    <entry>Svirfneblin</entry>
+    <entry>Troglodyte</entry>
+    <entry>Viper Snake, Medium</entry>
+    <entry>Wolf</entry>
+  </collection>
+  <collection>
+    <name>2</name>
+    <entry>Animated Object, Anvil, Medium</entry>
+    <entry>Animated Object, Block (Stone), Medium</entry>
+    <entry>Animated Object, Block (Wood), Medium</entry>
+    <entry>Animated Object, Box, Medium</entry>
+    <entry>Animated Object, Carpet, Medium</entry>
+    <entry>Animated Object, Carriage, Medium</entry>
+    <entry>Animated Object, Chain, Medium</entry>
+    <entry>Animated Object, Chair, Medium</entry>
+    <entry>Animated Object, Clothes, Medium</entry>
+    <entry>Animated Object, Ladder, Medium</entry>
+    <entry>Animated Object, Rope, Medium</entry>
+    <entry>Animated Object, Rug, Medium</entry>
+    <entry>Animated Object, Sled, Medium</entry>
+    <entry>Animated Object, Statue (Animal), Medium</entry>
+    <entry>Animated Object, Statue (Humanoid), Medium</entry>
+    <entry>Animated Object, Stool, Medium</entry>
+    <entry>Animated Object, Table, Medium</entry>
+    <entry>Animated Object, Tapestry, Medium</entry>
+    <entry>Animated Object, Wagon, Medium</entry>
+    <entry>Ape</entry>
+    <entry>Azer</entry>
+    <entry>Bat Swarm</entry>
+    <entry>Bison</entry>
+    <entry>Black Bear</entry>
+    <entry>Blink Dog</entry>
+    <entry>Boar</entry>
+    <entry>Bugbear</entry>
+    <entry>Cheetah</entry>
+    <entry>Choker</entry>
+    <entry>Constrictor Snake</entry>
+    <entry>Crocodile</entry>
+    <entry>Dire Badger</entry>
+    <entry>Dire Bat</entry>
+    <entry>Dire Weasel</entry>
+    <entry>Dretch</entry>
+    <entry>Giant Ant, Queen</entry>
+    <entry>Giant Ant, Soldier</entry>
+    <entry>Giant Bombardier Beetle</entry>
+    <entry>Heavy Warhorse</entry>
+    <entry>Hippogriff</entry>
+    <entry>Imp</entry>
+    <entry>Kuo-toa</entry>
+    <entry>Lantern Archon</entry>
+    <entry>Leopard</entry>
+    <entry>Malenti</entry>
+    <entry>Monitor Lizard</entry>
+    <entry>Monstrous Centipede, Huge</entry>
+    <entry>Monstrous Spider, Hunter, Large</entry>
+    <entry>Monstrous Spider, Web-Spinner, Large</entry>
+    <entry>Quasit</entry>
+    <entry>Rat Swarm</entry>
+    <entry>Sahuagin Mutant</entry>
+    <entry>Sahuagin</entry>
+    <entry>Satyr</entry>
+    <entry>Shark, Large</entry>
+    <entry>Shocker Lizard</entry>
+    <entry>Skum</entry>
+    <entry>Thoqqua</entry>
+    <entry>Triton</entry>
+    <entry>Vargouille</entry>
+    <entry>Viper Snake, Large</entry>
+    <entry>White Dragon, Wyrmling</entry>
+    <entry>Wolverine</entry>
+    <entry>Worg</entry>
+  </collection>
+  <collection>
+    <name>3</name>
+    <entry>Air Elemental, Medium</entry>
+    <entry>Earth Elemental, Medium</entry>
+    <entry>Fire Elemental, Medium</entry>
+    <entry>Water Elemental, Medium</entry>
+    <entry>Allip</entry>
+    <entry>Mephit</entry>
+    <entry>Animated Object, Anvil, Large</entry>
+    <entry>Animated Object, Block (Stone), Large</entry>
+    <entry>Animated Object, Block (Wood), Large</entry>
+    <entry>Animated Object, Box, Large</entry>
+    <entry>Animated Object, Carpet, Large</entry>
+    <entry>Animated Object, Carriage, Large</entry>
+    <entry>Animated Object, Chain, Large</entry>
+    <entry>Animated Object, Chair, Large</entry>
+    <entry>Animated Object, Clothes, Large</entry>
+    <entry>Animated Object, Ladder, Large</entry>
+    <entry>Animated Object, Rope, Large</entry>
+    <entry>Animated Object, Rug, Large</entry>
+    <entry>Animated Object, Sled, Large</entry>
+    <entry>Animated Object, Statue (Animal), Large</entry>
+    <entry>Animated Object, Statue (Humanoid), Large</entry>
+    <entry>Animated Object, Stool, Large</entry>
+    <entry>Animated Object, Table, Large</entry>
+    <entry>Animated Object, Tapestry, Large</entry>
+    <entry>Animated Object, Wagon, Large</entry>
+    <entry>Ankheg</entry>
+    <entry>Assassin Vine</entry>
+    <entry>Black Dragon, Wyrmling</entry>
+    <entry>Blue Dragon, Wyrmling</entry>
+    <entry>Brass Dragon, Wyrmling</entry>
+    <entry>Bronze Dragon, Wyrmling</entry>
+    <entry>Centaur</entry>
+    <entry>Cockatrice</entry>
+    <entry>Copper Dragon, Wyrmling</entry>
+    <entry>Deinonychus</entry>
+    <entry>Derro (Sane)</entry>
+    <entry>Derro</entry>
+    <entry>Dire Ape</entry>
+    <entry>Dire Wolf</entry>
+    <entry>Doppelganger</entry>
+    <entry>Dryad</entry>
+    <entry>Ethereal Filcher</entry>
+    <entry>Ethereal Marauder</entry>
+    <entry>Ettercap</entry>
+    <entry>Flamebrother Salamander</entry>
+    <entry>Formian Warrior</entry>
+    <entry>Gelatinous Cube</entry>
+    <entry>Ghast</entry>
+    <entry>Giant Eagle</entry>
+    <entry>Giant Owl</entry>
+    <entry>Giant Praying Mantis</entry>
+    <entry>Giant Wasp</entry>
+    <entry>Green Dragon, Wyrmling</entry>
+    <entry>Grick</entry>
+    <entry>Hell Hound</entry>
+    <entry>Howler</entry>
+    <entry>Juvenile Arrowhawk</entry>
+    <entry>Juvenile Tojanida</entry>
+    <entry>Lion</entry>
+    <entry>Locust Swarm</entry>
+    <entry>Magmin</entry>
+    <entry>Merrow</entry>
+    <entry>Minor Xorn</entry>
+    <entry>Monstrous Scorpion, Large</entry>
+    <entry>Ogre</entry>
+    <entry>Pegasus</entry>
+    <entry>Phantom Fungus</entry>
+    <entry>Rust Monster</entry>
+    <entry>Shadow</entry>
+    <entry>Unicorn</entry>
+    <entry>Violet Fungus</entry>
+    <entry>Viper Snake, Huge</entry>
+    <entry>White Dragon, Very Young</entry>
+    <entry>Wight</entry>
+    <entry>Yeth Hound</entry>
+    <entry>Yuan-ti Pureblood</entry>
+  </collection>
+  <collection>
+    <name>4</name>
+    <entry>Aranea</entry>
+    <entry>Barghest</entry>
+    <entry>Black Dragon, Very Young</entry>
+    <entry>Blue Dragon, Very Young</entry>
+    <entry>Brass Dragon, Very Young</entry>
+    <entry>Brown Bear</entry>
+    <entry>Carrion Crawler</entry>
+    <entry>Centipede Swarm</entry>
+    <entry>Dire Boar</entry>
+    <entry>Dire Wolverine</entry>
+    <entry>Displacer Beast</entry>
+    <entry>Five-Headed Hydra</entry>
+    <entry>Gargoyle</entry>
+    <entry>Giant Crocodile</entry>
+    <entry>Giant Stag Beetle</entry>
+    <entry>Gray Ooze</entry>
+    <entry>Green Dragon, Very Young</entry>
+    <entry>Griffon</entry>
+    <entry>Harpy</entry>
+    <entry>Hound Archon</entry>
+    <entry>Janni</entry>
+    <entry>Kapoacinth</entry>
+    <entry>Mimic</entry>
+    <entry>Minotaur</entry>
+    <entry>Otyugh</entry>
+    <entry>Owlbear</entry>
+    <entry>Pixie</entry>
+    <entry>Polar Bear</entry>
+    <entry>Red Dragon, Wyrmling</entry>
+    <entry>Rhinoceras</entry>
+    <entry>Satyr with pipes</entry>
+    <entry>Sea Cat</entry>
+    <entry>Sea Hag</entry>
+    <entry>Shark, Huge</entry>
+    <entry>Silver Dragon, Wyrmling</entry>
+    <entry>Tiger</entry>
+    <entry>Vampire Spawn</entry>
+    <entry>White Dragon, Young</entry>
+  </collection>
+  <collection>
+    <name>5</name>
+    <entry>Air Elemental, Large</entry>
+    <entry>Earth Elemental, Large</entry>
+    <entry>Fire Elemental, Large</entry>
+    <entry>Water Elemental, Large</entry>
+    <entry>Achaierai</entry>
+    <entry>Adult Arrowhawk</entry>
+    <entry>Adult Tojanida</entry>
+    <entry>Animated Object, Anvil, Huge</entry>
+    <entry>Animated Object, Block (Stone), Huge</entry>
+    <entry>Animated Object, Block (Wood), Huge</entry>
+    <entry>Animated Object, Box, Huge</entry>
+    <entry>Animated Object, Carpet, Huge</entry>
+    <entry>Animated Object, Carriage, Huge</entry>
+    <entry>Animated Object, Chain, Huge</entry>
+    <entry>Animated Object, Chair, Huge</entry>
+    <entry>Animated Object, Clothes, Huge</entry>
+    <entry>Animated Object, Ladder, Huge</entry>
+    <entry>Animated Object, Rope, Huge</entry>
+    <entry>Animated Object, Rug, Huge</entry>
+    <entry>Animated Object, Sled, Huge</entry>
+    <entry>Animated Object, Statue (Animal), Huge</entry>
+    <entry>Animated Object, Statue (Humanoid), Huge</entry>
+    <entry>Animated Object, Stool, Huge</entry>
+    <entry>Animated Object, Table, Huge</entry>
+    <entry>Animated Object, Tapestry, Huge</entry>
+    <entry>Animated Object, Wagon, Huge</entry>
+    <entry>Basilisk</entry>
+    <entry>Bearded Devil (Barbazu)</entry>
+    <entry>Black Dragon, Young</entry>
+    <entry>Bronze Dragon, Very Young</entry>
+    <entry>Cloaker</entry>
+    <entry>Copper Dragon, Very Young</entry>
+    <entry>Dire Lion</entry>
+    <entry>Djinni</entry>
+    <entry>Six-Headed Hydra</entry>
+    <entry>Giant Constrictor Snake</entry>
+    <entry>Gibbering Mouther</entry>
+    <entry>Gold Dragon, Wyrmling</entry>
+    <entry>Greater Barghest</entry>
+    <entry>Green Dragon, Young</entry>
+    <entry>Green Hag</entry>
+    <entry>Hieracosphinx</entry>
+    <entry>Manticore</entry>
+    <entry>Monstrous Spider, Hunter, Huge</entry>
+    <entry>Monstrous Spider, Web-Spinner, Huge</entry>
+    <entry>Mummy</entry>
+    <entry>Nightmare</entry>
+    <entry>Ochre Jelly</entry>
+    <entry>Orca Whale</entry>
+    <entry>Phase Spider</entry>
+    <entry>Pixie with Irresistible dance</entry>
+    <entry>Rast</entry>
+    <entry>Ravid</entry>
+    <entry>Red Dragon, Very Young</entry>
+    <entry>Scrag</entry>
+    <entry>Shadow Mastiff</entry>
+    <entry>Silver Dragon, Very Young</entry>
+    <entry>Spider Eater</entry>
+    <entry>Troll</entry>
+    <entry>Winter Wolf</entry>
+    <entry>Wraith</entry>
+    <entry>Yuan-ti Halfblood (Human Head, Arms are Snakes)</entry>
+    <entry>Yuan-ti Halfblood (Snake Head)</entry>
+    <entry>Yuan-ti Halfblood (Snake Head, Snake Tail and Human Legs)</entry>
+    <entry>Yuan-ti Halfblood (Snake Head, Snake Tail instead of Human Legs)</entry>
+  </collection>
+  <collection>
+    <name>6</name>
+    <entry>Annis</entry>
+    <entry>Average Salamander</entry>
+    <entry>Average Xorn</entry>
+    <entry>Babau</entry>
+    <entry>Baleen Whale</entry>
+    <entry>Belker</entry>
+    <entry>Blue Dragon, Young</entry>
+    <entry>Bralani</entry>
+    <entry>Brass Dragon, Young</entry>
+    <entry>Chain Devil (Kyton)</entry>
+    <entry>Digester</entry>
+    <entry>Five-Headed Pyrohydra</entry>
+    <entry>Five-Headed Cryohydra</entry>
+    <entry>Seven-Headed Hydra</entry>
+    <entry>Ettin</entry>
+    <entry>Gauth (Lesser Beholder)</entry>
+    <entry>Girallon</entry>
+    <entry>Lamia</entry>
+    <entry>Megaraptor</entry>
+    <entry>Monstrous Centipede, Gargantuan</entry>
+    <entry>Shambling Mound</entry>
+    <entry>Tendriculos</entry>
+    <entry>White Dragon, Juvenile</entry>
+    <entry>Will-O'-Wisp</entry>
+    <entry>Wyvern</entry>
+    <entry>Xill</entry>
+  </collection>
+  <collection>
+    <name>7</name>
+    <entry>Air Elemental, Huge</entry>
+    <entry>Earth Elemental, Huge</entry>
+    <entry>Fire Elemental, Huge</entry>
+    <entry>Water Elemental, Huge</entry>
+    <entry>Aboleth</entry>
+    <entry>Animated Object, Anvil, Gargantuan</entry>
+    <entry>Animated Object, Block (Stone), Gargantuan</entry>
+    <entry>Animated Object, Block (Wood), Gargantuan</entry>
+    <entry>Animated Object, Box, Gargantuan</entry>
+    <entry>Animated Object, Carpet, Gargantuan</entry>
+    <entry>Animated Object, Carriage, Gargantuan</entry>
+    <entry>Animated Object, Chain, Gargantuan</entry>
+    <entry>Animated Object, Chair, Gargantuan</entry>
+    <entry>Animated Object, Clothes, Gargantuan</entry>
+    <entry>Animated Object, Ladder, Gargantuan</entry>
+    <entry>Animated Object, Rope, Gargantuan</entry>
+    <entry>Animated Object, Rug, Gargantuan</entry>
+    <entry>Animated Object, Sled, Gargantuan</entry>
+    <entry>Animated Object, Statue (Animal), Gargantuan</entry>
+    <entry>Animated Object, Statue (Humanoid), Gargantuan</entry>
+    <entry>Animated Object, Stool, Gargantuan</entry>
+    <entry>Animated Object, Table, Gargantuan</entry>
+    <entry>Animated Object, Tapestry, Gargantuan</entry>
+    <entry>Animated Object, Wagon, Gargantuan</entry>
+    <entry>Black Dragon, Juvenile</entry>
+    <entry>Black Pudding</entry>
+    <entry>Bronze Dragon, Young</entry>
+    <entry>Bulette</entry>
+    <entry>Cachalot Whale</entry>
+    <entry>Chaos Beast</entry>
+    <entry>Chimera</entry>
+    <entry>Chuul</entry>
+    <entry>Copper Dragon, Young</entry>
+    <entry>Criosphinx</entry>
+    <entry>Dire Bear</entry>
+    <entry>Dragonne</entry>
+    <entry>Drider</entry>
+    <entry>Six-Headed Pyrohydra</entry>
+    <entry>Six-Headed Cryohydra</entry>
+    <entry>Eight-Headed Hydra</entry>
+    <entry>Elasmosaurus</entry>
+    <entry>Elephant</entry>
+    <entry>Flesh Golem</entry>
+    <entry>Formian Taskmaster</entry>
+    <entry>Gold Dragon, Very Young</entry>
+    <entry>Hellcat (Bezekira)</entry>
+    <entry>Hill Giant</entry>
+    <entry>Invisible Stalker</entry>
+    <entry>Lillend</entry>
+    <entry>Medusa</entry>
+    <entry>Monstrous Scorpion, Huge</entry>
+    <entry>Nymph</entry>
+    <entry>Phasm</entry>
+    <entry>Red Dragon, Young</entry>
+    <entry>Red Slaad</entry>
+    <entry>Remorhaz</entry>
+    <entry>Scorpionfolk</entry>
+    <entry>Silver Dragon, Young</entry>
+    <entry>Spectre</entry>
+    <entry>Succubus</entry>
+    <entry>Umber Hulk</entry>
+    <entry>Water Naga</entry>
+    <entry>Yuan-ti Abomination</entry>
+  </collection>
+  <collection>
+    <name>8</name>
+    <entry>Athach</entry>
+    <entry>Behir</entry>
+    <entry>Blue Dragon, Juvenile</entry>
+    <entry>Blue Slaad</entry>
+    <entry>Bodak</entry>
+    <entry>Brass Dragon, Juvenile</entry>
+    <entry>Dark Naga</entry>
+    <entry>Destrachan</entry>
+    <entry>Dire Tiger</entry>
+    <entry>Efreeti</entry>
+    <entry>Seven-Headed Pyrohydra</entry>
+    <entry>Seven-Headed Cryohydra</entry>
+    <entry>Nine-Headed Hydra</entry>
+    <entry>Elder Arrowhawk</entry>
+    <entry>Elder Xorn</entry>
+    <entry>Erinyes</entry>
+    <entry>Giant Octopus</entry>
+    <entry>Gorgon</entry>
+    <entry>Gray Render</entry>
+    <entry>Greater Shadow</entry>
+    <entry>Green Dragon, Juvenile</entry>
+    <entry>Gynosphinx</entry>
+    <entry>Hellwasp Swarm</entry>
+    <entry>Lammasu</entry>
+    <entry>Mind Flayer (Illithid)</entry>
+    <entry>Mohrg</entry>
+    <entry>Monstrous Spider, Hunter, Gargantuan</entry>
+    <entry>Monstrous Spider, Web-Spinner, Gargantuan</entry>
+    <entry>Noble Djinni</entry>
+    <entry>Ogre Mage</entry>
+    <entry>Shield Guardian</entry>
+    <entry>Stone Giant</entry>
+    <entry>Treant</entry>
+    <entry>Tyrannosaurus</entry>
+    <entry>White Dragon, Young Adult</entry>
+  </collection>
+  <collection>
+    <name>9</name>
+    <entry>Air Elemental, Greater</entry>
+    <entry>Earth Elemental, Greater</entry>
+    <entry>Fire Elemental, Greater</entry>
+    <entry>Water Elemental, Greater</entry>
+    <entry>Androsphinx</entry>
+    <entry>Avoral</entry>
+    <entry>Black Dragon, Young Adult</entry>
+    <entry>Bone Devil (Osyluth)</entry>
+    <entry>Bronze Dragon, Juvenile</entry>
+    <entry>Copper Dragon, Juvenile</entry>
+    <entry>Delver</entry>
+    <entry>Dire Shark</entry>
+    <entry>Dragon Turtle</entry>
+    <entry>Eight-Headed Pyrohydra</entry>
+    <entry>Eight-Headed Cryohydra</entry>
+    <entry>Ten-Headed Hydra</entry>
+    <entry>Elder Tojanida</entry>
+    <entry>Frost Giant</entry>
+    <entry>Giant Squid</entry>
+    <entry>Gold Dragon, Young</entry>
+    <entry>Green Slaad</entry>
+    <entry>Monstrous Centipede, Colossal</entry>
+    <entry>Nessian Warhound</entry>
+    <entry>Night Hag</entry>
+    <entry>Roc</entry>
+    <entry>Spirit Naga</entry>
+    <entry>Stone Giant Elder</entry>
+    <entry>Triceratops</entry>
+    <entry>Vrock</entry>
+    <entry>Yrthak</entry>
+    <entry>Zelekhut</entry>
+  </collection>
+  <collection>
+    <name>10</name>
+    <entry>Animated Object, Anvil, Colossal</entry>
+    <entry>Animated Object, Block (Stone), Colossal</entry>
+    <entry>Animated Object, Block (Wood), Colossal</entry>
+    <entry>Animated Object, Box, Colossal</entry>
+    <entry>Animated Object, Carpet, Colossal</entry>
+    <entry>Animated Object, Carriage, Colossal</entry>
+    <entry>Animated Object, Chain, Colossal</entry>
+    <entry>Animated Object, Chair, Colossal</entry>
+    <entry>Animated Object, Clothes, Colossal</entry>
+    <entry>Animated Object, Ladder, Colossal</entry>
+    <entry>Animated Object, Rope, Colossal</entry>
+    <entry>Animated Object, Rug, Colossal</entry>
+    <entry>Animated Object, Sled, Colossal</entry>
+    <entry>Animated Object, Statue (Animal), Colossal</entry>
+    <entry>Animated Object, Statue (Humanoid), Colossal</entry>
+    <entry>Animated Object, Stool, Colossal</entry>
+    <entry>Animated Object, Table, Colossal</entry>
+    <entry>Animated Object, Tapestry, Colossal</entry>
+    <entry>Animated Object, Wagon, Colossal</entry>
+    <entry>Bebilith</entry>
+    <entry>Brass Dragon, Young Adult</entry>
+    <entry>Clay Golem</entry>
+    <entry>Couatl</entry>
+    <entry>Nine-Headed Pyrohydra</entry>
+    <entry>Nine-Headed Cryohydra</entry>
+    <entry>Eleven-Headed Hydra</entry>
+    <entry>Fire Giant</entry>
+    <entry>Formian Myrmarch</entry>
+    <entry>Gray Slaad</entry>
+    <entry>Guardian Naga</entry>
+    <entry>Monstrous Scorpion, Gargantuan</entry>
+    <entry>Noble Salamander</entry>
+    <entry>Rakshasa</entry>
+    <entry>Razor Boar</entry>
+    <entry>Red Dragon, Juvenile</entry>
+    <entry>Silver Dragon, Juvenile</entry>
+    <entry>White Dragon, Adult</entry>
+  </collection>
+  <collection>
+    <name>11</name>
+    <entry>Air Elemental, Elder</entry>
+    <entry>Earth Elemental, Elder</entry>
+    <entry>Fire Elemental, Elder</entry>
+    <entry>Water Elemental, Elder</entry>
+    <entry>Barbed Devil (Hamatula)</entry>
+    <entry>Black Dragon, Adult</entry>
+    <entry>Blue Dragon, Young Adult</entry>
+    <entry>Cloud Giant</entry>
+    <entry>Copper Dragon, Young Adult</entry>
+    <entry>Devourer</entry>
+    <entry>Dread Wraith</entry>
+    <entry>Ten-Headed Pyrohydra</entry>
+    <entry>Ten-Headed Cryohydra</entry>
+    <entry>Twelve-Headed Hydra</entry>
+    <entry>Gold Dragon, Juvenile</entry>
+    <entry>Green Dragon, Young Adult</entry>
+    <entry>Hezrou</entry>
+    <entry>Monstrous Spider, Hunter, Colossal</entry>
+    <entry>Monstrous Spider, Web-Spinner, Colossal</entry>
+    <entry>Nightmare, Cauchemar</entry>
+    <entry>Retriever</entry>
+    <entry>Stone Golem</entry>
+  </collection>
+  <collection>
+    <name>12</name>
+    <entry>Brass Dragon, Adult</entry>
+    <entry>Bronze Dragon, Young Adult</entry>
+    <entry>Displacer Beast Pack Lord</entry>
+    <entry>Eleven-Headed Pyrohydra</entry>
+    <entry>Eleven-Headed Cryohydra</entry>
+    <entry>Elder Black Pudding</entry>
+    <entry>Frost Worm</entry>
+    <entry>Greater Basilisk</entry>
+    <entry>Kolyarut</entry>
+    <entry>Kraken</entry>
+    <entry>Leonal</entry>
+    <entry>Monstrous Scorpion, Colossal</entry>
+    <entry>Purple Worm</entry>
+    <entry>Roper</entry>
+    <entry>White Dragon, Mature Adult</entry>
+  </collection>
+  <collection>
+    <name>13</name>
+    <entry>Beholder</entry>
+    <entry>Death Slaad</entry>
+    <entry>Twelve-Headed Pyrohydra</entry>
+    <entry>Twelve-Headed Cryohydra</entry>
+    <entry>Ghaele</entry>
+    <entry>Glabrezu</entry>
+    <entry>Green Dragon, Adult</entry>
+    <entry>Ice Devil (Gelugon)</entry>
+    <entry>Iron Golem</entry>
+    <entry>Red Dragon, Young Adult</entry>
+    <entry>Silver Dragon, Young Adult</entry>
+    <entry>Storm Giant</entry>
+  </collection>
+  <collection>
+    <name>14</name>
+    <entry>Angel, Astral Deva</entry>
+    <entry>Black Dragon, Mature Adult</entry>
+    <entry>Blue Dragon, Adult</entry>
+    <entry>Copper Dragon, Adult</entry>
+    <entry>Gold Dragon, Young Adult</entry>
+    <entry>Nalfeshnee</entry>
+    <entry>Nightwing</entry>
+    <entry>Truly Horrid Umber Hulk</entry>
+    <entry>Trumpet Archon</entry>
+  </collection>
+  <collection>
+    <name>15</name>
+    <entry>Brass Dragon, Mature Adult</entry>
+    <entry>Bronze Dragon, Adult</entry>
+    <entry>Marut</entry>
+    <entry>Red Dragon, Adult</entry>
+    <entry>Silver Dragon, Adult</entry>
+    <entry>White Dragon, Old</entry>
+  </collection>
+  <collection>
+    <name>16</name>
+    <entry>Angel, Planetar</entry>
+    <entry>Black Dragon, Old</entry>
+    <entry>Blue Dragon, Mature Adult</entry>
+    <entry>Copper Dragon, Mature Adult</entry>
+    <entry>Gold Dragon, Adult</entry>
+    <entry>Greater Stone Golem</entry>
+    <entry>Green Dragon, Mature Adult</entry>
+    <entry>Horned Devil (Cornugon)</entry>
+    <entry>Nightwalker</entry>
+  </collection>
+  <collection>
+    <name>17</name>
+    <entry>Brass Dragon, Old</entry>
+    <entry>Bronze Dragon, Mature Adult</entry>
+    <entry>Formian Queen</entry>
+    <entry>Marilith</entry>
+    <entry>White Dragon, Very Old</entry>
+  </collection>
+  <collection>
+    <name>18</name>
+    <entry>Black Dragon, Very Old</entry>
+    <entry>Blue Dragon, Old</entry>
+    <entry>Green Dragon, Old</entry>
+    <entry>Nightcrawler</entry>
+    <entry>Red Dragon, Mature Adult</entry>
+    <entry>Silver Dragon, Mature Adult</entry>
+    <entry>White Dragon, Ancient</entry>
+  </collection>
+  <collection>
+    <name>19</name>
+    <entry>Black Dragon, Ancient</entry>
+    <entry>Blue Dragon, Very Old</entry>
+    <entry>Brass Dragon, Very Old</entry>
+    <entry>Bronze Dragon, Old</entry>
+    <entry>Copper Dragon, Old</entry>
+    <entry>Gold Dragon, Mature Adult</entry>
+    <entry>Green Dragon, Very Old</entry>
+    <entry>White Dragon, Wyrm</entry>
+  </collection>
+  <collection>
+    <name>20</name>
+    <entry>Balor</entry>
+    <entry>Black Dragon, Wyrm</entry>
+    <entry>Brass Dragon, Ancient</entry>
+    <entry>Bronze Dragon, Very Old</entry>
+    <entry>Copper Dragon, Very Old</entry>
+    <entry>Pit Fiend</entry>
+    <entry>Red Dragon, Old</entry>
+    <entry>Silver Dragon, Old</entry>
+    <entry>Tarrasque</entry>
+  </collection>
+  <collection>
+    <name>21</name>
+    <entry>Blue Dragon, Ancient</entry>
+    <entry>Brass Dragon, Wyrm</entry>
+    <entry>Gold Dragon, Old</entry>
+    <entry>Green Dragon, Ancient</entry>
+    <entry>Red Dragon, Very Old</entry>
+    <entry>Silver Dragon, Very Old</entry>
+    <entry>Titan</entry>
+    <entry>White Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>22</name>
+    <entry>Black Dragon, Great Wyrm</entry>
+    <entry>Bronze Dragon, Ancient</entry>
+    <entry>Copper Dragon, Ancient</entry>
+    <entry>Gold Dragon, Very Old</entry>
+    <entry>Green Dragon, Wyrm</entry>
+  </collection>
+  <collection>
+    <name>23</name>
+    <entry>Angel, Solar</entry>
+    <entry>Blue Dragon, Wyrm</entry>
+    <entry>Brass Dragon, Great Wyrm</entry>
+    <entry>Bronze Dragon, Wyrm</entry>
+    <entry>Copper Dragon, Wyrm</entry>
+    <entry>Red Dragon, Ancient</entry>
+    <entry>Silver Dragon, Ancient</entry>
+  </collection>
+  <collection>
+    <name>24</name>
+    <entry>Gold Dragon, Ancient</entry>
+    <entry>Green Dragon, Great Wyrm</entry>
+    <entry>Red Dragon, Wyrm</entry>
+    <entry>Silver Dragon, Wyrm</entry>
+  </collection>
+  <collection>
+    <name>25</name>
+    <entry>Blue Dragon, Great Wyrm</entry>
+    <entry>Bronze Dragon, Great Wyrm</entry>
+    <entry>Copper Dragon, Great Wyrm</entry>
+    <entry>Gold Dragon, Wyrm</entry>
+  </collection>
+  <collection>
+    <name>26</name>
+    <entry>Red Dragon, Great Wyrm</entry>
+    <entry>Silver Dragon, Great Wyrm</entry>
+  </collection>
+  <collection>
+    <name>27</name>
+    <entry>Gold Dragon, Great Wyrm</entry>
+  </collection>
+</collections>

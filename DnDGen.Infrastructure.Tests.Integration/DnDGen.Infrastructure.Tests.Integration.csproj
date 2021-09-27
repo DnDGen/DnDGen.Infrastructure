@@ -8,7 +8,9 @@
 
   <ItemGroup>
     <None Remove="Tables\Collections\CollectionTable.xml" />
+    <None Remove="Tables\Collections\CreatureGen-CreatureGroups.xml" />
     <None Remove="Tables\Collections\CreatureGroups.xml" />
+    <None Remove="Tables\Collections\EncounterGen-CreatureGroups.xml" />
     <None Remove="Tables\Collections\EncounterGroups.xml" />
     <None Remove="Tables\Collections\OtherCollectionTable.xml" />
     <None Remove="Tables\Percentiles\BooleanPercentileTable.xml" />
@@ -18,7 +20,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Tables\Collections\CollectionTable.xml" />
-    <EmbeddedResource Include="Tables\Collections\CreatureGroups.xml" />
+    <EmbeddedResource Include="Tables\Collections\CreatureGen-CreatureGroups.xml" />
+    <EmbeddedResource Include="Tables\Collections\EncounterGen-CreatureGroups.xml" />
     <EmbeddedResource Include="Tables\Collections\EncounterGroups.xml" />
     <EmbeddedResource Include="Tables\Collections\OtherCollectionTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\BooleanPercentileTable.xml" />

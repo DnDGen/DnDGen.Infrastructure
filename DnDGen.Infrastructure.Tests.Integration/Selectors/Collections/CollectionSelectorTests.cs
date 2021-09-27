@@ -116,24 +116,27 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             }));
         }
 
-        [TestCase("Magic", 265)]
-        [TestCase("Night", 1484)]
-        [TestCase("Wilderness", 573)]
-        [TestCase("ColdCivilized", 611)]
-        [TestCase("Land", 93)]
-        [TestCase("TemperateForest", 98)]
-        [TestCase("TemperateAquatic", 32)]
-        [TestCase("WarmPlains", 37)]
-        [TestCase("Day", 1422)]
-        [TestCase("Aquatic", 2)]
-        [TestCase("Underground", 68)]
-        [TestCase("UndergroundAquatic", 3)]
-        public void Explode_IsEfficient(string entry, int count)
+        [TestCase("EncounterGen-CreatureGroups", "Magic", 265)]
+        [TestCase("EncounterGen-CreatureGroups", "Night", 1484)]
+        [TestCase("EncounterGen-CreatureGroups", "Wilderness", 573)]
+        [TestCase("EncounterGen-CreatureGroups", "ColdCivilized", 611)]
+        [TestCase("EncounterGen-CreatureGroups", "Land", 93)]
+        [TestCase("EncounterGen-CreatureGroups", "TemperateForest", 98)]
+        [TestCase("EncounterGen-CreatureGroups", "TemperateAquatic", 32)]
+        [TestCase("EncounterGen-CreatureGroups", "WarmPlains", 37)]
+        [TestCase("EncounterGen-CreatureGroups", "Day", 1422)]
+        [TestCase("EncounterGen-CreatureGroups", "Aquatic", 2)]
+        [TestCase("EncounterGen-CreatureGroups", "Underground", 68)]
+        [TestCase("EncounterGen-CreatureGroups", "UndergroundAquatic", 3)]
+        [TestCase("CreatureGen-CreatureGroups", "Fortitude", 485)]
+        [TestCase("CreatureGen-CreatureGroups", "Reflex", 437)]
+        [TestCase("CreatureGen-CreatureGroups", "Will", 318)]
+        public void Explode_IsEfficient(string table, string entry, int count)
         {
             var timeLimit = Math.Max(0.1, count / 10_000d);
 
             stopwatch.Restart();
-            var explodedCollection = collectionsSelector.Explode("CreatureGroups", entry);
+            var explodedCollection = collectionsSelector.Explode(table, entry);
             stopwatch.Stop();
 
             Assert.That(explodedCollection, Is.Not.Empty.And.Unique);
@@ -142,24 +145,27 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(timeLimit));
         }
 
-        [TestCase("Magic", 265)]
-        [TestCase("Night", 1484)]
-        [TestCase("Wilderness", 573)]
-        [TestCase("ColdCivilized", 611)]
-        [TestCase("Land", 93)]
-        [TestCase("TemperateForest", 98)]
-        [TestCase("TemperateAquatic", 32)]
-        [TestCase("WarmPlains", 37)]
-        [TestCase("Day", 1422)]
-        [TestCase("Aquatic", 2)]
-        [TestCase("Underground", 68)]
-        [TestCase("UndergroundAquatic", 3)]
-        public void Explode_Cached_IsEfficient(string entry, int count)
+        [TestCase("EncounterGen-CreatureGroups", "Magic", 265)]
+        [TestCase("EncounterGen-CreatureGroups", "Night", 1484)]
+        [TestCase("EncounterGen-CreatureGroups", "Wilderness", 573)]
+        [TestCase("EncounterGen-CreatureGroups", "ColdCivilized", 611)]
+        [TestCase("EncounterGen-CreatureGroups", "Land", 93)]
+        [TestCase("EncounterGen-CreatureGroups", "TemperateForest", 98)]
+        [TestCase("EncounterGen-CreatureGroups", "TemperateAquatic", 32)]
+        [TestCase("EncounterGen-CreatureGroups", "WarmPlains", 37)]
+        [TestCase("EncounterGen-CreatureGroups", "Day", 1422)]
+        [TestCase("EncounterGen-CreatureGroups", "Aquatic", 2)]
+        [TestCase("EncounterGen-CreatureGroups", "Underground", 68)]
+        [TestCase("EncounterGen-CreatureGroups", "UndergroundAquatic", 3)]
+        [TestCase("CreatureGen-CreatureGroups", "Fortitude", 485)]
+        [TestCase("CreatureGen-CreatureGroups", "Reflex", 437)]
+        [TestCase("CreatureGen-CreatureGroups", "Will", 318)]
+        public void Explode_Cached_IsEfficient(string table, string entry, int count)
         {
-            collectionsSelector.Explode("CreatureGroups", entry);
+            collectionsSelector.Explode(table, entry);
 
             stopwatch.Restart();
-            var explodedCollection = collectionsSelector.Explode("CreatureGroups", entry);
+            var explodedCollection = collectionsSelector.Explode(table, entry);
             stopwatch.Stop();
 
             Assert.That(explodedCollection, Is.Not.Empty.And.Unique);
@@ -181,24 +187,24 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(0.1));
         }
 
-        [TestCase("Magic", 572)]
-        [TestCase("Night", 2538)]
-        [TestCase("Wilderness", 1115)]
-        [TestCase("ColdCivilized", 953)]
-        [TestCase("Land", 133)]
-        [TestCase("TemperateForest", 150)]
-        [TestCase("TemperateAquatic", 45)]
-        [TestCase("WarmPlains", 66)]
-        [TestCase("Day", 2412)]
-        [TestCase("Aquatic", 6)]
-        [TestCase("Underground", 91)]
-        [TestCase("UndergroundAquatic", 6)]
-        public void HeavySeparatedExplodeAndFlattenIsEfficient(string entry, int count)
+        [TestCase("EncounterGen-CreatureGroups", "Magic", 572)]
+        [TestCase("EncounterGen-CreatureGroups", "Night", 2538)]
+        [TestCase("EncounterGen-CreatureGroups", "Wilderness", 1115)]
+        [TestCase("EncounterGen-CreatureGroups", "ColdCivilized", 953)]
+        [TestCase("EncounterGen-CreatureGroups", "Land", 133)]
+        [TestCase("EncounterGen-CreatureGroups", "TemperateForest", 150)]
+        [TestCase("EncounterGen-CreatureGroups", "TemperateAquatic", 45)]
+        [TestCase("EncounterGen-CreatureGroups", "WarmPlains", 66)]
+        [TestCase("EncounterGen-CreatureGroups", "Day", 2412)]
+        [TestCase("EncounterGen-CreatureGroups", "Aquatic", 6)]
+        [TestCase("EncounterGen-CreatureGroups", "Underground", 91)]
+        [TestCase("EncounterGen-CreatureGroups", "UndergroundAquatic", 6)]
+        public void HeavySeparatedExplodeAndFlattenIsEfficient(string table, string entry, int count)
         {
             var timeLimit = Math.Max(0.1, count / 10_000d);
 
             stopwatch.Restart();
-            var flattenedCollection = ExplodeAndFlatten("CreatureGroups", entry, "EncounterGroups");
+            var flattenedCollection = ExplodeAndFlatten(table, entry, "EncounterGroups");
             stopwatch.Stop();
 
             Assert.That(flattenedCollection, Is.Not.Empty.And.Unique);
@@ -207,24 +213,24 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(timeLimit));
         }
 
-        [TestCase("Magic", 572)]
-        [TestCase("Night", 2538)]
-        [TestCase("Wilderness", 1115)]
-        [TestCase("ColdCivilized", 953)]
-        [TestCase("Land", 133)]
-        [TestCase("TemperateForest", 150)]
-        [TestCase("TemperateAquatic", 45)]
-        [TestCase("WarmPlains", 66)]
-        [TestCase("Day", 2412)]
-        [TestCase("Aquatic", 6)]
-        [TestCase("Underground", 91)]
-        [TestCase("UndergroundAquatic", 6)]
-        public void HeavySeparatedExplodeAndFlatten_Cached_IsEfficient(string entry, int count)
+        [TestCase("EncounterGen-CreatureGroups", "Magic", 572)]
+        [TestCase("EncounterGen-CreatureGroups", "Night", 2538)]
+        [TestCase("EncounterGen-CreatureGroups", "Wilderness", 1115)]
+        [TestCase("EncounterGen-CreatureGroups", "ColdCivilized", 953)]
+        [TestCase("EncounterGen-CreatureGroups", "Land", 133)]
+        [TestCase("EncounterGen-CreatureGroups", "TemperateForest", 150)]
+        [TestCase("EncounterGen-CreatureGroups", "TemperateAquatic", 45)]
+        [TestCase("EncounterGen-CreatureGroups", "WarmPlains", 66)]
+        [TestCase("EncounterGen-CreatureGroups", "Day", 2412)]
+        [TestCase("EncounterGen-CreatureGroups", "Aquatic", 6)]
+        [TestCase("EncounterGen-CreatureGroups", "Underground", 91)]
+        [TestCase("EncounterGen-CreatureGroups", "UndergroundAquatic", 6)]
+        public void HeavySeparatedExplodeAndFlatten_Cached_IsEfficient(string table, string entry, int count)
         {
-            ExplodeAndFlatten("CreatureGroups", entry, "EncounterGroups");
+            ExplodeAndFlatten(table, entry, "EncounterGroups");
 
             stopwatch.Restart();
-            var flattenedCollection = ExplodeAndFlatten("CreatureGroups", entry, "EncounterGroups");
+            var flattenedCollection = ExplodeAndFlatten(table, entry, "EncounterGroups");
             stopwatch.Stop();
 
             Assert.That(flattenedCollection, Is.Not.Empty.And.Unique);
