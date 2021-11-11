@@ -8,7 +8,9 @@
 
   <ItemGroup>
     <None Remove="Tables\Collections\CollectionTable.xml" />
+    <None Remove="Tables\Collections\CreatureGen-CreatureGroups.xml" />
     <None Remove="Tables\Collections\CreatureGroups.xml" />
+    <None Remove="Tables\Collections\EncounterGen-CreatureGroups.xml" />
     <None Remove="Tables\Collections\EncounterGroups.xml" />
     <None Remove="Tables\Collections\OtherCollectionTable.xml" />
     <None Remove="Tables\Percentiles\BooleanPercentileTable.xml" />
@@ -18,7 +20,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Tables\Collections\CollectionTable.xml" />
-    <EmbeddedResource Include="Tables\Collections\CreatureGroups.xml" />
+    <EmbeddedResource Include="Tables\Collections\CreatureGen-CreatureGroups.xml" />
+    <EmbeddedResource Include="Tables\Collections\EncounterGen-CreatureGroups.xml" />
     <EmbeddedResource Include="Tables\Collections\EncounterGroups.xml" />
     <EmbeddedResource Include="Tables\Collections\OtherCollectionTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\BooleanPercentileTable.xml" />
@@ -27,14 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DnDGen.RollGen" Version="15.2.2" />
+    <PackageReference Include="DnDGen.RollGen" Version="15.3.0" />
     <PackageReference Include="Ninject" Version="3.3.4" />
     <PackageReference Include="nunit" Version="3.13.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0">
+    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
   </ItemGroup>
 
   <ItemGroup>
