@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.2.3</Version>
+    <Version>4.2.4</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>Infrastructure</Product>
@@ -13,14 +13,12 @@
     <RepositoryUrl>https://github.com/DnDGen/DnDGen.Core</RepositoryUrl>
     <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
     <PackageIconUrl />
-    <PackageReleaseNotes>Bug #24</PackageReleaseNotes>
+    <PackageReleaseNotes>Package updates</PackageReleaseNotes>
     <PackageTags>dungeons dragons d20 dnd 3.5 generator dndgen selector mapper table schema percentile collection collections percentiles</PackageTags>
   </PropertyGroup>
 
-  <!--Needed for Framework compatibility when building in Travis-->
   <ItemGroup>
     <PackageReference Include="DnDGen.RollGen" Version="15.3.0" />
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
     <None Include="18531-twenty-sided-dice-vector-thumb.png">
