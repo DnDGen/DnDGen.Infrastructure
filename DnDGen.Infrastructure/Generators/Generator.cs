@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Also.Not.DnDGen.Infrastructure")]
 namespace DnDGen.Infrastructure.Generators
 {
+    [Obsolete("This is inefficient and should not be used")]
     public interface Generator
     {
         int MaxAttempts { get; set; }
