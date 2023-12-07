@@ -2,6 +2,7 @@
 
 namespace DnDGen.Infrastructure.Generators
 {
+    [Obsolete("This is inefficient and should not be used")]
     internal class IterativeGenerator : Generator
     {
         public int MaxAttempts { get; set; }

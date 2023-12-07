@@ -43,9 +43,9 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             if (!collection.Any())
                 throw new ArgumentException("Cannot select random from an empty collection");
 
-            var count = collection.Count();
-            var index = dice.Roll().d(count).AsSum() - 1;
-            return collection.ElementAt(index);
+            var array = collection.ToArray();
+            var index = dice.Roll().d(array.Length).AsSum() - 1;
+            return array[index];
         }
 
         public string FindCollectionOf(string tableName, string entry, params string[] filteredCollectionNames)
@@ -115,19 +115,19 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             rare ??= Enumerable.Empty<T>();
             veryRare ??= Enumerable.Empty<T>();
 
-            var weightedCollection = new List<T>(veryRare);
+            var weightedCollection = veryRare;
 
             var rareMultiplier = GetRareMultiplier(rare, veryRare);
             var rareWeighted = Duplicate(rare, rareMultiplier);
-            weightedCollection.AddRange(rareWeighted);
+            weightedCollection = weightedCollection.Concat(rareWeighted);
 
             var uncommonMultiplier = GetUncommonMultiplier(common, uncommon, rare, veryRare);
             var uncommonWeighted = Duplicate(uncommon, uncommonMultiplier);
-            weightedCollection.AddRange(uncommonWeighted);
+            weightedCollection = weightedCollection.Concat(uncommonWeighted);
 
             var commonMultiplier = GetCommonMultiplier(common, uncommon, rare, veryRare);
             var commonWeighted = Duplicate(common, commonMultiplier);
-            weightedCollection.AddRange(commonWeighted);
+            weightedCollection = weightedCollection.Concat(commonWeighted);
 
             return weightedCollection;
         }
@@ -139,8 +139,7 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             if (rare.Any())
                 againstVeryRare = 9 * veryRare.Count() / (double)rare.Count();
 
-            var multipliers = new[] { againstVeryRare, 1 };
-            var multiplier = multipliers.Max();
+            var multiplier = Math.Max(againstVeryRare, 1);
 
             return RoundMultiplier(multiplier);
         }
@@ -166,8 +165,7 @@ namespace DnDGen.Infrastructure.Selectors.Collections
                 againstVeryRare = (99d * veryRareAmount - rareAmount) / commonDivisor / uncommonCount;
             }
 
-            var multipliers = new[] { againstVeryRare, againstRareAndVeryRare, againstRare, 1 };
-            var multiplier = multipliers.Max();
+            var multiplier = Math.Max(Math.Max(againstVeryRare, againstRareAndVeryRare), Math.Max(againstRare, 1));
 
             return RoundMultiplier(multiplier);
         }
@@ -195,8 +193,7 @@ namespace DnDGen.Infrastructure.Selectors.Collections
                 againstVeryRare = (99d * veryRareAmount - rareAmount - uncommonAmount) / commonCount;
             }
 
-            var multipliers = new[] { againstUncommon, againstRare, againstVeryRare, 1 };
-            var multiplier = multipliers.Max();
+            var multiplier = Math.Max(Math.Max(againstUncommon, againstRare), Math.Max(againstVeryRare, 1));
 
             return RoundMultiplier(multiplier);
         }
