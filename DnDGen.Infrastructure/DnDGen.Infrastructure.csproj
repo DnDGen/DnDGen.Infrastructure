@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.3.2</Version>
+    <Version>4.4.0</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>Infrastructure</Product>
@@ -14,9 +14,8 @@
     <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
     <PackageIconUrl />
     <PackageReleaseNotes>
-		4.3.0: Issue #28
-	    4.3.1: Update packages, notably RollGen to 15.5.0
-	    4.3.2: Update packages, notably RollGen to 15.5.1</PackageReleaseNotes>
+		4.4.0: Improved speed of weighted collections
+	</PackageReleaseNotes>
     <PackageTags>dungeons dragons d20 dnd 3.5 generator dndgen selector mapper table schema percentile collection collections percentiles</PackageTags>
   </PropertyGroup>
 
