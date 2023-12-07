@@ -574,12 +574,11 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             var veryRare = new[] { 600 };
 
             var weightedCollection = selector.CreateWeighted(common, uncommon, rare, veryRare);
-            Assert.That(weightedCollection, Is.Not.Null);
-            Assert.That(weightedCollection, Is.Not.Empty);
-            Assert.That(weightedCollection, Contains.Item(9266));
-            Assert.That(weightedCollection, Contains.Item(90210));
-            Assert.That(weightedCollection, Contains.Item(42));
-            Assert.That(weightedCollection, Contains.Item(600));
+            Assert.That(weightedCollection, Is.Not.Null.And.Not.Empty
+                .And.Contains(9266)
+                .And.Contains(90210)
+                .And.Contains(42)
+                .And.Contains(600));
             Assert.That(weightedCollection.Count(i => i == veryRare.Single()), Is.EqualTo(1));
             Assert.That(weightedCollection.Count(i => i == rare.Single()), Is.EqualTo(9));
             Assert.That(weightedCollection.Count(i => i == uncommon.Single()), Is.EqualTo(30));

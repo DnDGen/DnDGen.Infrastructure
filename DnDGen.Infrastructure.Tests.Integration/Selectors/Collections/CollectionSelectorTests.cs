@@ -247,5 +247,177 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
 
             return flattenedCollection;
         }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(10)]
+        public void CreateWeighted_IsFast_ViaAll(int collectionQuantity)
+        {
+            stopwatch.Restart();
+            var collection = GetWeightedAppearances(
+                allSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Skin {i}"),
+                allHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Hair {i}"),
+                allEyes: Enumerable.Range(1, collectionQuantity).Select(i => $"Eyes {i}"),
+                allOther: Enumerable.Range(1, collectionQuantity).Select(i => $"Other {i}")
+            );
+            stopwatch.Stop();
+
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(.1).Within(.01));
+            Assert.That(collection, Is.Not.Empty);
+            Assert.That(collection, Is.All.Not.Empty);
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(5)]
+        [TestCase(10)]
+        public void CreateWeighted_IsFast_ViaWeighting(int collectionQuantity)
+        {
+            stopwatch.Restart();
+            var collection = GetWeightedAppearances(
+                commonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Skin {i}"),
+                uncommonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Skin {i}"),
+                rareSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Skin {i}")
+            );
+            stopwatch.Stop();
+
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(.1).Within(.01));
+            Assert.That(collection, Is.Not.Empty);
+            Assert.That(collection, Is.All.Not.Empty);
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(5)]
+        [TestCase(10)]
+        public void CreateWeighted_IsFast_ViaMultipleWeighting(int collectionQuantity)
+        {
+            stopwatch.Restart();
+            var collection = GetWeightedAppearances(
+                commonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Skin {i}"),
+                commonHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Hair {i}"),
+                uncommonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Skin {i}"),
+                uncommonHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Hair {i}"),
+                rareSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Skin {i}"),
+                rareHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Hair {i}")
+            );
+            stopwatch.Stop();
+
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(.1).Within(.01));
+            Assert.That(collection, Is.Not.Empty);
+            Assert.That(collection, Is.All.Not.Empty);
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4, IgnoreReason = "1 million items in the weighted colletion")]
+        [TestCase(5, IgnoreReason = "2.5 million items in the weighted colletion")]
+        public void CreateWeighted_IsFast_ViaAllWeighting(int collectionQuantity)
+        {
+            stopwatch.Restart();
+            var collection = GetWeightedAppearances(
+                commonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Skin {i}"),
+                commonHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Hair {i}"),
+                commonEyes: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Eyes {i}"),
+                commonOther: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Other {i}"),
+                uncommonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Skin {i}"),
+                uncommonHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Hair {i}"),
+                uncommonEyes: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Eyes {i}"),
+                uncommonOther: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Other {i}"),
+                rareSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Skin {i}"),
+                rareHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Hair {i}"),
+                rareEyes: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Eyes {i}"),
+                rareOther: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Other {i}")
+            );
+            stopwatch.Stop();
+
+            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(.1).Within(.01));
+            Assert.That(collection, Is.Not.Empty);
+            Assert.That(collection, Is.All.Not.Empty);
+        }
+
+        //Copied from CreatureGen
+        private enum Rarity
+        {
+            Common,
+            Uncommon,
+            Rare,
+            VeryRare
+        }
+
+        private IEnumerable<string> GetWeightedAppearances(
+            IEnumerable<string> allSkin = null, IEnumerable<string> commonSkin = null, IEnumerable<string> uncommonSkin = null, IEnumerable<string> rareSkin = null,
+            IEnumerable<string> allHair = null, IEnumerable<string> commonHair = null, IEnumerable<string> uncommonHair = null, IEnumerable<string> rareHair = null,
+            IEnumerable<string> allEyes = null, IEnumerable<string> commonEyes = null, IEnumerable<string> uncommonEyes = null, IEnumerable<string> rareEyes = null,
+            IEnumerable<string> allOther = null, IEnumerable<string> commonOther = null, IEnumerable<string> uncommonOther = null, IEnumerable<string> rareOther = null)
+        {
+            var appearances = Build(allSkin, commonSkin, uncommonSkin, rareSkin, (string.Empty, Rarity.Common))
+                .SelectMany(a => Build(allHair, commonHair, uncommonHair, rareHair, a))
+                .SelectMany(a => Build(allEyes, commonEyes, uncommonEyes, rareEyes, a))
+                .SelectMany(a => Build(allOther, commonOther, uncommonOther, rareOther, a))
+                .Where(a => !string.IsNullOrEmpty(a.Appearance));
+
+            var commonAppearances = appearances.Where(a => a.Rarity == Rarity.Common).Select(a => a.Appearance);
+            var uncommonAppearances = appearances.Where(a => a.Rarity == Rarity.Uncommon).Select(a => a.Appearance);
+            var rareAppearances = appearances.Where(a => a.Rarity == Rarity.Rare).Select(a => a.Appearance);
+            var veryRareAppearances = appearances.Where(a => a.Rarity == Rarity.VeryRare).Select(a => a.Appearance);
+
+            return collectionsSelector.CreateWeighted(commonAppearances, uncommonAppearances, rareAppearances, veryRareAppearances);
+        }
+
+        private IEnumerable<(string Appearance, Rarity Rarity)> Build(
+            IEnumerable<string> all, IEnumerable<string> common, IEnumerable<string> uncommon, IEnumerable<string> rare,
+            (string Appearance, Rarity Rarity) prototype)
+        {
+            if (all?.Any() == true)
+                return all.Select(a =>
+                    (GetAppearancePrototype(prototype.Appearance, a),
+                    GetRarity(prototype.Rarity, Rarity.Common)));
+
+            common ??= new[] { string.Empty };
+            uncommon ??= new[] { string.Empty };
+            rare ??= new[] { string.Empty };
+
+            if (common.Concat(uncommon).Concat(rare).Any(a => !string.IsNullOrEmpty(a)) == false)
+                return new[] { prototype };
+
+            var builtCommon = common.Select(a =>
+                (GetAppearancePrototype(prototype.Appearance, a),
+                GetRarity(prototype.Rarity, Rarity.Common)));
+            var builtUncommon = uncommon.Select(a =>
+                (GetAppearancePrototype(prototype.Appearance, a),
+                GetRarity(prototype.Rarity, Rarity.Uncommon)));
+            var builtRare = rare.Select(a =>
+                (GetAppearancePrototype(prototype.Appearance, a),
+                GetRarity(prototype.Rarity, Rarity.Rare)));
+
+            return builtCommon.Concat(builtUncommon).Concat(builtRare);
+        }
+
+        private string GetAppearancePrototype(string source, string additional)
+        {
+            if (string.IsNullOrEmpty(source) && string.IsNullOrEmpty(additional))
+                return string.Empty;
+
+            if (string.IsNullOrEmpty(source))
+                return additional;
+
+            if (string.IsNullOrEmpty(additional))
+                return source;
+
+            return $"{source}; {additional}";
+        }
+
+        private Rarity GetRarity(Rarity source, Rarity additional)
+        {
+            if (source == Rarity.VeryRare || additional == Rarity.VeryRare)
+                return Rarity.VeryRare;
+
+            if (source != Rarity.Common && source == additional)
+                return (Rarity)((int)source + 1);
+
+            return (Rarity)Math.Max((int)source, (int)additional);
+        }
     }
 }
