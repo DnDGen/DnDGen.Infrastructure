@@ -25,11 +25,11 @@ jobs:
           displayName: 'NuGet push'
           inputs:
             command: push
-            packagesToPush: '$(System.ArtifactsDirectory)/**/*.nupkg'
+            packagesToPush: '$(Pipeline.Workspace)/**/*.nupkg'
             nuGetFeedType: external
             publishFeedCredentials: NuGet.org
         - task: GitHubRelease@1
           displayName: 'GitHub release (create)'
           inputs:
             gitHubConnection: 'github.com_cidthecoatrack'
-            assets: '$(System.ArtifactsDirectory)/**/*.nupkg'
+            assets: '$(Pipeline.Workspace)/**/*.nupkg'
