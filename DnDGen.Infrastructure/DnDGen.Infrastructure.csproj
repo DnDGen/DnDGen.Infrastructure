@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.4.1</Version>
+    <Version>4.4.2</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>Infrastructure</Product>
@@ -15,8 +15,8 @@
     <PackageIconUrl />
     <PackageReleaseNotes>
 		4.4.0: Improved speed of weighted collections
-		4.4.1: Update RollGen to 15.5.4
-	</PackageReleaseNotes>
+		4.4.1: README Update
+		4.4.2: Update RollGen to 15.5.4</PackageReleaseNotes>
     <PackageTags>dungeons dragons d20 dnd 3.5 generator dndgen selector mapper table schema percentile collection collections percentiles</PackageTags>
   </PropertyGroup>
 
