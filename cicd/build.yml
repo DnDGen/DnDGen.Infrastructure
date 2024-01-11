@@ -47,5 +47,5 @@ steps:
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   displayName: Publish Artifacts
   inputs:
-    pathtoPublish: './DnDGen.Infrastructure' 
+    pathtoPublish: './DnDGen.Infrastructure/bin/Release' 
     artifactName: 'dndgen-infrastructure'
