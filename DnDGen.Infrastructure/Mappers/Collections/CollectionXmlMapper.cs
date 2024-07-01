@@ -14,13 +14,13 @@ namespace DnDGen.Infrastructure.Mappers.Collections
             this.streamLoader = streamLoader;
         }
 
-        public Dictionary<string, IEnumerable<string>> Map(string tableName)
+        public Dictionary<string, IEnumerable<string>> Map(string assemblyName, string tableName)
         {
             var filename = tableName + ".xml";
             var mappedTable = new Dictionary<string, IEnumerable<string>>();
             var xmlDocument = new XmlDocument();
 
-            using (var stream = streamLoader.LoadFor(filename))
+            using (var stream = streamLoader.LoadFor(assemblyName, filename))
                 xmlDocument.Load(stream);
 
             if (xmlDocument.DocumentElement.LocalName != "collections")

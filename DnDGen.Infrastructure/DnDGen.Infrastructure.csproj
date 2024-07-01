@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DnDGen.RollGen" Version="15.5.4" />
+    <PackageReference Include="DnDGen.RollGen" Version="15.5.7" />
   </ItemGroup>
   <ItemGroup>
     <None Include="18531-twenty-sided-dice-vector-thumb.png">

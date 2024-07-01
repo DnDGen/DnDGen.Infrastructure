@@ -26,14 +26,14 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [TestCase("sub-collection", "entry 3", "entry 4", "sub-collection")]
         public void SelectFromTable(string name, params string[] collection)
         {
-            var selectedCollection = collectionsSelector.SelectFrom("CollectionTable", name);
+            var selectedCollection = collectionsSelector.SelectFrom(assemblyName, "CollectionTable", name);
             Assert.That(selectedCollection, Is.EquivalentTo(collection));
         }
 
         [Test]
         public void SelectAllFromTable()
         {
-            var selectedCollections = collectionsSelector.SelectAllFrom("CollectionTable");
+            var selectedCollections = collectionsSelector.SelectAllFrom(assemblyName, "CollectionTable");
             Assert.That(selectedCollections, Has.Count.EqualTo(4)
                 .And.ContainKey(string.Empty)
                 .And.ContainKey("name")
@@ -64,21 +64,21 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [Test]
         public void IsCollectionInTable()
         {
-            var isCollection = collectionsSelector.IsCollection("CollectionTable", "sub-collection");
+            var isCollection = collectionsSelector.IsCollection(assemblyName, "CollectionTable", "sub-collection");
             Assert.That(isCollection, Is.True);
         }
 
         [Test]
         public void IsNotCollectionInTable()
         {
-            var isCollection = collectionsSelector.IsCollection("CollectionTable", "entry 3");
+            var isCollection = collectionsSelector.IsCollection(assemblyName, "CollectionTable", "entry 3");
             Assert.That(isCollection, Is.False);
         }
 
         [Test]
         public void ExplodeFromTable()
         {
-            var explodedCollection = collectionsSelector.Explode("CollectionTable", "collection");
+            var explodedCollection = collectionsSelector.Explode(assemblyName, "CollectionTable", "collection");
             Assert.That(explodedCollection, Is.Unique.And.EquivalentTo(new[]
             {
                 "entry 2",
@@ -92,8 +92,8 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [Test]
         public void ExplodeFromTableIntoOtherTable()
         {
-            var explodedCollection = collectionsSelector.Explode("CollectionTable", "collection");
-            var allCollections = collectionsSelector.SelectAllFrom("OtherCollectionTable");
+            var explodedCollection = collectionsSelector.Explode(assemblyName, "CollectionTable", "collection");
+            var allCollections = collectionsSelector.SelectAllFrom(assemblyName, "OtherCollectionTable");
 
             var executedExplodedCollection = allCollections.Where(kvp => explodedCollection.Contains(kvp.Key))
                 .Select(kvp => kvp.Value)
@@ -136,7 +136,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             var timeLimit = Math.Max(0.1, count / 10_000d);
 
             stopwatch.Restart();
-            var explodedCollection = collectionsSelector.Explode(table, entry);
+            var explodedCollection = collectionsSelector.Explode(assemblyName, table, entry);
             stopwatch.Stop();
 
             Assert.That(explodedCollection, Is.Not.Empty.And.Unique);
@@ -162,10 +162,10 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [TestCase("CreatureGen-CreatureGroups", "Will", 318)]
         public void Explode_Cached_IsEfficient(string table, string entry, int count)
         {
-            collectionsSelector.Explode(table, entry);
+            collectionsSelector.Explode(assemblyName, table, entry);
 
             stopwatch.Restart();
-            var explodedCollection = collectionsSelector.Explode(table, entry);
+            var explodedCollection = collectionsSelector.Explode(assemblyName, table, entry);
             stopwatch.Stop();
 
             Assert.That(explodedCollection, Is.Not.Empty.And.Unique);
@@ -178,7 +178,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         public void HeavySelectAllIsEfficient()
         {
             stopwatch.Restart();
-            var allCollections = collectionsSelector.SelectAllFrom("EncounterGroups");
+            var allCollections = collectionsSelector.SelectAllFrom(assemblyName, "EncounterGroups");
             stopwatch.Stop();
 
             Assert.That(allCollections, Is.Not.Empty.And.Unique);
@@ -241,8 +241,8 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
 
         private IEnumerable<string> ExplodeAndFlatten(string explodeTableName, string entry, string flattenTableName)
         {
-            var explodedCollection = collectionsSelector.Explode(explodeTableName, entry);
-            var allCollections = collectionsSelector.SelectAllFrom(flattenTableName);
+            var explodedCollection = collectionsSelector.Explode(assemblyName, explodeTableName, entry);
+            var allCollections = collectionsSelector.SelectAllFrom(assemblyName, flattenTableName);
             var flattenedCollection = collectionsSelector.Flatten(allCollections, explodedCollection);
 
             return flattenedCollection;

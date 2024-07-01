@@ -4,6 +4,6 @@ namespace DnDGen.Infrastructure.Mappers.Collections
 {
     public interface CollectionMapper
     {
-        Dictionary<string, IEnumerable<string>> Map(string tableName);
+        Dictionary<string, IEnumerable<string>> Map(string assemblyName, string tableName);
     }
 }

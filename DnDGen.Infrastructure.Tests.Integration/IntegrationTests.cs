@@ -8,6 +8,8 @@ namespace DnDGen.Infrastructure.Tests.Integration
     public abstract class IntegrationTests
     {
         protected IKernel kernel;
+        protected const string assemblyName = "DnDGen.Infrastructure.Tests.Integration";
+
 
         [OneTimeSetUp]
         public void IntegrationTestsFixtureSetup()

@@ -1,6 +1,9 @@
 ﻿using DnDGen.Infrastructure.Mappers.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("DnDGen.Infrastructure.Tests.Unit")]
+[assembly: InternalsVisibleTo("DnDGen.Infrastructure.Another")]
 namespace DnDGen.Infrastructure.Other
 {
     public class OtherCollectionsCaller
@@ -14,7 +17,7 @@ namespace DnDGen.Infrastructure.Other
 
         public IEnumerable<string> Call(string tableName, string name)
         {
-            var table = collectionsMapper.Map(tableName);
+            var table = collectionsMapper.Map("DnDGen.Infrastructure.Other", tableName);
             return table[name];
         }
     }
