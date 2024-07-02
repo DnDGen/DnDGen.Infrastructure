@@ -21,7 +21,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Tables
             streamLoader = new EmbeddedResourceStreamLoader(mockAssemblyLoader.Object);
 
             var assembly = Assembly.GetExecutingAssembly();
-            mockAssemblyLoader.Setup(l => l.GetRunningAssembly()).Returns(assembly);
+            mockAssemblyLoader.Setup(l => l.GetAssembly("my assembly")).Returns(assembly);
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Tables
             var table = new Dictionary<int, string>();
             var xmlDocument = new XmlDocument();
 
-            using (var stream = streamLoader.LoadFor("TestTable.xml"))
+            using (var stream = streamLoader.LoadFor("my assembly", "TestTable.xml"))
                 xmlDocument.Load(stream);
 
             var objects = xmlDocument.DocumentElement.ChildNodes;
@@ -49,25 +49,27 @@ namespace DnDGen.Infrastructure.Tests.Unit.Tables
         [Test]
         public void ThrowErrorIfFileIsNotFormattedCorrectly()
         {
-            Assert.That(() => streamLoader.LoadFor("TestTable"), Throws.ArgumentException.With.Message.EqualTo("\"TestTable\" is not a valid XML file"));
+            Assert.That(() => streamLoader.LoadFor("my assembly", "TestTable"), Throws.ArgumentException.With.Message.EqualTo("TestTable is not a valid XML file"));
         }
 
         [Test]
         public void ThrowErrorIfFileIsNotXML()
         {
-            Assert.That(() => streamLoader.LoadFor("TestTable.pdf"), Throws.ArgumentException.With.Message.EqualTo("\"TestTable.pdf\" is not a valid XML file"));
+            Assert.That(() => streamLoader.LoadFor("my assembly", "TestTable.pdf"), Throws.ArgumentException.With.Message.EqualTo("TestTable.pdf is not a valid XML file"));
         }
 
         [Test]
         public void ThrowErrorIfFileIsNotAnEmbeddedResource()
         {
-            Assert.That(() => streamLoader.LoadFor("invalid filename.xml"), Throws.InstanceOf<FileNotFoundException>().With.Message.StartsWith("invalid filename.xml does not exist in DnDGen.Infrastructure.Tests.Unit"));
+            Assert.That(() => streamLoader.LoadFor("my assembly", "invalid filename.xml"),
+                Throws.InstanceOf<FileNotFoundException>().With.Message.StartsWith("invalid filename.xml does not exist in DnDGen.Infrastructure.Tests.Unit"));
         }
 
         [Test]
         public void MatchWholeFileName()
         {
-            Assert.That(() => streamLoader.LoadFor("Table.xml"), Throws.InstanceOf<FileNotFoundException>().With.Message.StartsWith("Table.xml does not exist in DnDGen.Infrastructure.Tests.Unit"));
+            Assert.That(() => streamLoader.LoadFor("my assembly", "Table.xml"),
+                Throws.InstanceOf<FileNotFoundException>().With.Message.StartsWith("Table.xml does not exist in DnDGen.Infrastructure.Tests.Unit"));
         }
     }
 }

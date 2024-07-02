@@ -4,6 +4,6 @@ namespace DnDGen.Infrastructure.Tables
 {
     internal interface StreamLoader
     {
-        Stream LoadFor(string filename);
+        Stream LoadFor(string assemblyName, string filename);
     }
 }

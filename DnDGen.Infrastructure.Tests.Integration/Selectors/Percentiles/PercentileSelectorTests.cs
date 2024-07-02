@@ -17,7 +17,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         [Test]
         public void SelectFromTable()
         {
-            var result = percentileSelector.SelectFrom("StringPercentileTable");
+            var result = percentileSelector.SelectFrom(assemblyName, "StringPercentileTable");
             Assert.That(result, Is.EqualTo("one")
                 .Or.EqualTo("two")
                 .Or.EqualTo("three")
@@ -28,7 +28,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         [Test]
         public void SelectIntFromTable()
         {
-            var result = percentileSelector.SelectFrom<int>("IntPercentileTable");
+            var result = percentileSelector.SelectFrom<int>(assemblyName, "IntPercentileTable");
             Assert.That(result, Is.EqualTo(1)
                 .Or.EqualTo(2)
                 .Or.EqualTo(3)
@@ -39,14 +39,14 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         [Test]
         public void SelectBooleanFromTable()
         {
-            var result = percentileSelector.SelectFrom<bool>("BooleanPercentileTable");
+            var result = percentileSelector.SelectFrom<bool>(assemblyName, "BooleanPercentileTable");
             Assert.That(result, Is.True.Or.False);
         }
 
         [Test]
         public void SelectAllFromTable()
         {
-            var results = percentileSelector.SelectAllFrom("StringPercentileTable");
+            var results = percentileSelector.SelectAllFrom(assemblyName, "StringPercentileTable");
             Assert.That(results, Is.EquivalentTo(new[]
             {
                 "one",
@@ -60,7 +60,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         [Test]
         public void SelectAllIntFromTable()
         {
-            var results = percentileSelector.SelectAllFrom<int>("IntPercentileTable");
+            var results = percentileSelector.SelectAllFrom<int>(assemblyName, "IntPercentileTable");
             Assert.That(results, Is.EquivalentTo(new[]
             {
                 1,
@@ -74,7 +74,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         [Test]
         public void SelectAllBooleanFromTable()
         {
-            var results = percentileSelector.SelectAllFrom<bool>("BooleanPercentileTable");
+            var results = percentileSelector.SelectAllFrom<bool>(assemblyName, "BooleanPercentileTable");
             Assert.That(results, Is.EquivalentTo(new[]
             {
                 true,

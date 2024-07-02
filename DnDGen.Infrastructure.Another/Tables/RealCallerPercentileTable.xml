@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<percentiles>
+	<percentile>
+		<lower>1</lower>
+		<content>one to ninety</content>
+		<upper>90</upper>
+	</percentile>
+	<percentile>
+		<lower>91</lower>
+		<content>ninety-one to ninety-seven</content>
+		<upper>97</upper>
+	</percentile>
+	<percentile>
+		<lower>98</lower>
+		<content>ninety-eight</content>
+		<upper>98</upper>
+	</percentile>
+	<percentile>
+		<lower>99</lower>
+		<content>ninety-nine</content>
+		<upper>99</upper>
+	</percentile>
+	<percentile>
+		<lower>100</lower>
+		<content>one hundred</content>
+		<upper>100</upper>
+	</percentile>
+</percentiles>

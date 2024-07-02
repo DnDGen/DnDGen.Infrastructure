@@ -1,10 +1,8 @@
 ﻿using DnDGen.Infrastructure.Selectors.Collections;
-using DnDGen.Infrastructure.Tables;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
@@ -14,26 +12,22 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
     {
         private ICollectionSelector proxy;
         private Mock<ICollectionSelector> mockInnerSelector;
-        private Mock<AssemblyLoader> mockAssemblyLoader;
 
         [SetUp]
         public void Setup()
         {
             mockInnerSelector = new Mock<ICollectionSelector>();
-            mockAssemblyLoader = new Mock<AssemblyLoader>();
-            proxy = new CollectionSelectorCachingProxy(mockInnerSelector.Object, mockAssemblyLoader.Object);
-
-            mockAssemblyLoader.Setup(l => l.GetRunningAssembly()).Returns(Assembly.GetExecutingAssembly());
+            proxy = new CollectionSelectorCachingProxy(mockInnerSelector.Object);
         }
 
         [Test]
         public void Explode_ReturnsFromInnerSelector()
         {
             mockInnerSelector
-                .Setup(s => s.Explode("table name", "my entry"))
+                .Setup(s => s.Explode("my assembly", "table name", "my entry"))
                 .Returns(new[] { "entry 1", "entry 2" });
 
-            var result = proxy.Explode("table name", "my entry");
+            var result = proxy.Explode("my assembly", "table name", "my entry");
             Assert.That(result, Is.EqualTo(new[] { "entry 1", "entry 2" }));
         }
 
@@ -41,15 +35,36 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         public void Explode_CacheResults()
         {
             mockInnerSelector
-                .Setup(s => s.Explode("table name", "my entry"))
+                .Setup(s => s.Explode("my assembly", "table name", "my entry"))
                 .Returns(new[] { "entry 1", "entry 2" });
 
-            proxy.Explode("table name", "my entry");
-            var result = proxy.Explode("table name", "my entry");
+            proxy.Explode("my assembly", "table name", "my entry");
+            var result = proxy.Explode("my assembly", "table name", "my entry");
 
             Assert.That(result, Is.EqualTo(new[] { "entry 1", "entry 2" }));
 
-            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        }
+
+        [Test]
+        public void Explode_DoNotCacheDifferentResults()
+        {
+            mockInnerSelector
+                .Setup(s => s.Explode("my assembly", "table name", "my entry"))
+                .Returns(new[] { "entry 1", "entry 2" });
+            mockInnerSelector
+                .Setup(s => s.Explode("my assembly", "table name", "my other entry"))
+                .Returns(new[] { "entry 3", "entry 4" });
+
+            var result = proxy.Explode("my assembly", "table name", "my entry");
+            var otherResult = proxy.Explode("my assembly", "table name", "my other entry");
+
+            Assert.That(result, Is.EqualTo(new[] { "entry 1", "entry 2" }));
+            Assert.That(otherResult, Is.EqualTo(new[] { "entry 3", "entry 4" }));
+
+            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockInnerSelector.Verify(p => p.Explode("my assembly", "table name", "my entry"), Times.Once);
+            mockInnerSelector.Verify(p => p.Explode("my assembly", "table name", "my other entry"), Times.Once);
         }
 
         [Test]
@@ -58,29 +73,29 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             var i = 0;
             var exploded = Enumerable.Range(0, 2).Select(n => $"entry {i++}");
             mockInnerSelector
-                .Setup(s => s.Explode("table name", "my entry"))
+                .Setup(s => s.Explode("my assembly", "table name", "my entry"))
                 .Returns(exploded);
 
-            proxy.Explode("table name", "my entry");
-            var result = proxy.Explode("table name", "my entry");
+            proxy.Explode("my assembly", "table name", "my entry");
+            var result = proxy.Explode("my assembly", "table name", "my entry");
 
             Assert.That(result, Is.EqualTo(new[] { "entry 0", "entry 1" }));
             Assert.That(i, Is.EqualTo(2));
 
-            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
         public async Task Explode_CacheResultsIsThreadsafe()
         {
             mockInnerSelector
-                .Setup(s => s.Explode("table name", "my entry"))
+                .Setup(s => s.Explode("my assembly", "table name", "my entry"))
                 .Returns(new[] { "entry 1", "entry 2" });
 
             var tasks = new List<Task<IEnumerable<string>>>();
             while (tasks.Count < 10)
             {
-                var task = Task.Run(() => proxy.Explode("table name", "my entry"));
+                var task = Task.Run(() => proxy.Explode("my assembly", "table name", "my entry"));
                 tasks.Add(task);
             }
 
@@ -92,66 +107,57 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
                 Assert.That(result, Is.EqualTo(new[] { "entry 1", "entry 2" }));
             }
 
-            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
         public void Explode_CacheResultsWithAssembly()
         {
-            mockInnerSelector
-                .SetupSequence(s => s.Explode("table name", "my entry"))
-                .Returns(new[] { "entry 1", "entry 2" })
-                .Returns(new[] { "entry 3", "entry 4" })
-                .Returns(new[] { "entry 1", "entry 2" })
-                .Returns(new[] { "entry 3", "entry 4" });
+            mockInnerSelector.Setup(s => s.Explode("my assembly", "table name", "my entry")).Returns(new[] { "entry 1", "entry 2" });
+            mockInnerSelector.Setup(s => s.Explode("my other assembly", "table name", "my entry")).Returns(new[] { "entry 3", "entry 4" });
 
-            mockAssemblyLoader
-                .SetupSequence(l => l.GetRunningAssembly())
-                .Returns(Assembly.GetExecutingAssembly())
-                .Returns(typeof(int).Assembly)
-                .Returns(Assembly.GetExecutingAssembly())
-                .Returns(typeof(int).Assembly);
+            proxy.Explode("my assembly", "table name", "my entry");
+            proxy.Explode("my other assembly", "table name", "my entry");
 
-            proxy.Explode("table name", "my entry");
-            proxy.Explode("table name", "my entry");
-
-            var firstResult = proxy.Explode("table name", "my entry");
-            var secondResult = proxy.Explode("table name", "my entry");
+            var firstResult = proxy.Explode("my assembly", "table name", "my entry");
+            var secondResult = proxy.Explode("my other assembly", "table name", "my entry");
 
             Assert.That(firstResult, Is.EqualTo(new[] { "entry 1", "entry 2" }));
             Assert.That(secondResult, Is.EqualTo(new[] { "entry 3", "entry 4" }));
 
-            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockInnerSelector.Verify(p => p.Explode("my assembly", It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.Explode("my other assembly", It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
         public void Explode_CacheResults_WithoutDuplicates()
         {
             mockInnerSelector
-                .Setup(s => s.Explode("table name", "my entry"))
+                .Setup(s => s.Explode("my assembly", "table name", "my entry"))
                 .Returns(new[] { "entry 1", "entry 2" });
             mockInnerSelector
-                .Setup(s => s.ExplodeAndPreserveDuplicates("table name", "my entry"))
+                .Setup(s => s.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry"))
                 .Returns(new[] { "entry 1", "entry 2", "entry 2" });
 
-            proxy.ExplodeAndPreserveDuplicates("table name", "my entry");
-            proxy.Explode("table name", "my entry");
-            var result = proxy.Explode("table name", "my entry");
+            proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry");
+            proxy.Explode("my assembly", "table name", "my entry");
+            var result = proxy.Explode("my assembly", "table name", "my entry");
 
             Assert.That(result, Is.EqualTo(new[] { "entry 1", "entry 2" }));
 
-            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
         public void ExplodeAndPreserveDuplicates_ReturnsFromInnerSelector()
         {
             mockInnerSelector
-                .Setup(s => s.ExplodeAndPreserveDuplicates("table name", "my entry"))
+                .Setup(s => s.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry"))
                 .Returns(new[] { "entry 1", "entry 2", "entry 2" });
 
-            var result = proxy.ExplodeAndPreserveDuplicates("table name", "my entry");
+            var result = proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry");
             Assert.That(result, Is.EqualTo(new[] { "entry 1", "entry 2", "entry 2" }));
         }
 
@@ -159,28 +165,52 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         public void ExplodeAndPreserveDuplicates_CacheResults()
         {
             mockInnerSelector
-                .Setup(s => s.ExplodeAndPreserveDuplicates("table name", "my entry"))
+                .Setup(s => s.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry"))
                 .Returns(new[] { "entry 1", "entry 2", "entry 2" });
 
-            proxy.Explode("table name", "my entry");
-            var result = proxy.ExplodeAndPreserveDuplicates("table name", "my entry");
+            proxy.Explode("my assembly", "table name", "my entry");
+            var result = proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry");
 
             Assert.That(result, Is.EqualTo(new[] { "entry 1", "entry 2", "entry 2" }));
 
-            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        }
+
+        [Test]
+        public void ExplodeAndPreserveDuplicates_DoNotCacheDifferentResults()
+        {
+            mockInnerSelector
+                .Setup(s => s.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry"))
+                .Returns(new[] { "entry 1", "entry 2", "entry 2" });
+            mockInnerSelector
+                .Setup(s => s.ExplodeAndPreserveDuplicates("my assembly", "table name", "my other entry"))
+                .Returns(new[] { "entry 3", "entry 3", "entry 4" });
+
+            proxy.Explode("my assembly", "table name", "my entry");
+            proxy.Explode("my assembly", "table name", "my other entry");
+
+            var result = proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry");
+            var otherResult = proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my other entry");
+
+            Assert.That(result, Is.EqualTo(new[] { "entry 1", "entry 2", "entry 2" }));
+            Assert.That(otherResult, Is.EqualTo(new[] { "entry 3", "entry 3", "entry 4" }));
+
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry"), Times.Once);
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates("my assembly", "table name", "my other entry"), Times.Once);
         }
 
         [Test]
         public async Task ExplodeAndPreserveDuplicates_CacheResultsIsThreadsafe()
         {
             mockInnerSelector
-                .Setup(s => s.ExplodeAndPreserveDuplicates("table name", "my entry"))
+                .Setup(s => s.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry"))
                 .Returns(new[] { "entry 1", "entry 2", "entry 2" });
 
             var tasks = new List<Task<IEnumerable<string>>>();
             while (tasks.Count < 10)
             {
-                var task = Task.Run(() => proxy.ExplodeAndPreserveDuplicates("table name", "my entry"));
+                var task = Task.Run(() => proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry"));
                 tasks.Add(task);
             }
 
@@ -192,56 +222,47 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
                 Assert.That(result, Is.EqualTo(new[] { "entry 1", "entry 2", "entry 2" }));
             }
 
-            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
         public void ExplodeAndPreserveDuplicates_CacheResultsWithAssembly()
         {
-            mockInnerSelector
-                .SetupSequence(s => s.ExplodeAndPreserveDuplicates("table name", "my entry"))
-                .Returns(new[] { "entry 1", "entry 2", "entry 2" })
-                .Returns(new[] { "entry 3", "entry 4", "entry 4" })
-                .Returns(new[] { "entry 1", "entry 2", "entry 2" })
-                .Returns(new[] { "entry 3", "entry 4", "entry 4" });
+            mockInnerSelector.Setup(s => s.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry")).Returns(new[] { "entry 1", "entry 2", "entry 2" });
+            mockInnerSelector.Setup(s => s.ExplodeAndPreserveDuplicates("my other assembly", "table name", "my entry")).Returns(new[] { "entry 3", "entry 4", "entry 4" });
 
-            mockAssemblyLoader
-                .SetupSequence(l => l.GetRunningAssembly())
-                .Returns(Assembly.GetExecutingAssembly())
-                .Returns(typeof(int).Assembly)
-                .Returns(Assembly.GetExecutingAssembly())
-                .Returns(typeof(int).Assembly);
+            proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry");
+            proxy.ExplodeAndPreserveDuplicates("my other assembly", "table name", "my entry");
 
-            proxy.ExplodeAndPreserveDuplicates("table name", "my entry");
-            proxy.ExplodeAndPreserveDuplicates("table name", "my entry");
-
-            var firstResult = proxy.ExplodeAndPreserveDuplicates("table name", "my entry");
-            var secondResult = proxy.ExplodeAndPreserveDuplicates("table name", "my entry");
+            var firstResult = proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry");
+            var secondResult = proxy.ExplodeAndPreserveDuplicates("my other assembly", "table name", "my entry");
 
             Assert.That(firstResult, Is.EqualTo(new[] { "entry 1", "entry 2", "entry 2" }));
             Assert.That(secondResult, Is.EqualTo(new[] { "entry 3", "entry 4", "entry 4" }));
 
-            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry"), Times.Once);
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates("my other assembly", "table name", "my entry"), Times.Once);
         }
 
         [Test]
         public void ExplodeAndPreserveDuplicates_CacheResults_WithDuplicates()
         {
             mockInnerSelector
-                .Setup(s => s.Explode("table name", "my entry"))
+                .Setup(s => s.Explode("my assembly", "table name", "my entry"))
                 .Returns(new[] { "entry 1", "entry 2" });
             mockInnerSelector
-                .Setup(s => s.ExplodeAndPreserveDuplicates("table name", "my entry"))
+                .Setup(s => s.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry"))
                 .Returns(new[] { "entry 1", "entry 2", "entry 2" });
 
-            proxy.Explode("table name", "my entry");
-            proxy.ExplodeAndPreserveDuplicates("table name", "my entry");
-            var result = proxy.ExplodeAndPreserveDuplicates("table name", "my entry");
+            proxy.Explode("my assembly", "table name", "my entry");
+            proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry");
+            var result = proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry");
 
             Assert.That(result, Is.EqualTo(new[] { "entry 1", "entry 2", "entry 2" }));
 
-            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.Explode(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
@@ -250,16 +271,16 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             var i = 0;
             var exploded = Enumerable.Range(0, 2).SelectMany(n => new[] { $"entry {i}", $"entry {i++}" });
             mockInnerSelector
-                .Setup(s => s.ExplodeAndPreserveDuplicates("table name", "my entry"))
+                .Setup(s => s.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry"))
                 .Returns(exploded);
 
-            proxy.Explode("table name", "my entry");
-            var result = proxy.ExplodeAndPreserveDuplicates("table name", "my entry");
+            proxy.Explode("my assembly", "table name", "my entry");
+            var result = proxy.ExplodeAndPreserveDuplicates("my assembly", "table name", "my entry");
 
             Assert.That(result, Is.EqualTo(new[] { "entry 0", "entry 0", "entry 1", "entry 1" }));
             Assert.That(i, Is.EqualTo(2));
 
-            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockInnerSelector.Verify(p => p.ExplodeAndPreserveDuplicates(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
         [Test]
@@ -282,10 +303,10 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         public void FindCollectionOf_ReturnsInnerResult()
         {
             mockInnerSelector
-                .Setup(s => s.FindCollectionOf("my table", "my entry", "collection 1", "collection 2"))
+                .Setup(s => s.FindCollectionOf("my assembly", "my table", "my entry", "collection 1", "collection 2"))
                 .Returns("my collection");
 
-            var result = proxy.FindCollectionOf("my table", "my entry", "collection 1", "collection 2");
+            var result = proxy.FindCollectionOf("my assembly", "my table", "my entry", "collection 1", "collection 2");
             Assert.That(result, Is.EqualTo("my collection"));
         }
 
@@ -314,10 +335,10 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             collections["my other entry"] = new[] { "entry 3", "entry 4" };
 
             mockInnerSelector
-                .Setup(s => s.SelectAllFrom("my table"))
+                .Setup(s => s.SelectAllFrom("my assembly", "my table"))
                 .Returns(collections);
 
-            var result = proxy.SelectAllFrom("my table");
+            var result = proxy.SelectAllFrom("my assembly", "my table");
             Assert.That(result, Is.EqualTo(collections));
         }
 
@@ -325,10 +346,10 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         public void SelectFrom_ReturnsInnerResult()
         {
             mockInnerSelector
-                .Setup(s => s.SelectFrom("my table", "my collection"))
+                .Setup(s => s.SelectFrom("my assembly", "my table", "my collection"))
                 .Returns(new[] { "my result", "my other result" });
 
-            var result = proxy.SelectFrom("my table", "my collection");
+            var result = proxy.SelectFrom("my assembly", "my table", "my collection");
             Assert.That(result, Is.EqualTo(new[] { "my result", "my other result" }));
         }
 
@@ -357,10 +378,10 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             var veryRare = new[] { "very rare 1", "very rare 2" };
 
             mockInnerSelector
-                .Setup(s => s.SelectRandomFrom("my table", "my collection"))
+                .Setup(s => s.SelectRandomFrom("my assembly", "my table", "my collection"))
                 .Returns("my result");
 
-            var result = proxy.SelectRandomFrom("my table", "my collection");
+            var result = proxy.SelectRandomFrom("my assembly", "my table", "my collection");
             Assert.That(result, Is.EqualTo("my result"));
         }
 
@@ -382,10 +403,10 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         public void IsCollection_ReturnsInnerResult(bool isCollection)
         {
             mockInnerSelector
-                .Setup(s => s.IsCollection("my table", "my collection"))
+                .Setup(s => s.IsCollection("my assembly", "my table", "my collection"))
                 .Returns(isCollection);
 
-            var result = proxy.IsCollection("my table", "my collection");
+            var result = proxy.IsCollection("my assembly", "my table", "my collection");
             Assert.That(result, Is.EqualTo(isCollection));
         }
     }

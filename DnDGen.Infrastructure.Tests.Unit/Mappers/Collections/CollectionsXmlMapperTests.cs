@@ -38,7 +38,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
                          </collections>";
 
             mockStreamLoader = new Mock<StreamLoader>();
-            mockStreamLoader.Setup(l => l.LoadFor(fileName)).Returns(() => GetStream());
+            mockStreamLoader.Setup(l => l.LoadFor("DnDGen.Infrastructure.Tests.Unit", fileName)).Returns(GetStream);
 
             mapper = new CollectionXmlMapper(mockStreamLoader.Object);
         }
@@ -46,14 +46,14 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
         [Test]
         public void AppendXmlFileExtensionToTableName()
         {
-            mapper.Map(tableName);
-            mockStreamLoader.Verify(l => l.LoadFor(fileName), Times.Once);
+            mapper.Map("DnDGen.Infrastructure.Tests.Unit", tableName);
+            mockStreamLoader.Verify(l => l.LoadFor("DnDGen.Infrastructure.Tests.Unit", fileName), Times.Once);
         }
 
         [Test]
         public void LoadXmlFromStream()
         {
-            var table = mapper.Map(tableName);
+            var table = mapper.Map("DnDGen.Infrastructure.Tests.Unit", tableName);
 
             var items = table["first name"];
             Assert.That(items, Contains.Item("first item"));
@@ -75,7 +75,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
                          <collections>
                          </collections>";
 
-            var table = mapper.Map(tableName);
+            var table = mapper.Map("DnDGen.Infrastructure.Tests.Unit", tableName);
             Assert.That(table, Is.Empty);
         }
 
@@ -109,7 +109,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
                              </collection>
                          </wrongnode>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Table {tableName} is not a collection table (does not have \"collections\" as root node)"));
+            Assert.That(() => mapper.Map("DnDGen.Infrastructure.Tests.Unit", tableName),
+                Throws.Exception.With.Message.EqualTo($"Table {tableName} is not a collection table (does not have \"collections\" as root node)"));
         }
 
         [Test]
@@ -131,7 +132,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
                              </collection>
                          </collections>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Collection table {tableName} contains an invalid collection node called \"wrongnode\""));
+            Assert.That(() => mapper.Map("DnDGen.Infrastructure.Tests.Unit", tableName),
+                Throws.Exception.With.Message.EqualTo($"Collection table {tableName} contains an invalid collection node called \"wrongnode\""));
         }
 
         [Test]
@@ -154,7 +156,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
                              </collection>
                          </collections>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Collection table {tableName} has a malformed collection node"));
+            Assert.That(() => mapper.Map("DnDGen.Infrastructure.Tests.Unit", tableName),
+                Throws.Exception.With.Message.EqualTo($"Collection table {tableName} has a malformed collection node"));
         }
 
         [Test]
@@ -177,7 +180,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
                              </collection>
                          </collections>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Collection table {tableName} has a malformed collection node"));
+            Assert.That(() => mapper.Map("DnDGen.Infrastructure.Tests.Unit", tableName),
+                Throws.Exception.With.Message.EqualTo($"Collection table {tableName} has a malformed collection node"));
         }
 
         [Test]
@@ -203,7 +207,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
                              </collection>
                          </collections>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Collection table {tableName} has duplicate collections of first name"));
+            Assert.That(() => mapper.Map("DnDGen.Infrastructure.Tests.Unit", tableName),
+                Throws.Exception.With.Message.EqualTo($"Collection table {tableName} has duplicate collections of first name"));
         }
     }
 }

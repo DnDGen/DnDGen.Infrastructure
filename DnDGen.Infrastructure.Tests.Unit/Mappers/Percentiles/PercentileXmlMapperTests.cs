@@ -11,6 +11,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
     public class PercentileXmlMapperTests
     {
         private const string tableName = "PercentileXmlMapperTests";
+        private const string assemblyName = "DnDGen.Infrastructure.Tests.Unit";
 
         private PercentileMapper mapper;
         private Mock<StreamLoader> mockStreamLoader;
@@ -41,7 +42,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                          </percentiles>";
 
             mockStreamLoader = new Mock<StreamLoader>();
-            mockStreamLoader.Setup(l => l.LoadFor(filename)).Returns(() => GetStream());
+            mockStreamLoader.Setup(l => l.LoadFor(assemblyName, filename)).Returns(GetStream);
 
             mapper = new PercentileXmlMapper(mockStreamLoader.Object);
         }
@@ -60,14 +61,14 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
         [Test]
         public void AppendXmlFileExtensionToTableName()
         {
-            mapper.Map(tableName);
-            mockStreamLoader.Verify(l => l.LoadFor(filename), Times.Once);
+            mapper.Map(assemblyName, tableName);
+            mockStreamLoader.Verify(l => l.LoadFor(assemblyName, filename), Times.Once);
         }
 
         [Test]
         public void LoadXmlFromStream()
         {
-            var table = mapper.Map(tableName);
+            var table = mapper.Map(assemblyName, tableName);
 
             Assert.That(table[1], Is.EqualTo("one through five"));
             Assert.That(table[2], Is.EqualTo("one through five"));
@@ -89,7 +90,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                          <percentiles>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} is empty"));
+            Assert.That(() => mapper.Map(assemblyName, tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} is empty"));
         }
 
         [Test]
@@ -114,7 +115,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </wrongnode>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Table {tableName} is not a percentile table (does not have \"percentiles\" as root node)"));
+            Assert.That(() => mapper.Map(assemblyName, tableName),
+                Throws.Exception.With.Message.EqualTo($"Table {tableName} is not a percentile table (does not have \"percentiles\" as root node)"));
         }
 
         [Test]
@@ -139,7 +141,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} contains an invalid percentile node called \"wrongnode\""));
+            Assert.That(() => mapper.Map(assemblyName, tableName),
+                Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} contains an invalid percentile node called \"wrongnode\""));
         }
 
         [Test]
@@ -165,7 +168,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} contains an invalid percentile node called \"wrongnode\""));
+            Assert.That(() => mapper.Map(assemblyName, tableName),
+                Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} contains an invalid percentile node called \"wrongnode\""));
         }
 
         [Test]
@@ -190,7 +194,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has duplicate results for 7"));
+            Assert.That(() => mapper.Map(assemblyName, tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has duplicate results for 7"));
         }
 
         [Test]
@@ -215,7 +219,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} is missing results for 5, 100"));
+            Assert.That(() => mapper.Map(assemblyName, tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} is missing results for 5, 100"));
         }
 
         [Test]
@@ -240,7 +244,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has extra results for 0, 101"));
+            Assert.That(() => mapper.Map(assemblyName, tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has extra results for 0, 101"));
         }
 
         [Test]
@@ -264,7 +268,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
+            Assert.That(() => mapper.Map(assemblyName, tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
         }
 
         [Test]
@@ -288,7 +292,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
+            Assert.That(() => mapper.Map(assemblyName, tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
         }
 
         [Test]
@@ -312,7 +316,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
+            Assert.That(() => mapper.Map(assemblyName, tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
         }
 
         [Test]
@@ -337,7 +341,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
+            Assert.That(() => mapper.Map(assemblyName, tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
         }
 
         [Test]
@@ -363,7 +367,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
+            Assert.That(() => mapper.Map(assemblyName, tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
         }
 
         [Test]
@@ -388,7 +392,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
                              </percentile>
                          </percentiles>";
 
-            Assert.That(() => mapper.Map(tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
+            Assert.That(() => mapper.Map(assemblyName, tableName), Throws.Exception.With.Message.EqualTo($"Percentile table {tableName} has a malformed percentile node"));
         }
     }
 }

@@ -17,19 +17,19 @@ namespace DnDGen.Infrastructure.Selectors.Percentiles
             this.dice = dice;
         }
 
-        public string SelectFrom(string tableName)
+        public string SelectFrom(string assemblyName, string tableName)
         {
-            return SelectFrom<string>(tableName);
+            return SelectFrom<string>(assemblyName, tableName);
         }
 
-        public IEnumerable<string> SelectAllFrom(string tableName)
+        public IEnumerable<string> SelectAllFrom(string assemblyName, string tableName)
         {
-            return SelectAllFrom<string>(tableName);
+            return SelectAllFrom<string>(assemblyName, tableName);
         }
 
-        public T SelectFrom<T>(string tableName)
+        public T SelectFrom<T>(string assemblyName, string tableName)
         {
-            var table = percentileMapper.Map(tableName);
+            var table = percentileMapper.Map(assemblyName, tableName);
             var roll = dice.Roll().Percentile().AsSum();
 
             if (!table.ContainsKey(roll))
@@ -45,9 +45,9 @@ namespace DnDGen.Infrastructure.Selectors.Percentiles
             return (T)Convert.ChangeType(source, typeof(T));
         }
 
-        public IEnumerable<T> SelectAllFrom<T>(string tableName)
+        public IEnumerable<T> SelectAllFrom<T>(string assemblyName, string tableName)
         {
-            var table = percentileMapper.Map(tableName);
+            var table = percentileMapper.Map(assemblyName, tableName);
             return table.Values.Select(v => GetValue<T>(v)).Distinct();
         }
 

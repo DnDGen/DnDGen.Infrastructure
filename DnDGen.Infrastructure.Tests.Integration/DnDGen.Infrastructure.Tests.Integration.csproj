@@ -1,11 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-	  <TargetFrameworks>net6.0</TargetFrameworks>
-
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Tables\Collections\CollectionTable.xml" />
     <None Remove="Tables\Collections\CreatureGen-CreatureGroups.xml" />
@@ -17,7 +14,6 @@
     <None Remove="Tables\Percentiles\IntPercentileTable.xml" />
     <None Remove="Tables\Percentiles\StringPercentileTable.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Tables\Collections\CollectionTable.xml" />
     <EmbeddedResource Include="Tables\Collections\CreatureGen-CreatureGroups.xml" />
@@ -28,22 +24,20 @@
     <EmbeddedResource Include="Tables\Percentiles\IntPercentileTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\StringPercentileTable.xml" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="DnDGen.RollGen" Version="15.5.4" />
+    <PackageReference Include="DnDGen.RollGen" Version="15.5.7" />
     <PackageReference Include="Ninject" Version="3.3.6" />
-    <PackageReference Include="nunit" Version="4.0.1" />
+    <PackageReference Include="nunit" Version="4.1.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\DnDGen.Infrastructure.Another\DnDGen.Infrastructure.Another.csproj" />
+    <ProjectReference Include="..\DnDGen.Infrastructure.YetAnother\DnDGen.Infrastructure.YetAnother.csproj" />
     <ProjectReference Include="..\DnDGen.Infrastructure\DnDGen.Infrastructure.csproj" />
     <ProjectReference Include="..\DnDGen.Infrastructure.Other\DnDGen.Infrastructure.Other.csproj" />
   </ItemGroup>
-
 </Project>

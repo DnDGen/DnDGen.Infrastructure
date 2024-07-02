@@ -4,10 +4,10 @@ namespace DnDGen.Infrastructure.Selectors.Percentiles
 {
     public interface IPercentileSelector
     {
-        string SelectFrom(string tableName);
-        IEnumerable<string> SelectAllFrom(string tableName);
-        T SelectFrom<T>(string tableName);
-        IEnumerable<T> SelectAllFrom<T>(string tableName);
+        string SelectFrom(string assemblyName, string tableName);
+        IEnumerable<string> SelectAllFrom(string assemblyName, string tableName);
+        T SelectFrom<T>(string assemblyName, string tableName);
+        IEnumerable<T> SelectAllFrom<T>(string assemblyName, string tableName);
         /// <summary>
         /// Return the value as True or False, depending on if the percentile roll is higher or lower then the threshold.
         /// A value less than or equal to the threshold is false.
@@ -16,7 +16,7 @@ namespace DnDGen.Infrastructure.Selectors.Percentiles
         /// </summary>
         /// <param name="threshold">The non-inclusive lower-bound percentage of success</param>
         /// <returns></returns>
-        bool SelectFrom(double chance);
+        bool SelectFrom(double threshold);
         /// <summary>
         /// Return the value as True or False, depending on if the percentile roll is higher or lower then the threshold.
         /// A value less than or equal to the threshold is false.
