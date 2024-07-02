@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+  <collection>
+    <name>Real Value 1</name>
+  </collection>
+  <collection>
+    <name>Real Value 2</name>
+    <entry>Real Subvalue 1</entry>
+    <entry>Real Subvalue 2</entry>
+  </collection>
+</collections>

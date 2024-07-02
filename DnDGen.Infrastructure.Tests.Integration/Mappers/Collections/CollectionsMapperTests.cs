@@ -18,7 +18,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Mappers.Collections
         [TestCase("Test Selector Value 2", "Test Selector Subvalue 1", "Test Selector Subvalue 2")]
         public void MapTableViaMapperWithTestAssembly(string name, params string[] entries)
         {
-            var collectionTable = collectionsMapper.Map("DnDGen.Infrastructure.Tests.Integration", "TestSelectorCollectionTable");
+            var collectionTable = collectionsMapper.Map("DnDGen.Infrastructure.Other", "TestSelectorCollectionTable");
             Assert.That(collectionTable[name], Is.EquivalentTo(entries));
         }
     }

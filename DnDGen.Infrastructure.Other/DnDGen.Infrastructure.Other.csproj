@@ -8,6 +8,7 @@
     <None Remove="Tables\RealAssembly\DuplicateCollectionTable.xml" />
     <None Remove="Tables\RealAssembly\RealCallerCollectionTable.xml" />
     <None Remove="Tables\RealAssembly\RealSelectorCollectionTable.xml" />
+    <None Remove="Tables\RealAssembly\RealSelectorPercentileTable.xml" />
     <None Remove="Tables\TestAssembly\TestCallerCollectionTable.xml" />
     <None Remove="Tables\TestAssembly\TestSelectorCollectionTable.xml" />
   </ItemGroup>
@@ -15,6 +16,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Tables\RealAssembly\DuplicateCollectionTable.xml" />
     <EmbeddedResource Include="Tables\RealAssembly\RealCallerCollectionTable.xml" />
+    <EmbeddedResource Include="Tables\RealAssembly\RealSelectorPercentileTable.xml" />
     <EmbeddedResource Include="Tables\RealAssembly\RealSelectorCollectionTable.xml" />
     <EmbeddedResource Include="Tables\TestAssembly\TestCallerCollectionTable.xml" />
     <EmbeddedResource Include="Tables\TestAssembly\TestSelectorCollectionTable.xml" />

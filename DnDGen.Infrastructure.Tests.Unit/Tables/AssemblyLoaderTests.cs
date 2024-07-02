@@ -14,14 +14,15 @@ namespace DnDGen.Infrastructure.Tests.Unit.Tables
             assemblyLoader = new DomainAssemblyLoader();
         }
 
-        [TestCase("nunit.framework")]
-        [TestCase("DnDGen.Infrastructure.Tests.Unit")]
-        [TestCase("dndgen.infrastructure.tests.unit")]
-        [TestCase("DNDGEN.INFRASTRUCTURE.TESTS.UNIT")]
-        public void ReturnNamedAssembly(string assemblyName)
+        [TestCase("nunit.framework", "nunit.framework")]
+        [TestCase("DnDGen.Infrastructure.Tests.Unit", "DnDGen.Infrastructure.Tests.Unit")]
+        [TestCase("dndgen.infrastructure.tests.unit", "DnDGen.Infrastructure.Tests.Unit")]
+        [TestCase("DNDGEN.INFRASTRUCTURE.TESTS.UNIT", "DnDGen.Infrastructure.Tests.Unit")]
+        [TestCase("DnDGen.Infrastructure", "DnDGen.Infrastructure")]
+        public void ReturnNamedAssembly(string assemblyName, string expected)
         {
             var assembly = assemblyLoader.GetAssembly(assemblyName);
-            Assert.That(assembly.FullName, Does.StartWith($"{assemblyName}, "));
+            Assert.That(assembly.FullName, Does.StartWith($"{expected}, "));
         }
     }
 }

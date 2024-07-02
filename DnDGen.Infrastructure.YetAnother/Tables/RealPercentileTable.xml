@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<percentiles>
+	<percentile>
+		<lower>1</lower>
+		<content>one to thirty-nine</content>
+		<upper>39</upper>
+	</percentile>
+	<percentile>
+		<lower>40</lower>
+		<content>just under fifty</content>
+		<upper>49</upper>
+	</percentile>
+	<percentile>
+		<lower>50</lower>
+		<content>fifty</content>
+		<upper>50</upper>
+	</percentile>
+	<percentile>
+		<lower>51</lower>
+		<content>just over fifty</content>
+		<upper>60</upper>
+	</percentile>
+	<percentile>
+		<lower>61</lower>
+		<content>sixty-one to one hundred</content>
+		<upper>100</upper>
+	</percentile>
+</percentiles>

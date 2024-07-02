@@ -48,7 +48,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [Test]
         public void FindCollectionOfNameFromTable()
         {
-            var collectionName = collectionsSelector.FindCollectionOf("CollectionTable", "entry 3", "collection", "sub-collection");
+            var collectionName = collectionsSelector.FindCollectionOf(assemblyName, "CollectionTable", "entry 3", "collection", "sub-collection");
             Assert.That(collectionName, Is.EqualTo("collection"));
         }
 
@@ -57,7 +57,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [TestCase("sub-collection", "entry 3", "entry 4", "sub-collection")]
         public void SelectRandomFromTable(string name, params string[] collection)
         {
-            var entry = collectionsSelector.SelectRandomFrom("CollectionTable", name);
+            var entry = collectionsSelector.SelectRandomFrom(assemblyName, "CollectionTable", name);
             Assert.That(new[] { entry }, Is.SubsetOf(collection));
         }
 

@@ -12,6 +12,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
     public class PercentileSelectorTests
     {
         private const string tableName = "table name";
+        private const string assemblyName = "assembly name";
 
         private IPercentileSelector percentileSelector;
         private Dictionary<int, string> table;
@@ -28,7 +29,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
                 table.Add(i, i.ToString());
 
             mockPercentileMapper = new Mock<PercentileMapper>();
-            mockPercentileMapper.Setup(p => p.Map(tableName)).Returns(table);
+            mockPercentileMapper.Setup(p => p.Map(assemblyName, tableName)).Returns(table);
 
             mockDice = new Mock<Dice>();
             mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(1);
@@ -48,14 +49,14 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         public void GetPercentile(int roll, string content)
         {
             mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(roll);
-            var result = percentileSelector.SelectFrom(tableName);
+            var result = percentileSelector.SelectFrom(assemblyName, tableName);
             Assert.That(result, Is.EqualTo(content));
         }
 
         [Test]
         public void GetAllResultsReturnsAllContentValues()
         {
-            var results = percentileSelector.SelectAllFrom(tableName);
+            var results = percentileSelector.SelectAllFrom(assemblyName, tableName);
             var distinctContent = table.Values.Distinct();
 
             foreach (var content in distinctContent)
@@ -69,14 +70,14 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         public void IfRollNotPresentInTable_ThrowException()
         {
             mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(11);
-            Assert.That(() => percentileSelector.SelectFrom(tableName), Throws.Exception.With.Message.EqualTo("11 is not a valid entry in the table table name"));
+            Assert.That(() => percentileSelector.SelectFrom(assemblyName, tableName), Throws.Exception.With.Message.EqualTo("11 is not a valid entry in the table table name"));
         }
 
         [Test]
         public void CanConvertPercentileResult()
         {
             mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(6);
-            var result = percentileSelector.SelectFrom<int>(tableName);
+            var result = percentileSelector.SelectFrom<int>(assemblyName, tableName);
             Assert.That(result, Is.EqualTo(6));
         }
 
@@ -101,7 +102,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
 
             mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(roll);
 
-            var result = percentileSelector.SelectFrom<bool>(tableName);
+            var result = percentileSelector.SelectFrom<bool>(assemblyName, tableName);
             Assert.That(result, Is.EqualTo(isTrue));
         }
 
