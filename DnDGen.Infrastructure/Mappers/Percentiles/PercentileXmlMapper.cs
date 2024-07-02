@@ -15,13 +15,13 @@ namespace DnDGen.Infrastructure.Mappers.Percentiles
             this.streamLoader = streamLoader;
         }
 
-        public Dictionary<int, string> Map(string tableName)
+        public Dictionary<int, string> Map(string assemblyName, string tableName)
         {
             var filename = tableName + ".xml";
             var mappedTable = new Dictionary<int, string>();
             var xmlDocument = new XmlDocument();
 
-            using (var stream = streamLoader.LoadFor(filename))
+            using (var stream = streamLoader.LoadFor(assemblyName, filename))
                 xmlDocument.Load(stream);
 
             if (xmlDocument.DocumentElement.LocalName != "percentiles")

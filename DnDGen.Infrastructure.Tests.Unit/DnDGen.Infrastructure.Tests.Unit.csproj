@@ -1,33 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-	  <TargetFrameworks>net6.0</TargetFrameworks>
-
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Tables\TestTable.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Tables\TestTable.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Moq" Version="4.20.70" />
-    <PackageReference Include="nunit" Version="4.0.1" />
+    <PackageReference Include="nunit" Version="4.1.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\DnDGen.Infrastructure.Another\DnDGen.Infrastructure.Another.csproj" />
     <ProjectReference Include="..\DnDGen.Infrastructure.Other\DnDGen.Infrastructure.Other.csproj" />
+    <ProjectReference Include="..\DnDGen.Infrastructure.YetAnother\DnDGen.Infrastructure.YetAnother.csproj" />
     <ProjectReference Include="..\DnDGen.Infrastructure\DnDGen.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>

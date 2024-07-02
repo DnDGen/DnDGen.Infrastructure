@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Tables\DuplicateCollectionTable.xml" />
+    <None Remove="Tables\RealCollectionTable.xml" />
+    <None Remove="Tables\RealPercentileTable.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Tables\DuplicateCollectionTable.xml" />
+    <EmbeddedResource Include="Tables\RealCollectionTable.xml" />
+    <EmbeddedResource Include="Tables\RealPercentileTable.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DnDGen.Infrastructure.Another\DnDGen.Infrastructure.Another.csproj" />
+    <ProjectReference Include="..\DnDGen.Infrastructure\DnDGen.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

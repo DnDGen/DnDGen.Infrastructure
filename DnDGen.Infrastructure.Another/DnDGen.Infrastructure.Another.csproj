@@ -7,11 +7,13 @@
   <ItemGroup>
     <None Remove="Tables\DuplicateCollectionTable.xml" />
     <None Remove="Tables\RealCallerCollectionTable.xml" />
+    <None Remove="Tables\RealCallerPercentileTable.xml" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Tables\DuplicateCollectionTable.xml" />
     <EmbeddedResource Include="Tables\RealCallerCollectionTable.xml" />
+    <EmbeddedResource Include="Tables\RealCallerPercentileTable.xml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,53 +1,43 @@
-﻿using DnDGen.Infrastructure.Another;
-using DnDGen.Infrastructure.Other;
-using DnDGen.Infrastructure.Tables;
+﻿using DnDGen.Infrastructure.Tables;
 using NUnit.Framework;
+using System.IO;
 
 namespace DnDGen.Infrastructure.Tests.Unit.Tables
 {
     [TestFixture]
     public class AssemblyLoaderTests
     {
-        private OtherAssemblyCaller caller;
         private AssemblyLoader assemblyLoader;
 
         [SetUp]
         public void Setup()
         {
             assemblyLoader = new DomainAssemblyLoader();
-            caller = new OtherAssemblyCaller(assemblyLoader);
+        }
+
+        [TestCase("NUnit.Framework", "nunit.framework")]
+        [TestCase("nunit.framework", "nunit.framework")]
+        [TestCase("DnDGen.Infrastructure.Tests.Unit", "DnDGen.Infrastructure.Tests.Unit")]
+        [TestCase("dndgen.infrastructure.tests.unit", "DnDGen.Infrastructure.Tests.Unit")]
+        [TestCase("DNDGEN.INFRASTRUCTURE.TESTS.UNIT", "DnDGen.Infrastructure.Tests.Unit")]
+        [TestCase("DnDGen.Infrastructure", "DnDGen.Infrastructure")]
+        [TestCase("dndgen.infrastructure", "DnDGen.Infrastructure")]
+        [TestCase("DnDGen.Infrastructure.Other", "DnDGen.Infrastructure.Other")]
+        [TestCase("DnDGen.Infrastructure.Another", "DnDGen.Infrastructure.Another")]
+        [TestCase("DnDGen.Infrastructure.YetAnother", "DnDGen.Infrastructure.YetAnother")]
+        [TestCase("DnDGen.RollGen", "DnDGen.RollGen")]
+        [TestCase("dndgen.rollgen", "DnDGen.RollGen")]
+        public void ReturnNamedAssembly(string assemblyName, string expected)
+        {
+            var assembly = assemblyLoader.GetAssembly(assemblyName);
+            Assert.That(assembly.FullName, Does.StartWith($"{expected}, "));
         }
 
         [Test]
-        public void GetsNonDndGenInfrastructureAssembly()
+        public void ThrowsError_IfAssemblyNotFound()
         {
-            var assembly = caller.Call();
-            Assert.That(assembly.FullName, Does.StartWith("DnDGen.Infrastructure.Other, "));
-        }
-
-        [Test]
-        public void GetsNonDndGenInfrastructureAssemblyThroughMultipleInfrastructureLayers()
-        {
-            var extraLoader = new TestAssemblyLoader(assemblyLoader);
-            caller = new OtherAssemblyCaller(extraLoader);
-
-            var assembly = caller.Call();
-            Assert.That(assembly.FullName, Does.StartWith("DnDGen.Infrastructure.Other, "));
-        }
-
-        [Test]
-        public void GetsFirstNonDndGenInfrastructureAssembly()
-        {
-            var otherCaller = new AnotherAssemblyCaller(caller);
-            var assembly = caller.Call();
-            Assert.That(assembly.FullName, Does.StartWith("DnDGen.Infrastructure.Other, "));
-        }
-
-        [Test]
-        public void ReturnAssemblyEvenIfDirectlyCalled()
-        {
-            var assembly = assemblyLoader.GetRunningAssembly();
-            Assert.That(assembly.FullName, Does.StartWith("nunit.framework, "));
+            Assert.That(() => assemblyLoader.GetAssembly("dndgen.infrastructure.wrong"),
+                Throws.InstanceOf<FileNotFoundException>());
         }
     }
 }

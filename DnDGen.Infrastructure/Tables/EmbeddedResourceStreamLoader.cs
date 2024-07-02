@@ -13,35 +13,22 @@ namespace DnDGen.Infrastructure.Tables
             this.assemblyLoader = assemblyLoader;
         }
 
-        public Stream LoadFor(string filename)
+        public Stream LoadFor(string assemblyName, string filename)
         {
             if (!filename.EndsWith(".xml"))
             {
-                var message = string.Format("\"{0}\" is not a valid XML file", filename);
-                throw new ArgumentException(message);
+                throw new ArgumentException($"{filename} is not a valid XML file");
             }
 
-            var assembly = assemblyLoader.GetRunningAssembly();
+            var assembly = assemblyLoader.GetAssembly(assemblyName);
             var resources = assembly.GetManifestResourceNames();
-            var fileNames = resources.Select(r => GetFileName(r));
+            var streamSources = resources.Where(r => r.EndsWith($".{filename}"));
 
-            if (!fileNames.Contains(filename))
+            if (!streamSources.Any())
                 throw new FileNotFoundException($"{filename} does not exist in {assembly.FullName}");
 
-            var streamSource = resources.Single(r => r.EndsWith("." + filename));
+            var streamSource = streamSources.Single();
             return assembly.GetManifestResourceStream(streamSource);
-        }
-
-        private string GetFileName(string resource)
-        {
-            var segments = resource.Split('.');
-            var lastIndex = segments.Length - 1;
-            var secondToLastIndex = lastIndex - 1;
-
-            var fileName = segments[secondToLastIndex];
-            var extension = segments[lastIndex];
-
-            return $"{fileName}.{extension}";
         }
     }
 }

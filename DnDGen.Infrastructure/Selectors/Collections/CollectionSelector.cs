@@ -18,23 +18,23 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             this.dice = dice;
         }
 
-        public IEnumerable<string> SelectFrom(string tableName, string collectionName)
+        public IEnumerable<string> SelectFrom(string assemblyName, string tableName, string collectionName)
         {
-            if (!IsCollection(tableName, collectionName))
+            if (!IsCollection(assemblyName, tableName, collectionName))
                 throw new ArgumentException($"{collectionName} is not a valid collection in the table {tableName}");
 
-            var table = SelectAllFrom(tableName);
+            var table = SelectAllFrom(assemblyName, tableName);
             return table[collectionName];
         }
 
-        public Dictionary<string, IEnumerable<string>> SelectAllFrom(string tableName)
+        public Dictionary<string, IEnumerable<string>> SelectAllFrom(string assemblyName, string tableName)
         {
-            return mapper.Map(tableName);
+            return mapper.Map(assemblyName, tableName);
         }
 
-        public string SelectRandomFrom(string tableName, string collectionName)
+        public string SelectRandomFrom(string assemblyName, string tableName, string collectionName)
         {
-            var collection = SelectFrom(tableName, collectionName);
+            var collection = SelectFrom(assemblyName, tableName, collectionName);
             return SelectRandomFrom(collection);
         }
 
@@ -48,9 +48,9 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             return array[index];
         }
 
-        public string FindCollectionOf(string tableName, string entry, params string[] filteredCollectionNames)
+        public string FindCollectionOf(string assemblyName, string tableName, string entry, params string[] filteredCollectionNames)
         {
-            var allCollections = SelectAllFrom(tableName);
+            var allCollections = SelectAllFrom(assemblyName, tableName);
 
             if (!allCollections.Any(kvp => kvp.Value.Contains(entry)))
                 throw new ArgumentException($"No collection in {tableName} contains {entry}");
@@ -65,32 +65,33 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             return collectionName;
         }
 
-        public bool IsCollection(string tableName, string collectionName)
+        public bool IsCollection(string assemblyName, string tableName, string collectionName)
         {
-            var table = SelectAllFrom(tableName);
+            var table = SelectAllFrom(assemblyName, tableName);
             return table.ContainsKey(collectionName);
         }
 
-        public IEnumerable<string> Explode(string tableName, string collectionName) => ExplodeRecursive(tableName, collectionName, false);
+        public IEnumerable<string> Explode(string assemblyName, string tableName, string collectionName) => ExplodeRecursive(assemblyName, tableName, collectionName, false);
 
         public IEnumerable<string> Flatten(Dictionary<string, IEnumerable<string>> collections, IEnumerable<string> keys)
         {
             return CollectionHelper.FlattenCollection(collections, keys);
         }
 
-        public IEnumerable<string> ExplodeAndPreserveDuplicates(string tableName, string collectionName) => ExplodeRecursive(tableName, collectionName, true);
+        public IEnumerable<string> ExplodeAndPreserveDuplicates(string assemblyName, string tableName, string collectionName)
+            => ExplodeRecursive(assemblyName, tableName, collectionName, true);
 
-        private IEnumerable<string> ExplodeRecursive(string tableName, string collectionName, bool preserveDuplicates)
+        private IEnumerable<string> ExplodeRecursive(string assemblyName, string tableName, string collectionName, bool preserveDuplicates)
         {
-            var rootCollection = SelectFrom(tableName, collectionName);
+            var rootCollection = SelectFrom(assemblyName, tableName, collectionName);
             var explodedCollection = new List<string>();
             var explodedUniqueCollection = new HashSet<string>();
 
             foreach (var entry in rootCollection)
             {
-                if (IsCollection(tableName, entry) && entry != collectionName)
+                if (IsCollection(assemblyName, tableName, entry) && entry != collectionName)
                 {
-                    var subCollection = ExplodeRecursive(tableName, entry, preserveDuplicates);
+                    var subCollection = ExplodeRecursive(assemblyName, tableName, entry, preserveDuplicates);
 
                     explodedCollection.AddRange(subCollection);
                     explodedUniqueCollection.UnionWith(subCollection);

@@ -8,7 +8,6 @@ namespace DnDGen.Infrastructure.IoC.Modules
     {
         public override void Load()
         {
-            Bind<Generator>().To<IterativeGenerator>();
             Bind<JustInTimeFactory>().ToProvider<JustInTimeFactoryProvider>();
         }
     }

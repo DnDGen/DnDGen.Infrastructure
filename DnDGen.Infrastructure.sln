@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnDGen.Infrastructure", "DnDGen.Infrastructure\DnDGen.Infrastructure.csproj", "{D0F58B59-7B58-47A8-B772-8FE90EE4DFD4}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnDGen.Infrastructure.Other", "DnDGen.Infrastructure.Other\DnDGen.Infrastructure.Other.csproj", "{3E4CA45A-EA2C-47F4-80D3-7E78E9EC95FC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnDGen.Infrastructure.Another", "DnDGen.Infrastructure.Another\DnDGen.Infrastructure.Another.csproj", "{FADCD740-9068-4346-91B1-C03C4EC15F81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnDGen.Infrastructure.YetAnother", "DnDGen.Infrastructure.YetAnother\DnDGen.Infrastructure.YetAnother.csproj", "{A08A0ACF-B635-4E33-905A-92A644A5E6C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{FADCD740-9068-4346-91B1-C03C4EC15F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FADCD740-9068-4346-91B1-C03C4EC15F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FADCD740-9068-4346-91B1-C03C4EC15F81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A08A0ACF-B635-4E33-905A-92A644A5E6C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A08A0ACF-B635-4E33-905A-92A644A5E6C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A08A0ACF-B635-4E33-905A-92A644A5E6C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A08A0ACF-B635-4E33-905A-92A644A5E6C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,6 +15,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
     public class CollectionSelectorTests
     {
         private const string TableName = "table name";
+        private const string AssemblyName = "my assembly";
 
         private ICollectionSelector selector;
         private Mock<CollectionMapper> mockMapper;
@@ -29,28 +30,29 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             selector = new CollectionSelector(mockMapper.Object, mockDice.Object);
             allCollections = new Dictionary<string, IEnumerable<string>>();
 
-            mockMapper.Setup(m => m.Map(TableName)).Returns(allCollections);
+            mockMapper.Setup(m => m.Map(AssemblyName, TableName)).Returns(allCollections);
         }
 
         [Test]
         public void SelectCollection()
         {
             allCollections["entry"] = Enumerable.Empty<string>();
-            var collection = selector.SelectFrom(TableName, "entry");
+            var collection = selector.SelectFrom(AssemblyName, TableName, "entry");
             Assert.That(collection, Is.EqualTo(allCollections["entry"]));
         }
 
         [Test]
         public void SelectAllCollections()
         {
-            var collections = selector.SelectAllFrom(TableName);
+            var collections = selector.SelectAllFrom(AssemblyName, TableName);
             Assert.That(collections, Is.EqualTo(allCollections));
         }
 
         [Test]
         public void IfEntryNotPresentInTable_ThrowException()
         {
-            Assert.That(() => selector.SelectFrom(TableName, "entry"), Throws.Exception.With.Message.EqualTo("entry is not a valid collection in the table table name"));
+            Assert.That(() => selector.SelectFrom(AssemblyName, TableName, "entry"),
+                Throws.Exception.With.Message.EqualTo("entry is not a valid collection in the table table name"));
         }
 
         [Test]
@@ -69,7 +71,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["entry"] = new[] { "item 1", "item 2", "item 3" };
             mockDice.Setup(d => d.Roll(1).d(3).AsSum<int>()).Returns(2);
 
-            var item = selector.SelectRandomFrom(TableName, "entry");
+            var item = selector.SelectRandomFrom(AssemblyName, TableName, "entry");
             Assert.That(item, Is.EqualTo("item 2"));
         }
 
@@ -84,13 +86,13 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         public void CannotSelectRandomFromEmptyTable()
         {
             allCollections["entry"] = Enumerable.Empty<string>();
-            Assert.That(() => selector.SelectRandomFrom(TableName, "entry"), Throws.ArgumentException.With.Message.EqualTo("Cannot select random from an empty collection"));
+            Assert.That(() => selector.SelectRandomFrom(AssemblyName, TableName, "entry"), Throws.ArgumentException.With.Message.EqualTo("Cannot select random from an empty collection"));
         }
 
         [Test]
         public void CannotSelectRandomFromInvalidEntry()
         {
-            Assert.That(() => selector.SelectRandomFrom(TableName, "entry"), Throws.Exception.With.Message.EqualTo("entry is not a valid collection in the table table name"));
+            Assert.That(() => selector.SelectRandomFrom(AssemblyName, TableName, "entry"), Throws.Exception.With.Message.EqualTo("entry is not a valid collection in the table table name"));
         }
 
         [Test]
@@ -111,7 +113,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["other entry"] = new[] { "third", "fourth" };
             allCollections["wrong entry"] = new[] { "fifth", "second" };
 
-            var collectionName = selector.FindCollectionOf(TableName, "fourth");
+            var collectionName = selector.FindCollectionOf(AssemblyName, TableName, "fourth");
             Assert.That(collectionName, Is.EqualTo("entry"));
         }
 
@@ -122,7 +124,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["other entry"] = new[] { "third", "fourth" };
             allCollections["wrong entry"] = new[] { "fifth", "second" };
 
-            Assert.That(() => selector.FindCollectionOf(TableName, "sixth"), Throws.ArgumentException.With.Message.EqualTo("No collection in table name contains sixth"));
+            Assert.That(() => selector.FindCollectionOf(AssemblyName, TableName, "sixth"),
+                Throws.ArgumentException.With.Message.EqualTo("No collection in table name contains sixth"));
         }
 
         [Test]
@@ -132,7 +135,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["other entry"] = new[] { "third", "fourth" };
             allCollections["wrong entry"] = new[] { "fifth", "fourth" };
 
-            var group = selector.FindCollectionOf(TableName, "fourth", "entry", "other entry");
+            var group = selector.FindCollectionOf(AssemblyName, TableName, "fourth", "entry", "other entry");
             Assert.That(group, Is.EqualTo("other entry"));
         }
 
@@ -143,14 +146,15 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["other entry"] = new[] { "third", "fifth" };
             allCollections["wrong entry"] = new[] { "third", "fourth" };
 
-            Assert.That(() => selector.FindCollectionOf(TableName, "fourth", "entry", "other entry"), Throws.ArgumentException.With.Message.EqualTo("No collection from the 2 filters in table name contains fourth"));
+            Assert.That(() => selector.FindCollectionOf(AssemblyName, TableName, "fourth", "entry", "other entry"),
+                Throws.ArgumentException.With.Message.EqualTo("No collection from the 2 filters in table name contains fourth"));
         }
 
         [Test]
         public void IsCollection()
         {
             allCollections["entry"] = new[] { "first", "second" };
-            var isCollection = selector.IsCollection(TableName, "entry");
+            var isCollection = selector.IsCollection(AssemblyName, TableName, "entry");
             Assert.That(isCollection, Is.True);
         }
 
@@ -158,7 +162,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         public void IsCollection_IsNotEntry()
         {
             allCollections["entry"] = new[] { "first", "second" };
-            var isCollection = selector.IsCollection(TableName, "other entry");
+            var isCollection = selector.IsCollection(AssemblyName, TableName, "other entry");
             Assert.That(isCollection, Is.False);
         }
 
@@ -166,7 +170,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         public void IsCollection_EntryIsNotCollection()
         {
             allCollections["entry"] = new[] { "first", "second" };
-            var isCollection = selector.IsCollection(TableName, "first");
+            var isCollection = selector.IsCollection(AssemblyName, TableName, "first");
             Assert.That(isCollection, Is.False);
         }
 
@@ -176,7 +180,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["entry"] = new[] { "first", "second" };
             allCollections["first"] = new[] { "first", "third" };
 
-            var isCollection = selector.IsCollection(TableName, "first");
+            var isCollection = selector.IsCollection(AssemblyName, TableName, "first");
             Assert.That(isCollection, Is.True);
         }
 
@@ -185,7 +189,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         {
             allCollections["entry"] = new[] { "first", "second", "third" };
 
-            var explodedCollection = selector.Explode(TableName, "entry");
+            var explodedCollection = selector.Explode(AssemblyName, TableName, "entry");
             Assert.That(explodedCollection, Is.EquivalentTo(allCollections["entry"]));
         }
 
@@ -195,7 +199,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["entry"] = new[] { "first", "second", "third" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
 
-            var explodedCollection = selector.Explode(TableName, "entry");
+            var explodedCollection = selector.Explode(AssemblyName, TableName, "entry");
             Assert.That(explodedCollection, Contains.Item("first"));
             Assert.That(explodedCollection, Does.Not.Contain("second"));
             Assert.That(explodedCollection, Contains.Item("sub 1"));
@@ -211,7 +215,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["second"] = new[] { "sub 1", "sub 2" };
             allCollections["third"] = new[] { "sub 1", "sub 3" };
 
-            var explodedCollection = selector.Explode(TableName, "entry");
+            var explodedCollection = selector.Explode(AssemblyName, TableName, "entry");
             Assert.That(explodedCollection, Is.Unique);
             Assert.That(explodedCollection, Contains.Item("first"));
             Assert.That(explodedCollection, Does.Not.Contain("second"));
@@ -229,7 +233,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["second"] = new[] { "sub 1", "sub 2" };
             allCollections["third"] = new[] { "second", "sub 3" };
 
-            var explodedCollection = selector.Explode(TableName, "entry");
+            var explodedCollection = selector.Explode(AssemblyName, TableName, "entry");
             Assert.That(explodedCollection, Is.Unique);
             Assert.That(explodedCollection, Contains.Item("first"));
             Assert.That(explodedCollection, Does.Not.Contain("second"));
@@ -246,7 +250,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["entry"] = new[] { "first", "second", "entry" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
 
-            var explodedCollection = selector.Explode(TableName, "entry");
+            var explodedCollection = selector.Explode(AssemblyName, TableName, "entry");
             Assert.That(explodedCollection, Contains.Item("first"));
             Assert.That(explodedCollection, Does.Not.Contain("second"));
             Assert.That(explodedCollection, Contains.Item("sub 1"));
@@ -279,7 +283,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
-            var explodedCollection = selector.Explode(TableName, "entry");
+            var explodedCollection = selector.Explode(AssemblyName, TableName, "entry");
             stopwatch.Stop();
 
             Assert.That(explodedCollection.Count, Is.EqualTo(10_090));
@@ -316,7 +320,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         {
             allCollections["entry"] = new[] { "first", "second", "third" };
 
-            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(AssemblyName, TableName, "entry");
             Assert.That(explodedCollection, Is.EquivalentTo(allCollections["entry"]));
         }
 
@@ -326,7 +330,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["entry"] = new[] { "first", "second", "third" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
 
-            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(AssemblyName, TableName, "entry");
             Assert.That(explodedCollection, Contains.Item("first"));
             Assert.That(explodedCollection, Does.Not.Contain("second"));
             Assert.That(explodedCollection, Contains.Item("sub 1"));
@@ -342,7 +346,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["second"] = new[] { "sub 1", "sub 2" };
             allCollections["third"] = new[] { "sub 1", "sub 3" };
 
-            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(AssemblyName, TableName, "entry");
             Assert.That(explodedCollection, Is.Not.Unique);
             Assert.That(explodedCollection, Contains.Item("first"));
             Assert.That(explodedCollection, Does.Not.Contain("second"));
@@ -361,7 +365,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["second"] = new[] { "sub 1", "sub 2" };
             allCollections["third"] = new[] { "second", "sub 3" };
 
-            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(AssemblyName, TableName, "entry");
             Assert.That(explodedCollection, Is.Not.Unique);
             Assert.That(explodedCollection, Contains.Item("first"));
             Assert.That(explodedCollection, Does.Not.Contain("second"));
@@ -381,7 +385,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             allCollections["entry"] = new[] { "first", "second", "entry" };
             allCollections["second"] = new[] { "sub 1", "sub 2" };
 
-            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(AssemblyName, TableName, "entry");
             Assert.That(explodedCollection, Contains.Item("first"));
             Assert.That(explodedCollection, Does.Not.Contain("second"));
             Assert.That(explodedCollection, Contains.Item("sub 1"));
@@ -414,7 +418,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
-            var explodedCollection = selector.ExplodeAndPreserveDuplicates(TableName, "entry");
+            var explodedCollection = selector.ExplodeAndPreserveDuplicates(AssemblyName, TableName, "entry");
             stopwatch.Stop();
 
             Assert.That(explodedCollection.Count, Is.EqualTo(20_090));

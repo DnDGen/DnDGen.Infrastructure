@@ -1,5 +1,4 @@
 ﻿using DnDGen.Infrastructure.IoC.Modules;
-using DnDGen.Infrastructure.Tables;
 using DnDGen.RollGen.IoC;
 using Ninject;
 using System.Linq;
@@ -28,18 +27,6 @@ namespace DnDGen.Infrastructure.IoC
 
             if (!modules.Any(m => m is TablesModule))
                 kernel.Load<TablesModule>();
-        }
-
-        public void ReplaceAssemblyLoaderWith<T>(IKernel kernel)
-            where T : AssemblyLoader
-        {
-            var bindings = kernel.GetBindings(typeof(AssemblyLoader));
-            foreach (var binding in bindings)
-            {
-                kernel.RemoveBinding(binding);
-            }
-
-            kernel.Bind<AssemblyLoader>().To<T>();
         }
     }
 }

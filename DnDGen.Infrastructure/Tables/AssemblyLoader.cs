@@ -4,6 +4,6 @@ namespace DnDGen.Infrastructure.Tables
 {
     public interface AssemblyLoader
     {
-        Assembly GetRunningAssembly();
+        Assembly GetAssembly(string name);
     }
 }
