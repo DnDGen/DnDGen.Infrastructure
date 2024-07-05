@@ -214,10 +214,23 @@ namespace DnDGen.Infrastructure.Selectors.Collections
 
         public T SelectRandomFrom<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null)
         {
-            var weighted = CreateWeighted(common, uncommon, rare, veryRare);
-            var selected = SelectRandomFrom(weighted);
+            if (common?.Any() != true)
+            {
+                var weighted = CreateWeighted(common, uncommon, rare, veryRare);
+                return SelectRandomFrom(weighted);
+            }
 
-            return selected;
+            var roll = dice.Roll().Percentile().AsSum();
+            if (roll == 100 && veryRare?.Any() == true)
+                return SelectRandomFrom(veryRare);
+
+            if (roll > 90 && rare?.Any() == true)
+                return SelectRandomFrom(rare);
+
+            if (roll > 60 && uncommon?.Any() == true)
+                return SelectRandomFrom(uncommon);
+
+            return SelectRandomFrom(common);
         }
     }
 }
