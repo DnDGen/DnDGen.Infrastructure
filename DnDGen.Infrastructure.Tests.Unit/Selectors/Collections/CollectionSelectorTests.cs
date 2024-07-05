@@ -34,7 +34,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void SelectCollection()
+        public void SelectFrom_SelectCollection()
         {
             allCollections["entry"] = Enumerable.Empty<string>();
             var collection = selector.SelectFrom(AssemblyName, TableName, "entry");
@@ -42,21 +42,21 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void SelectAllCollections()
+        public void SelectAllFrom_SelectAllCollections()
         {
             var collections = selector.SelectAllFrom(AssemblyName, TableName);
             Assert.That(collections, Is.EqualTo(allCollections));
         }
 
         [Test]
-        public void IfEntryNotPresentInTable_ThrowException()
+        public void SelectFrom_IfEntryNotPresentInTable_ThrowException()
         {
             Assert.That(() => selector.SelectFrom(AssemblyName, TableName, "entry"),
                 Throws.Exception.With.Message.EqualTo("entry is not a valid collection in the table table name"));
         }
 
         [Test]
-        public void SelectRandomItemFromCollection()
+        public void SelectRandomFrom_SelectRandomItemFromCollection()
         {
             var collection = new[] { "item 1", "item 2", "item 3" };
             mockDice.Setup(d => d.Roll(1).d(3).AsSum<int>()).Returns(2);
@@ -66,7 +66,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void SelectRandomItemFromTable()
+        public void SelectRandomFrom_SelectRandomItemFromTable()
         {
             allCollections["entry"] = new[] { "item 1", "item 2", "item 3" };
             mockDice.Setup(d => d.Roll(1).d(3).AsSum<int>()).Returns(2);
@@ -76,27 +76,29 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CannotSelectRandomFromEmptyCollection()
+        public void SelectRandomFrom_CannotSelectRandomFromEmptyCollection()
         {
             var collection = Enumerable.Empty<string>();
             Assert.That(() => selector.SelectRandomFrom(collection), Throws.ArgumentException.With.Message.EqualTo("Cannot select random from an empty collection"));
         }
 
         [Test]
-        public void CannotSelectRandomFromEmptyTable()
+        public void SelectRandomFrom_CannotSelectRandomFromEmptyTable()
         {
             allCollections["entry"] = Enumerable.Empty<string>();
-            Assert.That(() => selector.SelectRandomFrom(AssemblyName, TableName, "entry"), Throws.ArgumentException.With.Message.EqualTo("Cannot select random from an empty collection"));
+            Assert.That(() => selector.SelectRandomFrom(AssemblyName, TableName, "entry"),
+                Throws.ArgumentException.With.Message.EqualTo("Cannot select random from an empty collection"));
         }
 
         [Test]
-        public void CannotSelectRandomFromInvalidEntry()
+        public void SelectRandomFrom_CannotSelectRandomFromInvalidEntry()
         {
-            Assert.That(() => selector.SelectRandomFrom(AssemblyName, TableName, "entry"), Throws.Exception.With.Message.EqualTo("entry is not a valid collection in the table table name"));
+            Assert.That(() => selector.SelectRandomFrom(AssemblyName, TableName, "entry"),
+                Throws.Exception.With.Message.EqualTo("entry is not a valid collection in the table table name"));
         }
 
         [Test]
-        public void SelectRandomFromNonStringCollection()
+        public void SelectRandomFrom_SelectRandomFromNonStringCollection()
         {
             var collection = new[] { 9266, 90210, 42, 600, 1337 };
 
@@ -107,7 +109,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void FindCollectionContainingEntry()
+        public void FindCollectionOf_FindCollectionContainingEntry()
         {
             allCollections["entry"] = new[] { "first", "fourth" };
             allCollections["other entry"] = new[] { "third", "fourth" };
@@ -118,7 +120,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void DoNotFindCollectionContainingEntry()
+        public void FindCollectionOf_DoNotFindCollectionContainingEntry()
         {
             allCollections["entry"] = new[] { "first", "fourth" };
             allCollections["other entry"] = new[] { "third", "fourth" };
@@ -129,7 +131,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void FindCollectionContainingEntryWithFilteredCollectionNames()
+        public void FindCollectionOf_FindCollectionContainingEntryWithFilteredCollectionNames()
         {
             allCollections["entry"] = new[] { "first", "second" };
             allCollections["other entry"] = new[] { "third", "fourth" };
@@ -140,7 +142,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void FindCollectionContainingEntryThrowsExceptionIfNotInFilteredCollectionNames()
+        public void FindCollectionOf_FindCollectionContainingEntryThrowsExceptionIfNotInFilteredCollectionNames()
         {
             allCollections["entry"] = new[] { "first", "second" };
             allCollections["other entry"] = new[] { "third", "fifth" };
@@ -151,7 +153,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void IsCollection()
+        public void IsCollection_IsCollection()
         {
             allCollections["entry"] = new[] { "first", "second" };
             var isCollection = selector.IsCollection(AssemblyName, TableName, "entry");
@@ -519,7 +521,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateEmptyWeightedCollectionWithDefault()
+        public void CreateWeighted_CreateEmptyWeightedCollectionWithDefault()
         {
             var weightedCollection = selector.CreateWeighted<string>();
             Assert.That(weightedCollection, Is.Not.Null);
@@ -527,7 +529,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateEmptyNonStringWeightedCollectionWithDefault()
+        public void CreateWeighted_CreateEmptyNonStringWeightedCollectionWithDefault()
         {
             var weightedCollection = selector.CreateWeighted<int>();
             Assert.That(weightedCollection, Is.Not.Null);
@@ -535,7 +537,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateEmptyWeightedCollection()
+        public void CreateWeighted_CreateEmptyWeightedCollection()
         {
             var common = new List<string>();
             var uncommon = new List<string>();
@@ -548,7 +550,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollection()
+        public void CreateWeighted_CreateWeightedCollection()
         {
             var common = new[] { "common" };
             var uncommon = new[] { "uncommon" };
@@ -570,7 +572,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateNonStringWeightedCollection()
+        public void CreateWeighted_CreateNonStringWeightedCollection()
         {
             var common = new[] { 9266 };
             var uncommon = new[] { 90210 };
@@ -591,7 +593,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionWithNullCommon()
+        public void CreateWeighted_CreateWeightedCollectionWithNullCommon()
         {
             var uncommon = new[] { "uncommon" };
             var rare = new[] { "rare" };
@@ -610,7 +612,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionWithNullUncommon()
+        public void CreateWeighted_CreateWeightedCollectionWithNullUncommon()
         {
             var common = new[] { "common" };
             var rare = new[] { "rare" };
@@ -629,7 +631,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionWithNullRare()
+        public void CreateWeighted_CreateWeightedCollectionWithNullRare()
         {
             var common = new[] { "common" };
             var uncommon = new[] { "uncommon" };
@@ -648,7 +650,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionWithNullVeryRare()
+        public void CreateWeighted_CreateWeightedCollectionWithNullVeryRare()
         {
             var common = new[] { "common" };
             var uncommon = new[] { "uncommon" };
@@ -667,7 +669,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
-        public void CreateWeightedCollectionWithDuplicateRareAgainstVeryRare(int rareQuantity, int veryRareQuantity)
+        public void CreateWeighted_CreateWeightedCollectionWithDuplicateRareAgainstVeryRare(int rareQuantity, int veryRareQuantity)
         {
             var rare = Enumerable.Range(1, rareQuantity).Select(i => $"rare {i}");
             var veryRare = Enumerable.Range(1, veryRareQuantity).Select(i => $"very rare {i}");
@@ -753,7 +755,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
-        public void CreateWeightedCollectionWithDuplicateUncommonAgainstRare(int uncommonQuantity, int rareQuantity)
+        public void CreateWeighted_CreateWeightedCollectionWithDuplicateUncommonAgainstRare(int uncommonQuantity, int rareQuantity)
         {
             var uncommon = Enumerable.Range(1, uncommonQuantity).Select(i => $"uncommon {i}");
             var rare = Enumerable.Range(1, rareQuantity).Select(i => $"rare {i}");
@@ -780,7 +782,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
-        public void CreateWeightedCollectionWithDuplicateUncommonAgainstVeryRare(int uncommonQuantity, int veryRareQuantity)
+        public void CreateWeighted_CreateWeightedCollectionWithDuplicateUncommonAgainstVeryRare(int uncommonQuantity, int veryRareQuantity)
         {
             var uncommon = Enumerable.Range(1, uncommonQuantity).Select(i => $"uncommon {i}");
             var veryRare = Enumerable.Range(1, veryRareQuantity).Select(i => $"very rare {i}");
@@ -807,7 +809,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Three))]
-        public void CreateWeightedCollectionWithDuplicateUncommonAgainstRareAndVeryRare(int uncommonQuantity, int rareQuantity, int veryRareQuantity)
+        public void CreateWeighted_CreateWeightedCollectionWithDuplicateUncommonAgainstRareAndVeryRare(int uncommonQuantity, int rareQuantity, int veryRareQuantity)
         {
             var uncommon = Enumerable.Range(1, uncommonQuantity).Select(i => $"uncommon {i}");
             var rare = Enumerable.Range(1, rareQuantity).Select(i => $"rare {i}");
@@ -840,7 +842,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
-        public void CreateWeightedCollectionWithDuplicateCommonAgainstRare(int commonQuantity, int rareQuantity)
+        public void CreateWeighted_CreateWeightedCollectionWithDuplicateCommonAgainstRare(int commonQuantity, int rareQuantity)
         {
             var common = Enumerable.Range(1, commonQuantity).Select(i => $"common {i}");
             var rare = Enumerable.Range(1, rareQuantity).Select(i => $"rare {i}");
@@ -867,7 +869,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
-        public void CreateWeightedCollectionWithDuplicateCommonAgainstVeryRare(int commonQuantity, int veryRareQuantity)
+        public void CreateWeighted_CreateWeightedCollectionWithDuplicateCommonAgainstVeryRare(int commonQuantity, int veryRareQuantity)
         {
             var common = Enumerable.Range(1, commonQuantity).Select(i => $"common {i}");
             var veryRare = Enumerable.Range(1, veryRareQuantity).Select(i => $"very rare {i}");
@@ -894,7 +896,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Two))]
-        public void CreateWeightedCollectionWithDuplicateCommonAgainstUncommon(int commonQuantity, int uncommonQuantity)
+        public void CreateWeighted_CreateWeightedCollectionWithDuplicateCommonAgainstUncommon(int commonQuantity, int uncommonQuantity)
         {
             var common = Enumerable.Range(1, commonQuantity).Select(i => $"common {i}");
             var uncommon = Enumerable.Range(1, uncommonQuantity).Select(i => $"uncommon {i}");
@@ -921,7 +923,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [TestCaseSource(typeof(WeightTestData), nameof(WeightTestData.Three))]
-        public void CreateWeightedCollectionWithDuplicateCommonAgainstRareAndVeryRare(int commonQuantity, int rareQuantity, int veryRareQuantity)
+        public void CreateWeighted_CreateWeightedCollectionWithDuplicateCommonAgainstRareAndVeryRare(int commonQuantity, int rareQuantity, int veryRareQuantity)
         {
             var common = Enumerable.Range(1, commonQuantity).Select(i => $"common {i}");
             var rare = Enumerable.Range(1, rareQuantity).Select(i => $"rare {i}");
@@ -954,7 +956,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfJustCommon()
+        public void CreateWeighted_CreateWeightedCollectionOfJustCommon()
         {
             var common = new[] { "common" };
 
@@ -967,7 +969,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfJustUncommon()
+        public void CreateWeighted_CreateWeightedCollectionOfJustUncommon()
         {
             var uncommon = new[] { "uncommon" };
 
@@ -980,7 +982,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfJustRare()
+        public void CreateWeighted_CreateWeightedCollectionOfJustRare()
         {
             var rare = new[] { "rare" };
 
@@ -993,7 +995,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfJustVeryRare()
+        public void CreateWeighted_CreateWeightedCollectionOfJustVeryRare()
         {
             var veryRare = new[] { "very rare" };
 
@@ -1006,7 +1008,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfCommonAndUncommon()
+        public void CreateWeighted_CreateWeightedCollectionOfCommonAndUncommon()
         {
             var common = new[] { "common" };
             var uncommon = new[] { "uncommon" };
@@ -1022,7 +1024,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfCommonAndRare()
+        public void CreateWeighted_CreateWeightedCollectionOfCommonAndRare()
         {
             var common = new[] { "common" };
             var rare = new[] { "rare" };
@@ -1038,7 +1040,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfCommonAndVeryRare()
+        public void CreateWeighted_CreateWeightedCollectionOfCommonAndVeryRare()
         {
             var common = new[] { "common" };
             var veryRare = new[] { "very rare" };
@@ -1054,7 +1056,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfUncommonAndRare()
+        public void CreateWeighted_CreateWeightedCollectionOfUncommonAndRare()
         {
             var uncommon = new[] { "uncommon" };
             var rare = new[] { "rare" };
@@ -1070,7 +1072,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfUncommonAndVeryRare()
+        public void CreateWeighted_CreateWeightedCollectionOfUncommonAndVeryRare()
         {
             var uncommon = new[] { "uncommon" };
             var veryRare = new[] { "very rare" };
@@ -1086,7 +1088,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfRareAndVeryRare()
+        public void CreateWeighted_CreateWeightedCollectionOfRareAndVeryRare()
         {
             var rare = new[] { "rare" };
             var veryRare = new[] { "very rare" };
@@ -1102,7 +1104,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfCommonAndUncommonAndRare()
+        public void CreateWeighted_CreateWeightedCollectionOfCommonAndUncommonAndRare()
         {
             var common = new[] { "common" };
             var uncommon = new[] { "uncommon" };
@@ -1121,7 +1123,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfCommonAndUncommonAndVeryRare()
+        public void CreateWeighted_CreateWeightedCollectionOfCommonAndUncommonAndVeryRare()
         {
             var common = new[] { "common" };
             var uncommon = new[] { "uncommon" };
@@ -1140,7 +1142,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfCommonAndRareAndVeryRare()
+        public void CreateWeighted_CreateWeightedCollectionOfCommonAndRareAndVeryRare()
         {
             var common = new[] { "common" };
             var rare = new[] { "rare" };
@@ -1159,7 +1161,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void CreateWeightedCollectionOfUncommonAndRareAndVeryRare()
+        public void CreateWeighted_CreateWeightedCollectionOfUncommonAndRareAndVeryRare()
         {
             var uncommon = new[] { "uncommon" };
             var rare = new[] { "rare" };
@@ -1178,13 +1180,13 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void SelectRandomFromEmptyWeightedCollectionWithDefault()
+        public void SelectRandomFrom_SelectRandomFromEmptyWeightedCollectionWithDefault()
         {
             Assert.That(() => selector.SelectRandomFrom<string>(), Throws.Exception);
         }
 
         [Test]
-        public void SelectRandomFromEmptyWeightedCollection()
+        public void SelectRandomFrom_SelectRandomFromEmptyWeightedCollection()
         {
             var common = new List<string>();
             var uncommon = new List<string>();
@@ -1194,16 +1196,18 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(() => selector.SelectRandomFrom(common, uncommon, rare, veryRare), Throws.Exception);
         }
 
-        [TestCase("very rare", 1, 1)]
-        [TestCase("rare", 2, 10)]
-        [TestCase("uncommon", 11, 40)]
-        [TestCase("common", 41, 100)]
-        public void SelectRandomFromWeightedCollection(string result, int lower, int upper)
+        [TestCase("very rare", 100, 100)]
+        [TestCase("rare", 91, 99)]
+        [TestCase("uncommon", 61, 90)]
+        [TestCase("common", 1, 60)]
+        public void SelectRandomFrom_SelectRandomFromWeightedCollection(string result, int lower, int upper)
         {
             var common = new[] { "common" };
             var uncommon = new[] { "uncommon" };
             var rare = new[] { "rare" };
             var veryRare = new[] { "very rare" };
+
+            mockDice.Setup(d => d.Roll(1).d(1).AsSum<int>()).Returns(1);
 
             for (var i = 1; i <= 100; i++)
             {
@@ -1222,10 +1226,11 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
         }
 
+        //Because common is null, we build the weighted collection
         [TestCase("very rare", 1, 1)]
         [TestCase("rare", 2, 10)]
         [TestCase("uncommon", 11, 100)]
-        public void SelectRandomFromWeightedCollectionWithNullCommon(string result, int lower, int upper)
+        public void SelectRandomFrom_SelectRandomFromWeightedCollectionWithNullCommon(string result, int lower, int upper)
         {
             var uncommon = new[] { "uncommon" };
             var rare = new[] { "rare" };
@@ -1248,14 +1253,16 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
         }
 
-        [TestCase("very rare", 1, 1)]
-        [TestCase("rare", 2, 10)]
-        [TestCase("common", 11, 100)]
-        public void SelectRandomFromWeightedCollectionWithNullUncommon(string result, int lower, int upper)
+        [TestCase("very rare", 100, 100)]
+        [TestCase("rare", 91, 99)]
+        [TestCase("common", 1, 90)]
+        public void SelectRandomFrom_SelectRandomFromWeightedCollectionWithNullUncommon(string result, int lower, int upper)
         {
             var common = new[] { "common" };
             var rare = new[] { "rare" };
             var veryRare = new[] { "very rare" };
+
+            mockDice.Setup(d => d.Roll(1).d(1).AsSum<int>()).Returns(1);
 
             for (var i = 1; i <= 100; i++)
             {
@@ -1274,14 +1281,16 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
         }
 
-        [TestCase("very rare", 1, 1)]
-        [TestCase("uncommon", 2, 34)]
-        [TestCase("common", 35, 100)]
-        public void SelectRandomFromWeightedCollectionWithNullRare(string result, int lower, int upper)
+        [TestCase("very rare", 100, 100)]
+        [TestCase("uncommon", 61, 99)]
+        [TestCase("common", 1, 60)]
+        public void SelectRandomFrom_SelectRandomFromWeightedCollectionWithNullRare(string result, int lower, int upper)
         {
             var common = new[] { "common" };
             var uncommon = new[] { "uncommon" };
             var veryRare = new[] { "very rare" };
+
+            mockDice.Setup(d => d.Roll(1).d(1).AsSum<int>()).Returns(1);
 
             for (var i = 1; i <= 100; i++)
             {
@@ -1300,18 +1309,20 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
         }
 
-        [TestCase("rare", 1, 1)]
-        [TestCase("uncommon", 2, 4)]
-        [TestCase("common", 5, 10)]
-        public void SelectRandomFromWeightedCollectionWithNullVeryRare(string result, int lower, int upper)
+        [TestCase("rare", 91, 100)]
+        [TestCase("uncommon", 61, 90)]
+        [TestCase("common", 1, 60)]
+        public void SelectRandomFrom_SelectRandomFromWeightedCollectionWithNullVeryRare(string result, int lower, int upper)
         {
             var common = new[] { "common" };
             var uncommon = new[] { "uncommon" };
             var rare = new[] { "rare" };
 
-            for (var i = 1; i <= 10; i++)
+            mockDice.Setup(d => d.Roll(1).d(1).AsSum<int>()).Returns(1);
+
+            for (var i = 1; i <= 100; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(10).AsSum<int>()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(common, uncommon, rare);
 
@@ -1327,13 +1338,13 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
-        public void SelectRandomNonStringFromEmptyWeightedCollectionWithDefault()
+        public void SelectRandomFrom_SelectRandomNonStringFromEmptyWeightedCollectionWithDefault()
         {
             Assert.That(() => selector.SelectRandomFrom<int>(), Throws.Exception);
         }
 
         [Test]
-        public void SelectRandomNonStringFromEmptyWeightedCollection()
+        public void SelectRandomFrom_SelectRandomNonStringFromEmptyWeightedCollection()
         {
             var common = new List<int>();
             var uncommon = new List<int>();
@@ -1343,16 +1354,18 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(() => selector.SelectRandomFrom(common, uncommon, rare, veryRare), Throws.Exception);
         }
 
-        [TestCase(9266, 1, 1)]
-        [TestCase(90210, 2, 10)]
-        [TestCase(42, 11, 40)]
-        [TestCase(600, 41, 100)]
-        public void SelectRandomNonStringFromWeightedCollection(int result, int lower, int upper)
+        [TestCase(9266, 100, 100)]
+        [TestCase(90210, 91, 99)]
+        [TestCase(42, 61, 90)]
+        [TestCase(600, 1, 60)]
+        public void SelectRandomFrom_SelectRandomNonStringFromWeightedCollection(int result, int lower, int upper)
         {
             var common = new[] { 600 };
             var uncommon = new[] { 42 };
             var rare = new[] { 90210 };
             var veryRare = new[] { 9266 };
+
+            mockDice.Setup(d => d.Roll(1).d(1).AsSum<int>()).Returns(1);
 
             for (var i = 1; i <= 100; i++)
             {
@@ -1371,10 +1384,11 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
         }
 
+        //Because common is null, we build the weighted collection
         [TestCase(9266, 1, 1)]
         [TestCase(90210, 2, 10)]
         [TestCase(42, 11, 100)]
-        public void SelectRandomNonStringFromWeightedCollectionWithNullCommon(int result, int lower, int upper)
+        public void SelectRandomFrom_SelectRandomNonStringFromWeightedCollectionWithNullCommon(int result, int lower, int upper)
         {
             var uncommon = new[] { 42 };
             var rare = new[] { 90210 };
@@ -1397,14 +1411,16 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
         }
 
-        [TestCase(9266, 1, 1)]
-        [TestCase(90210, 2, 10)]
-        [TestCase(42, 11, 100)]
-        public void SelectRandomNonStringFromWeightedCollectionWithNullUncommon(int result, int lower, int upper)
+        [TestCase(9266, 100, 100)]
+        [TestCase(90210, 91, 99)]
+        [TestCase(42, 1, 90)]
+        public void SelectRandomFrom_SelectRandomNonStringFromWeightedCollectionWithNullUncommon(int result, int lower, int upper)
         {
             var common = new[] { 42 };
             var rare = new[] { 90210 };
             var veryRare = new[] { 9266 };
+
+            mockDice.Setup(d => d.Roll(1).d(1).AsSum<int>()).Returns(1);
 
             for (var i = 1; i <= 100; i++)
             {
@@ -1423,14 +1439,16 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
         }
 
-        [TestCase(9266, 1, 1)]
-        [TestCase(90210, 2, 34)]
-        [TestCase(42, 35, 100)]
-        public void SelectRandomNonStringFromWeightedCollectionWithNullRare(int result, int lower, int upper)
+        [TestCase(9266, 100, 100)]
+        [TestCase(90210, 61, 99)]
+        [TestCase(42, 1, 60)]
+        public void SelectRandomFrom_SelectRandomNonStringFromWeightedCollectionWithNullRare(int result, int lower, int upper)
         {
             var common = new[] { 42 };
             var uncommon = new[] { 90210 };
             var veryRare = new[] { 9266 };
+
+            mockDice.Setup(d => d.Roll(1).d(1).AsSum<int>()).Returns(1);
 
             for (var i = 1; i <= 100; i++)
             {
@@ -1449,18 +1467,20 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             }
         }
 
-        [TestCase(9266, 1, 1)]
-        [TestCase(90210, 2, 4)]
-        [TestCase(42, 5, 10)]
-        public void SelectRandomNonStringFromWeightedCollectionWithNullVeryRare(int result, int lower, int upper)
+        [TestCase(9266, 91, 100)]
+        [TestCase(90210, 61, 90)]
+        [TestCase(42, 1, 60)]
+        public void SelectRandomFrom_SelectRandomNonStringFromWeightedCollectionWithNullVeryRare(int result, int lower, int upper)
         {
             var common = new[] { 42 };
             var uncommon = new[] { 90210 };
             var rare = new[] { 9266 };
 
-            for (var i = 1; i <= 10; i++)
+            mockDice.Setup(d => d.Roll(1).d(1).AsSum<int>()).Returns(1);
+
+            for (var i = 1; i <= 100; i++)
             {
-                mockDice.Setup(d => d.Roll(1).d(10).AsSum<int>()).Returns(i);
+                mockDice.Setup(d => d.Roll(1).d(100).AsSum<int>()).Returns(i);
 
                 var random = selector.SelectRandomFrom(common, uncommon, rare);
 
