@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.1.0</Version>
+    <Version>6.0.0</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>Infrastructure</Product>
@@ -14,20 +13,18 @@
     <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
     <PackageIconUrl />
     <PackageReleaseNotes>
-		  5.0.0: Explicit assembly naming
-      5.1.0: More efficient randomization of weighted collections
+	  6.0.0: .Net 8
     </PackageReleaseNotes>
     <PackageTags>dungeons dragons d20 dnd 3.5 generator dndgen selector mapper table schema percentile collection collections percentiles</PackageTags>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="DnDGen.RollGen" Version="15.5.7" />
+    <PackageReference Include="DnDGen.RollGen" Version="16.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="18531-twenty-sided-dice-vector-thumb.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
 </Project>
