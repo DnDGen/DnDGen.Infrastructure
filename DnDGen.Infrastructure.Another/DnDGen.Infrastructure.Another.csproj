@@ -1,24 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-	  <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Tables\DuplicateCollectionTable.xml" />
     <None Remove="Tables\RealCallerCollectionTable.xml" />
     <None Remove="Tables\RealCallerPercentileTable.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Tables\DuplicateCollectionTable.xml" />
     <EmbeddedResource Include="Tables\RealCallerCollectionTable.xml" />
     <EmbeddedResource Include="Tables\RealCallerPercentileTable.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\DnDGen.Infrastructure.Other\DnDGen.Infrastructure.Other.csproj" />
     <ProjectReference Include="..\DnDGen.Infrastructure\DnDGen.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>

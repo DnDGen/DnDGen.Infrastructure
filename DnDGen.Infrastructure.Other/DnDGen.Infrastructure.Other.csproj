@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-	  <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Tables\RealAssembly\DuplicateCollectionTable.xml" />
     <None Remove="Tables\RealAssembly\RealCallerCollectionTable.xml" />
@@ -12,7 +10,6 @@
     <None Remove="Tables\TestAssembly\TestCallerCollectionTable.xml" />
     <None Remove="Tables\TestAssembly\TestSelectorCollectionTable.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Tables\RealAssembly\DuplicateCollectionTable.xml" />
     <EmbeddedResource Include="Tables\RealAssembly\RealCallerCollectionTable.xml" />
@@ -21,9 +18,7 @@
     <EmbeddedResource Include="Tables\TestAssembly\TestCallerCollectionTable.xml" />
     <EmbeddedResource Include="Tables\TestAssembly\TestSelectorCollectionTable.xml" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\DnDGen.Infrastructure\DnDGen.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>
