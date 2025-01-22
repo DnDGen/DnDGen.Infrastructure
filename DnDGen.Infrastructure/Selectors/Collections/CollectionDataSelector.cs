@@ -1,4 +1,5 @@
 ﻿using DnDGen.Infrastructure.Helpers;
+using DnDGen.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +7,19 @@ using System.Linq;
 namespace DnDGen.Infrastructure.Selectors.Collections
 {
     internal class CollectionDataSelector<T> : ICollectionDataSelector<T>
+        where T : DataSelection<T>, new()
     {
         private readonly ICollectionSelector collectionSelector;
         private readonly Func<string[], T> map;
         private readonly char separator;
 
-        public CollectionDataSelector(ICollectionSelector collectionSelector, Func<string[], T> map, char separator = '@')
+        public CollectionDataSelector(ICollectionSelector collectionSelector)
         {
             this.collectionSelector = collectionSelector;
-            this.map = map;
-            this.separator = separator;
+
+            var data = new T();
+            map = data.MapTo;
+            separator = data.Separator;
         }
 
         public IEnumerable<T> SelectFrom(string assemblyName, string tableName, string collectionName)

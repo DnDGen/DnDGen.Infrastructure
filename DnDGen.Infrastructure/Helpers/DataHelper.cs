@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DnDGen.Infrastructure.Models;
+using System;
 
 namespace DnDGen.Infrastructure.Helpers
 {
@@ -14,6 +15,19 @@ namespace DnDGen.Infrastructure.Helpers
         {
             var splitData = map(data);
             return string.Join(separator, splitData);
+        }
+
+        public static T Parse<T>(string rawData)
+            where T : DataSelection<T>, new()
+        {
+            var data = new T();
+            return Parse(rawData, data.MapTo, data.Separator);
+        }
+
+        public static string Parse<T>(T data)
+            where T : DataSelection<T>
+        {
+            return Parse(data, data.MapFrom, data.Separator);
         }
     }
 }
