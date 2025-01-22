@@ -1,4 +1,4 @@
-﻿using DnDGen.Infrastructure.Generators;
+﻿using DnDGen.Infrastructure.Factories;
 using DnDGen.Infrastructure.Selectors.Percentiles;
 using Moq;
 using Ninject;

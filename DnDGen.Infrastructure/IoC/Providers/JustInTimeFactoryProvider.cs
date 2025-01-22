@@ -1,4 +1,4 @@
-﻿using DnDGen.Infrastructure.Generators;
+﻿using DnDGen.Infrastructure.Factories;
 using Ninject.Activation;
 
 namespace DnDGen.Infrastructure.IoC.Providers

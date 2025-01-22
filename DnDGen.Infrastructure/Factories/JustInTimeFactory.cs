@@ -5,7 +5,7 @@
 [assembly: InternalsVisibleTo("DnDGen.Infrastructure.Tests.Integration")]
 [assembly: InternalsVisibleTo("Not.DnDGen.Infrastructure")]
 [assembly: InternalsVisibleTo("Also.Not.DnDGen.Infrastructure")]
-namespace DnDGen.Infrastructure.Generators
+namespace DnDGen.Infrastructure.Factories
 {
     public interface JustInTimeFactory
     {

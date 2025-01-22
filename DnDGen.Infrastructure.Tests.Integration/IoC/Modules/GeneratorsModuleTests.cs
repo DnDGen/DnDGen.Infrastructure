@@ -1,4 +1,4 @@
-﻿using DnDGen.Infrastructure.Generators;
+﻿using DnDGen.Infrastructure.Factories;
 using NUnit.Framework;
 
 namespace DnDGen.Infrastructure.Tests.Integration.IoC.Modules

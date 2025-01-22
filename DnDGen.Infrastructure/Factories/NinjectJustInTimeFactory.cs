@@ -1,6 +1,6 @@
 ﻿using Ninject;
 
-namespace DnDGen.Infrastructure.Generators
+namespace DnDGen.Infrastructure.Factories
 {
     internal class NinjectJustInTimeFactory : JustInTimeFactory
     {
