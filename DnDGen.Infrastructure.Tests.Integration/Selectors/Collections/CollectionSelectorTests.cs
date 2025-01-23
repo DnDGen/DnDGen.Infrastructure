@@ -10,13 +10,13 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
     [TestFixture]
     public class CollectionSelectorTests : IntegrationTests
     {
-        private ICollectionSelector collectionsSelector;
+        private ICollectionSelector collectionSelector;
         private Stopwatch stopwatch;
 
         [SetUp]
         public void Setup()
         {
-            collectionsSelector = GetNewInstanceOf<ICollectionSelector>();
+            collectionSelector = GetNewInstanceOf<ICollectionSelector>();
             stopwatch = new Stopwatch();
         }
 
@@ -26,14 +26,14 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [TestCase("sub-collection", "entry 3", "entry 4", "sub-collection")]
         public void SelectFromTable(string name, params string[] collection)
         {
-            var selectedCollection = collectionsSelector.SelectFrom(assemblyName, "CollectionTable", name);
+            var selectedCollection = collectionSelector.SelectFrom(assemblyName, "CollectionTable", name);
             Assert.That(selectedCollection, Is.EquivalentTo(collection));
         }
 
         [Test]
         public void SelectAllFromTable()
         {
-            var selectedCollections = collectionsSelector.SelectAllFrom(assemblyName, "CollectionTable");
+            var selectedCollections = collectionSelector.SelectAllFrom(assemblyName, "CollectionTable");
             Assert.That(selectedCollections, Has.Count.EqualTo(4)
                 .And.ContainKey(string.Empty)
                 .And.ContainKey("name")
@@ -48,7 +48,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [Test]
         public void FindCollectionOfNameFromTable()
         {
-            var collectionName = collectionsSelector.FindCollectionOf(assemblyName, "CollectionTable", "entry 3", "collection", "sub-collection");
+            var collectionName = collectionSelector.FindCollectionOf(assemblyName, "CollectionTable", "entry 3", "collection", "sub-collection");
             Assert.That(collectionName, Is.EqualTo("collection"));
         }
 
@@ -57,28 +57,28 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [TestCase("sub-collection", "entry 3", "entry 4", "sub-collection")]
         public void SelectRandomFromTable(string name, params string[] collection)
         {
-            var entry = collectionsSelector.SelectRandomFrom(assemblyName, "CollectionTable", name);
+            var entry = collectionSelector.SelectRandomFrom(assemblyName, "CollectionTable", name);
             Assert.That(new[] { entry }, Is.SubsetOf(collection));
         }
 
         [Test]
         public void IsCollectionInTable()
         {
-            var isCollection = collectionsSelector.IsCollection(assemblyName, "CollectionTable", "sub-collection");
+            var isCollection = collectionSelector.IsCollection(assemblyName, "CollectionTable", "sub-collection");
             Assert.That(isCollection, Is.True);
         }
 
         [Test]
         public void IsNotCollectionInTable()
         {
-            var isCollection = collectionsSelector.IsCollection(assemblyName, "CollectionTable", "entry 3");
+            var isCollection = collectionSelector.IsCollection(assemblyName, "CollectionTable", "entry 3");
             Assert.That(isCollection, Is.False);
         }
 
         [Test]
         public void ExplodeFromTable()
         {
-            var explodedCollection = collectionsSelector.Explode(assemblyName, "CollectionTable", "collection");
+            var explodedCollection = collectionSelector.Explode(assemblyName, "CollectionTable", "collection");
             Assert.That(explodedCollection, Is.Unique.And.EquivalentTo(new[]
             {
                 "entry 2",
@@ -92,8 +92,8 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [Test]
         public void ExplodeFromTableIntoOtherTable()
         {
-            var explodedCollection = collectionsSelector.Explode(assemblyName, "CollectionTable", "collection");
-            var allCollections = collectionsSelector.SelectAllFrom(assemblyName, "OtherCollectionTable");
+            var explodedCollection = collectionSelector.Explode(assemblyName, "CollectionTable", "collection");
+            var allCollections = collectionSelector.SelectAllFrom(assemblyName, "OtherCollectionTable");
 
             var executedExplodedCollection = allCollections.Where(kvp => explodedCollection.Contains(kvp.Key))
                 .Select(kvp => kvp.Value)
@@ -136,7 +136,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             var timeLimit = Math.Max(0.1, count / 10_000d);
 
             stopwatch.Restart();
-            var explodedCollection = collectionsSelector.Explode(assemblyName, table, entry);
+            var explodedCollection = collectionSelector.Explode(assemblyName, table, entry);
             stopwatch.Stop();
 
             Assert.That(explodedCollection, Is.Not.Empty.And.Unique);
@@ -162,10 +162,10 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         [TestCase("CreatureGen-CreatureGroups", "Will", 318)]
         public void Explode_Cached_IsEfficient(string table, string entry, int count)
         {
-            collectionsSelector.Explode(assemblyName, table, entry);
+            collectionSelector.Explode(assemblyName, table, entry);
 
             stopwatch.Restart();
-            var explodedCollection = collectionsSelector.Explode(assemblyName, table, entry);
+            var explodedCollection = collectionSelector.Explode(assemblyName, table, entry);
             stopwatch.Stop();
 
             Assert.That(explodedCollection, Is.Not.Empty.And.Unique);
@@ -178,7 +178,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
         public void HeavySelectAllIsEfficient()
         {
             stopwatch.Restart();
-            var allCollections = collectionsSelector.SelectAllFrom(assemblyName, "EncounterGroups");
+            var allCollections = collectionSelector.SelectAllFrom(assemblyName, "EncounterGroups");
             stopwatch.Stop();
 
             Assert.That(allCollections, Is.Not.Empty.And.Unique);
@@ -241,183 +241,11 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
 
         private IEnumerable<string> ExplodeAndFlatten(string explodeTableName, string entry, string flattenTableName)
         {
-            var explodedCollection = collectionsSelector.Explode(assemblyName, explodeTableName, entry);
-            var allCollections = collectionsSelector.SelectAllFrom(assemblyName, flattenTableName);
-            var flattenedCollection = collectionsSelector.Flatten(allCollections, explodedCollection);
+            var explodedCollection = collectionSelector.Explode(assemblyName, explodeTableName, entry);
+            var allCollections = collectionSelector.SelectAllFrom(assemblyName, flattenTableName);
+            var flattenedCollection = collectionSelector.Flatten(allCollections, explodedCollection);
 
             return flattenedCollection;
-        }
-
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(10)]
-        public void CreateWeighted_IsFast_ViaAll(int collectionQuantity)
-        {
-            stopwatch.Restart();
-            var collection = GetWeightedAppearances(
-                allSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Skin {i}"),
-                allHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Hair {i}"),
-                allEyes: Enumerable.Range(1, collectionQuantity).Select(i => $"Eyes {i}"),
-                allOther: Enumerable.Range(1, collectionQuantity).Select(i => $"Other {i}")
-            );
-            stopwatch.Stop();
-
-            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(.1).Within(.01));
-            Assert.That(collection, Is.Not.Empty);
-            Assert.That(collection, Is.All.Not.Empty);
-        }
-
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(5)]
-        [TestCase(10)]
-        public void CreateWeighted_IsFast_ViaWeighting(int collectionQuantity)
-        {
-            stopwatch.Restart();
-            var collection = GetWeightedAppearances(
-                commonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Skin {i}"),
-                uncommonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Skin {i}"),
-                rareSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Skin {i}")
-            );
-            stopwatch.Stop();
-
-            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(.1).Within(.01));
-            Assert.That(collection, Is.Not.Empty);
-            Assert.That(collection, Is.All.Not.Empty);
-        }
-
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(5)]
-        [TestCase(10)]
-        public void CreateWeighted_IsFast_ViaMultipleWeighting(int collectionQuantity)
-        {
-            stopwatch.Restart();
-            var collection = GetWeightedAppearances(
-                commonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Skin {i}"),
-                commonHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Hair {i}"),
-                uncommonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Skin {i}"),
-                uncommonHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Hair {i}"),
-                rareSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Skin {i}"),
-                rareHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Hair {i}")
-            );
-            stopwatch.Stop();
-
-            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(.1).Within(.01));
-            Assert.That(collection, Is.Not.Empty);
-            Assert.That(collection, Is.All.Not.Empty);
-        }
-
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(3)]
-        [TestCase(4, IgnoreReason = "1 million items in the weighted colletion")]
-        [TestCase(5, IgnoreReason = "2.5 million items in the weighted colletion")]
-        public void CreateWeighted_IsFast_ViaAllWeighting(int collectionQuantity)
-        {
-            stopwatch.Restart();
-            var collection = GetWeightedAppearances(
-                commonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Skin {i}"),
-                commonHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Hair {i}"),
-                commonEyes: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Eyes {i}"),
-                commonOther: Enumerable.Range(1, collectionQuantity).Select(i => $"Common Other {i}"),
-                uncommonSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Skin {i}"),
-                uncommonHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Hair {i}"),
-                uncommonEyes: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Eyes {i}"),
-                uncommonOther: Enumerable.Range(1, collectionQuantity).Select(i => $"Uncommon Other {i}"),
-                rareSkin: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Skin {i}"),
-                rareHair: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Hair {i}"),
-                rareEyes: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Eyes {i}"),
-                rareOther: Enumerable.Range(1, collectionQuantity).Select(i => $"Rare Other {i}")
-            );
-            stopwatch.Stop();
-
-            Assert.That(stopwatch.Elapsed.TotalSeconds, Is.LessThan(.1).Within(.01));
-            Assert.That(collection, Is.Not.Empty);
-            Assert.That(collection, Is.All.Not.Empty);
-        }
-
-        //Copied from CreatureGen
-        private enum Rarity
-        {
-            Common,
-            Uncommon,
-            Rare,
-            VeryRare
-        }
-
-        private IEnumerable<string> GetWeightedAppearances(
-            IEnumerable<string> allSkin = null, IEnumerable<string> commonSkin = null, IEnumerable<string> uncommonSkin = null, IEnumerable<string> rareSkin = null,
-            IEnumerable<string> allHair = null, IEnumerable<string> commonHair = null, IEnumerable<string> uncommonHair = null, IEnumerable<string> rareHair = null,
-            IEnumerable<string> allEyes = null, IEnumerable<string> commonEyes = null, IEnumerable<string> uncommonEyes = null, IEnumerable<string> rareEyes = null,
-            IEnumerable<string> allOther = null, IEnumerable<string> commonOther = null, IEnumerable<string> uncommonOther = null, IEnumerable<string> rareOther = null)
-        {
-            var appearances = Build(allSkin, commonSkin, uncommonSkin, rareSkin, (string.Empty, Rarity.Common))
-                .SelectMany(a => Build(allHair, commonHair, uncommonHair, rareHair, a))
-                .SelectMany(a => Build(allEyes, commonEyes, uncommonEyes, rareEyes, a))
-                .SelectMany(a => Build(allOther, commonOther, uncommonOther, rareOther, a))
-                .Where(a => !string.IsNullOrEmpty(a.Appearance));
-
-            var commonAppearances = appearances.Where(a => a.Rarity == Rarity.Common).Select(a => a.Appearance);
-            var uncommonAppearances = appearances.Where(a => a.Rarity == Rarity.Uncommon).Select(a => a.Appearance);
-            var rareAppearances = appearances.Where(a => a.Rarity == Rarity.Rare).Select(a => a.Appearance);
-            var veryRareAppearances = appearances.Where(a => a.Rarity == Rarity.VeryRare).Select(a => a.Appearance);
-
-            return collectionsSelector.CreateWeighted(commonAppearances, uncommonAppearances, rareAppearances, veryRareAppearances);
-        }
-
-        private IEnumerable<(string Appearance, Rarity Rarity)> Build(
-            IEnumerable<string> all, IEnumerable<string> common, IEnumerable<string> uncommon, IEnumerable<string> rare,
-            (string Appearance, Rarity Rarity) prototype)
-        {
-            if (all?.Any() == true)
-                return all.Select(a =>
-                    (GetAppearancePrototype(prototype.Appearance, a),
-                    GetRarity(prototype.Rarity, Rarity.Common)));
-
-            common ??= new[] { string.Empty };
-            uncommon ??= new[] { string.Empty };
-            rare ??= new[] { string.Empty };
-
-            if (common.Concat(uncommon).Concat(rare).Any(a => !string.IsNullOrEmpty(a)) == false)
-                return new[] { prototype };
-
-            var builtCommon = common.Select(a =>
-                (GetAppearancePrototype(prototype.Appearance, a),
-                GetRarity(prototype.Rarity, Rarity.Common)));
-            var builtUncommon = uncommon.Select(a =>
-                (GetAppearancePrototype(prototype.Appearance, a),
-                GetRarity(prototype.Rarity, Rarity.Uncommon)));
-            var builtRare = rare.Select(a =>
-                (GetAppearancePrototype(prototype.Appearance, a),
-                GetRarity(prototype.Rarity, Rarity.Rare)));
-
-            return builtCommon.Concat(builtUncommon).Concat(builtRare);
-        }
-
-        private string GetAppearancePrototype(string source, string additional)
-        {
-            if (string.IsNullOrEmpty(source) && string.IsNullOrEmpty(additional))
-                return string.Empty;
-
-            if (string.IsNullOrEmpty(source))
-                return additional;
-
-            if (string.IsNullOrEmpty(additional))
-                return source;
-
-            return $"{source}; {additional}";
-        }
-
-        private Rarity GetRarity(Rarity source, Rarity additional)
-        {
-            if (source == Rarity.VeryRare || additional == Rarity.VeryRare)
-                return Rarity.VeryRare;
-
-            if (source != Rarity.Common && source == additional)
-                return (Rarity)((int)source + 1);
-
-            return (Rarity)Math.Max((int)source, (int)additional);
         }
     }
 }

@@ -20,15 +20,17 @@
     <EmbeddedResource Include="Tables\Collections\CreatureGen-CreatureGroups.xml" />
     <EmbeddedResource Include="Tables\Collections\EncounterGen-CreatureGroups.xml" />
     <EmbeddedResource Include="Tables\Collections\EncounterGroups.xml" />
+    <EmbeddedResource Include="Tables\Collections\DataCollectionTable.xml" />
     <EmbeddedResource Include="Tables\Collections\OtherCollectionTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\BooleanPercentileTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\IntPercentileTable.xml" />
+    <EmbeddedResource Include="Tables\Percentiles\DataPercentileTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\StringPercentileTable.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DnDGen.RollGen" Version="16.0.1" />
     <PackageReference Include="Ninject" Version="3.3.6" />
-    <PackageReference Include="nunit" Version="4.2.2" />
+    <PackageReference Include="nunit" Version="4.3.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
