@@ -12,11 +12,10 @@ namespace DnDGen.Infrastructure.Tests.Integration.Models
 
         public override Func<TestDataSelection, string[]> MapFrom => Map;
 
+        public override int SectionCount => 2;
+
         public static TestDataSelection Map(string[] splitData)
         {
-            if (splitData.Length != 2)
-                throw new ArgumentException($"Data [{string.Join(",", splitData)}] invalid for TestDataSelection");
-
             var selection = new TestDataSelection
             {
                 Name = splitData[0],

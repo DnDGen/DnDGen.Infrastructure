@@ -15,6 +15,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         }
 
         [Test]
+        [Repeat(1000)]
         public void SelectFromTable()
         {
             var result = percentileSelector.SelectFrom(assemblyName, "StringPercentileTable");
@@ -26,6 +27,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         }
 
         [Test]
+        [Repeat(1000)]
         public void SelectIntFromTable()
         {
             var result = percentileSelector.SelectFrom<int>(assemblyName, "IntPercentileTable");
@@ -37,6 +39,7 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
         }
 
         [Test]
+        [Repeat(1000)]
         public void SelectBooleanFromTable()
         {
             var result = percentileSelector.SelectFrom<bool>(assemblyName, "BooleanPercentileTable");

@@ -1,5 +1,6 @@
-﻿using Ninject.Modules;
-using System;
+﻿using DnDGen.Infrastructure.IoC.Modules;
+using DnDGen.Infrastructure.Tests.Integration.Models;
+using Ninject.Modules;
 
 namespace DnDGen.Infrastructure.Tests.Integration.IoC.Modules
 {
@@ -7,7 +8,9 @@ namespace DnDGen.Infrastructure.Tests.Integration.IoC.Modules
     {
         public override void Load()
         {
-            throw new NotImplementedException("TODO: some fake data selectors, to validate that binding makes sense");
+            Kernel.BindDataSelection<TestDataSelection>();
+            Kernel.BindDataSelection<OtherTestDataSelection>();
+            Kernel.BindDataSelection<IncrementingDataSelection>();
         }
     }
 }

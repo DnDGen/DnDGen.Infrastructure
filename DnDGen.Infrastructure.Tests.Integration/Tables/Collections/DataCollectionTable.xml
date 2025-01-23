@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+  <collection>
+    <name>My Family</name>
+    <entry>Karl Speer@35</entry>
+	  <entry>Christine Gnieski@33</entry>
+	  <entry>Hugo Speer@2</entry>
+  </collection>
+  <collection>
+    <name>Enemies</name>
+  </collection>
+  <collection>
+    <name>Favorite Numbers</name>
+    <entry>Random@9266</entry>
+	  <entry>Beverly Hills@90210</entry>
+	  <entry>The Answer@42</entry>
+	  <entry>Highest Count@600</entry>
+	  <entry>leetspeak@1337</entry>
+  </collection>
+</collections>

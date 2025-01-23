@@ -14,15 +14,16 @@ namespace DnDGen.Infrastructure.Tests.Integration.Models
 
         public override Func<OtherTestDataSelection, string[]> MapFrom => Map;
 
+        public override int SectionCount => 4;
+
         public static OtherTestDataSelection Map(string[] splitData)
         {
-            if (splitData.Length != 2)
-                throw new ArgumentException($"Data [{string.Join(",", splitData)}] invalid for TestDataSelection");
-
             var selection = new OtherTestDataSelection
             {
-                Name = splitData[0],
-                Age = Convert.ToInt32(splitData[1])
+                MyString = splitData[0],
+                MyNumber = Convert.ToInt32(splitData[1]),
+                MyBoolean = Convert.ToBoolean(splitData[2]),
+                MyOtherString = splitData[3],
             };
 
             return selection;

@@ -14,7 +14,7 @@ namespace DnDGen.Infrastructure.Tests.Integration
         [OneTimeSetUp]
         public void IntegrationTestsFixtureSetup()
         {
-            kernel = new StandardKernel(new NinjectSettings() { InjectNonPublic = true });
+            kernel = new StandardKernel();
 
             var infrastructureModuleLoader = new InfrastructureModuleLoader();
             infrastructureModuleLoader.LoadModules(kernel);
