@@ -1,4 +1,5 @@
-﻿using DnDGen.Infrastructure.Selectors.Collections;
+﻿using DnDGen.Infrastructure.Models;
+using DnDGen.Infrastructure.Selectors.Collections;
 using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.Infrastructure.Tests.Integration.Models;
 using Ninject;
@@ -43,6 +44,42 @@ namespace DnDGen.Infrastructure.Tests.Integration.IoC.Modules
         public void CollectionDataSelectorIsInstantiated_OtherTestDataSelection()
         {
             AssertNotSingleton<ICollectionDataSelector<OtherTestDataSelection>>();
+        }
+
+        [Test]
+        public void PercentileDataSelectorIsInstantiated_TestDataSelection()
+        {
+            AssertNotSingleton<IPercentileDataSelector<TestDataSelection>>();
+        }
+
+        [Test]
+        public void PercentileDataSelectorIsInstantiated_OtherTestDataSelection()
+        {
+            AssertNotSingleton<IPercentileDataSelector<OtherTestDataSelection>>();
+        }
+
+        [Test]
+        public void CollectionDataSelectorIsInstantiated_TypeAndAmountDataSelection()
+        {
+            AssertNotSingleton<ICollectionDataSelector<TypeAndAmountDataSelection>>();
+        }
+
+        [Test]
+        public void PercentileDataSelectorIsInstantiated_TypeAndAmountDataSelection()
+        {
+            AssertNotSingleton<IPercentileDataSelector<TypeAndAmountDataSelection>>();
+        }
+
+        [Test]
+        public void CollectionTypeAndAmountSelectorIsInstantiated()
+        {
+            AssertNotSingleton<ICollectionTypeAndAmountSelector>();
+        }
+
+        [Test]
+        public void PercentileTypeAndAmountSelectorIsInstantiated()
+        {
+            AssertNotSingleton<IPercentileTypeAndAmountSelector>();
         }
     }
 }

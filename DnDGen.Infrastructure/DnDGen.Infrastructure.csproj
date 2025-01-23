@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>6.1.0</Version>
+    <Version>6.2.0</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>Infrastructure</Product>
@@ -13,7 +13,7 @@
     <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
     <PackageIconUrl />
     <PackageReleaseNotes>
-		#46 - Data Parsing
+		#47 - Type And Amount Data Selection
     </PackageReleaseNotes>
     <PackageTags>dungeons dragons d20 dnd 3.5 generator dndgen selector mapper table schema percentile collection collections percentiles</PackageTags>
 	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
