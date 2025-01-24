@@ -1,4 +1,5 @@
-﻿using DnDGen.Infrastructure.Selectors.Collections;
+﻿using DnDGen.Infrastructure.Models;
+using DnDGen.Infrastructure.Selectors.Collections;
 using DnDGen.Infrastructure.Selectors.Percentiles;
 using Ninject.Modules;
 
@@ -12,6 +13,10 @@ namespace DnDGen.Infrastructure.IoC.Modules
 
             Bind<ICollectionSelector>().To<CollectionSelector>().WhenInjectedInto<CollectionSelectorCachingProxy>();
             Bind<ICollectionSelector>().To<CollectionSelectorCachingProxy>().InSingletonScope();
+
+            Kernel.BindDataSelection<TypeAndAmountDataSelection>();
+            Bind<IPercentileTypeAndAmountSelector>().To<PercentileTypeAndAmountSelector>();
+            Bind<ICollectionTypeAndAmountSelector>().To<CollectionTypeAndAmountSelector>();
         }
     }
 }

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+  <collection>
+    <name>Treasure Rates</name>
+	  <entry>None@0</entry>
+	  <entry>Bad@0.5</entry>
+	  <entry>Ok@1</entry>
+	  <entry>Great@2</entry>
+	  <entry>Superb@1d2+2</entry>
+  </collection>
+  <collection>
+    <name>This is an empty group</name>
+  </collection>
+	<collection>
+		<name>Lonely</name>
+		<entry>One is the loneliest number@1</entry>
+	</collection>
+  <collection>
+    <name>Fun Rolls</name>
+    <entry>Abilities@3d6t1</entry>
+	  <entry>Big gem@1d4*1000</entry>
+	  <entry>Uh oh negative!@-4</entry>
+	  <entry>Nonsense@1d2d3d4</entry>
+  </collection>
+</collections>

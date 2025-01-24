@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace DnDGen.Infrastructure.Tests.Integration.IoC.Modules
 {
     [TestFixture]
-    internal class BindingExtensionsTests : IntegrationTests
+    internal class BindingExtensionsTests : IoCTests
     {
         [Test]
         public void BindDataSelection_AddsPercentileDataSelector()
