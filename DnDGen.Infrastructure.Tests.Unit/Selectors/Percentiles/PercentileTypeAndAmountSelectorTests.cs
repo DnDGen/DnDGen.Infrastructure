@@ -28,7 +28,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         [Test]
         public void SelectFrom_ReturnsTypeAndAmountSelection()
         {
-            var typeAndAmountSelection = new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount" };
+            var typeAndAmountSelection = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" };
             mockPercentileDataSelector
                 .Setup(s => s.SelectFrom(assemblyName, tableName))
                 .Returns(typeAndAmountSelection);
@@ -38,7 +38,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
             var result = percentileTypeAndAmountSelector.SelectFrom(assemblyName, tableName);
             Assert.That(result, Is.EqualTo(typeAndAmountSelection));
             Assert.That(result.Type, Is.EqualTo("my type"));
-            Assert.That(result.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
             Assert.That(result.Amount, Is.EqualTo(9266));
             Assert.That(result.AmountAsDouble, Is.EqualTo(9266));
         }
@@ -46,7 +46,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         [Test]
         public void SelectFrom_ReturnsTypeAndAmountSelection_Double()
         {
-            var typeAndAmountSelection = new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount" };
+            var typeAndAmountSelection = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" };
             mockPercentileDataSelector
                 .Setup(s => s.SelectFrom(assemblyName, tableName))
                 .Returns(typeAndAmountSelection);
@@ -56,7 +56,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
             var result = percentileTypeAndAmountSelector.SelectFrom(assemblyName, tableName);
             Assert.That(result, Is.EqualTo(typeAndAmountSelection));
             Assert.That(result.Type, Is.EqualTo("my type"));
-            Assert.That(result.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
             Assert.That(result.Amount, Is.EqualTo(90));
             Assert.That(result.AmountAsDouble, Is.EqualTo(90.210));
         }
@@ -64,7 +64,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         [Test]
         public void SelectFrom_RollsEveryCall()
         {
-            var typeAndAmountSelection = new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount" };
+            var typeAndAmountSelection = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" };
             mockPercentileDataSelector
                 .Setup(s => s.SelectFrom(assemblyName, tableName))
                 .Returns(typeAndAmountSelection);
@@ -77,14 +77,14 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
             var result = percentileTypeAndAmountSelector.SelectFrom(assemblyName, tableName);
             Assert.That(result, Is.EqualTo(typeAndAmountSelection));
             Assert.That(result.Type, Is.EqualTo("my type"));
-            Assert.That(result.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
             Assert.That(result.Amount, Is.EqualTo(9266));
             Assert.That(result.AmountAsDouble, Is.EqualTo(9266));
 
             result = percentileTypeAndAmountSelector.SelectFrom(assemblyName, tableName);
             Assert.That(result, Is.EqualTo(typeAndAmountSelection));
             Assert.That(result.Type, Is.EqualTo("my type"));
-            Assert.That(result.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
             Assert.That(result.Amount, Is.EqualTo(90));
             Assert.That(result.AmountAsDouble, Is.EqualTo(90.210));
         }
@@ -94,8 +94,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         {
             var typeAndAmountSelections = new[]
             {
-                new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount" },
-                new TypeAndAmountDataSelection { Type = "my other type", RawAmount = "my other amount" },
+                new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" },
+                new TypeAndAmountDataSelection { Type = "my other type", Roll = "my other amount" },
             };
             mockPercentileDataSelector
                 .Setup(s => s.SelectAllFrom(assemblyName, tableName))
@@ -108,12 +108,12 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
             Assert.That(results.Count, Is.EqualTo(2));
             Assert.That(results[0], Is.Not.Null);
             Assert.That(results[0].Type, Is.EqualTo("my type"));
-            Assert.That(results[0].RawAmount, Is.EqualTo("my amount"));
+            Assert.That(results[0].Roll, Is.EqualTo("my amount"));
             Assert.That(results[0].Amount, Is.EqualTo(9266));
             Assert.That(results[0].AmountAsDouble, Is.EqualTo(9266));
             Assert.That(results[1], Is.Not.Null);
             Assert.That(results[1].Type, Is.EqualTo("my other type"));
-            Assert.That(results[1].RawAmount, Is.EqualTo("my other amount"));
+            Assert.That(results[1].Roll, Is.EqualTo("my other amount"));
             Assert.That(results[1].Amount, Is.EqualTo(4));
             Assert.That(results[1].AmountAsDouble, Is.EqualTo(4.2));
         }
@@ -123,8 +123,8 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         {
             var typeAndAmountSelections = new[]
             {
-                new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount" },
-                new TypeAndAmountDataSelection { Type = "my other type", RawAmount = "my other amount" },
+                new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" },
+                new TypeAndAmountDataSelection { Type = "my other type", Roll = "my other amount" },
             };
             mockPercentileDataSelector
                 .Setup(s => s.SelectAllFrom(assemblyName, tableName))
@@ -143,12 +143,12 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
             Assert.That(results.Count, Is.EqualTo(2));
             Assert.That(results[0], Is.Not.Null);
             Assert.That(results[0].Type, Is.EqualTo("my type"));
-            Assert.That(results[0].RawAmount, Is.EqualTo("my amount"));
+            Assert.That(results[0].Roll, Is.EqualTo("my amount"));
             Assert.That(results[0].Amount, Is.EqualTo(9266));
             Assert.That(results[0].AmountAsDouble, Is.EqualTo(9266));
             Assert.That(results[1], Is.Not.Null);
             Assert.That(results[1].Type, Is.EqualTo("my other type"));
-            Assert.That(results[1].RawAmount, Is.EqualTo("my other amount"));
+            Assert.That(results[1].Roll, Is.EqualTo("my other amount"));
             Assert.That(results[1].Amount, Is.EqualTo(4));
             Assert.That(results[1].AmountAsDouble, Is.EqualTo(4.2));
 
@@ -156,12 +156,12 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
             Assert.That(results.Count, Is.EqualTo(2));
             Assert.That(results[0], Is.Not.Null);
             Assert.That(results[0].Type, Is.EqualTo("my type"));
-            Assert.That(results[0].RawAmount, Is.EqualTo("my amount"));
+            Assert.That(results[0].Roll, Is.EqualTo("my amount"));
             Assert.That(results[0].Amount, Is.EqualTo(90));
             Assert.That(results[0].AmountAsDouble, Is.EqualTo(90.210));
             Assert.That(results[1], Is.Not.Null);
             Assert.That(results[1].Type, Is.EqualTo("my other type"));
-            Assert.That(results[1].RawAmount, Is.EqualTo("my other amount"));
+            Assert.That(results[1].Roll, Is.EqualTo("my other amount"));
             Assert.That(results[1].Amount, Is.EqualTo(600));
             Assert.That(results[1].AmountAsDouble, Is.EqualTo(600));
         }

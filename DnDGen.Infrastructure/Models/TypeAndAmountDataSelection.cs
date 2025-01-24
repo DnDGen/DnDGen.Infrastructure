@@ -7,7 +7,7 @@ namespace DnDGen.Infrastructure.Models
         public string Type { get; set; }
         public int Amount => Convert.ToInt32(AmountAsDouble);
         public double AmountAsDouble { get; set; }
-        public string RawAmount { get; set; }
+        public string Roll { get; set; }
 
         public override Func<string[], TypeAndAmountDataSelection> MapTo => Map;
         public override Func<TypeAndAmountDataSelection, string[]> MapFrom => Map;
@@ -19,7 +19,7 @@ namespace DnDGen.Infrastructure.Models
             var selection = new TypeAndAmountDataSelection
             {
                 Type = splitData[0],
-                RawAmount = splitData[1],
+                Roll = splitData[1],
             };
 
             return selection;
@@ -27,7 +27,7 @@ namespace DnDGen.Infrastructure.Models
 
         public static string[] Map(TypeAndAmountDataSelection selection)
         {
-            return [selection.Type, selection.RawAmount];
+            return [selection.Type, selection.Roll];
         }
     }
 }

@@ -18,10 +18,10 @@ namespace DnDGen.Infrastructure.Selectors.Collections
 
         public IEnumerable<TypeAndAmountDataSelection> SelectFrom(string assemblyName, string tableName, string collectionName)
         {
-            var selections = collectionDataSelector.SelectFrom(assemblyName, tableName, collectionName);
+            var selections = collectionDataSelector.SelectFrom(assemblyName, tableName, collectionName).ToArray();
 
             foreach (var selection in selections)
-                selection.AmountAsDouble = dice.Roll(selection.RawAmount).AsSum<double>();
+                selection.AmountAsDouble = dice.Roll(selection.Roll).AsSum<double>();
 
             return selections;
         }
@@ -31,7 +31,7 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             var selections = collectionDataSelector.SelectAllFrom(assemblyName, tableName);
 
             foreach (var selection in selections.Values.SelectMany(v => v))
-                selection.AmountAsDouble = dice.Roll(selection.RawAmount).AsSum<double>();
+                selection.AmountAsDouble = dice.Roll(selection.Roll).AsSum<double>();
 
             return selections;
         }

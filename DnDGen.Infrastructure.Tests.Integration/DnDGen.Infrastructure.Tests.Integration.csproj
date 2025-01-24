@@ -18,11 +18,13 @@
   <ItemGroup>
     <EmbeddedResource Include="Tables\Collections\CollectionTable.xml" />
     <EmbeddedResource Include="Tables\Collections\CreatureGen-CreatureGroups.xml" />
+    <EmbeddedResource Include="Tables\Collections\TypeAndAmountCollectionTable.xml" />
     <EmbeddedResource Include="Tables\Collections\EncounterGen-CreatureGroups.xml" />
     <EmbeddedResource Include="Tables\Collections\EncounterGroups.xml" />
     <EmbeddedResource Include="Tables\Collections\DataCollectionTable.xml" />
     <EmbeddedResource Include="Tables\Collections\OtherCollectionTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\BooleanPercentileTable.xml" />
+    <EmbeddedResource Include="Tables\Percentiles\TypeAndAmountPercentileTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\IntPercentileTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\DataPercentileTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\StringPercentileTable.xml" />

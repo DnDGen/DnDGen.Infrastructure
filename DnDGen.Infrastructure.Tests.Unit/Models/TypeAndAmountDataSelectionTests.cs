@@ -28,10 +28,17 @@ namespace DnDGen.Infrastructure.Tests.Unit.Models
         }
 
         [Test]
-        public void Amount_FromDouble()
+        public void Amount_FromDouble_RoundUp()
         {
             selection.AmountAsDouble = 92.66;
             Assert.That(selection.Amount, Is.EqualTo(93));
+        }
+
+        [Test]
+        public void Amount_FromDouble_RoundDown()
+        {
+            selection.AmountAsDouble = 90.210;
+            Assert.That(selection.Amount, Is.EqualTo(90));
         }
 
         [Test]
@@ -40,7 +47,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Models
             var selection = TypeAndAmountDataSelection.Map(["my type", "my amount"]);
             Assert.That(selection, Is.Not.Null);
             Assert.That(selection.Type, Is.EqualTo("my type"));
-            Assert.That(selection.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(selection.Roll, Is.EqualTo("my amount"));
             Assert.That(selection.Amount, Is.Zero);
         }
 
@@ -50,14 +57,14 @@ namespace DnDGen.Infrastructure.Tests.Unit.Models
             var selection = TypeAndAmountDataSelection.Map(["my type", "my amount"]);
             Assert.That(selection, Is.Not.Null);
             Assert.That(selection.Type, Is.EqualTo("my type"));
-            Assert.That(selection.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(selection.Roll, Is.EqualTo("my amount"));
             Assert.That(selection.Amount, Is.Zero);
         }
 
         [Test]
         public void Map_FromSelection_ReturnsString()
         {
-            var selection = new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount", AmountAsDouble = 9266 };
+            var selection = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount", AmountAsDouble = 9266 };
             var rawData = TypeAndAmountDataSelection.Map(selection);
             Assert.That(rawData, Is.EqualTo(["my type", "my amount"]));
         }
@@ -65,7 +72,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Models
         [Test]
         public void Map_FromSelection_ReturnsString_Double()
         {
-            var selection = new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount", AmountAsDouble = 90.210 };
+            var selection = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount", AmountAsDouble = 90.210 };
             var rawData = TypeAndAmountDataSelection.Map(selection);
             Assert.That(rawData, Is.EqualTo(["my type", "my amount"]));
         }
@@ -76,7 +83,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Models
             var newSelection = selection.MapTo(["my type", "my amount"]);
             Assert.That(newSelection, Is.Not.Null);
             Assert.That(newSelection.Type, Is.EqualTo("my type"));
-            Assert.That(newSelection.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(newSelection.Roll, Is.EqualTo("my amount"));
             Assert.That(newSelection.Amount, Is.Zero);
         }
 
@@ -87,14 +94,14 @@ namespace DnDGen.Infrastructure.Tests.Unit.Models
             var newSelection = doubleSelection.MapTo(["my type", "my amount"]);
             Assert.That(newSelection, Is.Not.Null);
             Assert.That(newSelection.Type, Is.EqualTo("my type"));
-            Assert.That(newSelection.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(newSelection.Roll, Is.EqualTo("my amount"));
             Assert.That(newSelection.Amount, Is.Zero);
         }
 
         [Test]
         public void MapFrom_ReturnsString()
         {
-            var selection = new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount", AmountAsDouble = 9266 };
+            var selection = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount", AmountAsDouble = 9266 };
             var rawData = selection.MapFrom(selection);
             Assert.That(rawData, Is.EqualTo(["my type", "my amount"]));
         }
@@ -102,7 +109,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Models
         [Test]
         public void MapFrom_ReturnsString_Double()
         {
-            var selection = new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount", AmountAsDouble = 90.210 };
+            var selection = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount", AmountAsDouble = 90.210 };
             var rawData = selection.MapFrom(selection);
             Assert.That(rawData, Is.EqualTo(["my type", "my amount"]));
         }
