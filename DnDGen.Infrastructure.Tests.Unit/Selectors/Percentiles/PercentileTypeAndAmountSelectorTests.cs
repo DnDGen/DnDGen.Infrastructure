@@ -3,6 +3,7 @@ using DnDGen.Infrastructure.Selectors.Percentiles;
 using DnDGen.RollGen;
 using Moq;
 using NUnit.Framework;
+using System.Linq;
 
 namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
 {
@@ -25,91 +26,144 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         }
 
         [Test]
-        public void SelectFrom_ReturnsValueParsedAsDataSelection()
+        public void SelectFrom_ReturnsTypeAndAmountSelection()
         {
-            var data = DataHelper.Parse(dummyData);
-            mockPercentileSelector
+            var typeAndAmountSelection = new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount" };
+            mockPercentileDataSelector
                 .Setup(s => s.SelectFrom(assemblyName, tableName))
-                .Returns(data);
+                .Returns(typeAndAmountSelection);
 
-            var result = percentileDataSelector.SelectFrom(assemblyName, tableName);
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Name, Is.EqualTo(dummyData.Name));
-            Assert.That(result.Age, Is.EqualTo(dummyData.Age));
+            mockDice.Setup(d => d.Roll("my amount").AsSum<double>()).Returns(9266);
+
+            var result = percentileTypeAndAmountSelector.SelectFrom(assemblyName, tableName);
+            Assert.That(result, Is.EqualTo(typeAndAmountSelection));
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(9266));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(9266));
         }
 
         [Test]
-        public void SelectFrom_ParsesDataEveryCall()
+        public void SelectFrom_ReturnsTypeAndAmountSelection_Double()
         {
-            IncrementingDataSelection.MapCount = 9266;
-
-            var percentileDataSelector = new PercentileDataSelector<IncrementingDataSelection>(mockPercentileSelector.Object);
-            var dummyData = new IncrementingDataSelection { Name = "Karl Speer", Age = 35 };
-
-            var data = DataHelper.Parse(dummyData);
-            mockPercentileSelector
+            var typeAndAmountSelection = new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount" };
+            mockPercentileDataSelector
                 .Setup(s => s.SelectFrom(assemblyName, tableName))
-                .Returns(data);
+                .Returns(typeAndAmountSelection);
 
-            var result = percentileDataSelector.SelectFrom(assemblyName, tableName);
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Name, Is.EqualTo("Karl Speer"));
-            Assert.That(result.Age, Is.EqualTo(35 + 9267));
+            mockDice.Setup(d => d.Roll("my amount").AsSum<double>()).Returns(90.210);
 
-            result = percentileDataSelector.SelectFrom(assemblyName, tableName);
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Name, Is.EqualTo("Karl Speer"));
-            Assert.That(result.Age, Is.EqualTo(35 + 9268));
+            var result = percentileTypeAndAmountSelector.SelectFrom(assemblyName, tableName);
+            Assert.That(result, Is.EqualTo(typeAndAmountSelection));
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(90));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(90.210));
         }
 
         [Test]
-        public void SelectAllFrom_ReturnsValuesParsedAsDataSelections()
+        public void SelectFrom_RollsEveryCall()
         {
-            var data1 = DataHelper.Parse(dummyData);
-            var data2 = DataHelper.Parse(new FakeDataSelection { Name = "Hugo Speer", Age = 2 });
-            mockPercentileSelector
-                .Setup(s => s.SelectAllFrom(assemblyName, tableName))
-                .Returns([data1, data2]);
+            var typeAndAmountSelection = new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount" };
+            mockPercentileDataSelector
+                .Setup(s => s.SelectFrom(assemblyName, tableName))
+                .Returns(typeAndAmountSelection);
 
-            var results = percentileDataSelector.SelectAllFrom(assemblyName, tableName).ToList();
-            Assert.That(results.Count, Is.EqualTo(2));
-            Assert.That(results[0], Is.Not.Null);
-            Assert.That(results[0].Name, Is.EqualTo("Karl Speer"));
-            Assert.That(results[0].Age, Is.EqualTo(35));
-            Assert.That(results[1], Is.Not.Null);
-            Assert.That(results[1].Name, Is.EqualTo("Hugo Speer"));
-            Assert.That(results[1].Age, Is.EqualTo(2));
+            mockDice
+                .SetupSequence(d => d.Roll("my amount").AsSum<double>())
+                .Returns(9266)
+                .Returns(90.210);
+
+            var result = percentileTypeAndAmountSelector.SelectFrom(assemblyName, tableName);
+            Assert.That(result, Is.EqualTo(typeAndAmountSelection));
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(9266));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(9266));
+
+            result = percentileTypeAndAmountSelector.SelectFrom(assemblyName, tableName);
+            Assert.That(result, Is.EqualTo(typeAndAmountSelection));
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.RawAmount, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(90));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(90.210));
         }
 
         [Test]
-        public void SelectAllFrom_ParsesDataEveryCall()
+        public void SelectAllFrom_ReturnsTypeAndAmountSelections()
         {
-            IncrementingDataSelection.MapCount = 9266;
-
-            var percentileDataSelector = new PercentileDataSelector<IncrementingDataSelection>(mockPercentileSelector.Object);
-            var data1 = DataHelper.Parse(new IncrementingDataSelection { Name = "Karl Speer", Age = 35 });
-            var data2 = DataHelper.Parse(new IncrementingDataSelection { Name = "Hugo Speer", Age = 2 });
-            mockPercentileSelector
+            var typeAndAmountSelections = new[]
+            {
+                new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount" },
+                new TypeAndAmountDataSelection { Type = "my other type", RawAmount = "my other amount" },
+            };
+            mockPercentileDataSelector
                 .Setup(s => s.SelectAllFrom(assemblyName, tableName))
-                .Returns([data1, data2]);
+                .Returns(typeAndAmountSelections);
 
-            var results = percentileDataSelector.SelectAllFrom(assemblyName, tableName).ToList();
+            mockDice.Setup(d => d.Roll("my amount").AsSum<double>()).Returns(9266);
+            mockDice.Setup(d => d.Roll("my other amount").AsSum<double>()).Returns(4.2);
+
+            var results = percentileTypeAndAmountSelector.SelectAllFrom(assemblyName, tableName).ToList();
             Assert.That(results.Count, Is.EqualTo(2));
             Assert.That(results[0], Is.Not.Null);
-            Assert.That(results[0].Name, Is.EqualTo("Karl Speer"));
-            Assert.That(results[0].Age, Is.EqualTo(35 + 9267));
+            Assert.That(results[0].Type, Is.EqualTo("my type"));
+            Assert.That(results[0].RawAmount, Is.EqualTo("my amount"));
+            Assert.That(results[0].Amount, Is.EqualTo(9266));
+            Assert.That(results[0].AmountAsDouble, Is.EqualTo(9266));
             Assert.That(results[1], Is.Not.Null);
-            Assert.That(results[1].Name, Is.EqualTo("Hugo Speer"));
-            Assert.That(results[1].Age, Is.EqualTo(2 + 9268));
+            Assert.That(results[1].Type, Is.EqualTo("my other type"));
+            Assert.That(results[1].RawAmount, Is.EqualTo("my other amount"));
+            Assert.That(results[1].Amount, Is.EqualTo(4));
+            Assert.That(results[1].AmountAsDouble, Is.EqualTo(4.2));
+        }
 
-            results = percentileDataSelector.SelectAllFrom(assemblyName, tableName).ToList();
+        [Test]
+        public void SelectAllFrom_RollsEveryCall()
+        {
+            var typeAndAmountSelections = new[]
+            {
+                new TypeAndAmountDataSelection { Type = "my type", RawAmount = "my amount" },
+                new TypeAndAmountDataSelection { Type = "my other type", RawAmount = "my other amount" },
+            };
+            mockPercentileDataSelector
+                .Setup(s => s.SelectAllFrom(assemblyName, tableName))
+                .Returns(typeAndAmountSelections);
+
+            mockDice
+                .SetupSequence(d => d.Roll("my amount").AsSum<double>())
+                .Returns(9266)
+                .Returns(90.210);
+            mockDice
+                .SetupSequence(d => d.Roll("my other amount").AsSum<double>())
+                .Returns(4.2)
+                .Returns(600);
+
+            var results = percentileTypeAndAmountSelector.SelectAllFrom(assemblyName, tableName).ToList();
             Assert.That(results.Count, Is.EqualTo(2));
             Assert.That(results[0], Is.Not.Null);
-            Assert.That(results[0].Name, Is.EqualTo("Karl Speer"));
-            Assert.That(results[0].Age, Is.EqualTo(35 + 9269));
+            Assert.That(results[0].Type, Is.EqualTo("my type"));
+            Assert.That(results[0].RawAmount, Is.EqualTo("my amount"));
+            Assert.That(results[0].Amount, Is.EqualTo(9266));
+            Assert.That(results[0].AmountAsDouble, Is.EqualTo(9266));
             Assert.That(results[1], Is.Not.Null);
-            Assert.That(results[1].Name, Is.EqualTo("Hugo Speer"));
-            Assert.That(results[1].Age, Is.EqualTo(2 + 9270));
+            Assert.That(results[1].Type, Is.EqualTo("my other type"));
+            Assert.That(results[1].RawAmount, Is.EqualTo("my other amount"));
+            Assert.That(results[1].Amount, Is.EqualTo(4));
+            Assert.That(results[1].AmountAsDouble, Is.EqualTo(4.2));
+
+            results = percentileTypeAndAmountSelector.SelectAllFrom(assemblyName, tableName).ToList();
+            Assert.That(results.Count, Is.EqualTo(2));
+            Assert.That(results[0], Is.Not.Null);
+            Assert.That(results[0].Type, Is.EqualTo("my type"));
+            Assert.That(results[0].RawAmount, Is.EqualTo("my amount"));
+            Assert.That(results[0].Amount, Is.EqualTo(90));
+            Assert.That(results[0].AmountAsDouble, Is.EqualTo(90.210));
+            Assert.That(results[1], Is.Not.Null);
+            Assert.That(results[1].Type, Is.EqualTo("my other type"));
+            Assert.That(results[1].RawAmount, Is.EqualTo("my other amount"));
+            Assert.That(results[1].Amount, Is.EqualTo(600));
+            Assert.That(results[1].AmountAsDouble, Is.EqualTo(600));
         }
     }
 }
