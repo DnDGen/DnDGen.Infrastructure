@@ -35,5 +35,20 @@ namespace DnDGen.Infrastructure.Selectors.Collections
 
             return selections;
         }
+
+        public TypeAndAmountDataSelection SelectOneFrom(string assemblyName, string tableName, string collectionName)
+            => SelectFrom(assemblyName, tableName, collectionName).Single();
+
+        public bool IsCollection(string assemblyName, string tableName, string collectionName)
+        {
+            return collectionDataSelector.IsCollection(assemblyName, tableName, collectionName);
+        }
+
+        public TypeAndAmountDataSelection SelectRandomFrom(string assemblyName, string tableName, string collectionName)
+        {
+            var selection = collectionDataSelector.SelectRandomFrom(assemblyName, tableName, collectionName);
+            selection.AmountAsDouble = dice.Roll(selection.Roll).AsSum<double>();
+            return selection;
+        }
     }
 }

@@ -151,5 +151,23 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             Assert.That(selectedCollections["Fun Rolls"].ElementAt(3).Amount, Is.InRange(1, 24));
             Assert.That(selectedCollections["Fun Rolls"].ElementAt(3).AmountAsDouble, Is.InRange(1, 24));
         }
+
+        [Test]
+        public void TODO_IsCollection()
+        {
+            Assert.Fail("not yet written");
+        }
+
+        [Test]
+        public void TODO_SelectOneFrom()
+        {
+            Assert.Fail("not yet written");
+        }
+
+        [Test]
+        public void TODO_SelectRandomFrom()
+        {
+            Assert.Fail("not yet written");
+        }
     }
 }

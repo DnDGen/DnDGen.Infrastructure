@@ -239,5 +239,23 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
             Assert.That(selectedCollections["Favorite Numbers"].ElementAt(4).Name, Is.EqualTo("leetspeak"));
             Assert.That(selectedCollections["Favorite Numbers"].ElementAt(4).Age, Is.EqualTo(1337 + 16));
         }
+
+        [Test]
+        public void TODO_IsCollection()
+        {
+            Assert.Fail("not yet written");
+        }
+
+        [Test]
+        public void TODO_SelectOneFrom()
+        {
+            Assert.Fail("not yet written");
+        }
+
+        [Test]
+        public void TODO_SelectRandomFrom()
+        {
+            Assert.Fail("not yet written");
+        }
     }
 }

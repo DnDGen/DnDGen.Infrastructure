@@ -134,6 +134,94 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
+        public void SelectOneFrom_ThrowsException_WhenCollectionEmpty()
+        {
+            mockCollectionDataSelector
+                .Setup(s => s.SelectFrom(assemblyName, tableName, "my collection"))
+                .Returns([]);
+
+            Assert.That(() => collectionTypeAndAmountSelector.SelectOneFrom(assemblyName, tableName, "my collection"),
+                Throws.InstanceOf<InvalidOperationException>());
+        }
+
+        [Test]
+        public void SelectOneFrom_ReturnsTypeAndAmountSelection()
+        {
+            var selection = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" };
+            mockCollectionDataSelector
+                .Setup(s => s.SelectFrom(assemblyName, tableName, "my collection"))
+                .Returns([selection]);
+
+            mockDice.Setup(d => d.Roll("my amount").AsSum<double>()).Returns(9266);
+
+            var result = collectionTypeAndAmountSelector.SelectOneFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(9266));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(9266));
+        }
+
+        [Test]
+        public void SelectOneFrom_ReturnsTypeAndAmountSelection_Double()
+        {
+            var selection = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" };
+            mockCollectionDataSelector
+                .Setup(s => s.SelectFrom(assemblyName, tableName, "my collection"))
+                .Returns([selection]);
+
+            mockDice.Setup(d => d.Roll("my amount").AsSum<double>()).Returns(90.210);
+
+            var result = collectionTypeAndAmountSelector.SelectOneFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(90));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(90.210));
+        }
+
+        [Test]
+        public void SelectOneFrom_ThrowsException_WhenCollectionHasMultipleValues()
+        {
+            var selection1 = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" };
+            var selection2 = new TypeAndAmountDataSelection { Type = "my other type", Roll = "my other amount" };
+            mockCollectionDataSelector
+                .Setup(s => s.SelectFrom(assemblyName, tableName, "my collection"))
+                .Returns([selection1, selection2]);
+
+            mockDice.Setup(d => d.Roll("my amount").AsSum<double>()).Returns(9266);
+            mockDice.Setup(d => d.Roll("my other amount").AsSum<double>()).Returns(4.2);
+
+            Assert.That(() => collectionTypeAndAmountSelector.SelectOneFrom(assemblyName, tableName, "my collection"),
+                Throws.InstanceOf<InvalidOperationException>());
+        }
+
+        [Test]
+        public void SelectOneFrom_RollsEveryCall()
+        {
+            var selection1 = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" };
+            mockCollectionDataSelector
+                .Setup(s => s.SelectFrom(assemblyName, tableName, "my collection"))
+                .Returns([selection1]);
+
+            mockDice.SetupSequence(d => d.Roll("my amount").AsSum<double>()).Returns(9266).Returns(90.210);
+
+            var result = collectionTypeAndAmountSelector.SelectOneFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(9266));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(9266));
+
+            result = collectionTypeAndAmountSelector.SelectOneFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(90));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(90.210));
+        }
+
+        [Test]
         public void SelectAllFrom_ReturnsTypeAndAmountSelections()
         {
             var selection1 = new TypeAndAmountDataSelection { Type = "type 1", Roll = "amount 1" };
@@ -252,6 +340,61 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(results["small"].ElementAt(0).Roll, Is.EqualTo("amount 4"));
             Assert.That(results["small"].ElementAt(0).Amount, Is.EqualTo(78));
             Assert.That(results["small"].ElementAt(0).AmountAsDouble, Is.EqualTo(78.3));
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsCollection_ReturnsInnerResult(bool inner)
+        {
+            mockCollectionDataSelector
+                .Setup(s => s.IsCollection(assemblyName, tableName, "my collection"))
+                .Returns(inner);
+
+            var result = collectionTypeAndAmountSelector.IsCollection(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.EqualTo(inner));
+        }
+
+        [Test]
+        public void SelectRandomFrom_ReturnsParsedRandomValue()
+        {
+            var selection1 = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" };
+            mockCollectionDataSelector
+                .Setup(s => s.SelectRandomFrom(assemblyName, tableName, "my collection"))
+                .Returns(selection1);
+
+            mockDice.Setup(d => d.Roll("my amount").AsSum<double>()).Returns(9266);
+
+            var result = collectionTypeAndAmountSelector.SelectRandomFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(9266));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(9266));
+        }
+
+        [Test]
+        public void SelectRandomFrom_ParsesDataEveryCall()
+        {
+            var selection1 = new TypeAndAmountDataSelection { Type = "my type", Roll = "my amount" };
+            mockCollectionDataSelector
+                .Setup(s => s.SelectRandomFrom(assemblyName, tableName, "my collection"))
+                .Returns(selection1);
+
+            mockDice.SetupSequence(d => d.Roll("my amount").AsSum<double>()).Returns(9266).Returns(90.210);
+
+            var result = collectionTypeAndAmountSelector.SelectRandomFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(9266));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(9266));
+
+            result = collectionTypeAndAmountSelector.SelectRandomFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Type, Is.EqualTo("my type"));
+            Assert.That(result.Roll, Is.EqualTo("my amount"));
+            Assert.That(result.Amount, Is.EqualTo(90));
+            Assert.That(result.AmountAsDouble, Is.EqualTo(90.210));
         }
     }
 }
