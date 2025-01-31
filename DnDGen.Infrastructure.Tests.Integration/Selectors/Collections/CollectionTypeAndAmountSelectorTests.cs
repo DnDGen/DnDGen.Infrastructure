@@ -88,8 +88,10 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Collections
 
         private bool NeedToReroll<T>(Dictionary<string, List<T>> selections) => selections == null
             || selections.Count == 0
-            || selections.First().Value.Count < IterationsForReroll;
-        private bool NeedToReroll<T, U>(Dictionary<string, Dictionary<T, U>> selections) => selections.Count == 0 || selections.First().Value.Count < IterationsForReroll;
+            || selections.Any(kvp => kvp.Value.Count < IterationsForReroll);
+        private bool NeedToReroll<T, U>(Dictionary<string, Dictionary<T, U>> selections) => selections == null
+            || selections.Count == 0
+            || selections.Any(kvp => kvp.Value.Count < IterationsForReroll);
 
         private void AssertAllSame(IEnumerable<TypeAndAmountDataSelection> selections, double expected)
         {
