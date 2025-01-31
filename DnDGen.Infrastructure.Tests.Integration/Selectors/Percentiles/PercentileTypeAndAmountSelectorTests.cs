@@ -30,41 +30,41 @@ namespace DnDGen.Infrastructure.Tests.Integration.Selectors.Percentiles
             switch (selection.Type)
             {
                 case "Low Treasure":
-                    Assert.That(selection.Roll, Is.EqualTo("0.5"));
-                    Assert.That(selection.Amount, Is.EqualTo(0));
-                    Assert.That(selection.AmountAsDouble, Is.EqualTo(0.5));
+                    Assert.That(selection.Roll, Is.EqualTo("0.5"), selection.Type);
+                    Assert.That(selection.Amount, Is.EqualTo(0), selection.Type);
+                    Assert.That(selection.AmountAsDouble, Is.EqualTo(0.5), selection.Type);
                     break;
                 case "High Treasure":
-                    Assert.That(selection.Roll, Is.EqualTo("2"));
-                    Assert.That(selection.Amount, Is.EqualTo(2));
-                    Assert.That(selection.AmountAsDouble, Is.EqualTo(2));
+                    Assert.That(selection.Roll, Is.EqualTo("2"), selection.Type);
+                    Assert.That(selection.Amount, Is.EqualTo(2), selection.Type);
+                    Assert.That(selection.AmountAsDouble, Is.EqualTo(2), selection.Type);
                     break;
                 case "":
-                    Assert.That(selection.Roll, Is.EqualTo("0"));
-                    Assert.That(selection.Amount, Is.EqualTo(0));
-                    Assert.That(selection.AmountAsDouble, Is.EqualTo(0));
+                    Assert.That(selection.Roll, Is.EqualTo("0"), selection.Type);
+                    Assert.That(selection.Amount, Is.EqualTo(0), selection.Type);
+                    Assert.That(selection.AmountAsDouble, Is.EqualTo(0), selection.Type);
                     break;
                 case "Big Gem":
-                    Assert.That(selection.Roll, Is.EqualTo("1d4*1000"));
-                    Assert.That(selection.Amount, Is.AnyOf([1000, 2000, 3000, 4000]));
-                    Assert.That(selection.AmountAsDouble, Is.AnyOf([1000, 2000, 3000, 4000]));
+                    Assert.That(selection.Roll, Is.EqualTo("1d4*1000"), selection.Type);
+                    Assert.That(selection.Amount, Is.AnyOf([1000, 2000, 3000, 4000]), selection.Type);
+                    Assert.That(selection.AmountAsDouble, Is.AnyOf([1000, 2000, 3000, 4000]), selection.Type);
                     break;
                 case "Abilities":
-                    Assert.That(selection.Roll, Is.EqualTo("3d6t1"));
-                    Assert.That(selection.Amount, Is.InRange(6, 18));
-                    Assert.That(selection.AmountAsDouble, Is.InRange(6, 18));
+                    Assert.That(selection.Roll, Is.EqualTo("3d6t1"), selection.Type);
+                    Assert.That(selection.Amount, Is.InRange(6, 18), selection.Type);
+                    Assert.That(selection.AmountAsDouble, Is.InRange(6, 18), selection.Type);
                     break;
                 case "Lower Half":
                     var lowerRoll = RollHelper.GetRollWithMostEvenDistribution(1, 1_000_000, true, true);
-                    Assert.That(selection.Roll, Is.EqualTo(lowerRoll));
-                    Assert.That(selection.Amount, Is.InRange(1, 1_000_000));
-                    Assert.That(selection.AmountAsDouble, Is.InRange(1, 1_000_000));
+                    Assert.That(selection.Roll, Is.EqualTo(lowerRoll), selection.Type);
+                    Assert.That(selection.Amount, Is.InRange(1, 1_000_000), selection.Type);
+                    Assert.That(selection.AmountAsDouble, Is.InRange(1, 1_000_000), selection.Type);
                     break;
                 case "Upper Half":
                     var upperRoll = RollHelper.GetRollWithMostEvenDistribution(1, 1_000_000_000, true, true);
-                    Assert.That(selection.Roll, Is.EqualTo(upperRoll));
-                    Assert.That(selection.Amount, Is.InRange(1, 1_000_000_000));
-                    Assert.That(selection.AmountAsDouble, Is.InRange(1, 1_000_000_000));
+                    Assert.That(selection.Roll, Is.EqualTo(upperRoll), selection.Type);
+                    Assert.That(selection.Amount, Is.InRange(1, 1_000_000_000), selection.Type);
+                    Assert.That(selection.AmountAsDouble, Is.InRange(1, 1_000_000_000), selection.Type);
                     break;
                 default:
                     Assert.Fail($"An unknown selection of [{selection.Type},{selection.Roll}] was returned");

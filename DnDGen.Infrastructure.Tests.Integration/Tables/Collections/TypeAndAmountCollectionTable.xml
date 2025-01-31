@@ -16,6 +16,10 @@
 		<name>Lonely</name>
 		<entry>One is the loneliest number@1</entry>
 	</collection>
+	<collection>
+		<name>Plural</name>
+		<entry>More than one@1+1d100</entry>
+	</collection>
   <collection>
     <name>Fun Rolls</name>
     <entry>Abilities@3d6t1</entry>
