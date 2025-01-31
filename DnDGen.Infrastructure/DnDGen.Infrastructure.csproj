@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>6.2.0</Version>
+    <Version>6.3.0</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>Infrastructure</Product>
@@ -12,7 +12,7 @@
     <RepositoryUrl>https://github.com/DnDGen/DnDGen.Core</RepositoryUrl>
     <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
     <PackageIconUrl />
-    <PackageReleaseNotes>#47 - Type And Amount Data Selection</PackageReleaseNotes>
+    <PackageReleaseNotes>#55 - Select One, Is Collection, and Select Random for Collection Data and Collection Type and Amount</PackageReleaseNotes>
     <PackageTags>dungeons dragons d20 dnd 3.5 generator dndgen selector mapper table schema percentile collection collections percentiles</PackageTags>
 	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>

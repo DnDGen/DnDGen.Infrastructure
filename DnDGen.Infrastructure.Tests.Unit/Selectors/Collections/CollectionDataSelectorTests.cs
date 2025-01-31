@@ -101,6 +101,68 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         }
 
         [Test]
+        public void SelectOneFrom_ThrowsException_WhenCollectionEmpty()
+        {
+            mockCollectionSelector
+                .Setup(s => s.SelectFrom(assemblyName, tableName, "my collection"))
+                .Returns([]);
+
+            Assert.That(() => collectionDataSelector.SelectOneFrom(assemblyName, tableName, "my collection"),
+                Throws.InstanceOf<InvalidOperationException>());
+        }
+
+        [Test]
+        public void SelectOneFrom_ReturnsValueParsedAsDataSelection()
+        {
+            var data1 = DataHelper.Parse(new FakeDataSelection { Name = "Karl Speer", Age = 35 });
+            mockCollectionSelector
+                .Setup(s => s.SelectFrom(assemblyName, tableName, "my collection"))
+                .Returns([data1]);
+
+            var result = collectionDataSelector.SelectOneFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name, Is.EqualTo("Karl Speer"));
+            Assert.That(result.Age, Is.EqualTo(35));
+        }
+
+        [Test]
+        public void SelectOneFrom_ThrowsException_WhenCollectionHasMultipleValues()
+        {
+            var data1 = DataHelper.Parse(new FakeDataSelection { Name = "Karl Speer", Age = 35 });
+            var data2 = DataHelper.Parse(new FakeDataSelection { Name = "Hugo Speer", Age = 2 });
+            mockCollectionSelector
+                .Setup(s => s.SelectFrom(assemblyName, tableName, "my collection"))
+                .Returns([data1, data2]);
+
+            Assert.That(() => collectionDataSelector.SelectOneFrom(assemblyName, tableName, "my collection"),
+                Throws.InstanceOf<InvalidOperationException>());
+        }
+
+        [Test]
+        public void SelectOneFrom_ParsesDataEveryCall()
+        {
+            IncrementingDataSelection.MapCount = 9266;
+
+            var collectionDataSelector = new CollectionDataSelector<IncrementingDataSelection>(mockCollectionSelector.Object);
+            var dummyData = new IncrementingDataSelection { Name = "Karl Speer", Age = 35 };
+
+            var data1 = DataHelper.Parse(new FakeDataSelection { Name = "Karl Speer", Age = 35 });
+            mockCollectionSelector
+                .Setup(s => s.SelectFrom(assemblyName, tableName, "my collection"))
+                .Returns([data1]);
+
+            var result = collectionDataSelector.SelectOneFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name, Is.EqualTo("Karl Speer"));
+            Assert.That(result.Age, Is.EqualTo(35 + 9267));
+
+            result = collectionDataSelector.SelectOneFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name, Is.EqualTo("Karl Speer"));
+            Assert.That(result.Age, Is.EqualTo(35 + 9268));
+        }
+
+        [Test]
         public void SelectAllFrom_ReturnsValuesParsedAsDataSelections()
         {
             var data1 = DataHelper.Parse(new FakeDataSelection { Name = "Karl Speer", Age = 35 });
@@ -188,6 +250,56 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
             Assert.That(results["Upcoming"].Count(), Is.EqualTo(1));
             Assert.That(results["Upcoming"].ElementAt(0).Name, Is.EqualTo("Busy Bee"));
             Assert.That(results["Upcoming"].ElementAt(0).Age, Is.EqualTo(0 + 9274));
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsCollection_ReturnsInnerResult(bool inner)
+        {
+            mockCollectionSelector
+                .Setup(s => s.IsCollection(assemblyName, tableName, "my collection"))
+                .Returns(inner);
+
+            var result = collectionDataSelector.IsCollection(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.EqualTo(inner));
+        }
+
+        [Test]
+        public void SelectRandomFrom_ReturnsParsedRandomValue()
+        {
+            var data1 = DataHelper.Parse(new FakeDataSelection { Name = "Karl Speer", Age = 35 });
+            mockCollectionSelector
+                .Setup(s => s.SelectRandomFrom(assemblyName, tableName, "my collection"))
+                .Returns(data1);
+
+            var result = collectionDataSelector.SelectRandomFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name, Is.EqualTo("Karl Speer"));
+            Assert.That(result.Age, Is.EqualTo(35));
+        }
+
+        [Test]
+        public void SelectRandomFrom_ParsesDataEveryCall()
+        {
+            IncrementingDataSelection.MapCount = 9266;
+
+            var collectionDataSelector = new CollectionDataSelector<IncrementingDataSelection>(mockCollectionSelector.Object);
+            var dummyData = new IncrementingDataSelection { Name = "Karl Speer", Age = 35 };
+
+            var data1 = DataHelper.Parse(new FakeDataSelection { Name = "Karl Speer", Age = 35 });
+            mockCollectionSelector
+                .Setup(s => s.SelectRandomFrom(assemblyName, tableName, "my collection"))
+                .Returns(data1);
+
+            var result = collectionDataSelector.SelectRandomFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name, Is.EqualTo("Karl Speer"));
+            Assert.That(result.Age, Is.EqualTo(35 + 9267));
+
+            result = collectionDataSelector.SelectRandomFrom(assemblyName, tableName, "my collection");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name, Is.EqualTo("Karl Speer"));
+            Assert.That(result.Age, Is.EqualTo(35 + 9268));
         }
     }
 }

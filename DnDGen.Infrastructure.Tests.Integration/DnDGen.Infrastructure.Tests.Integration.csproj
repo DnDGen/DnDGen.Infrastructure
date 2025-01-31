@@ -24,6 +24,7 @@
     <EmbeddedResource Include="Tables\Collections\DataCollectionTable.xml" />
     <EmbeddedResource Include="Tables\Collections\OtherCollectionTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\BooleanPercentileTable.xml" />
+    <EmbeddedResource Include="Tables\Percentiles\BigTypeAndAmountPercentileTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\TypeAndAmountPercentileTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\IntPercentileTable.xml" />
     <EmbeddedResource Include="Tables\Percentiles\DataPercentileTable.xml" />

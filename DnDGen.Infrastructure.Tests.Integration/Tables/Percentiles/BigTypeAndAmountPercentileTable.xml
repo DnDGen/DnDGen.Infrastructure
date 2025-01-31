@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<percentiles>
+  <percentile>
+    <lower>1</lower>
+    <content>Lower Half@(1d100-1)*10000+(1d100-1)*100+1d100</content>
+    <upper>50</upper>
+  </percentile>
+  <percentile>
+    <lower>51</lower>
+	  <content>Upper Half@(1d100-1)*10000000+(1d100-1)*100000+(1d100-1)*1000+(1d100-1)*10+1d10</content>
+    <upper>100</upper>
+  </percentile>
+</percentiles>

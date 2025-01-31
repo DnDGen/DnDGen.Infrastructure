@@ -28,5 +28,19 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             var data = selections.ToDictionary(s => s.Key, s => s.Value.Select(DataHelper.Parse<T>).ToArray().AsEnumerable());
             return data;
         }
+
+        public T SelectOneFrom(string assemblyName, string tableName, string collectionName) => SelectFrom(assemblyName, tableName, collectionName).Single();
+
+        public bool IsCollection(string assemblyName, string tableName, string collectionName)
+        {
+            return collectionSelector.IsCollection(assemblyName, tableName, collectionName);
+        }
+
+        public T SelectRandomFrom(string assemblyName, string tableName, string collectionName)
+        {
+            var selection = collectionSelector.SelectRandomFrom(assemblyName, tableName, collectionName);
+            var data = DataHelper.Parse<T>(selection);
+            return data;
+        }
     }
 }
