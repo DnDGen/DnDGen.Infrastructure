@@ -11,9 +11,5 @@ namespace DnDGen.Infrastructure.Selectors.Collections
         string SelectRandomFrom(string assemblyName, string tableName, string collectionName);
         T SelectRandomFrom<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null);
         bool IsCollection(string assemblyName, string tableName, string collectionName);
-        IEnumerable<string> Explode(string assemblyName, string tableName, string collectionName);
-        IEnumerable<string> ExplodeAndPreserveDuplicates(string assemblyName, string tableName, string collectionName);
-        IEnumerable<string> Flatten(Dictionary<string, IEnumerable<string>> collections, IEnumerable<string> keys);
-        IEnumerable<T> CreateWeighted<T>(IEnumerable<T> common = null, IEnumerable<T> uncommon = null, IEnumerable<T> rare = null, IEnumerable<T> veryRare = null);
     }
 }

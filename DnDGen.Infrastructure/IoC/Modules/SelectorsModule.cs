@@ -10,9 +10,7 @@ namespace DnDGen.Infrastructure.IoC.Modules
         public override void Load()
         {
             Bind<IPercentileSelector>().To<PercentileSelector>();
-
-            Bind<ICollectionSelector>().To<CollectionSelector>().WhenInjectedInto<CollectionSelectorCachingProxy>();
-            Bind<ICollectionSelector>().To<CollectionSelectorCachingProxy>().InSingletonScope();
+            Bind<ICollectionSelector>().To<CollectionSelector>();
 
             Kernel.BindDataSelection<TypeAndAmountDataSelection>();
             Bind<IPercentileTypeAndAmountSelector>().To<PercentileTypeAndAmountSelector>();
