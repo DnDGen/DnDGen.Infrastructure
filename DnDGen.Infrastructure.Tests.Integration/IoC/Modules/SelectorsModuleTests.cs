@@ -15,15 +15,9 @@ namespace DnDGen.Infrastructure.Tests.Integration.IoC.Modules
         }
 
         [Test]
-        public void CollectionSelectorIsInstantiatedAsSingleton()
+        public void CollectionSelectorIsNotInstantiatedAsSingleton()
         {
-            AssertSingleton<ICollectionSelector>();
-        }
-
-        [Test]
-        public void CollectionSelectorIsDecorated()
-        {
-            AssertIsInstanceOf<ICollectionSelector, CollectionSelectorCachingProxy>();
+            AssertNotSingleton<ICollectionSelector>();
         }
 
         [Test]
