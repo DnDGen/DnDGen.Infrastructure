@@ -10,7 +10,7 @@ resources:
     source: 'DnDGen.Infrastructure - Build'
     trigger: 
       branches:
-      - master
+      - main
 
 jobs:
 
