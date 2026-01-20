@@ -17,7 +17,7 @@
 	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DnDGen.RollGen" Version="16.0.1" />
+    <PackageReference Include="DnDGen.RollGen" Version="16.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Include="18531-twenty-sided-dice-vector-thumb.png">
