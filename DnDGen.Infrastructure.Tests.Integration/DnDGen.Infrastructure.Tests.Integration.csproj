@@ -31,7 +31,7 @@
     <EmbeddedResource Include="Tables\Percentiles\StringPercentileTable.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DnDGen.RollGen" Version="16.0.1" />
+    <PackageReference Include="DnDGen.RollGen" Version="16.0.3" />
     <PackageReference Include="Ninject" Version="3.3.6" />
     <PackageReference Include="nunit" Version="4.3.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0">
