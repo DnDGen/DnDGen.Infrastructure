@@ -21,13 +21,13 @@ steps:
   inputs:
     command: test
     projects: './DnDGen.Infrastructure.Tests.Unit/DnDGen.Infrastructure.Tests.Unit.csproj'
-    arguments: '-v normal'
+    arguments: '-v normal --collect "Code Coverage"'
 - task: DotNetCoreCLI@2
   displayName: Run Integration Tests
   inputs:
     command: test
     projects: './DnDGen.Infrastructure.Tests.Integration/DnDGen.Infrastructure.Tests.Integration.csproj'
-    arguments: '-v normal'
+    arguments: '-v normal --collect "Code Coverage"'
 
 - task: PowerShell@2
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
