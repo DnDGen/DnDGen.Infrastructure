@@ -13,7 +13,6 @@ namespace DnDGen.Infrastructure.Tests.Integration.IoC
         public void ModuleLoaderCanBeRunTwice()
         {
             //INFO: First time was in the IntegrationTest one-time setup
-            var infrastructureLoader = new InfrastructureModuleLoader();
             InfrastructureModuleLoader.LoadModules(kernel);
 
             var justInTimeFactory = GetNewInstanceOf<JustInTimeFactory>();

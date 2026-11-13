@@ -16,7 +16,6 @@ namespace DnDGen.Infrastructure.Tests.Integration
         {
             kernel = new StandardKernel();
 
-            var infrastructureModuleLoader = new InfrastructureModuleLoader();
             InfrastructureModuleLoader.LoadModules(kernel);
         }
 
