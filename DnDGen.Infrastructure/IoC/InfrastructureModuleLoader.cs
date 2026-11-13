@@ -7,7 +7,7 @@ namespace DnDGen.Infrastructure.IoC
 {
     public class InfrastructureModuleLoader
     {
-        public void LoadModules(IKernel kernel)
+        public static void LoadModules(IKernel kernel)
         {
             //Dependencies
             var rollGenLoader = new RollGenModuleLoader();

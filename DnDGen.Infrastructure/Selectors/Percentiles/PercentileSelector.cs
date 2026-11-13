@@ -6,17 +6,8 @@ using System.Linq;
 
 namespace DnDGen.Infrastructure.Selectors.Percentiles
 {
-    internal class PercentileSelector : IPercentileSelector
+    internal class PercentileSelector(PercentileMapper percentileMapper, Dice dice) : IPercentileSelector
     {
-        private readonly PercentileMapper percentileMapper;
-        private readonly Dice dice;
-
-        public PercentileSelector(PercentileMapper percentileMapper, Dice dice)
-        {
-            this.percentileMapper = percentileMapper;
-            this.dice = dice;
-        }
-
         public string SelectFrom(string assemblyName, string tableName)
         {
             return SelectFrom<string>(assemblyName, tableName);
@@ -40,7 +31,7 @@ namespace DnDGen.Infrastructure.Selectors.Percentiles
             return GetValue<T>(table[roll]);
         }
 
-        private T GetValue<T>(object source)
+        private static T GetValue<T>(object source)
         {
             return (T)Convert.ChangeType(source, typeof(T));
         }

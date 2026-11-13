@@ -17,7 +17,7 @@ namespace DnDGen.Infrastructure.Tests.Integration
             kernel = new StandardKernel();
 
             var infrastructureModuleLoader = new InfrastructureModuleLoader();
-            infrastructureModuleLoader.LoadModules(kernel);
+            InfrastructureModuleLoader.LoadModules(kernel);
         }
 
         protected T GetNewInstanceOf<T>()

@@ -5,16 +5,9 @@ using System.Linq;
 
 namespace DnDGen.Infrastructure.Selectors.Collections
 {
-    internal class CollectionDataSelector<T> : ICollectionDataSelector<T>
+    internal class CollectionDataSelector<T>(ICollectionSelector collectionSelector) : ICollectionDataSelector<T>
         where T : DataSelection<T>, new()
     {
-        private readonly ICollectionSelector collectionSelector;
-
-        public CollectionDataSelector(ICollectionSelector collectionSelector)
-        {
-            this.collectionSelector = collectionSelector;
-        }
-
         public IEnumerable<T> SelectFrom(string assemblyName, string tableName, string collectionName)
         {
             var selections = collectionSelector.SelectFrom(assemblyName, tableName, collectionName);
