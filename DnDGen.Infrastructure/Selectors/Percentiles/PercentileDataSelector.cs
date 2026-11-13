@@ -5,16 +5,9 @@ using System.Linq;
 
 namespace DnDGen.Infrastructure.Selectors.Percentiles
 {
-    internal class PercentileDataSelector<T> : IPercentileDataSelector<T>
+    internal class PercentileDataSelector<T>(IPercentileSelector percentileSelector) : IPercentileDataSelector<T>
         where T : DataSelection<T>, new()
     {
-        private readonly IPercentileSelector percentileSelector;
-
-        public PercentileDataSelector(IPercentileSelector percentileSelector)
-        {
-            this.percentileSelector = percentileSelector;
-        }
-
         public T SelectFrom(string assemblyName, string tableName)
         {
             var selection = percentileSelector.SelectFrom(assemblyName, tableName);

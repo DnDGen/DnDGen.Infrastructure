@@ -1,20 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 
 namespace DnDGen.Infrastructure.Mappers.Percentiles
 {
-    internal class PercentileMapperCachingProxy : PercentileMapper
+    internal class PercentileMapperCachingProxy(PercentileMapper innerMapper) : PercentileMapper
     {
-        private readonly PercentileMapper innerMapper;
-        private readonly Dictionary<string, Dictionary<int, string>> cachedTables;
-        private readonly object myLock;
-
-        public PercentileMapperCachingProxy(PercentileMapper innerMapper)
-        {
-            this.innerMapper = innerMapper;
-
-            cachedTables = new Dictionary<string, Dictionary<int, string>>();
-            myLock = new object();
-        }
+        private readonly Dictionary<string, Dictionary<int, string>> cachedTables = [];
+        private readonly Lock myLock = new();
 
         public Dictionary<int, string> Map(string assemblyName, string tableName)
         {

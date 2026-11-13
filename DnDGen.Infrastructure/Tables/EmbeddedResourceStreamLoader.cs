@@ -4,15 +4,8 @@ using System.Linq;
 
 namespace DnDGen.Infrastructure.Tables
 {
-    internal class EmbeddedResourceStreamLoader : StreamLoader
+    internal class EmbeddedResourceStreamLoader(AssemblyLoader assemblyLoader) : StreamLoader
     {
-        private readonly AssemblyLoader assemblyLoader;
-
-        public EmbeddedResourceStreamLoader(AssemblyLoader assemblyLoader)
-        {
-            this.assemblyLoader = assemblyLoader;
-        }
-
         public Stream LoadFor(string assemblyName, string filename)
         {
             if (!filename.EndsWith(".xml"))

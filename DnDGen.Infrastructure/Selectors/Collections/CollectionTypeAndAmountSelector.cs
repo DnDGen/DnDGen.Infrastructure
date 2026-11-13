@@ -5,17 +5,8 @@ using System.Linq;
 
 namespace DnDGen.Infrastructure.Selectors.Collections
 {
-    internal class CollectionTypeAndAmountSelector : ICollectionTypeAndAmountSelector
+    internal class CollectionTypeAndAmountSelector(ICollectionDataSelector<TypeAndAmountDataSelection> collectionDataSelector, Dice dice) : ICollectionTypeAndAmountSelector
     {
-        private readonly ICollectionDataSelector<TypeAndAmountDataSelection> collectionDataSelector;
-        private readonly Dice dice;
-
-        public CollectionTypeAndAmountSelector(ICollectionDataSelector<TypeAndAmountDataSelection> collectionDataSelector, Dice dice)
-        {
-            this.collectionDataSelector = collectionDataSelector;
-            this.dice = dice;
-        }
-
         public IEnumerable<TypeAndAmountDataSelection> SelectFrom(string assemblyName, string tableName, string collectionName)
         {
             var selections = collectionDataSelector.SelectFrom(assemblyName, tableName, collectionName).ToArray();

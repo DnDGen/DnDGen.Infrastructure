@@ -6,15 +6,8 @@ using System.Xml;
 
 namespace DnDGen.Infrastructure.Mappers.Percentiles
 {
-    internal class PercentileXmlMapper : PercentileMapper
+    internal class PercentileXmlMapper(StreamLoader streamLoader) : PercentileMapper
     {
-        private readonly StreamLoader streamLoader;
-
-        public PercentileXmlMapper(StreamLoader streamLoader)
-        {
-            this.streamLoader = streamLoader;
-        }
-
         public Dictionary<int, string> Map(string assemblyName, string tableName)
         {
             var filename = tableName + ".xml";
