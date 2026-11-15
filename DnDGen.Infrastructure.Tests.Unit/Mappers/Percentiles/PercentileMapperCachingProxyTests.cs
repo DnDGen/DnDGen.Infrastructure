@@ -20,9 +20,11 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
             mockInnerMapper = new Mock<PercentileMapper>();
             proxy = new PercentileMapperCachingProxy(mockInnerMapper.Object);
 
-            table = new Dictionary<int, string>();
-            table[9266] = "favorite number";
-            table[90210] = "beverly hills";
+            table = new Dictionary<int, string>
+            {
+                [9266] = "favorite number",
+                [90210] = "beverly hills"
+            };
 
             mockInnerMapper.Setup(m => m.Map("my assembly", "table name")).Returns(table);
         }
@@ -47,9 +49,11 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
         [Test]
         public void DoNotCacheDifferentTable()
         {
-            var otherTable = new Dictionary<int, string>();
-            otherTable[42] = "answer to life, the universe, and everything";
-            otherTable[600] = "highest number I have counted";
+            var otherTable = new Dictionary<int, string>
+            {
+                [42] = "answer to life, the universe, and everything",
+                [600] = "highest number I have counted"
+            };
 
             mockInnerMapper.SetupSequence(m => m.Map("my assembly", "other table name")).Returns(otherTable);
 
@@ -87,9 +91,11 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Percentiles
         [Test]
         public void CacheTableWithAssembly()
         {
-            var otherTable = new Dictionary<int, string>();
-            otherTable[42] = "answer to life, the universe, and everything";
-            otherTable[600] = "highest number I have counted";
+            var otherTable = new Dictionary<int, string>
+            {
+                [42] = "answer to life, the universe, and everything",
+                [600] = "highest number I have counted"
+            };
 
             mockInnerMapper.SetupSequence(m => m.Map("my assembly", "table name")).Returns(table);
             mockInnerMapper.SetupSequence(m => m.Map("my other assembly", "table name")).Returns(otherTable);

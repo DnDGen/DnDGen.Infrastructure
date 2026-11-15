@@ -12,12 +12,14 @@ namespace DnDGen.Infrastructure.Tests.Unit.Helpers
         [Test]
         public void FlattenCollection()
         {
-            var otherCollections = new Dictionary<string, IEnumerable<string>>();
-            otherCollections["first"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["sub 1"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["sub 2"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["fourth"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["third"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            var otherCollections = new Dictionary<string, IEnumerable<string>>
+            {
+                ["first"] = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()],
+                ["sub 1"] = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()],
+                ["sub 2"] = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()],
+                ["fourth"] = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()],
+                ["third"] = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()]
+            };
 
             var keys = new[]
             {
@@ -45,12 +47,14 @@ namespace DnDGen.Infrastructure.Tests.Unit.Helpers
         [Test]
         public void FlattenCollectionDistinctly()
         {
-            var otherCollections = new Dictionary<string, IEnumerable<string>>();
-            otherCollections["first"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["sub 1"] = new[] { Guid.NewGuid().ToString(), "repeat" };
-            otherCollections["sub 2"] = new[] { Guid.NewGuid().ToString(), "repeat" };
-            otherCollections["fourth"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
-            otherCollections["third"] = new[] { Guid.NewGuid().ToString(), Guid.NewGuid().ToString() };
+            var otherCollections = new Dictionary<string, IEnumerable<string>>
+            {
+                ["first"] = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()],
+                ["sub 1"] = [Guid.NewGuid().ToString(), "repeat"],
+                ["sub 2"] = [Guid.NewGuid().ToString(), "repeat"],
+                ["fourth"] = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()],
+                ["third"] = [Guid.NewGuid().ToString(), Guid.NewGuid().ToString()]
+            };
 
             var keys = new[]
             {

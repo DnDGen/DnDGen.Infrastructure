@@ -1,7 +1,6 @@
 ﻿using DnDGen.Infrastructure.Tables;
 using Moq;
 using NUnit.Framework;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -27,7 +26,6 @@ namespace DnDGen.Infrastructure.Tests.Unit.Tables
         [Test]
         public void GetsFileIfItIsAnEmbeddedResource()
         {
-            var table = new Dictionary<int, string>();
             var xmlDocument = new XmlDocument();
 
             using (var stream = streamLoader.LoadFor("my assembly", "TestTable.xml"))
