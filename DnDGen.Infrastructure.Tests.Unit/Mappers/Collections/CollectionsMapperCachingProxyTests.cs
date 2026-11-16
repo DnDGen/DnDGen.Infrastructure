@@ -20,9 +20,11 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
             mockInnerMapper = new Mock<CollectionMapper>();
             proxy = new CollectionMapperCachingProxy(mockInnerMapper.Object);
 
-            table = new Dictionary<string, IEnumerable<string>>();
-            table["name"] = new[] { "entry 1", "entry 2" };
-            table["other name"] = new[] { "entry 3", "entry 4" };
+            table = new Dictionary<string, IEnumerable<string>>
+            {
+                ["name"] = ["entry 1", "entry 2"],
+                ["other name"] = ["entry 3", "entry 4"]
+            };
 
             mockInnerMapper.Setup(m => m.Map("my assembly", "table name")).Returns(table);
         }
@@ -47,9 +49,11 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
         [Test]
         public void DoNotCacheDifferentTable()
         {
-            var otherTable = new Dictionary<string, IEnumerable<string>>();
-            otherTable["other name"] = new[] { "other entry 1", "other entry 2" };
-            otherTable["other other name"] = new[] { "other entry 3", "other entry 4" };
+            var otherTable = new Dictionary<string, IEnumerable<string>>
+            {
+                ["other name"] = ["other entry 1", "other entry 2"],
+                ["other other name"] = ["other entry 3", "other entry 4"]
+            };
 
             mockInnerMapper.SetupSequence(m => m.Map("my assembly", "other table name")).Returns(otherTable);
 
@@ -87,9 +91,11 @@ namespace DnDGen.Infrastructure.Tests.Unit.Mappers.Collections
         [Test]
         public void CacheTableWithAssembly()
         {
-            var otherTable = new Dictionary<string, IEnumerable<string>>();
-            otherTable["other name"] = new[] { "other entry 1", "other entry 2" };
-            otherTable["other other name"] = new[] { "other entry 3", "other entry 4" };
+            var otherTable = new Dictionary<string, IEnumerable<string>>
+            {
+                ["other name"] = ["other entry 1", "other entry 2"],
+                ["other other name"] = ["other entry 3", "other entry 4"]
+            };
 
             mockInnerMapper.SetupSequence(m => m.Map("my assembly", "table name")).Returns(table);
             mockInnerMapper.SetupSequence(m => m.Map("my other assembly", "table name")).Returns(otherTable);

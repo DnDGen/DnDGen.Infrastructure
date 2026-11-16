@@ -22,7 +22,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Percentiles
         [SetUp]
         public void Setup()
         {
-            table = new Dictionary<int, string>();
+            table = [];
             for (var i = 1; i <= 5; i++)
                 table.Add(i, "content");
             for (var i = 6; i <= 10; i++)

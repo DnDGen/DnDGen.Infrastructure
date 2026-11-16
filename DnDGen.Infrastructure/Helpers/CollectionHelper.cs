@@ -13,7 +13,7 @@ namespace DnDGen.Infrastructure.Helpers
 
             flattenedCollection = flattenedCollection.Distinct();
 
-            return flattenedCollection.ToArray();
+            return [.. flattenedCollection];
         }
     }
 }

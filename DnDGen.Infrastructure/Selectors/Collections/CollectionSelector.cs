@@ -6,31 +6,8 @@ using System.Linq;
 
 namespace DnDGen.Infrastructure.Selectors.Collections
 {
-    internal class CollectionSelector : ICollectionSelector
+    internal class CollectionSelector(CollectionMapper mapper, Dice dice) : ICollectionSelector
     {
-        private readonly CollectionMapper mapper;
-        private readonly Dice dice;
-        private readonly string commonRoll;
-        private readonly string uncommonRoll;
-        private readonly string rareRoll;
-        private readonly string veryRareRoll;
-
-        private const int commonThreshold = 1;
-        private const int uncommonThreshold = 61;
-        private const int rareThreshold = 91;
-        private const int veryRareThreshold = 100;
-
-        public CollectionSelector(CollectionMapper mapper, Dice dice)
-        {
-            this.mapper = mapper;
-            this.dice = dice;
-
-            commonRoll = RollHelper.GetRollWithMostEvenDistribution(commonThreshold, 100, true);
-            uncommonRoll = RollHelper.GetRollWithMostEvenDistribution(uncommonThreshold, 100, true);
-            rareRoll = RollHelper.GetRollWithMostEvenDistribution(rareThreshold, 100, true);
-            veryRareRoll = RollHelper.GetRollWithMostEvenDistribution(veryRareThreshold, 100, true);
-        }
-
         public IEnumerable<string> SelectFrom(string assemblyName, string tableName, string collectionName)
         {
             if (!IsCollection(assemblyName, tableName, collectionName))
@@ -68,10 +45,10 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             if (!allCollections.Any(kvp => kvp.Value.Contains(entry)))
                 throw new ArgumentException($"No collection in {tableName} contains {entry}");
 
-            var filteredCollections = allCollections.Where(kvp => !filteredCollectionNames.Any() || filteredCollectionNames.Contains(kvp.Key));
+            var filteredCollections = allCollections.Where(kvp => filteredCollectionNames.Length == 0 || filteredCollectionNames.Contains(kvp.Key));
 
             if (!filteredCollections.Any(kvp => kvp.Value.Contains(entry)))
-                throw new ArgumentException($"No collection from the {filteredCollectionNames.Count()} filters in {tableName} contains {entry}");
+                throw new ArgumentException($"No collection from the {filteredCollectionNames.Length} filters in {tableName} contains {entry}");
 
             var collectionName = filteredCollections.First(kvp => kvp.Value.Contains(entry)).Key;
 
@@ -91,33 +68,33 @@ namespace DnDGen.Infrastructure.Selectors.Collections
             rare ??= [];
             veryRare ??= [];
 
-            var roll = GetRandomRoll(common, uncommon, rare, veryRare);
+            var roll = GetRandomRoll(common, uncommon, rare);
             var value = dice.Roll(roll).AsSum();
 
-            if (value >= veryRareThreshold && veryRare.Any())
+            if (value >= RollConstants.VeryRareThreshold && veryRare.Any())
                 return SelectRandomFrom(veryRare);
 
-            if (value >= rareThreshold && rare.Any())
+            if (value >= RollConstants.RareThreshold && rare.Any())
                 return SelectRandomFrom(rare);
 
-            if (value >= uncommonThreshold && uncommon.Any())
+            if (value >= RollConstants.UncommonThreshold && uncommon.Any())
                 return SelectRandomFrom(uncommon);
 
             return SelectRandomFrom(common);
         }
 
-        private string GetRandomRoll<T>(IEnumerable<T> common, IEnumerable<T> uncommon, IEnumerable<T> rare, IEnumerable<T> veryRare)
+        private static string GetRandomRoll<T>(IEnumerable<T> common, IEnumerable<T> uncommon, IEnumerable<T> rare)
         {
             if (common.Any())
-                return commonRoll;
+                return RollConstants.CommonRoll;
 
             if (uncommon.Any())
-                return uncommonRoll;
+                return RollConstants.UncommonRoll;
 
-            if (rare?.Any() == true)
-                return rareRoll;
+            if (rare.Any())
+                return RollConstants.RareRoll;
 
-            return veryRareRoll;
+            return RollConstants.VeryRareRoll;
         }
     }
 }

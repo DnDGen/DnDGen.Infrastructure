@@ -69,7 +69,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         [Test]
         public void SelectRandomFrom_SelectRandomItemFromTable()
         {
-            allCollections["entry"] = new[] { "item 1", "item 2", "item 3" };
+            allCollections["entry"] = ["item 1", "item 2", "item 3"];
             mockDice.Setup(d => d.Roll(1).d(3).AsSum<int>()).Returns(2);
 
             var item = selector.SelectRandomFrom(AssemblyName, TableName, "entry");
@@ -123,9 +123,9 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         [Test]
         public void FindCollectionOf_DoNotFindCollectionContainingEntry()
         {
-            allCollections["entry"] = new[] { "first", "fourth" };
-            allCollections["other entry"] = new[] { "third", "fourth" };
-            allCollections["wrong entry"] = new[] { "fifth", "second" };
+            allCollections["entry"] = ["first", "fourth"];
+            allCollections["other entry"] = ["third", "fourth"];
+            allCollections["wrong entry"] = ["fifth", "second"];
 
             Assert.That(() => selector.FindCollectionOf(AssemblyName, TableName, "sixth"),
                 Throws.ArgumentException.With.Message.EqualTo("No collection in table name contains sixth"));
@@ -134,9 +134,9 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         [Test]
         public void FindCollectionOf_FindCollectionContainingEntryWithFilteredCollectionNames()
         {
-            allCollections["entry"] = new[] { "first", "second" };
-            allCollections["other entry"] = new[] { "third", "fourth" };
-            allCollections["wrong entry"] = new[] { "fifth", "fourth" };
+            allCollections["entry"] = ["first", "second"];
+            allCollections["other entry"] = ["third", "fourth"];
+            allCollections["wrong entry"] = ["fifth", "fourth"];
 
             var group = selector.FindCollectionOf(AssemblyName, TableName, "fourth", "entry", "other entry");
             Assert.That(group, Is.EqualTo("other entry"));
@@ -145,9 +145,9 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         [Test]
         public void FindCollectionOf_FindCollectionContainingEntryThrowsExceptionIfNotInFilteredCollectionNames()
         {
-            allCollections["entry"] = new[] { "first", "second" };
-            allCollections["other entry"] = new[] { "third", "fifth" };
-            allCollections["wrong entry"] = new[] { "third", "fourth" };
+            allCollections["entry"] = ["first", "second"];
+            allCollections["other entry"] = ["third", "fifth"];
+            allCollections["wrong entry"] = ["third", "fourth"];
 
             Assert.That(() => selector.FindCollectionOf(AssemblyName, TableName, "fourth", "entry", "other entry"),
                 Throws.ArgumentException.With.Message.EqualTo("No collection from the 2 filters in table name contains fourth"));
@@ -156,7 +156,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         [Test]
         public void IsCollection_IsCollection()
         {
-            allCollections["entry"] = new[] { "first", "second" };
+            allCollections["entry"] = ["first", "second"];
             var isCollection = selector.IsCollection(AssemblyName, TableName, "entry");
             Assert.That(isCollection, Is.True);
         }
@@ -164,7 +164,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         [Test]
         public void IsCollection_IsNotEntry()
         {
-            allCollections["entry"] = new[] { "first", "second" };
+            allCollections["entry"] = ["first", "second"];
             var isCollection = selector.IsCollection(AssemblyName, TableName, "other entry");
             Assert.That(isCollection, Is.False);
         }
@@ -172,7 +172,7 @@ namespace DnDGen.Infrastructure.Tests.Unit.Selectors.Collections
         [Test]
         public void IsCollection_EntryIsNotCollection()
         {
-            allCollections["entry"] = new[] { "first", "second" };
+            allCollections["entry"] = ["first", "second"];
             var isCollection = selector.IsCollection(AssemblyName, TableName, "first");
             Assert.That(isCollection, Is.False);
         }

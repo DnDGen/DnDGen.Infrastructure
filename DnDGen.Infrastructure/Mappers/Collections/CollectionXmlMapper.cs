@@ -5,15 +5,8 @@ using System.Xml;
 
 namespace DnDGen.Infrastructure.Mappers.Collections
 {
-    internal class CollectionXmlMapper : CollectionMapper
+    internal class CollectionXmlMapper(StreamLoader streamLoader) : CollectionMapper
     {
-        private readonly StreamLoader streamLoader;
-
-        public CollectionXmlMapper(StreamLoader streamLoader)
-        {
-            this.streamLoader = streamLoader;
-        }
-
         public Dictionary<string, IEnumerable<string>> Map(string assemblyName, string tableName)
         {
             var filename = tableName + ".xml";

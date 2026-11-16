@@ -1,29 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net10.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>7.0.6</Version>
+    <Version>8.0.0</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>Infrastructure</Product>
     <Description>This provides common, core objects for the generators, including the Percentile and Collection selectors, with dependencies</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/DnDGen/DnDGen.Core</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/DnDGen/DnDGen.Core</RepositoryUrl>
-    <PackageIcon>18531-twenty-sided-dice-vector-thumb.png</PackageIcon>
-    <PackageIconUrl />
-    <PackageReleaseNotes>Dependabot updates</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/DnDGen/DnDGen.Infrastructure</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DnDGen/DnDGen.Infrastructure</RepositoryUrl>
+    <PackageIcon>avatar-128.png</PackageIcon>
+    <PackageReleaseNotes>.Net 10, GitHub Workflows, updated package icon</PackageReleaseNotes>
     <PackageTags>dungeons dragons d20 dnd 3.5 generator dndgen selector mapper table schema percentile collection collections percentiles</PackageTags>
 	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+	<ItemGroup>
+		<None Include="avatar-128.png">
+			<Pack>True</Pack>
+			<PackagePath>
+			</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DnDGen.RollGen" Version="16.0.5" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="18531-twenty-sided-dice-vector-thumb.png">
-      <Pack>True</Pack>
-      <PackagePath>
-      </PackagePath>
-    </None>
+    <PackageReference Include="DnDGen.RollGen" Version="18.0.2" />
   </ItemGroup>
 </Project>

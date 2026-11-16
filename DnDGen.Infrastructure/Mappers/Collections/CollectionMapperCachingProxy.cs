@@ -1,20 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 
 namespace DnDGen.Infrastructure.Mappers.Collections
 {
-    internal class CollectionMapperCachingProxy : CollectionMapper
+    internal class CollectionMapperCachingProxy(CollectionMapper innerMapper) : CollectionMapper
     {
-        private readonly CollectionMapper innerMapper;
-        private readonly Dictionary<string, Dictionary<string, IEnumerable<string>>> cachedTables;
-        private readonly object myLock;
-
-        public CollectionMapperCachingProxy(CollectionMapper innerMapper)
-        {
-            this.innerMapper = innerMapper;
-
-            cachedTables = new Dictionary<string, Dictionary<string, IEnumerable<string>>>();
-            myLock = new object();
-        }
+        private readonly Dictionary<string, Dictionary<string, IEnumerable<string>>> cachedTables = [];
+        private readonly Lock myLock = new();
 
         public Dictionary<string, IEnumerable<string>> Map(string assemblyName, string tableName)
         {
