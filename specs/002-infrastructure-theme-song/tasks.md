@@ -45,10 +45,10 @@ fail before the README and the record that make them pass (II).
 
 ## Phase 3: The Song
 
-- [ ] T006 [US3] Draft the Title, Style, and Lyrics from the README, and their Sources, as plan D1 to
+- [X] T006 [US3] Draft the Title, Style, and Lyrics from the README, and their Sources, as plan D1 to
   D4 describe: Gregorian chant, English, no leitmotif, no code in the lyrics
 - [ ] T007 (maintainer) Review the draft lyrics and style before anything is generated
-- [ ] T008 [US3] Draw the album art for a scriptorium, recoloured from the main theme's cover (plan
+- [X] T008 [US3] Draw the album art for a scriptorium, recoloured from the main theme's cover (plan
   D5), and render it to `cover.png` at 1500 × 1500
 - [ ] T009 (maintainer) Approve the album art
 - [ ] T010 (maintainer) Generate drafts in Suno, each Sampling the main theme's "Rogante Marendor"
@@ -58,9 +58,9 @@ fail before the README and the record that make them pass (II).
 
 ## Phase 4: The README
 
-- [ ] T012 [US1] Add the Theme Song section to the end of the README, after Reference, linking to
+- [X] T012 [US1] Add the Theme Song section to the end of the README, after Reference, linking to
   the record. The badge, and the section's link to the song, wait for the Suno link (T011)
-- [ ] T013 Write `dndgen-github.patch`: Infrastructure's row in the organization profile's
+- [X] T013 Write `dndgen-github.patch`: Infrastructure's row in the organization profile's
   Soundtrack table, and its listen and record links in the Soundtrack Plan row, with `SUNO_LINK`
   standing in until T011
 - [ ] T014 (maintainer) Open the DnDGen/.github pull request from `dndgen-github.patch`, with the
@@ -68,7 +68,7 @@ fail before the README and the record that make them pass (II).
 
 ## Phase 5: Release
 
-- [ ] T015 Add the theme song to `<PackageReleaseNotes>` for 8.0.1, which ships in the same pull
+- [X] T015 Add the theme song to `<PackageReleaseNotes>` for 8.0.1, which ships in the same pull
   request as feature 001
 
 ## Phase 6: Polish
