@@ -40,10 +40,11 @@ absolute.
 
 ## Decisions
 
-- **D1: Language and sound.** English lyrics, with each echo, which repeats the line before it, in Latin, sung as chant: a unison male choir, a single melodic
-  line, a long, reverberant stone-nave sound, and no instruments, so Suno doesn't turn it into a
-  concert-hall piece. The style names the sound, not the tradition, per the main theme's Suno
-  Notes, and names the singers, per Stress's and RollGen's.
+- **D1: Language and sound.** English lyrics, each answered in Latin by the other voice (the choir after a
+  verse, the cantor after an antiphon), sung as ordinary lines with their own bracketed tags, as chant: an
+  a cappella, unaccompanied male monastic choir and a cantor, a single melodic line, a stone-nave sound. The
+  style names the sound, not the tradition, per the main theme's Suno Notes, names the singers, per Stress's and
+  RollGen's, and names no instrument: naming one invited more.
 - **D2: Material.** The lyrics sing the README's ideas: the scripture everything is built on,
   tables embedded in an assembly, the Percentile and Collection selectors, rolling for rarity,
   data selections split into sections, and mappers anyone may build a selector on. They are sung

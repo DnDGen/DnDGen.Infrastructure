@@ -22,7 +22,7 @@ marked.
 - Q: What language are the lyrics in? → A: English, sung in chant style. *(Chosen by the
   maintainer.)* Latin is the genre's tradition, but the lyrics stay plain English from the README,
   so the record and its tests are DnDGen.Stress's and DnDGen.RollGen's unchanged but for names.
-- Q: Are the echoes in English too? → A: No: an echo repeats the line before it, so it is sung in Latin, which costs the song no meaning, and is translated in the record. *(Chosen by the maintainer.)*
+- Q: Are the answers in English too? → A: No. In a verse the cantor sings the English and the choir answers in Latin; in an antiphon the choir sings the English and the cantor answers in Latin. The Latin repeats the line before it, so it costs the song no meaning, is sung as ordinary lines (Suno drops it in parentheses), and is translated in the record. *(Chosen by the maintainer.)*
 - Q: Does it carry a leitmotif? → A: No. Infrastructure is a support library, so its song describes
   its README as it is, as Stress's does.
 - Q: Where do the lyrics come from? → A: Infrastructure's README, sung as words, never as code: no
@@ -113,7 +113,7 @@ README using only the record.
   exists. The song captures the README's ideas and vibe, may repeat lines as a chant does, and
   doesn't invent content the README lacks.
 - **Repeated lines and responses**: A line sung more than once needs one Sources row, where it is
-  first sung. A line wholly in parentheses is a response, and needs none.
+  first sung. A line wholly in parentheses is a response, and needs none. The Latin answers are ordinary lines, so each has a row, marked "Not from the README".
 - **Not from the README**: A Sources row starting "Not from the README:" quotes nothing, and is
   allowed for any line the README can't supply, such as a chant's opening.
 - **Suno drops, garbles, or growls lines in the take the maintainer picks.** The take is still the
