@@ -73,7 +73,7 @@ reason before the README changes that make them pass (II).
 - [X] T008 [US2] Add the Reference section: a Constructor, Method, or Property table per public
   type, signatures in full, defaults included, generic constraints and what a consumer must or may
   implement in the descriptions, until the member tests pass
-- [ ] T009 (maintainer) Read the README as someone who hasn't seen the source: can you load the
+- [X] T009 (maintainer) Read the README as someone who hasn't seen the source: can you load the
   modules, add a table, and select from it? (SC-006)
 
 ## Phase 4: Release
