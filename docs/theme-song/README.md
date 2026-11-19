@@ -1,6 +1,6 @@
-# Ye Shall Read the Tables -DnDGen.Infrastructure Theme-
+# Credo of the Tables -DnDGen.Infrastructure Theme-
 
-![Ye Shall Read the Tables album art](cover.png)
+![Credo of the Tables album art](cover.png)
 
 The DnDGen.Infrastructure theme song: Gregorian chant, sung in English with Latin echoes, the scripture everything is built on.
 Its lyrics come from the [DnDGen.Infrastructure README](https://github.com/DnDGen/DnDGen.Infrastructure/blob/main/README.md), sung in plain English.
@@ -34,7 +34,7 @@ When the song needs updating, it happens in the same pull request:
 ## Title
 
 ```
-Ye Shall Read the Tables -DnDGen.Infrastructure Theme-
+Credo of the Tables -DnDGen.Infrastructure Theme-
 ```
 
 ## Style
