@@ -29,7 +29,7 @@ reason before the README changes that make them pass (II).
 
 ## Phase 2: Tests
 
-- [ ] T003 (maintainer) Approve the test list, written as the consumer's outcomes:
+- [X] T003 (maintainer) Approve the test list, written as the consumer's outcomes:
   1. **Members** (US2), each comparing the whole documented list with the whole public list, so one
      failure shows every missing and extra item:
      - `Constructors_AreAllDocumented`: if I add, remove, or change a public constructor, I expect
