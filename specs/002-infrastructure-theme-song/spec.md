@@ -113,7 +113,7 @@ README using only the record.
   exists. The song captures the README's ideas and vibe, may repeat lines as a chant does, and
   doesn't invent content the README lacks.
 - **Repeated lines and responses**: A line sung more than once needs one Sources row, where it is
-  first sung. A line wholly in parentheses is a response, and needs none. The Latin answers are ordinary lines, so each has a row, marked "Not from the README".
+  first sung. A line wholly in parentheses is a response, and needs none. A Latin answer is an ordinary line, so it sits in the Sources row of the English line it answers and shares its source.
 - **Not from the README**: A Sources row starting "Not from the README:" quotes nothing, and is
   allowed for any line the README can't supply, such as a chant's opening.
 - **Suno drops, garbles, or growls lines in the take the maintainer picks.** The take is still the
