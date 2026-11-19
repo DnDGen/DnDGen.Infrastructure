@@ -28,7 +28,7 @@ fail before the README and the record that make them pass (II).
 
 ## Phase 2: Tests
 
-- [ ] T003 (maintainer) Approve the test list. It is DnDGen.RollGen's approved list, with
+- [X] T003 (maintainer) Approve the test list. It is DnDGen.RollGen's approved list, with
   Infrastructure's names:
   - Record: `HasCorrectSectionsInOrder`; `SunoField_FitsSunoLimit` for Title, Style, and Lyrics;
     `Sources_HasCorrectTable`; `Sources_EveryQuotedPhraseIsStillInTheReadme`;
