@@ -42,8 +42,11 @@ No additions.
   `.github/workflows/release.yml` runs the same check, publishes to NuGet.org with Trusted
   Publishing using the shared `nuget-publish` action, then the shared `nuget-release.yml` creates a
   GitHub release, tagged with `<Version>`, with the package and merged coverage report attached.
-- **README as contract**: The theme song is in `docs/theme-song`. What else the README must
-  document, such as the public API, is added here by the feature that documents it.
+- **README as contract**: The README documents every public member of every public type in
+  `DnDGen.Infrastructure.dll`, including every overload, constant, and optional parameter with its
+  default. It also says how to load the modules, where a table lives and its shape, and how to
+  define a data selection. Its code samples are checked by the integration `ReadmeTests`. It states
+  which .NET version each major version requires. The theme song is in `docs/theme-song`.
 
 ## Governance
 
