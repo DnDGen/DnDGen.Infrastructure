@@ -21,8 +21,9 @@ Every pull request that changes the README gets a song check:
 When the song needs updating, it happens in the same pull request:
 
 1. The contributor updates the Lyrics and Sources here to match the new README.
-   Names are sung as words, never as code. A Latin answer follows the English it answers, sung as ordinary lines by the
-   other voice with a bracketed tag, and is added to the table under the Lyrics and to the Sources row of the English line it answers.
+   Names are sung as words, never as code. A Latin answer follows the English it answers, sung as an ordinary line by the
+   other voice (its section tag says who sings what) and starting with an em dash, and is added to the table under the Lyrics
+   and to the Sources row of the English line it answers.
 2. The maintainer makes the new song in Suno:
    - **Cover the current song**, so the theme stays recognizably the same song as it evolves.
    - Use the Title, Style, and Lyrics from this page. **Leave the Style as it is**: only the lyrics change.
@@ -40,115 +41,87 @@ Credo of the Tables -DnDGen.Infrastructure Theme-
 ## Style
 
 ```
-A cappella Gregorian chant, an unaccompanied male monastic choir singing a single plainchant melody, slow and solemn, holding the same unhurried pace from the first note to the last, A cantor sings alone in plain, level chant, gentle and clear, and the full choir answers in unison, in the verses the cantor sings the English and the choir answers in Latin, in the antiphons the choir sings the English and the cantor answers in Latin, Soft, rounded vowels and a steady legato, sung in a stone nave with natural reverb, ending on a hushed amen fading into the echo of the nave, Reverent, warm, candlelit, and ancient
+A cappella Gregorian chant, an unaccompanied male monastic choir singing a single plainchant melody, slow and solemn, holding the same unhurried pace from the first note to the last, A solo cantor sings in plain, level chant, gentle and clear, and the full choir sings in unison, In the verses the solo cantor sings the English lines and the choir sings the Latin responses, in the antiphons the choir sings the English lines and the solo cantor sings the Latin responses, Soft, rounded vowels and a steady legato, sung in a stone nave with natural reverb, ending on a hushed amen fading into the echo of the nave, Reverent, warm, candlelit, and ancient
 ```
 
 ## Lyrics
 
 ```
-[Introitus - the cantor intones alone, a cappella plainchant, slow and level]
+[Introitus - a solo voice sings the English, the choir sings the Latin, a cappella plainchant, slow and level]
 Common, core objects for the generators
-[Choir - answers in Latin, in unison, a cappella plainchant, slow and soft]
-Res communes et fundamentales generatoribus
+— Res communes et fundamentales generatoribus
 
-[Versus I - the cantor alone, a cappella plainchant, slow and level]
+[Versus I - a solo voice sings the English, the choir sings the Latin, a cappella plainchant, slow and level]
 Their data in tables, embedded in their assemblies
 Collection tables, named lists of entries
 Percentile tables, a result for every roll from one to one hundred
-[Choir - answers in Latin, in unison, a cappella plainchant, slow and soft]
-Eventus pro omni iactu
+— Eventus pro omni iactu
 
-[Antiphona - the full choir sings in unison, a cappella plainchant, slow and steady]
+[Antiphona - the choir sings the English, a solo voice sings the Latin, a cappella plainchant, slow and steady]
 Ye shall read the tables
-[Cantor - answers alone in Latin, a cappella plainchant, slow and level]
-Tabulas legetis
-[Full choir]
+— Tabulas legetis
 Ye shall fetch the data
-[Cantor]
-Data afferetis
+— Data afferetis
 
-[Versus II - the cantor alone, a cappella plainchant, slow and level]
+[Versus II - a solo voice sings the English, the choir sings the Latin, a cappella plainchant, slow and level]
 One to sixty picks from the common
-[Choir - answers in Latin, in unison, a cappella plainchant, slow and soft]
-Commune
-[Cantor]
+— Commune
 Sixty-one to ninety, the uncommon
-[Choir]
-Haud commune
-[Cantor]
+— Haud commune
 Ninety-one to ninety-nine, the rare
-[Choir]
-Rarum
-[Cantor]
+— Rarum
 And at one hundred, the very rare
-[Choir]
-Rarissimum
+— Rarissimum
 
-[Antiphona - the full choir sings in unison, a cappella plainchant, slow and steady]
+[Antiphona - the choir sings the English, a solo voice sings the Latin, a cappella plainchant, slow and steady]
 Ye shall read the tables
-[Cantor - answers alone in Latin, a cappella plainchant, slow and level]
-Tabulas legetis
-[Full choir]
+— Tabulas legetis
 Ye shall fetch the data
-[Cantor]
-Data afferetis
+— Data afferetis
 
-[Versus III - the cantor alone, a cappella plainchant, slower still]
+[Versus III - a solo voice sings the English, the choir sings the Latin, a cappella plainchant, slower still]
 Together they must cover every roll
 Exactly once
 Table names must be unique within an assembly
 Read once per kernel, and then cached
-[Choir - answers in Latin, in unison, a cappella plainchant, slow and soft]
-Semel lectum, deinde servatum
+— Semel lectum, deinde servatum
 
-[Antiphona - the full choir sings in unison, a cappella plainchant, slow and steady]
+[Antiphona - the choir sings the English, a solo voice sings the Latin, a cappella plainchant, slow and steady]
 Ye shall read the tables
-[Cantor - answers alone in Latin, a cappella plainchant, slow and level]
-Tabulas legetis
-[Full choir]
+— Tabulas legetis
 Ye shall fetch the data
-[Cantor]
-Data afferetis
+— Data afferetis
 
-[Versus IV - the cantor alone, a cappella plainchant, slow and level]
+[Versus IV - a solo voice sings the English, the choir sings the Latin, a cappella plainchant, slow and level]
 Your own types, split into sections
 Mappers, so you can build a selector of your own
-[Choir - answers in Latin, in unison, a cappella plainchant, slow and soft]
-Selectorem tuum aedifica
+— Selectorem tuum aedifica
 
-[Antiphona - the full choir sings in unison, a cappella plainchant, slow and steady]
+[Antiphona - the choir sings the English, a solo voice sings the Latin, a cappella plainchant, slow and steady]
 Ye shall read the tables
-[Cantor - answers alone in Latin, a cappella plainchant, slow and level]
-Tabulas legetis
-[Full choir]
+— Tabulas legetis
 Ye shall fetch the data
-[Cantor]
-Data afferetis
+— Data afferetis
 
-[Versus V - the cantor alone, a cappella plainchant, slow and level]
+[Versus V - a solo voice sings the English, the choir sings the Latin, a cappella plainchant, slow and level]
 A new instance of something each time
 Safe to call twice
 Modules that wire all of it up
-[Choir - answers in Latin, in unison, a cappella plainchant, slow and soft]
-Omnia coniunge
+— Omnia coniunge
 
-[Antiphona - the full choir sings in unison, a cappella plainchant, slow and steady]
+[Antiphona - the choir sings the English, a solo voice sings the Latin, hushed, a cappella plainchant, slow and steady]
 Ye shall read the tables
-[Cantor - answers alone in Latin, a cappella plainchant, slow and level]
-Tabulas legetis
-[Full choir]
+— Tabulas legetis
 Ye shall fetch the data
-[Cantor]
-Data afferetis
+— Data afferetis
 
-[Conclusio - the cantor alone, a cappella plainchant, slow and level]
+[Conclusio - a solo voice sings the English, the choir sings the Latin, hushed, a cappella plainchant, fading into the echo of the nave]
 Praise the random number gods
-[Choir - answers in Latin, hushed, in unison, fading into the echo of the nave]
-Laudate deos numerorum fortuitorum
+— Laudate deos numerorum fortuitorum
 Amen
 ```
 
-Each Latin line answers the English before it, sung by the other voice (the choir after a verse, the cantor after an antiphon), so nothing is lost in the translation:
+Each Latin line answers the English before it, sung by the other voice (the choir in a verse, the solo voice in an antiphon), so nothing is lost in the translation:
 
 | Latin | English |
 |---|---|
@@ -171,25 +144,25 @@ The Latin is approximate.
 
 | Lyric | From the README |
 |---|---|
-| Common, core objects for the generators<br>Res communes et fundamentales generatoribus | Introduction: "common, core objects for the generators" |
+| Common, core objects for the generators<br>— Res communes et fundamentales generatoribus | Introduction: "common, core objects for the generators" |
 | Their data in tables, embedded in their assemblies | What It Is: "keep their data in XML tables embedded in their assemblies" |
 | Collection tables, named lists of entries | What It Is: "Collection tables" and "named lists of entries" |
-| Percentile tables, a result for every roll from one to one hundred<br>Eventus pro omni iactu | What It Is: "Percentile tables" and "a result for every roll from 1 to 100" |
-| Ye shall read the tables<br>Tabulas legetis | What It Is: "reads those tables" |
-| Ye shall fetch the data<br>Data afferetis | What It Is: "does the fetching" |
-| One to sixty picks from the common<br>Commune | Collection tables: "1 to 60 picks from" |
-| Sixty-one to ninety, the uncommon<br>Haud commune | Collection tables: "61 to 90 from" |
-| Ninety-one to ninety-nine, the rare<br>Rarum | Collection tables: "91 to 99 from" |
-| And at one hundred, the very rare<br>Rarissimum | Collection tables: "and 100 from" |
+| Percentile tables, a result for every roll from one to one hundred<br>— Eventus pro omni iactu | What It Is: "Percentile tables" and "a result for every roll from 1 to 100" |
+| Ye shall read the tables<br>— Tabulas legetis | What It Is: "reads those tables" |
+| Ye shall fetch the data<br>— Data afferetis | What It Is: "does the fetching" |
+| One to sixty picks from the common<br>— Commune | Collection tables: "1 to 60 picks from" |
+| Sixty-one to ninety, the uncommon<br>— Haud commune | Collection tables: "61 to 90 from" |
+| Ninety-one to ninety-nine, the rare<br>— Rarum | Collection tables: "91 to 99 from" |
+| And at one hundred, the very rare<br>— Rarissimum | Collection tables: "and 100 from" |
 | Together they must cover every roll<br>Exactly once | Percentile tables: "Together they must cover every roll" and "exactly once" |
 | Table names must be unique within an assembly | Where tables live: "table names need to be unique within an assembly" |
-| Read once per kernel, and then cached<br>Semel lectum, deinde servatum | Where tables live: "read once per kernel and then cached" |
+| Read once per kernel, and then cached<br>— Semel lectum, deinde servatum | Where tables live: "read once per kernel and then cached" |
 | Your own types, split into sections | What It Is: "your own types" and "split into sections" |
-| Mappers, so you can build a selector of your own<br>Selectorem tuum aedifica | Writing your own selector: "so you can build a selector of your own" |
+| Mappers, so you can build a selector of your own<br>— Selectorem tuum aedifica | Writing your own selector: "so you can build a selector of your own" |
 | A new instance of something each time | Building things as you need them: "a new instance of something each time" |
 | Safe to call twice | Loading the modules: "safe to call twice" |
-| Modules that wire all of it up<br>Omnia coniunge | What It Is: "that wire all of it up" |
-| Praise the random number gods<br>Laudate deos numerorum fortuitorum | Not from the README: a nod to the gods of chance, in keeping with the chant's amen |
+| Modules that wire all of it up<br>— Omnia coniunge | What It Is: "that wire all of it up" |
+| Praise the random number gods<br>— Laudate deos numerorum fortuitorum | Not from the README: a nod to the gods of chance, in keeping with the chant's amen |
 | Amen | Not from the README: the chant's closing |
 
 ## Suno Notes
@@ -204,15 +177,23 @@ Lessons from generating this song, for the next update:
   cantor, a unison choir), because the other songs' drafts came out growly or shouty until they did. It describes the delivery in positives (soft, even, legato, rounded vowels) instead of
   forbidding shouting or growling, since Web learned that a "never" can pull Suno toward the thing it names, and it asks for voices only.
 - **No code in the lyrics**, as DnDGen.Stress learned. The rarity ranges are sung as words.
-- **Latin is sung as ordinary lines, answered by the other voice.** In the verses the cantor sings the English and the
-  choir answers in Latin; in the antiphons the choir sings the English and the cantor answers in Latin. Each answer
-  has a bracketed voice tag: the first spells out the delivery, and later ones are short (`[Cantor]`, `[Choir]`, `[Full choir]`). Parentheses carried the Latin in the first four drafts, and Suno dropped it almost every
-  time, singing choral oohs and aahs over the Sample where the Latin could have gone. An older chant song (a Grinch
-  parody on Suno v3.5) sang all-Latin lyrics correctly with ordinary lines, Latin section names (`[Introitus]`,
-  `[Versus I]`, `[Antiphona]`, `[Conclusio]`), and a short Style: "A cappella Gregorian chant. Unaccompanied male
-  monastic choir, slow and ominous... No instruments." This song borrows the ordinary lines, the Latin section
-  names, and the short a cappella Style.
-- **Keep each verse and antiphon whole.** The first restructure gave every Latin answer its own full tag and split the  verses into segments, and the antiphons lost their shape. The answers now alternate line by line inside the section,  and only the first tag in a section spells out the delivery. Whether a plain em dash before each answer would carry  the response without any tag, as the Grinch song's did, is untried.
+- **Latin is sung as ordinary lines, by the other voice.** In the verses a solo voice sings the English and the choir
+  sings the Latin; in the antiphons the choir sings the English and the solo voice sings the Latin. Parentheses carried
+  the Latin in the first four drafts, and Suno dropped it almost every time, singing choral oohs and aahs over the Sample
+  where the Latin could have gone. An older chant song (a Grinch parody on Suno v3.5) sang all-Latin lyrics correctly
+  with ordinary lines, a dash before each response, Latin section names (`[Introitus]`, `[Versus I]`, `[Antiphona]`,
+  `[Conclusio]`), and a short Style: "A cappella Gregorian chant. Unaccompanied male monastic choir, slow and
+  ominous... No instruments." This song borrows the ordinary lines, the dash, the Latin section names, and the short a
+  cappella Style.
+- **Voices are assigned in the section tag, not in the lyrics.** Inline `[Choir]` and `[Cantor]` tags split the verses
+  into segments, and rest on tag names Suno may not know: the third-party guides we found say only standard structure
+  tags and common descriptors are reliably understood, and that language labels such as `[Verse - French]` are "not
+  guaranteed". So each section's tag says who sings which language, the Style says it again, and the Latin lines start
+  with an em dash for the reader. Suno isn't expected to do anything with the dash. This org's own songs show that
+  descriptive text inside a section tag works (Web's hushed bridge, the main theme's tags). Untried in a generation.
+  No source we found mentions em dashes at all. If the Latin is still dropped, the fallbacks are, in order, a single tag
+  naming both voices with the em dash as the only marker, and Latin in its own sections (one guide recommends one
+  language per section while testing).
 - **Four drafts so far.** Every one dropped the intro's Latin, "Res communes et fundamentales generatoribus".
   - **v0.1 and v0.2** (four verses, a different last antiphon, a Style that named a "string drone"): they dropped the
     Latin, v0.1 left chant for an orchestra in verse 2, and v0.2 fell into the cinematic well by the third antiphon and

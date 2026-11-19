@@ -41,7 +41,7 @@ absolute.
 ## Decisions
 
 - **D1: Language and sound.** English lyrics, each answered in Latin by the other voice (the choir after a
-  verse, the cantor after an antiphon), sung as ordinary lines with their own bracketed tags, as chant: an
+  verse, the cantor after an antiphon), sung as ordinary lines, the voices assigned in each section's tag, as chant: an
   a cappella, unaccompanied male monastic choir and a cantor, a single melodic line, a stone-nave sound. The
   style names the sound, not the tradition, per the main theme's Suno Notes, names the singers, per Stress's and
   RollGen's, and names no instrument: naming one invited more.
