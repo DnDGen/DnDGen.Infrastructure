@@ -6,7 +6,7 @@ This provides common, core objects for the generators, including the Percentile 
 
 ## What It Is
 
-DnDGen's generators (TreasureGen, CreatureGen, and the rest) keep their data in XML tables embedded in their assemblies, and pick from them at random. Infrastructure is what reads those tables and does the picking. It gives you:
+DnDGen's generators (TreasureGen, CreatureGen, and the rest) keep their data in XML tables embedded in their assemblies, and pick from them at random. Infrastructure is what reads those tables and does the fetching. It gives you:
 
 - **Collection tables**: named lists of entries, such as the weapons a generator knows about.
 - **Percentile tables**: a result for every roll from 1 to 100.

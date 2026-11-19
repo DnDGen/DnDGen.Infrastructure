@@ -22,6 +22,7 @@ marked.
 - Q: What language are the lyrics in? → A: English, sung in chant style. *(Chosen by the
   maintainer.)* Latin is the genre's tradition, but the lyrics stay plain English from the README,
   so the record and its tests are DnDGen.Stress's and DnDGen.RollGen's unchanged but for names.
+- Q: Are the echoes in English too? → A: No: an echo repeats the line before it, so it is sung in Latin, which costs the song no meaning, and is translated in the record. *(Chosen by the maintainer.)*
 - Q: Does it carry a leitmotif? → A: No. Infrastructure is a support library, so its song describes
   its README as it is, as Stress's does.
 - Q: Where do the lyrics come from? → A: Infrastructure's README, sung as words, never as code: no

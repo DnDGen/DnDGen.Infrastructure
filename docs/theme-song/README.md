@@ -1,8 +1,8 @@
-# Infrastructure Reads the Tables -DnDGen.Infrastructure Theme-
+# Reading Tables -DnDGen.Infrastructure Theme-
 
-![Infrastructure Reads the Tables album art](cover.png)
+![Reading Tables album art](cover.png)
 
-The DnDGen.Infrastructure theme song: Gregorian chant, sung in English, the scripture everything is built on.
+The DnDGen.Infrastructure theme song: Gregorian chant, sung in English with Latin echoes, the scripture everything is built on.
 Its lyrics come from the [DnDGen.Infrastructure README](https://github.com/DnDGen/DnDGen.Infrastructure/blob/main/README.md), sung in plain English.
 Infrastructure is a support library, so its song has no leitmotif: it describes its README as it is.
 
@@ -21,7 +21,8 @@ Every pull request that changes the README gets a song check:
 When the song needs updating, it happens in the same pull request:
 
 1. The contributor updates the Lyrics and Sources here to match the new README.
-   Names are sung as words, never as code.
+   Names are sung as words, never as code. An echo in parentheses repeats the line before it, in Latin,
+   and is added to the echo table under the Lyrics; it needs no source.
 2. The maintainer makes the new song in Suno:
    - **Cover the current song**, so the theme stays recognizably the same song as it evolves.
    - Use the Title, Style, and Lyrics from this page. **Leave the Style as it is**: only the lyrics change.
@@ -33,13 +34,13 @@ When the song needs updating, it happens in the same pull request:
 ## Title
 
 ```
-Infrastructure Reads the Tables -DnDGen.Infrastructure Theme-
+Reading Tables -DnDGen.Infrastructure Theme-
 ```
 
 ## Style
 
 ```
-Gregorian chant, a unison choir of monks singing a single plainchant melody in a slow, free, flowing rhythm, Solemn, serene and unhurried, sung in a vast stone cathedral nave with long natural reverb, Voices only and no instruments, with a deep, steady drone held by the lowest voices, A calm cantor sings each verse alone, clearly and gently, then the whole choir answers in unison on the refrains, never shouting and never growling, A sober, perfectly in-tune choir with crisp diction and soft, rounded vowels, Antiphon refrains sung by the full choir and echoed softly, ending on a hushed amen fading into the echo of the stone nave, Reverent, warm, candlelit, ancient, and deadly serious about tables and selectors
+Gregorian chant, a unison choir of monks singing a single plainchant melody in a slow, free, flowing rhythm, Solemn, serene and unhurried, sung in a vast stone cathedral nave with long natural reverb, Voices only and no instruments, with a deep, steady drone held by the lowest voices, A calm cantor sings each verse alone, clearly and gently, then the whole choir answers in unison on the refrains, never shouting and never growling, A sober, perfectly in-tune choir with crisp diction and soft, rounded vowels, Antiphon refrains sung by the full choir, with each line echoed softly in Latin, ending on a hushed amen fading into the echo of the stone nave, Reverent, warm, candlelit, ancient, and deadly serious about tables and selectors
 ```
 
 ## Lyrics
@@ -47,57 +48,87 @@ Gregorian chant, a unison choir of monks singing a single plainchant melody in a
 ```
 [Intro - a low, steady drone; the cantor intones alone]
 Common, core objects for the generators
-(Common, core objects for the generators)
+(Res communes et fundamentales generatoribus)
 
 [Verse 1 - the cantor alone, gentle and clear]
 Their data in tables, embedded in their assemblies
 Collection tables, named lists of entries
 Percentile tables, a result for every roll from one to one hundred
-(A result for every roll)
+(Eventus pro omni iactu)
 
 [Antiphon - the full choir in unison]
-Infrastructure reads the tables
-(Infrastructure reads the tables)
-And does the picking
-(And does the picking)
+Reading tables
+(Tabulas legens)
+And does the fetching
+(Et affert)
 
 [Verse 2 - the cantor alone, steady]
 One to sixty picks from the common
+(Commune)
 Sixty-one to ninety, the uncommon
+(Haud commune)
 Ninety-one to ninety-nine, the rare
+(Rarum)
 And at one hundred, the very rare
-(The very rare)
+(Rarissimum)
 
 [Antiphon - the full choir in unison]
-Infrastructure reads the tables
-(Infrastructure reads the tables)
-And does the picking
-(And does the picking)
+Reading tables
+(Tabulas legens)
+And does the fetching
+(Et affert)
 
 [Verse 3 - the cantor alone, slower]
 Together they must cover every roll
 Exactly once
 Table names must be unique within an assembly
 Read once per kernel, and then cached
-(Read once, and then cached)
+(Semel lectum, deinde servatum)
+
+[Antiphon - the full choir in unison]
+Reading tables
+(Tabulas legens)
+And does the fetching
+(Et affert)
 
 [Verse 4 - the cantor alone, rising]
 Your own types, split into sections
 Mappers, so you can build a selector of your own
-(Build a selector of your own)
+(Selectorem tuum aedifica)
 A new instance of something each time
 Safe to call twice
 
 [Final Antiphon - the full choir, hushed and unhurried]
 Modules that wire all of it up
-(Wire all of it up)
-Infrastructure reads the tables
-And does the picking
+(Omnia coniunge)
+Reading tables
+And does the fetching
 
-[Outro - the choir fades into the echo of the nave]
+[Outro - the cantor alone, then the choir fades into the echo of the nave]
+Praise the random number gods
+(Laudate deos numerorum fortuitorum)
 Amen
 [End]
 ```
+
+An echo in parentheses repeats the line before it, in Latin, so nothing is lost in the translation:
+
+| Echo | English |
+|---|---|
+| Res communes et fundamentales generatoribus | Common and fundamental things for the generators |
+| Eventus pro omni iactu | A result for every roll |
+| Tabulas legens | Reading tables |
+| Et affert | And fetches |
+| Commune | Common |
+| Haud commune | Not common |
+| Rarum | Rare |
+| Rarissimum | Very rare |
+| Semel lectum, deinde servatum | Read once, then kept |
+| Selectorem tuum aedifica | Build a selector of your own |
+| Omnia coniunge | Join it all together |
+| Laudate deos numerorum fortuitorum | Praise the gods of random numbers |
+
+The Latin is approximate.
 
 ## Sources
 
@@ -107,8 +138,8 @@ Amen
 | Their data in tables, embedded in their assemblies | What It Is: "keep their data in XML tables embedded in their assemblies" |
 | Collection tables, named lists of entries | What It Is: "Collection tables" and "named lists of entries" |
 | Percentile tables, a result for every roll from one to one hundred | What It Is: "Percentile tables" and "a result for every roll from 1 to 100" |
-| Infrastructure reads the tables | What It Is: "Infrastructure is what reads those tables" |
-| And does the picking | What It Is: "and does the picking" |
+| Reading tables | What It Is: "reads those tables" |
+| And does the fetching | What It Is: "and does the fetching" |
 | One to sixty picks from the common | Collection tables: "1 to 60 picks from" |
 | Sixty-one to ninety, the uncommon | Collection tables: "61 to 90 from" |
 | Ninety-one to ninety-nine, the rare | Collection tables: "91 to 99 from" |
@@ -121,6 +152,7 @@ Amen
 | A new instance of something each time | Building things as you need them: "a new instance of something each time" |
 | Safe to call twice | Loading the modules: "safe to call twice" |
 | Modules that wire all of it up | What It Is: "that wire all of it up" |
+| Praise the random number gods | Not from the README: a nod to the gods of chance, in keeping with the chant's amen |
 | Amen | Not from the README: the chant's closing |
 
 ## Suno Notes
@@ -135,6 +167,8 @@ Lessons from generating this song, for the next update:
   cantor, a unison choir), because the other songs' drafts came out growly or shouty until they did. It forbids shouting and
   growling outright, and asks for voices only.
 - **No code in the lyrics**, as DnDGen.Stress learned. The rarity ranges are sung as words.
+- **Echoes are Latin.** Each echo repeats the line before it, so singing it in Latin costs the song no meaning. Parentheses
+  make the second voice, per the main theme's notes, so keep them. If Suno drops an echo, that is the song as it is.
 - *To fill in by the maintainer once the song is generated:* what Suno dropped, garbled, or added.
 
 ## Album Art

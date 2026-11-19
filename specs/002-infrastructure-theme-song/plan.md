@@ -40,7 +40,7 @@ absolute.
 
 ## Decisions
 
-- **D1: Language and sound.** English lyrics, sung as chant: a unison male choir, a single melodic
+- **D1: Language and sound.** English lyrics, with each echo, which repeats the line before it, in Latin, sung as chant: a unison male choir, a single melodic
   line, a long, reverberant stone-nave sound, and no instruments, so Suno doesn't turn it into a
   concert-hall piece. The style names the sound, not the tradition, per the main theme's Suno
   Notes, and names the singers, per Stress's and RollGen's.
