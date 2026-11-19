@@ -1,12 +1,12 @@
 # Credo of the Tables -DnDGen.Infrastructure Theme-
 
-![Credo of the Tables album art](cover.png)
+[![Credo of the Tables album art](cover.png)](https://suno.com/s/xemh9NeqXMYfCxrq)
 
 The DnDGen.Infrastructure theme song: Gregorian chant, sung in English, with Latin answers, the scripture everything is built on.
 Its lyrics come from the [DnDGen.Infrastructure README](https://github.com/DnDGen/DnDGen.Infrastructure/blob/main/README.md), sung in plain English.
 Infrastructure is a support library, so its song has no leitmotif: it describes its README as it is.
 
-**Not on Suno yet.** The maintainer adds the song's Suno link here, on the cover and as *Listen on Suno*, once the take is picked.
+**Listen on [Suno](https://suno.com/s/xemh9NeqXMYfCxrq).**
 
 ## Updating
 
@@ -172,7 +172,7 @@ Lessons from generating this song, for the next update:
 - **Drafts and the Sample.** Every draft before this song first merges is a fresh generation, Sampling the main theme's
   "Rogante Marendor" snippet (3:00.0 to 3:17.1) with Variety all the way down, per the main theme's
   [New Theme Songs](https://github.com/DnDGen/.github/blob/main/theme-song/README.md#new-theme-songs).
-  The take that merges is v1; every update from here Covers it.
+  The take that merges is v1 (draft v0.6, the second take of that generation); every update from here Covers it.
 - **Starting point, before any generation.** The Style names the sound, not the tradition, and names the singers (a calm
   cantor, a unison choir), because the other songs' drafts came out growly or shouty until they did. It describes the delivery in positives (soft, even, legato, rounded vowels) instead of
   forbidding shouting or growling, since Web learned that a "never" can pull Suno toward the thing it names, and it asks for voices only.

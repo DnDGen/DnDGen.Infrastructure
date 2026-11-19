@@ -51,9 +51,9 @@ fail before the README and the record that make them pass (II).
 - [X] T008 [US3] Draw the album art for a scriptorium, recoloured from the main theme's cover (plan
   D5), and render it to `cover.png` at 1500 × 1500
 - [ ] T009 (maintainer) Approve the album art
-- [ ] T010 (maintainer) Generate drafts in Suno, each Sampling the main theme's "Rogante Marendor"
+- [X] T010 (maintainer) Generate drafts in Suno, each Sampling the main theme's "Rogante Marendor"
   snippet (3:00.0 to 3:17.1) with Variety all the way down; pick and publish the take
-- [ ] T011 (maintainer) Add the Suno link to the record (the cover and Listen on Suno) and the
+- [X] T011 (maintainer) Add the Suno link to the record (the cover and Listen on Suno) and the
   README (the badge and the Theme Song section), and record what was learned in Suno Notes
 
 ## Phase 4: The README
@@ -73,7 +73,7 @@ fail before the README and the record that make them pass (II).
 
 ## Phase 6: Polish
 
-- [ ] T016 Once T011 is done, run the unit and integration test projects and confirm every test
+- [X] T016 Once T011 is done, run the unit and integration test projects and confirm every test
   passes
 - [ ] T017 (maintainer) Open the pull request, titled
   `8.0.1: Spec Kit, README API tests, theme song`, with `cidthecoatrack` as the reviewer

@@ -2,7 +2,7 @@
 
 This provides common, core objects for the generators, including the Percentile and Collection selectors, with dependencies
 
-[![Build Status](https://github.com/DnDGen/DnDGen.Infrastructure/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/DnDGen/DnDGen.Infrastructure/actions/workflows/release.yml?query=branch%3Amain)
+[![Build Status](https://github.com/DnDGen/DnDGen.Infrastructure/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/DnDGen/DnDGen.Infrastructure/actions/workflows/release.yml?query=branch%3Amain) [![Theme Song](https://img.shields.io/badge/theme_song-Suno-ff69b4)](https://suno.com/s/xemh9NeqXMYfCxrq)
 
 ## What It Is
 
@@ -418,6 +418,6 @@ Finds the assembly a table is in. The default loads it by name.
 
 ## Theme Song
 
-DnDGen.Infrastructure has its own theme song, a Gregorian chant about the scripture everything is built on.
+DnDGen.Infrastructure has its own theme song: [Credo of the Tables -DnDGen.Infrastructure Theme-](https://suno.com/s/xemh9NeqXMYfCxrq), a Gregorian chant about the scripture everything is built on.
 It follows this README, so a change here may need the song updated too.
 See the song's [lyrics, notes, and update procedure](https://github.com/DnDGen/DnDGen.Infrastructure/blob/main/docs/theme-song/README.md).
