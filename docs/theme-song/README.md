@@ -40,7 +40,7 @@ Credo of the Tables -DnDGen.Infrastructure Theme-
 ## Style
 
 ```
-Gregorian chant, a unison choir of monks singing a single plainchant melody in a slow, free, flowing rhythm, Solemn, serene and unhurried, sung in a vast stone cathedral nave with long natural reverb, Voices only and no instruments, with a deep, steady drone held by the lowest voices, A calm cantor sings each verse alone, clearly and gently, then the whole choir answers in unison on the refrains, never shouting and never growling, A sober, perfectly in-tune choir with crisp diction and soft, rounded vowels, Antiphon refrains sung by the full choir, with each line echoed softly in Latin, ending on a hushed amen fading into the echo of the stone nave, Reverent, warm, candlelit, ancient, and deadly serious about tables and selectors
+Gregorian chant, a unison choir of monks singing a single plainchant melody in a slow, free, flowing rhythm, Solemn, serene and unhurried, sung in a vast stone cathedral nave with long natural reverb, Voices only and no instruments, with a deep, steady drone held by the lowest voices, A calm cantor sings each verse alone, clearly and gently, then the whole choir answers in unison on the refrains, never shouting and never growling, A sober, perfectly in-tune choir with crisp diction and soft, rounded vowels, Antiphon refrains sung by the full choir, with each line echoed softly in Latin, ending on a hushed amen fading into the echo of the stone nave, Reverent, warm, candlelit, and ancient
 ```
 
 ## Lyrics
