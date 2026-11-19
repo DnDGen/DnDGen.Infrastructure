@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<collections>
+  <collection>
+    <name>Weapons</name>
+    <entry>Sword</entry>
+    <entry>Axe</entry>
+    <entry>Bow</entry>
+  </collection>
+  <collection>
+    <name>Armor</name>
+    <entry>Shield</entry>
+    <entry>Helmet</entry>
+  </collection>
+  <collection>
+    <name>Coins</name>
+    <entry>Gold@2d6</entry>
+    <entry>Silver@10</entry>
+  </collection>
+  <collection>
+    <name>Monsters</name>
+    <entry>Goblin@1</entry>
+    <entry>Ogre@4</entry>
+  </collection>
+</collections>

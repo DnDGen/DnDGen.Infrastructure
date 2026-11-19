@@ -21,9 +21,9 @@ reason before the README changes that make them pass (II).
 
 ## Phase 1: Setup
 
-- [ ] T001 Copy `README.md` to the output of `DnDGen.Infrastructure.Tests.Integration`, as
+- [X] T001 Copy `README.md` to the output of `DnDGen.Infrastructure.Tests.Integration`, as
   DnDGen.RollGen's test project does
-- [ ] T002 [P] Add `Tables/Collections/ReadmeCollectionTable.xml` and
+- [X] T002 [P] Add `Tables/Collections/ReadmeCollectionTable.xml` and
   `Tables/Percentiles/ReadmePercentileTable.xml` to the integration project as embedded resources:
   the two small tables the README will show (plan D4)
 
@@ -54,11 +54,11 @@ reason before the README changes that make them pass (II).
   3. **Tables** (D4):
      - `CollectionTable_ReadmeMatchesEmbeddedFile` and `PercentileTable_ReadmeMatchesEmbeddedFile`:
        the XML the README shows is, whole, the embedded file the samples read.
-- [ ] T004 [US2] Write the three member tests in
+- [X] T004 [US2] Write the three member tests in
   `DnDGen.Infrastructure.Tests.Integration/ReadmeTests.cs`, with the `WriteMember` and table
   helpers extended for generics, `this`, and arrays (plan D1-D3), and see them fail against
   today's one-sentence README
-- [ ] T005 [US3] Write the sample and table tests in the same file, and see them fail against
+- [X] T005 [US3] Write the sample and table tests in the same file, and see them fail against
   today's README (it has no samples, so they can't find them)
 
 ## Phase 3: User Story 1 - A consumer can use the package from the README alone (Priority: P1) 🎯 MVP

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<percentiles>
+  <percentile>
+    <lower>1</lower>
+    <content>Copper@2d6</content>
+    <upper>70</upper>
+  </percentile>
+  <percentile>
+    <lower>71</lower>
+    <content>Silver@1d6</content>
+    <upper>95</upper>
+  </percentile>
+  <percentile>
+    <lower>96</lower>
+    <content>Gold@1d4</content>
+    <upper>100</upper>
+  </percentile>
+</percentiles>
