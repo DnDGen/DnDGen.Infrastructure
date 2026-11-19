@@ -190,7 +190,7 @@ Lessons from generating this song, for the next update:
   tags and common descriptors are reliably understood, and that language labels such as `[Verse - French]` are "not
   guaranteed". So each section's tag says who sings which language, the Style says it again, and the Latin lines start
   with an em dash for the reader. Suno isn't expected to do anything with the dash. This org's own songs show that
-  descriptive text inside a section tag works (Web's hushed bridge, the main theme's tags). Untried in a generation.
+  descriptive text inside a section tag works (Web's hushed bridge, the main theme's tags), and it worked here (v0.5, v0.6).
   No source we found mentions em dashes at all. If the Latin is still dropped, the fallbacks are, in order, a single tag
   naming both voices with the em dash as the only marker, and Latin in its own sections (one guide recommends one
   language per section while testing).
@@ -204,6 +204,19 @@ Lessons from generating this song, for the next update:
     strings, and in v0.4 plucked strings were faintly there by verse 4 and grew more cinematic as the song went on.
   - **The voices came out slightly digitized in every draft.** Unintended, not unwelcome. "A sober, perfectly in-tune
     choir" may have asked for it; the old song's Style said nothing about tuning.
+- **v0.5 and v0.6 worked.** With the voices assigned in each section tag, the Latin as ordinary lines with em dashes, no
+  inline voice tags, and the shorter a cappella Style, these are the first drafts to sing the Latin, including the
+  Introitus that no earlier draft sang. Both mostly keep the voices right: the solo voice in the Introitus and verses,
+  the choir on the Latin in the verses.
+  - **v0.5** has a vocal underdrone, and no string drone. Plucked arpeggiated strings creep into the antiphons and
+    Versus III, but they are the Sample's own arpeggios, so there is a reason for them. In the antiphons the choir
+    sings every line and the cantor adds a few Latin interjections: not what the tag asked for, but close. Its
+    antiphons take their time.
+  - **v0.6** leans more classical, which sets it apart from the Sample. Piano takes the arpeggios in the antiphons
+    and plays flourishes between sections, unasked for, but it reads like the clarinet in the Web song. Most of the
+    voice switching is right. Its antiphons are a little quicker and sound like a statement, which suits a Credo.
+    The Amen lands at 3:38, then the piano plays the Rogante Marendor theme for about 20 seconds with soaring vocals.
+  - **Every draft, old and new, uses the Sample's melody as the antiphon.** That helps the antiphons stay the same.
 - **Don't name an instrument you hope to allow.** The Style named a "single low bowed-string drone" to cap the
   accompaniment, and plucked strings arrived anyway: naming one probably told Suno it was already leaning toward
   instruments and offered a starting point to grow. The Sample pulls that way regardless. The Style now says only
