@@ -22,9 +22,9 @@ fail before the README and the record that make them pass (II).
 
 ## Phase 1: Setup
 
-- [ ] T001 Copy every Markdown and PNG file under `docs/` to the integration test output, as
+- [X] T001 Copy every Markdown and PNG file under `docs/` to the integration test output, as
   DnDGen.RollGen's test project does
-- [ ] T002 [P] Add `docs/theme-song/Cinzel.ttf` and `Cinzel-OFL.txt`, unchanged from DnDGen/.github
+- [X] T002 [P] Add `docs/theme-song/Cinzel.ttf` and `Cinzel-OFL.txt`, unchanged from DnDGen/.github
 
 ## Phase 2: Tests
 
@@ -36,10 +36,10 @@ fail before the README and the record that make them pass (II).
   - README: `ThemeSong_HasBadgeBesideTheBuildBadge`; `ThemeSong_HasSectionAtTheEnd`;
     `ThemeSong_LinksToTheRecord`; `ThemeSong_LinksToTheSameSongAsTheRecord`;
     `DocumentLinks_AreAbsolute`.
-- [ ] T004 Write the record's tests in
+- [X] T004 Write the record's tests in
   `DnDGen.Infrastructure.Tests.Integration/Docs/ThemeSong/ReadmeTests.cs`, and see them fail: there
   is no record
-- [ ] T005 Write the README's theme song tests in
+- [X] T005 Write the README's theme song tests in
   `DnDGen.Infrastructure.Tests.Integration/ReadmeTests.cs`, and see them fail against today's
   README, which has no badge, section, or record link
 
