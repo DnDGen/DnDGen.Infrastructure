@@ -40,29 +40,29 @@ Credo of the Tables -DnDGen.Infrastructure Theme-
 ## Style
 
 ```
-Gregorian chant, a unison choir of monks singing a single plainchant melody in a slow, free, flowing rhythm, Solemn, serene and unhurried, sung in a vast stone cathedral nave with long natural reverb, Voices only and no instruments, with a deep, steady drone held by the lowest voices, A calm cantor sings each verse alone, clearly and gently, then the whole choir answers in unison on the refrains, every line sung softly and evenly in a gentle, steady legato, A sober, perfectly in-tune choir with crisp diction and soft, rounded vowels, Antiphon refrains sung by the full choir, with each line echoed softly in Latin, ending on a hushed amen fading into the echo of the stone nave, Reverent, warm, candlelit, and ancient
+Gregorian chant, a unison choir of monks singing a single plainchant melody in a slow, free, flowing rhythm, holding the same slow, unhurried pace from the first note to the last, Solemn and serene, sung in a vast stone cathedral nave with long natural reverb, Voices over a single low bowed-string drone, the only accompaniment from first note to last, A calm cantor sings each verse alone in plain, level chant, clearly and gently, then the whole choir answers in unison on the refrains, every line sung softly and evenly in a gentle, steady legato, A sober, perfectly in-tune choir with crisp diction and soft, rounded vowels, A hushed choir answers the cantor in Latin after the key lines of each verse and after every line of every antiphon, All the antiphons sung to the same melody with the same words, ending on a hushed amen fading into the echo of the stone nave, Reverent, warm, candlelit, and ancient
 ```
 
 ## Lyrics
 
 ```
-[Intro - a low, steady drone; the cantor intones alone]
+[Intro - a low bowed-string drone; the cantor intones alone in slow plainchant, a hushed choir answers in Latin]
 Common, core objects for the generators
 (Res communes et fundamentales generatoribus)
 
-[Verse 1 - the cantor alone, gentle and clear]
+[Verse 1 - the cantor alone, slow plainchant, gentle and level; the choir answers in Latin]
 Their data in tables, embedded in their assemblies
 Collection tables, named lists of entries
 Percentile tables, a result for every roll from one to one hundred
 (Eventus pro omni iactu)
 
-[Antiphon - the full choir in unison]
+[Antiphon - the full choir in unison, slow plainchant, every line answered softly in Latin]
 Ye shall read the tables
 (Tabulas legetis)
 Ye shall fetch the data
 (Data afferetis)
 
-[Verse 2 - the cantor alone, steady]
+[Verse 2 - the cantor alone, slow plainchant, steady; the choir answers each line in Latin]
 One to sixty picks from the common
 (Commune)
 Sixty-one to ninety, the uncommon
@@ -72,39 +72,49 @@ Ninety-one to ninety-nine, the rare
 And at one hundred, the very rare
 (Rarissimum)
 
-[Antiphon - the full choir in unison]
+[Antiphon - the full choir in unison, slow plainchant, every line answered softly in Latin]
 Ye shall read the tables
 (Tabulas legetis)
 Ye shall fetch the data
 (Data afferetis)
 
-[Verse 3 - the cantor alone, slower]
+[Verse 3 - the cantor alone, slow plainchant, slower still; the choir answers in Latin]
 Together they must cover every roll
 Exactly once
 Table names must be unique within an assembly
 Read once per kernel, and then cached
 (Semel lectum, deinde servatum)
 
-[Antiphon - the full choir in unison]
+[Antiphon - the full choir in unison, slow plainchant, every line answered softly in Latin]
 Ye shall read the tables
 (Tabulas legetis)
 Ye shall fetch the data
 (Data afferetis)
 
-[Verse 4 - the cantor alone, rising]
+[Verse 4 - the cantor alone, slow plainchant, plain and level; the choir answers in Latin]
 Your own types, split into sections
 Mappers, so you can build a selector of your own
 (Selectorem tuum aedifica)
+
+[Antiphon - the full choir in unison, slow plainchant, every line answered softly in Latin]
+Ye shall read the tables
+(Tabulas legetis)
+Ye shall fetch the data
+(Data afferetis)
+
+[Verse 5 - the cantor alone, slow plainchant, plain and level; the choir answers in Latin]
+Modules that wire all of it up
+(Omnia coniunge)
 A new instance of something each time
 Safe to call twice
 
-[Final Antiphon - the full choir, hushed and unhurried]
-Modules that wire all of it up
-(Omnia coniunge)
+[Antiphon - the full choir in unison, hushed, slow plainchant, every line answered softly in Latin]
 Ye shall read the tables
+(Tabulas legetis)
 Ye shall fetch the data
+(Data afferetis)
 
-[Outro - the cantor alone, then the choir fades into the echo of the nave]
+[Outro - the cantor alone, a hushed choir answering in Latin, fading into the echo of the nave]
 Praise the random number gods
 (Laudate deos numerorum fortuitorum)
 Amen
@@ -149,9 +159,9 @@ The Latin is approximate.
 | Read once per kernel, and then cached | Where tables live: "read once per kernel and then cached" |
 | Your own types, split into sections | What It Is: "your own types" and "split into sections" |
 | Mappers, so you can build a selector of your own | Writing your own selector: "so you can build a selector of your own" |
+| Modules that wire all of it up | What It Is: "that wire all of it up" |
 | A new instance of something each time | Building things as you need them: "a new instance of something each time" |
 | Safe to call twice | Loading the modules: "safe to call twice" |
-| Modules that wire all of it up | What It Is: "that wire all of it up" |
 | Praise the random number gods | Not from the README: a nod to the gods of chance, in keeping with the chant's amen |
 | Amen | Not from the README: the chant's closing |
 
@@ -168,8 +178,26 @@ Lessons from generating this song, for the next update:
   forbidding shouting or growling, since Web learned that a "never" can pull Suno toward the thing it names, and it asks for voices only.
 - **No code in the lyrics**, as DnDGen.Stress learned. The rarity ranges are sung as words.
 - **Echoes are Latin.** Each echo repeats the line before it, so singing it in Latin costs the song no meaning. Parentheses
-  make the second voice, per the main theme's notes, so keep them. If Suno drops an echo, that is the song as it is.
-- *To fill in by the maintainer once the song is generated:* what Suno dropped, garbled, or added.
+  make the second voice, per the main theme's notes, so keep them. If Suno still drops them with the Style and the tags both asking, the fallback is to sing each Latin echo as an ordinary line, which then needs a Sources row marked "Not from the README".
+- **First two drafts (v0.1, v0.2)**, from the first Style, which still said "never shouting and never growling", and the
+  first lyrics (four verses, the last antiphon different from the rest):
+  - **The Sample gave the song its colour.** Beyond the melody, it put a string drone underneath, a nice effect. The
+    Sample's vocal is a mixed choir and a female solo, so the choir came out sounding almost all female. That is fine.
+  - **The voices came out slightly digitized.** Unintended, not unwelcome. The next generation may not do it.
+  - **Both drafts dropped the Latin echoes**, nearly every time. A parenthesis alone isn't enough here.
+  - **v0.1 left chant in verse 2.** The pace picked up and an orchestra came in underneath, and the slow, deliberate pace
+    was lost. The pace is the thing to protect; a little orchestra is not.
+  - **v0.2 fell into the cinematic orchestral well by the third antiphon** (more drums and strings), and the cantor went
+    from plainchant to soaring vocals in verse 4. Verse 4's tag said "rising", which probably invited the soaring.
+- **Say it twice: in the Style, naming the section, and in that section's tag.** The echoes, the slow chant pace, and
+  the plain, level cantor are all in both now, and the tags no longer use words like "rising" or "soaring".
+  The only accompaniment named is a low bowed-string drone: the Sample brings one anyway, and a named instrument
+  leaves less room for an orchestra.
+- **Antiphons are the same every time.** Church antiphons repeat word for word, so all of them now share one set of
+  lyrics and one tag, and the IoC material has its own fifth verse. Only the last is marked hushed.
+- **The Style describes the delivery in positives** (soft, even, legato, rounded vowels) instead of forbidding shouting
+  or growling, since Web learned that a "never" can pull Suno toward the thing it names. Not yet tried in a generation.
+- *To fill in by the maintainer once the song is generated:* what the next drafts dropped, garbled, or added.
 
 ## Album Art
 
