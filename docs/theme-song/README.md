@@ -1,6 +1,6 @@
-# Reading Tables -DnDGen.Infrastructure Theme-
+# Ye Shall Read the Tables -DnDGen.Infrastructure Theme-
 
-![Reading Tables album art](cover.png)
+![Ye Shall Read the Tables album art](cover.png)
 
 The DnDGen.Infrastructure theme song: Gregorian chant, sung in English with Latin echoes, the scripture everything is built on.
 Its lyrics come from the [DnDGen.Infrastructure README](https://github.com/DnDGen/DnDGen.Infrastructure/blob/main/README.md), sung in plain English.
@@ -34,7 +34,7 @@ When the song needs updating, it happens in the same pull request:
 ## Title
 
 ```
-Reading Tables -DnDGen.Infrastructure Theme-
+Ye Shall Read the Tables -DnDGen.Infrastructure Theme-
 ```
 
 ## Style
@@ -57,10 +57,10 @@ Percentile tables, a result for every roll from one to one hundred
 (Eventus pro omni iactu)
 
 [Antiphon - the full choir in unison]
-Reading tables
-(Tabulas legens)
-And does the fetching
-(Et affert)
+Ye shall read the tables
+(Tabulas legetis)
+Ye shall fetch the data
+(Data afferetis)
 
 [Verse 2 - the cantor alone, steady]
 One to sixty picks from the common
@@ -73,10 +73,10 @@ And at one hundred, the very rare
 (Rarissimum)
 
 [Antiphon - the full choir in unison]
-Reading tables
-(Tabulas legens)
-And does the fetching
-(Et affert)
+Ye shall read the tables
+(Tabulas legetis)
+Ye shall fetch the data
+(Data afferetis)
 
 [Verse 3 - the cantor alone, slower]
 Together they must cover every roll
@@ -86,10 +86,10 @@ Read once per kernel, and then cached
 (Semel lectum, deinde servatum)
 
 [Antiphon - the full choir in unison]
-Reading tables
-(Tabulas legens)
-And does the fetching
-(Et affert)
+Ye shall read the tables
+(Tabulas legetis)
+Ye shall fetch the data
+(Data afferetis)
 
 [Verse 4 - the cantor alone, rising]
 Your own types, split into sections
@@ -101,8 +101,8 @@ Safe to call twice
 [Final Antiphon - the full choir, hushed and unhurried]
 Modules that wire all of it up
 (Omnia coniunge)
-Reading tables
-And does the fetching
+Ye shall read the tables
+Ye shall fetch the data
 
 [Outro - the cantor alone, then the choir fades into the echo of the nave]
 Praise the random number gods
@@ -117,8 +117,8 @@ An echo in parentheses repeats the line before it, in Latin, so nothing is lost 
 |---|---|
 | Res communes et fundamentales generatoribus | Common and fundamental things for the generators |
 | Eventus pro omni iactu | A result for every roll |
-| Tabulas legens | Reading tables |
-| Et affert | And fetches |
+| Tabulas legetis | Ye shall read the tables |
+| Data afferetis | Ye shall fetch the data |
 | Commune | Common |
 | Haud commune | Not common |
 | Rarum | Rare |
@@ -138,8 +138,8 @@ The Latin is approximate.
 | Their data in tables, embedded in their assemblies | What It Is: "keep their data in XML tables embedded in their assemblies" |
 | Collection tables, named lists of entries | What It Is: "Collection tables" and "named lists of entries" |
 | Percentile tables, a result for every roll from one to one hundred | What It Is: "Percentile tables" and "a result for every roll from 1 to 100" |
-| Reading tables | What It Is: "reads those tables" |
-| And does the fetching | What It Is: "and does the fetching" |
+| Ye shall read the tables | What It Is: "reads those tables" |
+| Ye shall fetch the data | What It Is: "does the fetching" |
 | One to sixty picks from the common | Collection tables: "1 to 60 picks from" |
 | Sixty-one to ninety, the uncommon | Collection tables: "61 to 90 from" |
 | Ninety-one to ninety-nine, the rare | Collection tables: "91 to 99 from" |
