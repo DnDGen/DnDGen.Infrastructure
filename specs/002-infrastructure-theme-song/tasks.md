@@ -47,10 +47,10 @@ fail before the README and the record that make them pass (II).
 
 - [X] T006 [US3] Draft the Title, Style, and Lyrics from the README, and their Sources, as plan D1 to
   D4 describe: Gregorian chant, English, no leitmotif, no code in the lyrics
-- [ ] T007 (maintainer) Review the draft lyrics and style before anything is generated
+- [X] T007 (maintainer) Review the draft lyrics and style before anything is generated
 - [X] T008 [US3] Draw the album art for a scriptorium, recoloured from the main theme's cover (plan
   D5), and render it to `cover.png` at 1500 × 1500
-- [ ] T009 (maintainer) Approve the album art
+- [X] T009 (maintainer) Approve the album art
 - [X] T010 (maintainer) Generate drafts in Suno, each Sampling the main theme's "Rogante Marendor"
   snippet (3:00.0 to 3:17.1) with Variety all the way down; pick and publish the take
 - [X] T011 (maintainer) Add the Suno link to the record (the cover and Listen on Suno) and the
