@@ -40,7 +40,7 @@ Credo of the Tables -DnDGen.Infrastructure Theme-
 ## Style
 
 ```
-Gregorian chant, a unison choir of monks singing a single plainchant melody in a slow, free, flowing rhythm, Solemn, serene and unhurried, sung in a vast stone cathedral nave with long natural reverb, Voices only and no instruments, with a deep, steady drone held by the lowest voices, A calm cantor sings each verse alone, clearly and gently, then the whole choir answers in unison on the refrains, never shouting and never growling, A sober, perfectly in-tune choir with crisp diction and soft, rounded vowels, Antiphon refrains sung by the full choir, with each line echoed softly in Latin, ending on a hushed amen fading into the echo of the stone nave, Reverent, warm, candlelit, and ancient
+Gregorian chant, a unison choir of monks singing a single plainchant melody in a slow, free, flowing rhythm, Solemn, serene and unhurried, sung in a vast stone cathedral nave with long natural reverb, Voices only and no instruments, with a deep, steady drone held by the lowest voices, A calm cantor sings each verse alone, clearly and gently, then the whole choir answers in unison on the refrains, every line sung softly and evenly in a gentle, steady legato, A sober, perfectly in-tune choir with crisp diction and soft, rounded vowels, Antiphon refrains sung by the full choir, with each line echoed softly in Latin, ending on a hushed amen fading into the echo of the stone nave, Reverent, warm, candlelit, and ancient
 ```
 
 ## Lyrics
@@ -164,8 +164,8 @@ Lessons from generating this song, for the next update:
   [New Theme Songs](https://github.com/DnDGen/.github/blob/main/theme-song/README.md#new-theme-songs).
   The take that merges is v1; every update from here Covers it.
 - **Starting point, before any generation.** The Style names the sound, not the tradition, and names the singers (a calm
-  cantor, a unison choir), because the other songs' drafts came out growly or shouty until they did. It forbids shouting and
-  growling outright, and asks for voices only.
+  cantor, a unison choir), because the other songs' drafts came out growly or shouty until they did. It describes the delivery in positives (soft, even, legato, rounded vowels) instead of
+  forbidding shouting or growling, since Web learned that a "never" can pull Suno toward the thing it names, and it asks for voices only.
 - **No code in the lyrics**, as DnDGen.Stress learned. The rarity ranges are sung as words.
 - **Echoes are Latin.** Each echo repeats the line before it, so singing it in Latin costs the song no meaning. Parentheses
   make the second voice, per the main theme's notes, so keep them. If Suno drops an echo, that is the song as it is.
