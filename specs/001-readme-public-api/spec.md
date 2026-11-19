@@ -205,8 +205,8 @@ fails.
   8.0.1, whose release notes say the package changes only in its README and that 8.0.0 was the last
   version with code changes. If a test shows a public type should be internal, that is a MAJOR
   change, decided separately, as RollGen did with `Utils`.
-- Whether the implementation types are public is not decided here: the README documents the public
-  API as it is. Types found public that look like implementation details are recorded for the
-  maintainer rather than hidden.
+- The public API is as it is: the README documents it and doesn't change it. The mappers and the
+  assembly loader are public on purpose, so a consumer who hand-rolls a selector can use them, and
+  the README presents them that way.
 - The README keeps its build badge, and gains the theme song's badge and section in feature 002.
 - The tests and the csproj change that copies the README to the test output are plan-level detail.

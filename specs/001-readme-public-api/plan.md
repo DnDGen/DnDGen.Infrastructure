@@ -71,9 +71,10 @@ output, as RollGen's does. The tests run in the existing pipeline step.
 - **D6: Constants are properties.** As in Stress and RollGen, fields and constants are listed in
   Property tables beside read-only properties. Infrastructure has few; the tables are omitted for
   types with none.
-- **D7: Types that look internal.** If reflection finds a public type that is plainly an
-  implementation detail, it is documented as it is and recorded as a GitHub issue (III.3); hiding
-  it would be MAJOR and is decided separately.
+- **D7: Mappers and the assembly loader are extension points.** `CollectionMapper`,
+  `PercentileMapper`, and `AssemblyLoader` are public on purpose, so a consumer who hand-rolls a
+  selector can reuse or replace how tables are mapped and found. The README documents them as
+  extension points, not as plumbing.
 
 ## Project Structure
 
