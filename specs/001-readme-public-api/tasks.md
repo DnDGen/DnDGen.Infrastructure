@@ -63,14 +63,14 @@ reason before the README changes that make them pass (II).
 
 ## Phase 3: User Story 1 - A consumer can use the package from the README alone (Priority: P1) 🎯 MVP
 
-- [ ] T006 [US1] Write the README's first half: what the package is for, which .NET and dependency
+- [X] T006 [US1] Write the README's first half: what the package is for, which .NET and dependency
   versions each major version requires, how to install it, how to load the modules, where a table
   lives and its shape (D4, D5), and how to select from collection and percentile tables, with the
   samples T005 tests. Keep the build badge and the existing description
-- [ ] T007 [US1] Write the data selections section: defining a `DataSelection<T>`, its
+- [X] T007 [US1] Write the data selections section: defining a `DataSelection<T>`, its
   `Separator`, binding it, and the helpers; and the extension points section: the mappers and
   assembly loader, for hand-rolled selectors (D7)
-- [ ] T008 [US2] Add the Reference section: a Constructor, Method, or Property table per public
+- [X] T008 [US2] Add the Reference section: a Constructor, Method, or Property table per public
   type, signatures in full, defaults included, generic constraints and what a consumer must or may
   implement in the descriptions, until the member tests pass
 - [ ] T009 (maintainer) Read the README as someone who hasn't seen the source: can you load the
