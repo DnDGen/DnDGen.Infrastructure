@@ -415,3 +415,9 @@ Finds the assembly a table is in. The default loads it by name.
 | Method | Description |
 |---|---|
 | `GetAssembly(string name)` | The assembly with that name. |
+
+## Theme Song
+
+DnDGen.Infrastructure has its own theme song, a Gregorian chant about the scripture everything is built on.
+It follows this README, so a change here may need the song updated too.
+See the song's [lyrics, notes, and update procedure](https://github.com/DnDGen/DnDGen.Infrastructure/blob/main/docs/theme-song/README.md).
