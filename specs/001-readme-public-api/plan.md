@@ -58,7 +58,7 @@ output, as RollGen's does. The tests run in the existing pipeline step.
   (`where T : DataSelection<T>, new()`) stay in the row's description (spec clarification).
 - **D2: Found types.** `typeof(InfrastructureModuleLoader).Assembly.GetExportedTypes()` gives the
   public types, so a new type is checked without editing the tests.
-- **D3: Grouped rows and generic types.** A generic interface's members are listed under its
+- **D3: Members sit under their type's heading.** Infrastructure's selectors share signatures (`SelectFrom(string assemblyName, string tableName, string collectionName)` is on three types), so a table row is checked as `Type.Member`, taking the type from the `###` heading above its table (`### `ICollectionDataSelector<T>`` for a generic type). A failure names the type. As in RollGen, every code span in a row's first cell is a documented item.
   open type (`ICollectionDataSelector<T>`). As in RollGen, every code span in a row's first cell is
   a documented item, so overloads may share a row.
 - **D4: Table samples are the real files.** The README shows a collection table and a percentile

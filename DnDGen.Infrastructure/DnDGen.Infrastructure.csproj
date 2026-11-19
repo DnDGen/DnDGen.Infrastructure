@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net10.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>8.0.0</Version>
+    <Version>8.0.1</Version>
     <Authors>Karl M. Speer</Authors>
     <Company>DnDGen</Company>
     <Product>Infrastructure</Product>
@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/DnDGen/DnDGen.Infrastructure</PackageProjectUrl>
     <RepositoryUrl>https://github.com/DnDGen/DnDGen.Infrastructure</RepositoryUrl>
     <PackageIcon>avatar-128.png</PackageIcon>
-    <PackageReleaseNotes>.Net 10, GitHub Workflows, updated package icon</PackageReleaseNotes>
+    <PackageReleaseNotes>The package changes only in its README, which now documents the whole public API. 8.0.0 was the last version with code changes. See the GitHub releases page for earlier changes.</PackageReleaseNotes>
     <PackageTags>dungeons dragons d20 dnd 3.5 generator dndgen selector mapper table schema percentile collection collections percentiles</PackageTags>
 	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
